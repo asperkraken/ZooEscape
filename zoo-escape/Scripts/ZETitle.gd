@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var newGamePos := Vector2(272, 244)
-@onready var passwordPos := Vector2(272, 272)
+@onready var newGamePos := Vector2(272, 240)
+@onready var passwordPos := Vector2(272, 264)
 @onready var selector := $Selector
 
 # Called when the node enters the scene tree for the first time.
