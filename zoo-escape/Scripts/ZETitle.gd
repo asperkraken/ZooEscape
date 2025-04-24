@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var newGamePos := Vector2(272, 244)
-@onready var passwordPos := Vector2(272, 272)
+@onready var newGamePos := Vector2(272, 240)
+@onready var passwordPos := Vector2(272, 264)
 @onready var selector := $Selector
 
 # Called when the node enters the scene tree for the first time.
@@ -17,13 +17,13 @@ func _input(event: InputEvent) -> void:
 	
 	# TODO: Tell player that the "ActionButton" is <Z>, etc.
 	# NOTE: Had to re-add the "ui_accept" action to allow keyboard use, as <Enter> and <Space> do not work with "ActionButton"
-	if event.is_action_pressed("ActionButton") || event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ActionButton"):
 		if selector.position == newGamePos:
 			SceneManager.GoToNewSceneString(self, Scenes.ZETutorial1)
 		elif selector.position == passwordPos:
-			pass # will make a password scean at some point
+			SceneManager.GoToNewSceneString(self, Scenes.ZEPassword)
 			
-	if Input.is_action_just_pressed("ui_down") || Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("DigitalDown") || Input.is_action_just_pressed("DigitalUp"):
 		swapSelectorPos()
 
 
@@ -35,9 +35,9 @@ func swapSelectorPos() -> void:
 
 func setLevelGlobals() -> void:
 	# debug levels
-	Globals.Game_Globals["TL01"] = Scenes.ZETitle
-	Globals.Game_Globals["DL01"] = Scenes.ZEDebug
-	Globals.Game_Globals["DL02"] = Scenes.ZEDebug2
+	Globals.Game_Globals["9990"] = Scenes.ZETitle
+	Globals.Game_Globals["9991"] = Scenes.ZEDebug
+	Globals.Game_Globals["9992"] = Scenes.ZEDebug2
 	
 	# Real Levels
 	Globals.Game_Globals["0001"] = Scenes.ZETutorial1

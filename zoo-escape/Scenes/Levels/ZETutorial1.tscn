@@ -21,7 +21,6 @@ tile_set = ExtResource("1_hs4fp")
 
 [node name="SteakManager" type="Node2D" parent="."]
 script = ExtResource("4_5sk8b")
-metadata/_custom_type_script = "uid://df1x4rvmwyow8"
 
 [node name="Steak" parent="SteakManager" instance=ExtResource("4_75p33")]
 position = Vector2(152, 136)

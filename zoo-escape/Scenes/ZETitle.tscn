@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnah6d37dam5s"]
+[gd_scene load_steps=8 format=3 uid="uid://bnah6d37dam5s"]
 
 [ext_resource type="Script" uid="uid://us4h0q25mlj5" path="res://Scripts/ZETitle.gd" id="1_hbotl"]
 [ext_resource type="Texture2D" uid="uid://dav381wq6ly4h" path="res://Assets/Title.png" id="2_e3eap"]
 [ext_resource type="Texture2D" uid="uid://peiaj3fth0w5" path="res://Assets/selector.png" id="3_d42s3"]
+[ext_resource type="FontFile" uid="uid://d1u2twwcxxbjc" path="res://Fonts/pcsenior.ttf" id="3_pyl1t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_57t5j"]
 atlas = ExtResource("3_d42s3")
@@ -38,17 +39,22 @@ offset_left = 280.0
 offset_top = 232.0
 offset_right = 365.0
 offset_bottom = 282.0
+theme_override_constants/separation = 9
 
 [node name="New Game" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_fonts/font = ExtResource("3_pyl1t")
 text = "New Game"
 
 [node name="Password" type="Label" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_fonts/font = ExtResource("3_pyl1t")
 text = "Password
 "
 
 [node name="Selector" type="AnimatedSprite2D" parent="."]
-position = Vector2(272, 272)
+position = Vector2(272, 264)
 sprite_frames = SubResource("SpriteFrames_ry54r")
 autoplay = "default"
