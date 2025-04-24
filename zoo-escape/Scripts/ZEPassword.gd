@@ -24,6 +24,9 @@ func _ready() -> void:
 	code.text = "----"
 
 func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
+		SceneManager.GoToNewSceneString(self, Scenes.ZETitle)
+		
 	if Input.is_action_just_pressed("ActionButton"):
 		if selector.position == PosClear:
 			code.text = "----"

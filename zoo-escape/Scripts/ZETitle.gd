@@ -17,13 +17,13 @@ func _input(event: InputEvent) -> void:
 	
 	# TODO: Tell player that the "ActionButton" is <Z>, etc.
 	# NOTE: Had to re-add the "ui_accept" action to allow keyboard use, as <Enter> and <Space> do not work with "ActionButton"
-	if event.is_action_pressed("ActionButton") || event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("ActionButton"):
 		if selector.position == newGamePos:
 			SceneManager.GoToNewSceneString(self, Scenes.ZETutorial1)
 		elif selector.position == passwordPos:
 			SceneManager.GoToNewSceneString(self, Scenes.ZEPassword)
 			
-	if Input.is_action_just_pressed("ui_down") || Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("DigitalDown") || Input.is_action_just_pressed("DigitalUp"):
 		swapSelectorPos()
 
 
