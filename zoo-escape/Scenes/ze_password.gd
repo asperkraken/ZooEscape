@@ -14,14 +14,32 @@ extends Node2D
 @onready var PosEnter := Vector2(336, 232)
 @onready var buttonMatrix := [[Pos1, Pos2, Pos3], [Pos4, Pos5, Pos6], [Pos7, Pos8, Pos9], [PosClear, Pos0, PosEnter]]
 @onready var cursorPos := Vector2i.ZERO
+@onready var codeTextPos := 0
 
 @onready var selector := $Selector
-
+@onready var code := $Code
 
 func _ready() -> void:
 	selector.position = buttonMatrix[cursorPos.y][cursorPos.x]
+	code.text = "----"
 
 func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ActionButton"):
+		if selector.position == PosClear:
+			code.text = "----"
+			codeTextPos = 0
+		elif selector.position == PosEnter:
+			if !code.text.contains("-") and Globals.Game_Globals.has(code.text):
+				SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[code.text])
+		else:
+			if code.text.contains("-"):
+				SetNum()
+				
+	if Input.is_action_just_pressed("CancelButton"):
+		if codeTextPos != 0:
+			codeTextPos -= 1
+			code.text[codeTextPos] = "-"
+	
 	if Input.is_action_just_pressed("DigitalUp"):
 		if cursorPos.y == 0:
 			cursorPos.y = 3
@@ -47,3 +65,30 @@ func _input(_event: InputEvent) -> void:
 			cursorPos.x -= 1
 	
 	selector.position = buttonMatrix[cursorPos.y][cursorPos.x]
+
+func SetNum():
+	var num := ""
+	match buttonMatrix[cursorPos.y][cursorPos.x]:
+		Pos0:
+			num = "0"
+		Pos1:
+			num = "1"
+		Pos2:
+			num = "2"
+		Pos3:
+			num = "3"
+		Pos4:
+			num = "4"
+		Pos5:
+			num = "5"
+		Pos6:
+			num = "6"
+		Pos7:
+			num = "7"
+		Pos8:
+			num = "8"
+		Pos9:
+			num = "9"
+	
+	code.text[codeTextPos] = num
+	codeTextPos += 1

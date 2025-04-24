@@ -27,7 +27,7 @@ tile_set = ExtResource("1_d2x4x")
 
 [node name="ExitTile" parent="." instance=ExtResource("8_4t86c")]
 position = Vector2(232, 88)
-NextLevelCode = "DL02"
+NextLevelCode = "9992"
 
 [node name="SteakManager" type="Node2D" parent="."]
 script = ExtResource("2_bxppo")
