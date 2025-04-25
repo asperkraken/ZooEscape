@@ -13,6 +13,7 @@ Zoo Escape is a Panther City Game Guild community project that is open for all t
   <li>Someone from the organization will review your pull request.  If your contribution isn't a good fit for the project, your pull request will not be merged.</li>
 </ol>
 <p>We firmly believe that communication is key to any successful project, so please communicate with us in our Discord server regarding anything in this project that you want to add, change, or remove. </p>
+<p><em>Reminder: Use your middle mouse button to open links in a new browser tab.</em></p>
 
 
 # Contributors
