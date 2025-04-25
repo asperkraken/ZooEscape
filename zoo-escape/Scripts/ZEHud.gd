@@ -13,6 +13,10 @@ var resetGauge : float = 0.0 ## to compare with level manager
 @export var timeLimit : int = 30 # value to change for each level
 signal restart_room ## reload signal
 signal exit_game ## exit to title signal
+var focusState : int = 0
+enum FOCUS_STATES {
+	RESTART,
+	EXIT}
 
 
 func _ready() -> void: ## reset animations at ready, fetch start values
@@ -49,15 +53,32 @@ func _process(_delta: float) -> void:
 	
 	if timesUp:
 		if Input.is_action_just_pressed("DigitalDown"):
-			SoundControl.playCue(SoundControl.blip,2.3)
+			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalLeft"):
-			SoundControl.playCue(SoundControl.blip,2.5)
+			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalRight"):
-			SoundControl.playCue(SoundControl.blip,2.7)
+			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalUp"):
-			SoundControl.playCue(SoundControl.blip,2.1)
+			buttonFocusGrab()
 
+
+## button to grab focus from keyboard for timeout buttons
+func buttonFocusGrab():
+	## lock state values and adjust each button press
+	focusState+=1
+	if focusState == 2:
+		focusState = 0
+
+	var _variant = randf_range(-0.7,0.7) ## random blips
+	SoundControl.playCue(SoundControl.blip,(2.3+_variant))
 	
+	## listen for state
+	match focusState:
+		FOCUS_STATES.RESTART:
+			$ExitButton.grab_focus()
+		FOCUS_STATES.EXIT:
+			$RestartButton.grab_focus()
+
 
 ## input start function and flip flop state
 func levelTimerStart():
@@ -113,7 +134,8 @@ func _on_level_timer_timeout() -> void:
 	if timerValue >= 1 and !timesUp: ## if time not up, clock counts down
 		timerValue-=1
 		$LevelTimer.start(1)
-	else: ## on time up, flip state, stop non-system noises and trigger feedback
+
+	if timerValue == 0: ## on time up, flip state, stop non-system noises and trigger feedback
 		$HUDAnimationAlt.play("close")
 		SoundControl.stopSounds()
 		get_tree().paused = true
@@ -122,6 +144,8 @@ func _on_level_timer_timeout() -> void:
 		SoundControl.playCue(SoundControl.fail,3.0)
 		$HUDAnimation.play("time_out")
 		timesUp = true
+		$AlertCue.pitch_scale = 0.5 ## alert noise
+		$AlertCue.play()
 
 
 	## warnings during period of time before time out (variable)
@@ -130,11 +154,14 @@ func _on_level_timer_timeout() -> void:
 		$OpenCue.play() ## additional warning cue every even second for dynamics
 
 
+
 ## buttons open when time out animation ends
 func _on_hud_animation_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "time_out":
-		$HUDAnimation.stop()
+		$RestartButton.disabled = false
+		$ExitButton.disabled = false
 		$RestartButton.grab_focus()
+		$HUDAnimation.stop()
 
 
 ## time out animation triggers when time is up
@@ -165,7 +192,7 @@ func buttonsDisabled(): ## function to close buttons on input
 
 
 func closeHud(): ## remote hud close button
-	$HUDAnimation.play("close")
+	$HUDAnimationAlt.play("close")
 
 
 func resetBarReveal(): ## functions to hide and reveal reset bar
@@ -181,4 +208,3 @@ func resetBarFade():
 func resetPrompt():
 	$HUDAnimationAlt.play("close")
 	$ResetBar/ResetLabel.text = "RELOADING..."
-	closeHud()
