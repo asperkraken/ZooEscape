@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+
+const stepNoise = "res://Assets/Sound/deep_thump.ogg"
+const slipNoise = "res://Assets/Sound/squelch.ogg"
+
 enum PlayerState {
 	Idle,
 	InWater,
@@ -26,7 +30,9 @@ signal InWater
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	randomize()
+	$StepCue.volume_db = SoundControl.sfxLevel-9 ## default player footsteps to low volume
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -73,6 +79,10 @@ func _process(delta: float) -> void:
 
 # Called to move the player
 func MovePlayer(dir: Vector2) -> void:
+	var _pitch = randf_range(-0.25,0.25)
+	$StepCue.pitch_scale = 1+_pitch
+	$StepCue.play()
+
 	sprite.play(dirToAnimtionName[dir])
 	ray.target_position = dir * Globals.ZETileSize
 	ray.force_raycast_update()
@@ -95,11 +105,13 @@ func InteractWithRayCollider(obj: Object) -> void:
 		if obj is ZESwitch:
 			obj.ChangeState()
 
+
 func _on_ground_check_area_entered(area: Area2D) -> void:
 	var layer := area.collision_layer
 	
 	if(layer == 2):
 		# TODO: play drown animaiton
+		SoundControl.playCue(SoundControl.fail,3.0)
 		currentState = PlayerState.InWater
 	
 		# tell the level to restart
@@ -107,8 +119,12 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	elif(layer == 4):
 		if(!ray.is_colliding()):
 			currentState = PlayerState.Sliding
+			if $StepCue.stream != slipNoise:
+				$StepCue.stream = load(slipNoise)
 		else:
 			currentState = PlayerState.Idle
+			if $StepCue.stream != stepNoise:
+				$StepCue.stream = load(slipNoise)
 		
 
 

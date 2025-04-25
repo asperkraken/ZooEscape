@@ -1,0 +1,143 @@
+extends Node2D
+
+
+@onready var bgm = $BGM ## music (pauses position on pause)
+@onready var sfx = $SFX ## in-game sound effects (pauses position on pause)
+@onready var cue = $Cue ## ui sound effects (ignores pause)
+
+
+## export for testing purposes, const to set boundaries and ease debugging
+const DEFAULT_VOLUME = -24
+const SILENCE = -80
+const defaultBgm = "res://Assets/Sound/theme.ogg"
+const testBgm = "res://Assets/Sound/tutorial.ogg"
+var currentBgm : String
+
+## references to global volume levels (we can have options for this to adjust)
+var volumeReference : float = DEFAULT_VOLUME ## monitored by players and updates
+@export var bgmLevel : int = DEFAULT_VOLUME
+@export var sfxLevel : int = DEFAULT_VOLUME
+@export var cueLevel : int = DEFAULT_VOLUME
+@export var fadeRate : float = 0.2 ## default fade rate, can be updated in code
+var max_volume = -24 ## reference for maximum
+
+## fade state machine for audio fading
+var fadeState : int = 0
+enum FADE_STATES {
+	SILENCE, ## no audio
+	IN_TRIGGER, ## audio starts increase (one-shot)
+	IN_CURVE, ## audio fading in
+	PEAK_VOLUME, ## audio continuous (idle)
+	OUT_TRIGGER, ## audio starts decrease (one-shot)
+	OUT_CURVE} ## audio fades out
+
+
+## global audio references for easy access
+const alert = "res://Assets/Sound/alert.ogg"
+const blip = "res://Assets/Sound/blip.ogg"
+const chomp = "res://Assets/Sound/chompy.ogg"
+const down = "res://Assets/Sound/flourish_down.ogg"
+const pickup = "res://Assets/Sound/pickup.ogg"
+const flutter = "res://Assets/Sound/flutter.ogg"
+const fail = "res://Assets/Sound/game_over.ogg"
+const ruined = "res://Assets/Sound/crumble_noise.ogg"
+const scratch = "res://Assets/Sound/scratch_delay.ogg"
+const scuff = "res://Assets/Sound/scuff_noise.ogg"
+const splorch = "res://Assets/Sound/splorch.ogg"
+const success = "res://Assets/Sound/success.ogg"
+const thump = "res://Assets/Sound/thump.ogg"
+const zap = "res://Assets/Sound/zap_delayed.ogg"
+const start = "res://Assets/Sound/flourish_up.ogg"
+
+
+
+
+func _ready() -> void: ## sound preferences retrieved at ready
+	setSoundPreferences(SILENCE,sfxLevel,cueLevel) ## set levels
+	## TODO: make options screen for user-determined levels
+	currentBgm = testBgm ## default title music
+
+
+func _process(delta: float) -> void: ## listen for fade states and update volumes
+	bgmFadingMachine(delta,fadeRate)
+
+
+## values set for sound levels
+func setSoundPreferences(_bgm:int, _sfx:int, _cue:int):
+	$BGM.volume_db = _bgm ## default to silence for fade in
+	$SFX.volume_db = _sfx
+	$Cue.volume_db = _cue
+
+
+## call bgm file and play (state machine handles stop and start automatically)
+func playBgm():
+	var _loadBgm = load(currentBgm)
+	bgm.volume_db = bgmLevel
+	bgm.stream = _loadBgm
+	bgm.play()
+
+
+## to update fade value
+func fadeRateUpdate(_newValue:float):
+	fadeRate = _newValue
+
+
+## queue next track and update fade if needed
+func levelChangeSoundCall(_value:float, _music:String):
+	currentBgm = _music ## allows music to change on next fade start
+	fadeState = FADE_STATES.OUT_TRIGGER
+	fadeRateUpdate(_value)
+
+
+# hard stop function
+func stopSounds():
+	bgm.stop()
+	sfx.stop()
+
+
+## call sfx file and play
+func playSfx(_sfxFile:String):
+	randomize() ## queue rng
+	var _variant = randf_range(-0.3,0.3) ## change pitch each time
+	var _loadSfx = load(_sfxFile)
+	sfx.stream = _loadSfx
+	sfx.pitch_scale = 1+_variant
+	sfx.play()
+
+
+## call system noises and play (note: system noises do not pause)
+func playCue(_cueFile:String,_pitch:float):
+	cue.pitch_scale = _pitch
+	var _loadCue = load(_cueFile)
+	cue.stream = _loadCue
+	cue.play()
+
+
+## fade volume state machine for music
+func bgmFadingMachine(_delta:float,_rate:float):
+	bgm.volume_db = volumeReference ## volume reflects abstraction value
+	
+	match fadeState:
+		FADE_STATES.IN_TRIGGER:
+			fadeRate = 0.25 ## default rate
+			playBgm() ## start play
+			fadeState+=1 ## move to next
+		FADE_STATES.IN_CURVE:
+			if volumeReference < max_volume: ## increase volume while below target
+				volumeReference+=(_delta+_rate)
+			else: ## then update state
+				fadeState+=1
+		FADE_STATES.PEAK_VOLUME: # hold volume steady when not fading
+			volumeReference = max_volume
+		FADE_STATES.OUT_TRIGGER: # start volume decrease (one-shot)
+			if volumeReference >= max_volume:
+				volumeReference-=(_delta+_rate)
+				fadeState+=1
+		FADE_STATES.OUT_CURVE: ## if not silence, reduce rate
+			if volumeReference > SILENCE:
+				volumeReference-=(_delta+_rate*2)
+			else: ## then set to silence
+				fadeState = 0
+		FADE_STATES.SILENCE: ## silence immediately begins next fade in
+			volumeReference = SILENCE
+			fadeState+=1

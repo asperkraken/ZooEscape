@@ -6,6 +6,7 @@ signal PlayerExits(LevelToGoTo: String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$OpenCue.volume_db = SoundControl.sfxLevel ## has own sound for solo trigger
 	pass # Replace with function body.
 
 
@@ -14,6 +15,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func ActavateExit() -> void:
+	$OpenCue.play()
 	play("Active")
 	
 
