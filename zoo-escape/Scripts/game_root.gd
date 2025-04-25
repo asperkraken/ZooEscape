@@ -5,6 +5,8 @@ class_name GameRoot extends Node2D
 func _ready() -> void:
 	SceneManager.gameRoot = self
 	aniPlayer.play("RESET")
+	SoundControl.fadeState = 0
+
 
 func _process(_delta: float) -> void:
 	pass

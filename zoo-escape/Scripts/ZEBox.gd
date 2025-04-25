@@ -13,12 +13,15 @@ func Move(dir: Vector2) -> bool:
 	ray.force_raycast_update()
 	
 	if currentState == states.Movable && !ray.is_colliding():
+		SoundControl._playSfx(SoundControl._scuff)
 		position += dir * Globals.ZETileSize
 		return true
 	else:
+		SoundControl._playSfx(SoundControl._scuff)
 		return false
 
 func _on_water_check_area_entered(area: Area2D) -> void:
+		SoundControl._playSfx(SoundControl._splorch)
 		area.queue_free()
 		
 		currentState = states.InWater

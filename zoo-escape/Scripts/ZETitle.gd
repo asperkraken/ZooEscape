@@ -19,7 +19,10 @@ func _input(event: InputEvent) -> void:
 	# NOTE: Had to re-add the "ui_accept" action to allow keyboard use, as <Enter> and <Space> do not work with "ActionButton"
 	if event.is_action_pressed("ActionButton") || event.is_action_pressed("ui_accept"):
 		if selector.position == newGamePos:
+			SoundControl._playCue(SoundControl._start,1.0)
 			SceneManager.GoToNewSceneString(self, Scenes.ZETutorial1)
+			### change bgm and fade on out
+			SoundControl._levelChangeSoundCall(1.0,SoundControl._defaultBgm)
 		elif selector.position == passwordPos:
 			pass # will make a password scean at some point
 			
@@ -32,6 +35,7 @@ func swapSelectorPos() -> void:
 		selector.position = passwordPos
 	else: 
 		selector.position = newGamePos
+
 
 func setLevelGlobals() -> void:
 	# debug levels
