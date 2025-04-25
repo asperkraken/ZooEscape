@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-const _stepNoise = "res://Assets/Sound/deep_thump.ogg"
-const _slipNoise = "res://Assets/Sound/squelch.ogg"
+const stepNoise = "res://Assets/Sound/deep_thump.ogg"
+const slipNoise = "res://Assets/Sound/squelch.ogg"
 
 enum PlayerState {
 	Idle,
@@ -105,11 +105,13 @@ func InteractWithRayCollider(obj: Object) -> void:
 		if obj is ZESwitch:
 			obj.ChangeState()
 
+
 func _on_ground_check_area_entered(area: Area2D) -> void:
 	var layer := area.collision_layer
 	
 	if(layer == 2):
 		# TODO: play drown animaiton
+		SoundControl.playCue(SoundControl.fail,3.0)
 		currentState = PlayerState.InWater
 	
 		# tell the level to restart
@@ -117,12 +119,12 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	elif(layer == 4):
 		if(!ray.is_colliding()):
 			currentState = PlayerState.Sliding
-			if $StepCue.stream != _slipNoise:
-				$StepCue.stream = load(_slipNoise)
+			if $StepCue.stream != slipNoise:
+				$StepCue.stream = load(slipNoise)
 		else:
 			currentState = PlayerState.Idle
-			if $StepCue.stream != _stepNoise:
-				$StepCue.stream = load(_slipNoise)
+			if $StepCue.stream != stepNoise:
+				$StepCue.stream = load(slipNoise)
 		
 
 

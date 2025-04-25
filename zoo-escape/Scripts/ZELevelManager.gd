@@ -8,7 +8,7 @@ class_name ZELevelManager extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	## check to ensure bgm fade level is consistent
-	## if bgm fade level not normal, reset fade state
+	## if bgm fade level not normal, reset fade state so it fades in
 	if SoundControl.fadeState != SoundControl.FADE_STATES.PEAK_VOLUME:
 		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
 
@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 		restartRoom()
 
 func _on_exit_tile_player_exits(LevelToGoTo: String) -> void:
-	SoundControl._playCue(SoundControl._success,2.0)
+	SoundControl.playCue(SoundControl.success,2.0)
 	player.currentState = player.PlayerState.OnExit
 	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelToGoTo])
 
@@ -36,7 +36,7 @@ func _on_steak_manager_all_steak_collected() -> void:
 
 
 func restartRoom() -> void:
-	SoundControl._playCue(SoundControl._fail,3.0) ## game over noise
+	SoundControl.playCue(SoundControl.fail,3.0) ## game over noise
 	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelCode])
 
 func _on_player_in_water() -> void:
