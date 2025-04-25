@@ -24,7 +24,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	timeUp = localHud.timesUp ## watch timer
-	localHud.resetGauge = resetTime
+	localHud.resetGauge = resetTime ## compare gauge with HUD meter
+	localHud.password = str(LevelCode) ## update hud password text
 
 
 	if Input.is_action_pressed("RightBumper") and !timeUp:
