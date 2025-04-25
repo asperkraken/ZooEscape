@@ -111,7 +111,7 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	var layer := area.collision_layer
 	
 	if(layer == 2):
-		# TODO: play drown animaiton
+		$ZEHud.closeHud()
 		SoundControl.playCue(SoundControl.fail,3.0)
 		currentState = PlayerState.InWater
 	

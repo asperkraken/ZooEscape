@@ -7,15 +7,22 @@ var movesValue : int = 0 ## live monitor of moves
 var moveMonitoring : bool = false ## shows timer has started
 var timesUp : bool = false ## shows time is out
 var allSteaksCollected : bool = false ## shows goal is open
+var resetBarVisible : bool = false ## reset bar flag for external reference
+var resetGauge : float = 0.0 ## to compare with level manager
 @export var warningTime : int = 10 ## value when warning cues
 @export var timeLimit : int = 30 # value to change for each level
+signal restart_room ## reload signal
+signal exit_game ## exit to title signal
 
 
 func _ready() -> void: ## reset animations at ready, fetch start values
+	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
+	$HudWindow/TimerValue.text = str(timeLimit)+"s" ## update value at start
 	steakValueFetch()
 	timerValue = timeLimit
+	## to avoid queueing error on prompt
 	
 
 func _process(_delta: float) -> void:
@@ -36,6 +43,21 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("DigitalUp"):
 			levelTimerStart()
 
+	## this number taken from levelManager
+	$ResetBar.value = resetGauge 
+	
+	
+	if timesUp:
+		if Input.is_action_just_pressed("DigitalDown"):
+			SoundControl.playCue(SoundControl.blip,2.3)
+		if Input.is_action_just_pressed("DigitalLeft"):
+			SoundControl.playCue(SoundControl.blip,2.5)
+		if Input.is_action_just_pressed("DigitalRight"):
+			SoundControl.playCue(SoundControl.blip,2.7)
+		if Input.is_action_just_pressed("DigitalUp"):
+			SoundControl.playCue(SoundControl.blip,2.1)
+
+	
 
 ## input start function and flip flop state
 func levelTimerStart():
@@ -51,12 +73,20 @@ func levelTimerStart():
 
 ## update label values with strings
 func valueMonitoring():
+	## listen for steaks collected and update as needed
 	if !allSteaksCollected:
 		$HudWindow/SteaksValue.text = str(steakValue)+"x"
 	else:
 		$HudWindow/SteaksValue.text = "GOAL!!" ## if all captured, goal text
 	$HudWindow/MovesValue.text = str(movesValue)+"m"
-	$HudWindow/TimerValue.text = str(timerValue)+"s"
+	
+	## update timer as it counts down
+	if timerValue < timeLimit:
+		$HudWindow/TimerValue.text = str(timerValue)+"s"
+	if timerValue == 0: ## last second warning
+		$HudWindow/TimerValue.modulate = Color.RED
+		$HudWindow/TimerText.modulate = Color.RED
+
 
 	if steakValue == 0 and !allSteaksCollected: ## if all collected, run animation
 		allSteaksCollected = true
@@ -84,6 +114,7 @@ func _on_level_timer_timeout() -> void:
 		timerValue-=1
 		$LevelTimer.start(1)
 	else: ## on time up, flip state, stop non-system noises and trigger feedback
+		$HUDAnimationAlt.play("close")
 		SoundControl.stopSounds()
 		get_tree().paused = true
 		moveMonitoring = false
@@ -113,17 +144,41 @@ func _on_open_timer_timeout() -> void:
 
 ## button for restart
 func _on_restart_button_pressed() -> void:
+	$HudWindow.visible = false ## hide window to avoid artifacting/bugs
 	SoundControl.playCue(SoundControl.flutter,3.0)
 	buttonsDisabled()
-	## TODO: connect to restartRoom function in ZELevelManager
+	SoundControl.resetMusicFade()
+	emit_signal("restart_room") ## signal to levelManager to reload
 
 
 func _on_exit_button_pressed() -> void:
+	$HudWindow.visible = false
 	SoundControl.playCue(SoundControl.ruined,0.5)
 	buttonsDisabled()
-	## TODO: connect to returnToTitle function in GameRoot
+	SoundControl.resetMusicFade()
+	emit_signal("exit_game") ## signal to levelManager to exit to title
 
 
-func buttonsDisabled():
+func buttonsDisabled(): ## function to close buttons on input
 	$RestartButton.disabled = true
 	$ExitButton.disabled = true
+
+
+func closeHud(): ## remote hud close button
+	$HUDAnimation.play("close")
+
+
+func resetBarReveal(): ## functions to hide and reveal reset bar
+	resetBarVisible = true
+	$HUDAnimationAlt.play("reset_fader")
+
+
+func resetBarFade():
+	resetBarVisible = false
+	$HUDAnimationAlt.play_backwards("reset_fader")
+
+
+func resetPrompt():
+	$HUDAnimationAlt.play("close")
+	$ResetBar/ResetLabel.text = "RELOADING..."
+	closeHud()

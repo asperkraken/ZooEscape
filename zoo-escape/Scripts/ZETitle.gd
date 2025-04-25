@@ -8,6 +8,7 @@ extends Node2D
 func _ready() -> void:
 	selector.position = newGamePos
 	setLevelGlobals()
+	SoundControl.resetMusicFade() ## reset music state
 
 
 # Called when an InputEvent is detected
