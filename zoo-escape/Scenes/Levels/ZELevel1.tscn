@@ -152,6 +152,50 @@ NextLevelCode = "9990"
 [node name="Player" parent="." instance=ExtResource("8_ykhfs")]
 position = Vector2(392, 120)
 
+[node name="TimerValue" parent="Player/Camera2D/ZEHud/HudWindow" index="2"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 104.0
+offset_bottom = 24.0
+
+[node name="MovesText" parent="Player/Camera2D/ZEHud/HudWindow" index="3"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 104.0
+offset_bottom = 24.0
+
+[node name="MovesValue" parent="Player/Camera2D/ZEHud/HudWindow" index="4"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 104.0
+offset_bottom = 24.0
+
+[node name="SteaksText" parent="Player/Camera2D/ZEHud/HudWindow" index="5"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 104.0
+offset_bottom = 24.0
+
+[node name="SteaksValue" parent="Player/Camera2D/ZEHud/HudWindow" index="6"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 104.0
+offset_bottom = 24.0
+
+[node name="ExitButton" parent="Player/Camera2D/ZEHud" index="10"]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 144.0
+offset_bottom = 52.0
+
 [connection signal="AllSteakCollected" from="SteakManager" to="." method="_on_steak_manager_all_steak_collected"]
 [connection signal="PlayerExits" from="ExitTile" to="." method="_on_exit_tile_player_exits"]
 [connection signal="InWater" from="Player" to="." method="_on_player_in_water"]
+
+[editable path="Player"]

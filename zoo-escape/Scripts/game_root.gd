@@ -25,3 +25,20 @@ func GoToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
 	await aniPlayer.animation_finished
 	set_process_input(true)
 	set_physics_process(true)
+
+
+## TODO: see if this works, test
+func ReturnToTitle() -> void:
+	set_process_input(false)
+	set_physics_process(false)
+	aniPlayer.play("FadeOut")
+	await aniPlayer.animation_finished
+	
+	for child in get_children():
+		if child is ZELevelManager:
+			child.queue_free()
+
+	aniPlayer.play("FadeIn")
+	await aniPlayer.animation_finished
+	set_process_input(true)
+	set_physics_process(true)

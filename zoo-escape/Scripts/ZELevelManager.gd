@@ -13,6 +13,8 @@ func _ready() -> void:
 		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
 
 
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("RightBumper"):
@@ -38,6 +40,12 @@ func _on_steak_manager_all_steak_collected() -> void:
 func restartRoom() -> void:
 	SoundControl.playCue(SoundControl.fail,3.0) ## game over noise
 	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelCode])
+
+
+func _exitGame() -> void:
+	var _root = get_parent()
+	_root.ReturnToTitle()
+
 
 func _on_player_in_water() -> void:
 	restartRoom()

@@ -19,6 +19,7 @@ enum PlayerState {
 }
 
 @export var moveSpeed := 0.3
+@export var stepMuffleLevel : int = 9 ## value to muffle footsteps
 @onready var currentDir: Vector2 = Vector2.DOWN
 @onready var sprite := $AnimatedSprite2D
 @onready var ray := $RayCast2D
@@ -31,7 +32,7 @@ signal InWater
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	$StepCue.volume_db = SoundControl.sfxLevel-9 ## default player footsteps to low volume
+	$StepCue.volume_db = SoundControl.sfxLevel-stepMuffleLevel ## default player footsteps to low volume
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
