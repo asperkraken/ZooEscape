@@ -4,8 +4,14 @@ Zoo Escape is a Panther City Game Guild community project that is open for all t
 # Contributing
 ### Thank you so much for your interest in contributing to Zoo Escape!
 <p>We are very excited to have you join the project!</p>
-<p>If you are interested in contributing to this project, you will first need to be a member of the community.  Join our <a href="https://discord.gg/vXqTzSr5tR" title="Discord invitation">Discord server</a>.  Once you're verified there, you can be added to the organization here (let us know you are interested in being added, and provide your GitHub username).</p>
-<p>Once you're part of this organization, please check the <a href="https://github.com/orgs/Panther-City-Game-Guild/projects/5" title="Zoo Escape project">Zoo Escape project</a> associated with this repository.  If you find an open issue suitable for your talents, you're welcome to fork the repository and make pull requests to submit your proposed changes.</p>
+<p>Before you can contribute to this project, you must be a member of the Panther City Game Guild community.</p>
+<ol>
+  <li>Join our <a href="https://discord.gg/vXqTzSr5tR" title="Invitation to Panther City Game Guild Discord server" target="_blank">Discord server.</a></li>
+  <li>Once verified, use the <a href="https://discord.com/channels/1326670698734948504/1362971030754295958" title="Zoo Escape thread on Discord" target="_blank">Zoo Escape thread</a> to request to be added to this organization (include your GitHub username).</li>
+  <li>Once added, check the <a href="https://github.com/orgs/Panther-City-Game-Guild/projects/5" title="Zoo Escape project" target="_blank">Zoo Escape project</a> for open issues that suit your talents.</li>
+  <li>Fork the repository, work your magic, then create a pull request to submit your proposed changes.</li>
+  <li>Someone from the organization will review your pull request.  If your contribution isn't a good fit for the project, your pull request will not be merged.</li>
+</ol>
 <p>We firmly believe that communication is key to any successful project, so please communicate with us in our Discord server regarding anything in this project that you want to add, change, or remove. </p>
 
 
