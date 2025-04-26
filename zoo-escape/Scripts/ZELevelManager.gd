@@ -41,6 +41,7 @@ func _process(delta: float) -> void:
 
 
 	if resetTime > 2:
+		resetTime = -10 ## added to avoid crash from input overload
 		timeUp = true ## flip cursor to avoid retriggering
 		SoundControl.playCue(SoundControl.down,2.0)
 		localHud.resetPrompt() ## prompt updates on hud

@@ -178,7 +178,7 @@ func _on_restart_button_pressed() -> void:
 	SoundControl.playCue(SoundControl.flutter,3.0)
 	buttonsDisabled()
 	SoundControl.resetMusicFade()
-	emit_signal("restart_room") ## signal to levelManager to reload
+	restart_room.emit() ## signal to levelManager to reload
 
 
 func _on_exit_button_pressed() -> void:
@@ -186,7 +186,7 @@ func _on_exit_button_pressed() -> void:
 	SoundControl.playCue(SoundControl.ruined,0.5)
 	buttonsDisabled()
 	SoundControl.resetMusicFade()
-	emit_signal("exit_game") ## signal to levelManager to exit to title
+	exit_game.emit() ## signal to levelManager to exit to title
 
 
 func buttonsDisabled(): ## function to close buttons on input
