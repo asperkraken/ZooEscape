@@ -120,14 +120,12 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	elif(layer == 4):
 		if(!ray.is_colliding()):
 			currentState = PlayerState.Sliding
-			if $StepCue.stream != slipNoise:
-				$StepCue.stream = load(slipNoise)
+			$StepCue.stream = load(slipNoise)
 		else:
 			currentState = PlayerState.Idle
-			if $StepCue.stream != stepNoise:
-				$StepCue.stream = load(slipNoise)
 		
 
 
 func _on_ground_check_area_exited(_area: Area2D) -> void:
 	currentState = PlayerState.Idle
+	$StepCue.stream = load(stepNoise)
