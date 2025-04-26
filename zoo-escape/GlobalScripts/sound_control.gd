@@ -141,3 +141,7 @@ func bgmFadingMachine(_delta:float,_rate:float):
 		FADE_STATES.SILENCE: ## silence immediately begins next fade in
 			volumeReference = SILENCE
 			fadeState+=1
+
+
+func resetMusicFade():
+	fadeState = FADE_STATES.SILENCE

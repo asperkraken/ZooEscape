@@ -19,6 +19,7 @@ enum PlayerState {
 }
 
 @export var moveSpeed := 0.3
+@export var stepMuffleLevel : int = 9 ## value to muffle footsteps
 @onready var currentDir: Vector2 = Vector2.DOWN
 @onready var sprite := $AnimatedSprite2D
 @onready var ray := $RayCast2D
@@ -31,7 +32,7 @@ signal InWater
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	$StepCue.volume_db = SoundControl.sfxLevel-9 ## default player footsteps to low volume
+	$StepCue.volume_db = SoundControl.sfxLevel-stepMuffleLevel ## default player footsteps to low volume
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -110,7 +111,7 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	var layer := area.collision_layer
 	
 	if(layer == 2):
-		# TODO: play drown animaiton
+		$ZEHud.closeHud()
 		SoundControl.playCue(SoundControl.fail,3.0)
 		currentState = PlayerState.InWater
 	
@@ -119,14 +120,12 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	elif(layer == 4):
 		if(!ray.is_colliding()):
 			currentState = PlayerState.Sliding
-			if $StepCue.stream != slipNoise:
-				$StepCue.stream = load(slipNoise)
+			$StepCue.stream = load(slipNoise)
 		else:
 			currentState = PlayerState.Idle
-			if $StepCue.stream != stepNoise:
-				$StepCue.stream = load(slipNoise)
 		
 
 
 func _on_ground_check_area_exited(_area: Area2D) -> void:
 	currentState = PlayerState.Idle
+	$StepCue.stream = load(stepNoise)

@@ -24,7 +24,10 @@ func _ready() -> void:
 	code.text = "----"
 
 func _input(_event: InputEvent) -> void:
+	var _variant = randf_range(-0.7,0.7) ## random blips
+	SoundControl.playCue(SoundControl.blip,(3.0+_variant))
 	if Input.is_action_just_pressed("ui_cancel"):
+		SoundControl.playCue(SoundControl.down,2.0)
 		SceneManager.GoToNewSceneString(self, Scenes.ZETitle)
 		
 	if Input.is_action_just_pressed("ActionButton"):
@@ -33,6 +36,7 @@ func _input(_event: InputEvent) -> void:
 			codeTextPos = 0
 		elif selector.position == PosEnter:
 			if !code.text.contains("-") and Globals.Game_Globals.has(code.text):
+				SoundControl.playCue(SoundControl.success,2.5)
 				SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[code.text])
 		else:
 			if code.text.contains("-"):

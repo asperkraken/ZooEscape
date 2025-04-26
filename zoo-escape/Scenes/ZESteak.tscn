@@ -38,7 +38,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2h3l"]
 size = Vector2(12, 12)
 
-[node name="Steak" type="AnimatedSprite2D"]
+[node name="Steak" type="AnimatedSprite2D" groups=["steaks"]]
 sprite_frames = SubResource("SpriteFrames_d3wr8")
 autoplay = "default"
 frame_progress = 0.86556

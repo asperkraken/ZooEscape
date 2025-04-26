@@ -3,6 +3,8 @@ class_name ZELevelManager extends Node2D
 @export var LevelCode: String = ""
 @onready var player := $Player
 @onready var resetTime := 0.0
+var localHud = null ## pointer for hud
+var timeUp : bool = false ## to monitor local hud timer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -12,21 +14,45 @@ func _ready() -> void:
 	if SoundControl.fadeState != SoundControl.FADE_STATES.PEAK_VOLUME:
 		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
 
+	## connect hud to scene change functions
+	localHud = get_node("Player/ZEHud")
+	localHud.restart_room.connect(restartRoom)
+	localHud.exit_game.connect(exitGame)
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("RightBumper"):
-		resetTime += delta
-	
+	timeUp = localHud.timesUp ## watch timer
+	localHud.resetGauge = resetTime ## compare gauge with HUD meter
+	localHud.password = str(LevelCode) ## update hud password text
+
+
+	if Input.is_action_pressed("RightBumper") and !timeUp:
+		resetTime += delta ## do not allow reload when time up!
+		if !localHud.resetBarVisible: ## show bar
+			localHud.resetBarReveal()
+
+
 	if Input.is_action_just_released("RightBumper"):
-		resetTime = 0
+		resetTime = 0 ## fade bar and reset
+		if localHud.resetBarVisible:
+			localHud.resetBarFade()
+
 
 	if resetTime > 2:
-		resetTime = 0
+		resetTime = -10 ## added to avoid crash from input overload
+		timeUp = true ## flip cursor to avoid retriggering
+		SoundControl.playCue(SoundControl.down,2.0)
+		localHud.resetPrompt() ## prompt updates on hud
 		restartRoom()
+	
+	
+
 
 func _on_exit_tile_player_exits(LevelToGoTo: String) -> void:
-	SoundControl.playCue(SoundControl.success,2.0)
+	localHud.closeHud() ## close hud
+	SoundControl.playCue(SoundControl.success,2.0) ## sound trigger
 	player.currentState = player.PlayerState.OnExit
 	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelToGoTo])
 
@@ -36,8 +62,14 @@ func _on_steak_manager_all_steak_collected() -> void:
 
 
 func restartRoom() -> void:
-	SoundControl.playCue(SoundControl.fail,3.0) ## game over noise
+	localHud.closeHud()
 	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelCode])
+
+
+func exitGame() -> void: ## game exit function, refers to gameroot function
+	var _root = get_parent()
+	_root.ReturnToTitle()
+
 
 func _on_player_in_water() -> void:
 	restartRoom()
