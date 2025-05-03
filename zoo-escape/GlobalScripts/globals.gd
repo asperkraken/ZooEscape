@@ -19,7 +19,9 @@ var Current_Level_Data: Dictionary = {
 
 # Globally available settings that can be used to store different settings
 # Used to hold additional settings for your game, as needed
-var Current_Settings : Dictionary = { }
+var Current_Settings : Dictionary = {
+	"passwordWindowOpen" : false ## global hud control flag
+}
 
 # A global variable playground for your game
 # Add these programatically when your game loads

@@ -15,6 +15,7 @@ var password : String = "ABCD" ## abstraction for password
 signal restart_room ## reload signal
 signal exit_game ## exit to title signal
 var focusState : int = 0
+var passwordState = Globals.Current_Settings["passwordWindowOpen"]
 enum FOCUS_STATES {
 	RESTART,
 	EXIT}
@@ -32,16 +33,18 @@ func _ready() -> void: ## reset animations at ready, fetch start values
 	
 
 func _process(_delta: float) -> void:
+	## monitor password state to hold hud move monitoring
+	passwordState = Globals.Current_Settings["passwordWindowOpen"]
 	## fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
-	if !timesUp: ## if timer not out, update values and monitor inputs
+	if !timesUp and passwordState == false: ## if timer not out, update values and monitor inputs
 		steakValueFetch()
 		valueMonitoring()
 		inputWatch()
 
 
 	## level timer does not start until first input
-	if !moveMonitoring and !timesUp:
+	if !moveMonitoring and !timesUp and passwordState == false:
 		if Input.is_action_just_pressed("DigitalDown"):
 			levelTimerStart()
 		if Input.is_action_just_pressed("DigitalLeft"):
