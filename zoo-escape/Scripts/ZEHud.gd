@@ -122,6 +122,10 @@ func valueMonitoring():
 		$HUDAnimationAlt.play("goal") ## play on alt to prevent conflicts
 
 
+func passwordReport(data:String): ## function for updating password, referenced by manager/ui
+	$HudWindow/PasswordValue.text = data
+
+
 func steakValueFetch(): ## count amount of steaks in scene
 	var steakCount = get_tree().get_node_count_in_group("steaks")
 	steakValue = steakCount
