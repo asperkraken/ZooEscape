@@ -9,7 +9,7 @@ func _ready() -> void:
 	selector.position = newGamePos
 	setLevelGlobals()
 	SoundControl.resetMusicFade() ## reset music state
-
+	SceneManager.currentScene = self
 
 # Called when an InputEvent is detected
 func _input(event: InputEvent) -> void:
@@ -21,11 +21,11 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ActionButton"):
 		if selector.position == newGamePos:
 			SoundControl.playCue(SoundControl.start,1.0)
-			SceneManager.GoToNewSceneString(self, Scenes.ZETutorial1)
+			SceneManager.GoToNewSceneString(Scenes.ZETutorial1)
 			### change bgm and fade on out
 			SoundControl.levelChangeSoundCall(1.0,SoundControl.defaultBgm)
 		elif selector.position == passwordPos:
-			SceneManager.GoToNewSceneString(self, Scenes.ZEPassword)
+			SceneManager.GoToNewSceneString(Scenes.ZEPassword)
 			
 	if Input.is_action_just_pressed("DigitalDown") || Input.is_action_just_pressed("DigitalUp"):
 		swapSelectorPos()

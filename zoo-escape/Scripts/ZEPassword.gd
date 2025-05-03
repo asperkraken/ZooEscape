@@ -152,7 +152,7 @@ func buttonBatchControl(logic:bool): ## batch button logic for disabling and buf
 
 func returnToTitle(): ## return sound cue and load function
 	SoundControl.playCue(SoundControl.down,1.4)
-	SceneManager.call_deferred("GoToNewSceneString",self, title)
+	SceneManager.call_deferred("GoToNewSceneString", title)
 
 
 func answerCheck(): ## check code for answer
@@ -171,7 +171,7 @@ func answerCheck(): ## check code for answer
 
 
 func _on_load_scene_buffer_timeout() -> void: ## load scene at end of load buffer timer
-	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[code.text])
+	SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals[code.text])
 
 
 ## if there are dashes, accept input

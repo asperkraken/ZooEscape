@@ -61,7 +61,7 @@ func _on_exit_tile_player_exits(LevelToGoTo: String) -> void:
 	localHud.closeHud() ## close hud
 	SoundControl.playCue(SoundControl.success,2.0) ## sound trigger
 	player.currentState = player.PlayerState.OnExit
-	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelToGoTo])
+	SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals[LevelToGoTo])
 
 
 func _on_steak_manager_all_steak_collected() -> void:
@@ -70,7 +70,7 @@ func _on_steak_manager_all_steak_collected() -> void:
 
 func restartRoom() -> void:
 	localHud.closeHud()
-	SceneManager.call_deferred("GoToNewSceneString",self, Globals.Game_Globals[LevelCode])
+	SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals[LevelCode])
 
 
 func exitGame() -> void: ## game exit function, refers to gameroot function
