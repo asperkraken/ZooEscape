@@ -29,4 +29,15 @@ var Current_Settings : Dictionary = {
 # Use Globals.Game_Globals.varName to retrieve the value
 # 	Alternatively, use Globals.Game_Globals.get("varName") to retrieve the value
 # TODO: Clean up when someone leaves a game (performed by the SceneManager)
-var Game_Globals: Dictionary = {}
+var Game_Globals: Dictionary = {
+	"player_score" = 0 ## player score total
+}
+
+
+var High_Scoreboard : Dictionary = {
+	"ZAP" : 20000,
+	"MKW" : 19000,
+	"GUS" : 18000,
+	"FTW" : 17000,
+	"ZOO" : 16000
+}

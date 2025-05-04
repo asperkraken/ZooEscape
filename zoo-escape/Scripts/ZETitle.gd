@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 		if selector.position == newGamePos:
 			SoundControl.playCue(SoundControl.start,1.0)
 			SceneManager.GoToNewSceneString(Scenes.ZETutorial1)
+			Globals.Game_Globals.set("player_score",0)
 			### change bgm and fade on out
 			SoundControl.levelChangeSoundCall(1.0,SoundControl.defaultBgm)
 		elif selector.position == passwordPos:
