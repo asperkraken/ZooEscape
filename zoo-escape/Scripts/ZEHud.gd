@@ -105,6 +105,9 @@ func buttonFocusGrab():
 			$RestartButton.grab_focus()
 
 
+
+
+
 ## input start function and flip flop state
 func levelTimerStart():
 	$HUDAnimationAlt.play("time_text_reset") ## reset time text (bugfix)
