@@ -13,7 +13,12 @@ config_version=5
 config/name="Zoo Escape"
 run/main_scene="uid://bq8h4mq117i5a"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.180392, 0.172549, 0.231373, 1)
+config/icon="res://Assets/Images/Icons/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://Assets/Sound/default_bus_layout.tres"
 
 [autoload]
 
@@ -33,6 +38,15 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "yellow",
+"res://GlobalScripts/": "blue",
+"res://Scenes/": "pink",
+"res://Scripts/": "purple"
+}
 
 [input]
 
@@ -157,3 +171,4 @@ textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.180392, 0.172549, 0.231373, 1)
