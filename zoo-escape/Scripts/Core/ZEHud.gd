@@ -133,7 +133,7 @@ func valueMonitoring():
 	## update timer as it counts down
 	if timerValue < timeLimit and moveMonitoring:
 		$HudWindow/TimerValue.text = str(timerValue)+"s"
-	if timerValue == 0: ## last second warning
+	if timerValue == 0 and scoreProcessState == SCORE_PROCESS_STATES.IDLE: ## last second warning
 		$HudWindow/TimerValue.modulate = Color.RED
 		$HudWindow/TimerText.modulate = Color.RED
 
