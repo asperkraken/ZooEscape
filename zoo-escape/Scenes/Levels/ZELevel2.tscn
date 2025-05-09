@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=4 uid="uid://c2gja864febj"]
 
-[ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/ZELevelManager.gd" id="1_kf4kq"]
+[ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/ZELevelManager.gd" id="1_kf4kq"]
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/ZETiles.tres" id="2_bxkus"]
-[ext_resource type="Script" uid="uid://7jmx121he3g2" path="res://Scripts/ZESteakManager.gd" id="5_53w1d"]
-[ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/ZESteak.tscn" id="6_88ppj"]
-[ext_resource type="PackedScene" uid="uid://cxubfhy8y0hcg" path="res://Scenes/ZEBox.tscn" id="8_613vg"]
-[ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/ZEExitTile.tscn" id="9_ncahn"]
-[ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/ZEPlayer.tscn" id="10_uxmkr"]
+[ext_resource type="Script" uid="uid://7jmx121he3g2" path="res://Scripts/Components/Interactive/ZESteakManager.gd" id="5_53w1d"]
+[ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/ZESteak.tscn" id="6_88ppj"]
+[ext_resource type="PackedScene" uid="uid://cxubfhy8y0hcg" path="res://Scenes/Components/Interactive/ZEBox.tscn" id="8_613vg"]
+[ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/Components/Interactive/ZEExitTile.tscn" id="9_ncahn"]
+[ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/Player/ZEPlayer.tscn" id="10_uxmkr"]
 
 [node name="ZELevel2" type="Node2D"]
 script = ExtResource("1_kf4kq")
