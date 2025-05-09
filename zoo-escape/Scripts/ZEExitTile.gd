@@ -1,6 +1,6 @@
 extends AnimatedSprite2D
 
-@export var NextLevelCode: String
+@export var NextLevelCode: String = "9990"
 var _levelExitFlag : bool = false
 signal PlayerExits(LevelToGoTo: String)
 

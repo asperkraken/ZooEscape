@@ -4,7 +4,7 @@ extends Control
 var steakValue : int = 1 ## live monitor of steak total
 var timerValue : int = 1 ## live monitor of timer
 var movesValue : int = 0 ## live monitor of moves
-var scoreCurrent : int = Globals.Game_Globals.get("player_score") ## player score
+@onready var scoreCurrent : int = Globals.Game_Globals.get("player_score") ## player score
 var secondBonus : int = 50 ## values for abstraction from parent to apply
 var movePenalty : int = 25
 var moveMonitoring : bool = false ## shows timer has started
@@ -26,7 +26,7 @@ enum SCORE_PROCESS_STATES {
 	MOVE_PROCESS,
 	POST}
 var focusState : int = 0
-var passwordState = Globals.Current_Settings["passwordWindowOpen"]
+@onready var passwordState = Globals.Current_Settings["passwordWindowOpen"]
 enum FOCUS_STATES {
 	RESTART,
 	EXIT}
@@ -84,8 +84,6 @@ func _process(_delta: float) -> void:
 
 	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
 		scoreProcessing()
-		get_tree().paused = true
-
 
 ## button to grab focus from keyboard for timeout buttons
 func buttonFocusGrab():
@@ -254,7 +252,7 @@ func scoreProcessing(): ## score processing state machine
 				var _old = Globals.Game_Globals.get("player_score")
 				Globals.Game_Globals.set("player_score",(_old+secondBonus))
 			else:
-				scoreProcessState+=1 ## then state flips
+				scoreProcessState = SCORE_PROCESS_STATES.MOVE_PROCESS ## then state flips
 		SCORE_PROCESS_STATES.MOVE_PROCESS:
 			if movesValue > 0: ## moves subtract penalty until zero
 				movesValue-=1
@@ -263,6 +261,6 @@ func scoreProcessing(): ## score processing state machine
 			else: ## then state flips back to off
 				print("Score processed!")
 				score_processed.emit() ## after emitting one signal
-				scoreProcessState+=1
+				scoreProcessState = SCORE_PROCESS_STATES.POST
 		SCORE_PROCESS_STATES.POST:
 			pass

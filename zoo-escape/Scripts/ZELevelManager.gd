@@ -2,15 +2,15 @@ class_name ZELevelManager extends Node2D
 
 @export var LevelCode: String = "" ## stores as password
 @export var LevelTime: int = 60  ## level time limit relayed to hud
-@export var WarningTime : int = 15 ## time out warning threshold
-@export var ExitScoreBonus : int = 500 ## local editor variables to effect bonuses
-@export var PerSecondBonus : int = 100
-@export var PerMovePenalty : int = 25
-@export var TutorialScoreBypass : bool = false
+@export var WarningTime: int = 15 ## time out warning threshold
+@export var ExitScoreBonus: int = 500 ## local editor variables to effect bonuses
+@export var PerSecondBonus: int = 100
+@export var PerMovePenalty: int = 25
+@export var TutorialScoreBypass: bool = false
 @onready var player := $Player
 @onready var resetTime := 0.0
+@onready var nextLevel: String = $ExitTile.NextLevelCode ## pointer for next scene string
 var loadingScore = Globals.Game_Globals.get("player_score") ## compare score for reloads
-var nextLevel = null ## pointer for next scene string
 var localHud = null ## pointer for hud
 var timeUp : bool = false ## to monitor local hud timer
 
@@ -25,7 +25,7 @@ func _ready() -> void:
 		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
 
 	## connect hud to scene change and score process functions
-	nextLevel = $ExitTile.NextLevelCode
+
 	localHud = get_node("Player/ZEHud")
 	localHud.restart_room.connect(restartRoom)
 	localHud.exit_game.connect(exitGame)
@@ -77,14 +77,12 @@ func _on_exit_tile_player_exits() -> void:
 
 
 func nextRoom(): ## load next level
-	nextLevel = $ExitTile.NextLevelCode
 	player.currentState = player.PlayerState.OnExit
-	if nextLevel != str(SceneManager.gameRoot.title):
-		SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals[nextLevel])
+	if Globals.Game_Globals.get(nextLevel) != Scenes.ZETitle:
+		SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals.get(nextLevel))
 	else:
 		Globals.Game_Globals.set("player_score",0)
 		exitGame()
-
 
 func _on_steak_manager_all_steak_collected() -> void:
 	$ExitTile.ActavateExit() ## update score and apply exit score open bonus

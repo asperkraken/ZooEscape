@@ -5,21 +5,21 @@ extends Node
 
 # Volume settings are included by default and changed by the SettingsManager
 # Do not alter this variable within your game; use the SettingsManager
-var Current_Volume_Settings: Dictionary = {
+@onready var Current_Volume_Settings: Dictionary = {
 	"master_volume": null,
 	"music_volume": null,
 	"fx_volume": null
 }
 
 ## this will store global values for transferring level data to hud
-var Current_Level_Data: Dictionary = {
+@onready var Current_Level_Data: Dictionary = {
 	"time_limit" : 60,
 	"warning_threshold" : 15
 }
 
 # Globally available settings that can be used to store different settings
 # Used to hold additional settings for your game, as needed
-var Current_Settings : Dictionary = {
+@onready var Current_Settings : Dictionary = {
 	"passwordWindowOpen" : false ## global hud control flag
 }
 
@@ -29,12 +29,43 @@ var Current_Settings : Dictionary = {
 # Use Globals.Game_Globals.varName to retrieve the value
 # 	Alternatively, use Globals.Game_Globals.get("varName") to retrieve the value
 # TODO: Clean up when someone leaves a game (performed by the SceneManager)
-var Game_Globals: Dictionary = {
-	"player_score" = 0 ## player score total
+@onready var Game_Globals: Dictionary = {
+	"player_score" = 0, ## player score total
+	# debug levels
+	"9990" = Scenes.ZETitle,
+	"9991" = Scenes.ZEDebug,
+	"9992" = Scenes.ZEDebug2,
+	
+	# Real Levels
+	"0001" = Scenes.ZETutorial1,
+	
+	"0387" = Scenes.ZELevel1,
+	"9102" = Scenes.ZELevel2
+	# "1476" = 
+	# "5829" = 
+	# "0053" = 
+	
+	# "7618" = 
+	# "2940" = 
+	# "8365" = 
+	# "0721" = 
+	# "6594" = 
+	
+	# "3082" = 
+	# "9817" = 
+	# "4250" = 
+	# "1639" = 
+	# "7048" = 
+	
+	# "2561" = 
+	# "8934" = 
+	# "0195" = 
+	# "5473" = 
+	# "3706" = 
 }
 
 
-var High_Scoreboard : Dictionary = {
+@onready var High_Scoreboard : Dictionary = {
 	"ZAP" : 20000,
 	"MKW" : 19000,
 	"GUS" : 18000,
