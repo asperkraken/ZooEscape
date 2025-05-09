@@ -19,7 +19,7 @@ signal restart_room ## reload signal
 signal exit_game ## exit to title signal
 signal score_processed ## score processing signal for process score
 var post_score : bool = false ## post score process flag, prevents overloading buffer
-var scoreProcessState : int = 0
+var scoreProcessState : SCORE_PROCESS_STATES = SCORE_PROCESS_STATES.IDLE
 enum SCORE_PROCESS_STATES {
 	IDLE,
 	TIME_PROCESS,
@@ -82,7 +82,7 @@ func _process(_delta: float) -> void:
 			buttonFocusGrab()
 
 
-	if scoreProcessState > 0:
+	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
 		scoreProcessing()
 		get_tree().paused = true
 
@@ -164,7 +164,7 @@ func inputWatch(): ## listen for moves and update total
 
 ## time functionality
 func _on_level_timer_timeout() -> void:
-	if scoreProcessState == 0: ## do not log timeouts during score processing
+	if scoreProcessState == SCORE_PROCESS_STATES.IDLE: ## do not log timeouts during score processing
 		if timerValue >= 1 and !timesUp: ## if time not up, clock counts down
 			timerValue-=1
 			$LevelTimer.start(1)
