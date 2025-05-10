@@ -48,14 +48,14 @@ jobs:
         run: |
           ls
           ls build
-          ls "build/Tile Jumper Exodus"
+          ls "build/ZooEscape"
             
       - name: Upload to itch.io
         uses: dulvui/itchio-butler-upload@v0.0.1
         with:
-            # working-directory: '"build/Tile Jumper Exodus"'
-            working-directory: ${{ steps.export.outputs.archive_directory }}
+            working-directory: '"build/ZooEscape"'
+            # working-directory: ${{ steps.export.outputs.archive_directory }}
             api-key: ${{ secrets.BUTLER_CREDENTIALS }}
-            user: maximino
-            game: tile-jumper-exodus
+            user: zapturk
+            game: zoo-escape
             channel: html5
