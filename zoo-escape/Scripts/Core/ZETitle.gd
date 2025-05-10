@@ -107,14 +107,18 @@ func _on_password_button_mouse_entered() -> void:
 
 func _on_settings_button_focus_entered() -> void:
 	focusEntered($SettingsButton)
+	if areYouSure:
+		areYouSureReset()
 
 
 func _on_settings_button_mouse_entered() -> void:
 	mouseEntered($SettingsButton)
+	if areYouSure:
+		areYouSureReset()
 
 
 func _on_exit_button_focus_entered() -> void:
-	if areYouSure:
+	if areYouSure: ## are you sure warning
 		focusEntered($ExitButton)
 
 
@@ -124,8 +128,10 @@ func _on_exit_button_mouse_entered() -> void:
 
 
 func _on_exit_button_focus_exited() -> void:
-	areYouSureReset()
+	if areYouSure: ## if are you sure visible, reset
+		areYouSureReset()
 
 
 func _on_exit_button_mouse_exited() -> void:
-	areYouSureReset()
+	if areYouSure:
+		areYouSureReset()

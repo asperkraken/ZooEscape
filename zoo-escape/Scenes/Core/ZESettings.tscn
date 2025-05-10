@@ -26,7 +26,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_sbfs6"]
 resource_name = "roll_info"
-length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -34,7 +33,7 @@ tracks/0/path = NodePath("Description:visible_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
@@ -54,10 +53,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i6roa")
-masterInfo = "Controls total volume of all sound in dB."
-bgmInfo = "Controls volume level of background music in dB."
-sfxInfo = "Controls volume of environmental sound effects in dB."
-cueInfo = "Controls volume of system cues like pause noises in dB."
+masterInfo = "Controls total volume of all sound."
+bgmInfo = "Controls volume level of background music."
+sfxInfo = "Controls volume of environmental sound effects."
+cueInfo = "Controls volume of system cues like pause noises."
 deadzoneInfo = "Controls the level at which analog direction inputs trigger."
 exitInfo = "Escape to main menu."
 metadata/_edit_lock_ = true

@@ -15,6 +15,7 @@ var sfxVolume : int = Globals.Current_Options_Settings["sfx_volume"]
 var cueVolume : int = Globals.Current_Options_Settings["cue_volume"]
 var analogDeadzone : float = Globals.Current_Options_Settings["analog_deadzone"]
 
+## holders for percentage values
 var masterPercent
 var bgmPercent
 var sfxPercent
@@ -42,6 +43,7 @@ func _ready() -> void:
 	## update text and set first button on master bgm down
 	$MasterGroup/MasterSlider.grab_focus()
 	focusInfoRelay("MASTER",masterInfo)
+	$Animator.play("roll_info")
 	
 
 
