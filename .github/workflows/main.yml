@@ -103,7 +103,7 @@ jobs:
        run: |
          mkdir -v -p build/web
          cd $PROJECT_PATH
-         godot --headless --verbose --export-release "Web" ../build/web/$EXPORT_NAME.zip
+         godot --headless --verbose --export-release "Web" ../build/web/index.html
      - name: Upload Artifact
        uses: actions/upload-artifact@v4.4.3
        with:
