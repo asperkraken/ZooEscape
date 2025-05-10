@@ -41,8 +41,8 @@ func _ready() -> void: ## reset animations at ready, fetch start values
 	steakValueFetch()
 	timerValue = timeLimit
 	## to avoid queueing error on prompt
-	$OpenCue.volume_db = Globals.Game_Globals.get("cue_volume")
-	$AlertCue.volume_db = Globals.Game_Globals.get("cue_volume")
+	$OpenCue.volume_db = SoundControl.cueLevel
+	$AlertCue.volume_db = SoundControl.cueLevel
 	
 
 func _process(_delta: float) -> void:
