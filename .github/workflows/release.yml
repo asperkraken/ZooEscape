@@ -1,0 +1,61 @@
+name: "Godot Export and Upload"
+on: push
+env:
+  GODOT_VERSION: 4.4
+  EXPORT_NAME: ZooEscape
+  
+jobs:
+  export-web:
+    name: Web Export
+    runs-on: ubuntu-latest
+    steps:
+      - id: commit-type
+        name: Check Commit Type
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '^\d*$'
+          error: 'The commit message does not look like a version number. Please use semantic versioning (https://semver.org/).'
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Find and Replace Version
+        uses: jacobtomlinson/gha-find-replace@v3
+        id: find-replace
+        with:
+          find: "__TJE_VERSION__"
+          replace: ${{ github.event.head_commit.message }}
+          regex: false
+
+      - name: Show Modified Files where Version was replaced
+        run: |
+          git status
+          git diff
+
+      - name: export game
+        id: export
+        # Use latest version (see releases for all versions)
+        uses: firebelley/godot-export@v6.0.0
+        with:
+            # Defining all the required inputs
+            godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4.1-stable/Godot_v4.4.1-stable_linux.x86_64.zip
+            godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz
+            relative_project_path: ./
+            relative_export_path: ./build # move export output to this directory relative to git root
+            archive_output: false
+
+      - name: test
+        run: |
+          ls
+          ls build
+          ls "build/Tile Jumper Exodus"
+            
+      - name: Upload to itch.io
+        uses: dulvui/itchio-butler-upload@v0.0.1
+        with:
+            # working-directory: '"build/Tile Jumper Exodus"'
+            working-directory: ${{ steps.export.outputs.archive_directory }}
+            api-key: ${{ secrets.BUTLER_CREDENTIALS }}
+            user: maximino
+            game: tile-jumper-exodus
+            channel: html5
