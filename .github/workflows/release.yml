@@ -9,13 +9,6 @@ jobs:
     name: Web Export
     runs-on: ubuntu-latest
     steps:
-    #   - id: commit-type
-    #     name: Check Commit Type
-    #     uses: gsactions/commit-message-checker@v2
-    #     with:
-    #       pattern: '^\d*$'
-    #       error: 'The commit message does not look like a version number. Please use semantic versioning (https://semver.org/).'
-
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -47,7 +40,9 @@ jobs:
       - name: test
         run: |
           ls
+          echo "-----"
           ls build
+          echo "-----"
           ls "build/ZooEscape"
             
       - name: Upload to itch.io
