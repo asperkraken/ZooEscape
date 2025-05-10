@@ -6,10 +6,10 @@ extends Node
 # Volume settings are included by default and changed by the SettingsManager
 # Do not alter this variable within your game; use the SettingsManager
 var Current_Options_Settings: Dictionary = {
-	"master_volume": -15,
-	"music_volume": -15,
-	"sfx_volume": -15,
-	"cue_volume": -15,
+	"master_volume": -16,
+	"music_volume": -16,
+	"sfx_volume": -16,
+	"cue_volume": -16,
 	"analog_deadzone": 0.20
 }
 

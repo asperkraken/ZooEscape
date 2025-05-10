@@ -59,7 +59,8 @@ func _ready() -> void: ## sound preferences retrieved at ready
 
 
 func _process(delta: float) -> void: ## listen for fade states and update volumes
-	bgmFadingMachine(delta,fadeRate)
+	if fadeState != FADE_STATES.PEAK_VOLUME:
+		bgmFadingMachine(delta,fadeRate)
 
 
 ## values set for sound levels
@@ -68,6 +69,7 @@ func setSoundPreferences(_master:int,_bgm:int, _sfx:int, _cue:int):
 	$BGM.volume_db = _bgm ## default to silence for fade in
 	$SFX.volume_db = _sfx
 	$Cue.volume_db = _cue
+
 
 
 ## call bgm file and play (state machine handles stop and start automatically)

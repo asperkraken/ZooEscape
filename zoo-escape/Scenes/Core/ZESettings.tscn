@@ -82,6 +82,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MasterText" type="Label" parent="MasterGroup"]
 layout_mode = 0
@@ -100,58 +101,40 @@ vertical_alignment = 1
 
 [node name="MasterValue" type="Label" parent="MasterGroup"]
 layout_mode = 0
-offset_left = 384.0
+offset_left = 320.0
 offset_top = 80.0
-offset_right = 448.0
+offset_right = 384.0
 offset_bottom = 112.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "-15"
+text = "80%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MasterDown" type="Button" parent="MasterGroup"]
+[node name="MasterSlider" type="HSlider" parent="MasterGroup"]
 layout_mode = 0
-offset_left = 336.0
-offset_top = 80.0
-offset_right = 368.0
-offset_bottom = 112.0
+offset_left = 396.0
+offset_top = 83.0
+offset_right = 556.0
+offset_bottom = 107.0
 focus_neighbor_left = NodePath("../../EscapeButton")
 focus_neighbor_top = NodePath("../../EscapeButton")
-focus_neighbor_right = NodePath("../MasterUp")
-focus_neighbor_bottom = NodePath("../../BGMGroup/BGMDown")
-focus_next = NodePath("../MasterUp")
+focus_neighbor_bottom = NodePath("../../BGMGroup/BGMSlider")
+focus_next = NodePath("../../BGMGroup/BGMSlider")
 focus_previous = NodePath("../../EscapeButton")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("6_bxk0w")
-
-[node name="MasterUp" type="Button" parent="MasterGroup"]
-layout_mode = 0
-offset_left = 464.0
-offset_top = 80.0
-offset_right = 496.0
-offset_bottom = 112.0
-focus_neighbor_left = NodePath("../MasterDown")
-focus_neighbor_top = NodePath("../../DeadzoneGroup/DeadzoneUp")
-focus_neighbor_right = NodePath("../../EscapeButton")
-focus_neighbor_bottom = NodePath("../../BGMGroup/BGMUp")
-focus_next = NodePath("../../BGMGroup/BGMDown")
-focus_previous = NodePath("../MasterDown")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("7_7pssb")
+min_value = -80.0
+max_value = 0.0
+value = -16.0
 
 [node name="BGMGroup" type="Control" parent="."]
 anchors_preset = 0
 offset_top = 48.0
 offset_right = 40.0
 offset_bottom = 88.0
+metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="BGMText" type="Label" parent="BGMGroup"]
@@ -171,52 +154,33 @@ vertical_alignment = 1
 
 [node name="BGMValue" type="Label" parent="BGMGroup"]
 layout_mode = 0
-offset_left = 384.0
+offset_left = 320.0
 offset_top = 80.0
-offset_right = 448.0
+offset_right = 384.0
 offset_bottom = 112.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "-15"
+text = "80%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BGMDown" type="Button" parent="BGMGroup"]
+[node name="BGMSlider" type="HSlider" parent="BGMGroup"]
 layout_mode = 0
-offset_left = 336.0
-offset_top = 80.0
-offset_right = 368.0
-offset_bottom = 112.0
-focus_neighbor_left = NodePath("../BGMUp")
-focus_neighbor_top = NodePath("../../MasterGroup/MasterDown")
-focus_neighbor_right = NodePath("../BGMUp")
-focus_neighbor_bottom = NodePath("../../SFXGroup/SFXDown")
-focus_next = NodePath("../BGMUp")
-focus_previous = NodePath("../../MasterGroup/MasterUp")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("6_bxk0w")
-
-[node name="BGMUp" type="Button" parent="BGMGroup"]
-layout_mode = 0
-offset_left = 464.0
-offset_top = 80.0
-offset_right = 496.0
-offset_bottom = 112.0
-focus_neighbor_left = NodePath("../BGMDown")
-focus_neighbor_top = NodePath("../../MasterGroup/MasterUp")
-focus_neighbor_right = NodePath("../BGMDown")
-focus_neighbor_bottom = NodePath("../../SFXGroup/SFXUp")
-focus_next = NodePath("../../SFXGroup/SFXDown")
-focus_previous = NodePath("../BGMDown")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("7_7pssb")
+offset_left = 396.0
+offset_top = 83.0
+offset_right = 556.0
+offset_bottom = 107.0
+focus_neighbor_left = NodePath("../../EscapeButton")
+focus_neighbor_top = NodePath("../../MasterGroup/MasterSlider")
+focus_neighbor_bottom = NodePath("../../SFXGroup/SFXSlider")
+focus_next = NodePath("../../SFXGroup/SFXSlider")
+focus_previous = NodePath("../../MasterGroup/MasterSlider")
+min_value = -80.0
+max_value = 0.0
+value = -16.0
 
 [node name="SFXGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -243,52 +207,33 @@ vertical_alignment = 1
 
 [node name="SFXValue" type="Label" parent="SFXGroup"]
 layout_mode = 0
-offset_left = 384.0
+offset_left = 320.0
 offset_top = 144.0
-offset_right = 448.0
+offset_right = 384.0
 offset_bottom = 176.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "-15"
+text = "80%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SFXDown" type="Button" parent="SFXGroup"]
+[node name="SFXSlider" type="HSlider" parent="SFXGroup"]
 layout_mode = 0
-offset_left = 336.0
+offset_left = 396.0
 offset_top = 144.0
-offset_right = 368.0
-offset_bottom = 176.0
-focus_neighbor_left = NodePath("../SFXUp")
-focus_neighbor_top = NodePath("../../BGMGroup/BGMDown")
-focus_neighbor_right = NodePath("../SFXUp")
-focus_neighbor_bottom = NodePath("../../CueGroup/CueDown")
-focus_next = NodePath("../SFXUp")
-focus_previous = NodePath("../../BGMGroup/BGMUp")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("6_bxk0w")
-
-[node name="SFXUp" type="Button" parent="SFXGroup"]
-layout_mode = 0
-offset_left = 464.0
-offset_top = 144.0
-offset_right = 496.0
-offset_bottom = 176.0
-focus_neighbor_left = NodePath("../SFXDown")
-focus_neighbor_top = NodePath("../../BGMGroup/BGMUp")
-focus_neighbor_right = NodePath("../SFXDown")
-focus_neighbor_bottom = NodePath("../../CueGroup/CueUp")
-focus_next = NodePath("../../CueGroup/CueDown")
-focus_previous = NodePath("../SFXDown")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("7_7pssb")
+offset_right = 556.0
+offset_bottom = 168.0
+focus_neighbor_left = NodePath("../../EscapeButton")
+focus_neighbor_top = NodePath("../../BGMGroup/BGMSlider")
+focus_neighbor_bottom = NodePath("../../CueGroup/CueSlider")
+focus_next = NodePath("../../CueGroup/CueSlider")
+focus_previous = NodePath("../../BGMGroup/BGMSlider")
+min_value = -80.0
+max_value = 0.0
+value = -16.0
 
 [node name="CueGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -315,52 +260,33 @@ vertical_alignment = 1
 
 [node name="CueValue" type="Label" parent="CueGroup"]
 layout_mode = 0
-offset_left = 384.0
+offset_left = 320.0
 offset_top = 208.0
-offset_right = 448.0
+offset_right = 384.0
 offset_bottom = 240.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "-15"
+text = "80%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CueDown" type="Button" parent="CueGroup"]
+[node name="CueSlider" type="HSlider" parent="CueGroup"]
 layout_mode = 0
-offset_left = 336.0
+offset_left = 396.0
 offset_top = 208.0
-offset_right = 368.0
-offset_bottom = 240.0
-focus_neighbor_left = NodePath("../CueUp")
-focus_neighbor_top = NodePath("../../SFXGroup/SFXDown")
-focus_neighbor_right = NodePath("../CueUp")
+offset_right = 556.0
+offset_bottom = 232.0
+focus_neighbor_left = NodePath("../../EscapeButton")
+focus_neighbor_top = NodePath("../../SFXGroup/SFXSlider")
 focus_neighbor_bottom = NodePath("../../DeadzoneGroup/DeadzoneDown")
-focus_next = NodePath("../CueUp")
-focus_previous = NodePath("../../BGMGroup/BGMUp")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("6_bxk0w")
-
-[node name="CueUp" type="Button" parent="CueGroup"]
-layout_mode = 0
-offset_left = 464.0
-offset_top = 208.0
-offset_right = 496.0
-offset_bottom = 240.0
-focus_neighbor_left = NodePath("../CueDown")
-focus_neighbor_top = NodePath("../../SFXGroup/SFXUp")
-focus_neighbor_right = NodePath("../CueDown")
-focus_neighbor_bottom = NodePath("../../DeadzoneGroup/DeadzoneUp")
 focus_next = NodePath("../../DeadzoneGroup/DeadzoneDown")
-focus_previous = NodePath("../CueDown")
-theme_override_styles/focus = ExtResource("3_jnco8")
-theme_override_styles/hover = ExtResource("4_mow0n")
-theme_override_styles/pressed = ExtResource("5_bxk0w")
-icon = ExtResource("7_7pssb")
+focus_previous = NodePath("../../SFXGroup/SFXSlider")
+min_value = -80.0
+max_value = 0.0
+value = -16.0
 
 [node name="DeadzoneGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -388,7 +314,7 @@ vertical_alignment = 1
 layout_mode = 0
 offset_left = 384.0
 offset_top = 272.0
-offset_right = 448.0
+offset_right = 512.0
 offset_bottom = 304.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
@@ -406,11 +332,11 @@ offset_top = 272.0
 offset_right = 368.0
 offset_bottom = 304.0
 focus_neighbor_left = NodePath("../DeadzoneUp")
-focus_neighbor_top = NodePath("../../CueGroup/CueDown")
+focus_neighbor_top = NodePath("../../CueGroup/CueSlider")
 focus_neighbor_right = NodePath("../DeadzoneUp")
 focus_neighbor_bottom = NodePath("../../EscapeButton")
 focus_next = NodePath("../DeadzoneUp")
-focus_previous = NodePath("../../CueGroup/CueUp")
+focus_previous = NodePath("../../CueGroup/CueSlider")
 theme_override_styles/focus = ExtResource("3_jnco8")
 theme_override_styles/hover = ExtResource("4_mow0n")
 theme_override_styles/pressed = ExtResource("5_bxk0w")
@@ -418,12 +344,12 @@ icon = ExtResource("6_bxk0w")
 
 [node name="DeadzoneUp" type="Button" parent="DeadzoneGroup"]
 layout_mode = 0
-offset_left = 464.0
+offset_left = 528.0
 offset_top = 272.0
-offset_right = 496.0
+offset_right = 560.0
 offset_bottom = 304.0
 focus_neighbor_left = NodePath("../DeadzoneDown")
-focus_neighbor_top = NodePath("../../CueGroup/CueUp")
+focus_neighbor_top = NodePath("../../CueGroup/CueSlider")
 focus_neighbor_right = NodePath("../DeadzoneDown")
 focus_neighbor_bottom = NodePath("../../EscapeButton")
 focus_next = NodePath("../../EscapeButton")
@@ -456,11 +382,7 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 48.0
 offset_bottom = 48.0
-focus_neighbor_left = NodePath("../MasterGroup/MasterUp")
 focus_neighbor_top = NodePath("../DeadzoneGroup/DeadzoneDown")
-focus_neighbor_right = NodePath("../MasterGroup/MasterDown")
-focus_neighbor_bottom = NodePath("../MasterGroup/MasterDown")
-focus_next = NodePath("../MasterGroup/MasterDown")
 focus_previous = NodePath("../DeadzoneGroup/DeadzoneUp")
 theme_override_fonts/font = ExtResource("6_7pssb")
 theme_override_font_sizes/font_size = 8
@@ -475,31 +397,26 @@ libraries = {
 }
 
 [node name="InputBuffer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
 
-[connection signal="focus_entered" from="MasterGroup/MasterDown" to="." method="_on_master_down_focus_entered"]
-[connection signal="mouse_entered" from="MasterGroup/MasterDown" to="." method="_on_master_down_mouse_entered"]
-[connection signal="pressed" from="MasterGroup/MasterDown" to="." method="_on_master_down_pressed"]
-[connection signal="focus_entered" from="MasterGroup/MasterUp" to="." method="_on_master_up_focus_entered"]
-[connection signal="mouse_entered" from="MasterGroup/MasterUp" to="." method="_on_master_up_mouse_entered"]
-[connection signal="pressed" from="MasterGroup/MasterUp" to="." method="_on_master_up_pressed"]
-[connection signal="focus_entered" from="BGMGroup/BGMDown" to="." method="_on_bgm_down_focus_entered"]
-[connection signal="mouse_entered" from="BGMGroup/BGMDown" to="." method="_on_bgm_down_mouse_entered"]
-[connection signal="pressed" from="BGMGroup/BGMDown" to="." method="_on_bgm_down_pressed"]
-[connection signal="focus_entered" from="BGMGroup/BGMUp" to="." method="_on_bgm_up_focus_entered"]
-[connection signal="mouse_entered" from="BGMGroup/BGMUp" to="." method="_on_bgm_up_mouse_entered"]
-[connection signal="pressed" from="BGMGroup/BGMUp" to="." method="_on_bgm_up_pressed"]
-[connection signal="focus_entered" from="SFXGroup/SFXDown" to="." method="_on_sfx_down_focus_entered"]
-[connection signal="mouse_entered" from="SFXGroup/SFXDown" to="." method="_on_sfx_down_mouse_entered"]
-[connection signal="pressed" from="SFXGroup/SFXDown" to="." method="_on_sfx_down_pressed"]
-[connection signal="focus_entered" from="SFXGroup/SFXUp" to="." method="_on_sfx_up_focus_entered"]
-[connection signal="mouse_entered" from="SFXGroup/SFXUp" to="." method="_on_sfx_up_mouse_entered"]
-[connection signal="pressed" from="SFXGroup/SFXUp" to="." method="_on_sfx_up_pressed"]
-[connection signal="focus_entered" from="CueGroup/CueDown" to="." method="_on_cue_down_focus_entered"]
-[connection signal="mouse_entered" from="CueGroup/CueDown" to="." method="_on_cue_down_mouse_entered"]
-[connection signal="pressed" from="CueGroup/CueDown" to="." method="_on_cue_down_pressed"]
-[connection signal="focus_entered" from="CueGroup/CueUp" to="." method="_on_cue_up_focus_entered"]
-[connection signal="mouse_entered" from="CueGroup/CueUp" to="." method="_on_cue_up_mouse_entered"]
-[connection signal="pressed" from="CueGroup/CueUp" to="." method="_on_cue_up_pressed"]
+[connection signal="focus_entered" from="MasterGroup/MasterSlider" to="." method="_on_master_slider_focus_entered"]
+[connection signal="mouse_entered" from="MasterGroup/MasterSlider" to="." method="_on_master_slider_mouse_entered"]
+[connection signal="value_changed" from="MasterGroup/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="focus_entered" from="BGMGroup/BGMSlider" to="." method="_on_bgm_slider_focus_entered"]
+[connection signal="mouse_entered" from="BGMGroup/BGMSlider" to="." method="_on_bgm_slider_mouse_entered"]
+[connection signal="value_changed" from="BGMGroup/BGMSlider" to="." method="_on_bgm_slider_value_changed"]
+[connection signal="drag_ended" from="SFXGroup/SFXSlider" to="." method="_on_sfx_slider_drag_ended"]
+[connection signal="drag_started" from="SFXGroup/SFXSlider" to="." method="_on_sfx_slider_drag_started"]
+[connection signal="focus_entered" from="SFXGroup/SFXSlider" to="." method="_on_sfx_slider_focus_entered"]
+[connection signal="mouse_entered" from="SFXGroup/SFXSlider" to="." method="_on_sfx_slider_mouse_entered"]
+[connection signal="value_changed" from="SFXGroup/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="drag_ended" from="CueGroup/CueSlider" to="." method="_on_cue_slider_drag_ended"]
+[connection signal="drag_started" from="CueGroup/CueSlider" to="." method="_on_cue_slider_drag_started"]
+[connection signal="focus_entered" from="CueGroup/CueSlider" to="." method="_on_cue_slider_focus_entered"]
+[connection signal="mouse_entered" from="CueGroup/CueSlider" to="." method="_on_cue_slider_mouse_entered"]
+[connection signal="value_changed" from="CueGroup/CueSlider" to="." method="_on_cue_slider_value_changed"]
 [connection signal="focus_entered" from="DeadzoneGroup/DeadzoneDown" to="." method="_on_deadzone_down_focus_entered"]
 [connection signal="mouse_entered" from="DeadzoneGroup/DeadzoneDown" to="." method="_on_deadzone_down_mouse_entered"]
 [connection signal="pressed" from="DeadzoneGroup/DeadzoneDown" to="." method="_on_deadzone_down_pressed"]
@@ -509,3 +426,4 @@ libraries = {
 [connection signal="focus_entered" from="EscapeButton" to="." method="_on_escape_button_focus_entered"]
 [connection signal="mouse_entered" from="EscapeButton" to="." method="_on_escape_button_mouse_entered"]
 [connection signal="pressed" from="EscapeButton" to="." method="_on_escape_button_pressed"]
+[connection signal="timeout" from="InputBuffer" to="." method="_on_input_buffer_timeout"]
