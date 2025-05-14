@@ -53,8 +53,6 @@ func _process(_delta: float) -> void:
 	if !timesUp and passwordState == false: ## if timer not out, update values and monitor inputs
 		steakValueFetch()
 		valueMonitoring()
-		inputWatch()
-
 
 	## level timer does not start until first input
 	if !moveMonitoring and !timesUp and passwordState == false:
@@ -150,17 +148,6 @@ func passwordReport(data:String): ## function for updating password, referenced 
 func steakValueFetch(): ## count amount of steaks in scene
 	var steakCount = get_tree().get_node_count_in_group("steaks")
 	steakValue = steakCount
-
-
-func inputWatch(): ## listen for moves and update total
-	if Input.is_action_just_pressed("DigitalDown"):
-		movesValue+=1
-	if Input.is_action_just_pressed("DigitalUp"):
-		movesValue+=1
-	if Input.is_action_just_pressed("DigitalLeft"):
-		movesValue+=1
-	if Input.is_action_just_pressed("DigitalRight"):
-		movesValue+=1
 
 ## time functionality
 func _on_level_timer_timeout() -> void:
