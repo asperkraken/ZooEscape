@@ -18,14 +18,14 @@ func _ready() -> void:
 
 func setLevelGlobals() -> void:
 	# debug levels
-	Globals.Game_Globals["9990"] = Scenes.ZETitle
-	Globals.Game_Globals["9991"] = Scenes.ZEDebug
-	Globals.Game_Globals["9992"] = Scenes.ZEDebug2
+	Globals.Game_Globals["9990"] = Scenes.ZETITLE
+	Globals.Game_Globals["9991"] = Scenes.ZEDEBUG
+	Globals.Game_Globals["9992"] = Scenes.ZEDEBUG2
 	
 	# Real Levels
-	Globals.Game_Globals["0001"] = Scenes.ZETutorial1
+	Globals.Game_Globals["0001"] = Scenes.ZETUTORIAL1
 	
-	Globals.Game_Globals["0387"] = Scenes.ZELevel1
+	Globals.Game_Globals["0387"] = Scenes.ZELEVEL1
 	# Globals.Game_Globals["9102"] = 
 	# Globals.Game_Globals["1476"] = 
 	# Globals.Game_Globals["5829"] = 
@@ -52,18 +52,18 @@ func setLevelGlobals() -> void:
 
 func _on_new_game_button_pressed() -> void:
 	SoundControl.playCue(SoundControl.start,1.0)
-	SceneManager.GoToNewSceneString(Scenes.ZETutorial1)
+	SceneManager.GoToNewSceneString(Scenes.ZETUTORIAL1)
 	Globals.Game_Globals.set("player_score",0)
 	### change bgm and fade on out
 	SoundControl.levelChangeSoundCall(1.0,SoundControl.defaultBgm)
 
 
 func _on_password_button_pressed() -> void:
-	SceneManager.GoToNewSceneString(Scenes.ZEPassword)
+	SceneManager.GoToNewSceneString(Scenes.ZEPASSWORD)
 
 
 func _on_settings_button_pressed() -> void:
-	SceneManager.GoToNewSceneString(Scenes.ZESettings)
+	SceneManager.GoToNewSceneString(Scenes.ZESETTINGS)
 
 
 func _on_exit_button_pressed() -> void:

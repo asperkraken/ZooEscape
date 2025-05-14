@@ -4,7 +4,7 @@ extends Node
 # This is set by gameroot when it is ready
 @onready var gameRoot: GameRoot
 @onready var currentScene: Node
-const TITLE = "res://Scenes/Core/ZETitle.tscn"
+const TITLE = Scenes.ZETITLE
 
 
 func _ready() -> void:
