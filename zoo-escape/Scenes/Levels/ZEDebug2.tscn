@@ -49,3 +49,4 @@ position = Vector2(56, 40)
 
 [connection signal="PlayerExits" from="ExitTile" to="." method="_on_exit_tile_player_exits"]
 [connection signal="AllSteakCollected" from="SteakManager" to="." method="_on_steak_manager_all_steak_collected"]
+[connection signal="inWater" from="Player" to="." method="_on_player_in_water"]
