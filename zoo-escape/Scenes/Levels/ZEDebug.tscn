@@ -191,28 +191,28 @@ position = Vector2(120, 200)
 position = Vector2(88, 200)
 
 [node name="Switch" parent="." instance=ExtResource("8_ygj1o")]
-position = Vector2(104, 56)
+position = Vector2(104, 40)
 autoRevert = true
 autoRevertTime = 2.5
 
 [node name="Gate" parent="Switch" instance=ExtResource("9_gasfj")]
-position = Vector2(-32, -48)
+position = Vector2(-32, -32)
 
 [node name="Gate2" parent="Switch" instance=ExtResource("9_gasfj")]
-position = Vector2(0, -48)
+position = Vector2(0, -32)
 gateState = 1
 
 [node name="Gate3" parent="Switch" instance=ExtResource("9_gasfj")]
-position = Vector2(32, -48)
+position = Vector2(32, -32)
 
 [node name="Button" parent="." instance=ExtResource("7_ekvyi")]
 position = Vector2(152, 152)
 
 [node name="Gate" parent="Button" groups=["ZESwitchable"] instance=ExtResource("9_gasfj")]
-position = Vector2(48, 0)
+position = Vector2(80, -64)
 
 [node name="Box" parent="." instance=ExtResource("9_lbuof")]
-position = Vector2(104, 88)
+position = Vector2(136, 152)
 
 [node name="Player" parent="." instance=ExtResource("2_ykc06")]
 position = Vector2(56, 40)
