@@ -17,12 +17,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ActionButton"):
 		if selector.position == newGamePos:
 			SoundControl.playCue(SoundControl.start,1.0)
-			SceneManager.GoToNewSceneString(Scenes.ZETutorial1)
+			SceneManager.GoToNewSceneString(Scenes.TUTORIAL1)
 			Globals.Game_Globals.set("player_score",0)
 			### change bgm and fade on out
 			SoundControl.levelChangeSoundCall(1.0,SoundControl.defaultBgm)
 		elif selector.position == passwordPos:
-			SceneManager.GoToNewSceneString(Scenes.ZEPassword)
+			SceneManager.GoToNewSceneString(Scenes.PASSWORD)
 			
 	if Input.is_action_just_pressed("DigitalDown") || Input.is_action_just_pressed("DigitalUp"):
 		swapSelectorPos()

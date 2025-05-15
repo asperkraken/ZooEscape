@@ -28,7 +28,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Area2D" type="Area2D" groups=["ZESwitches"]]
+[node name="Switch" type="Area2D" groups=["ZESwitches"]]
 script = ExtResource("1_74ffm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -32,15 +32,15 @@ extends Node
 @onready var Game_Globals: Dictionary = {
 	"player_score" = 0, ## player score total
 	# debug levels
-	"9990" = Scenes.ZETitle,
-	"9991" = Scenes.ZEDebug,
-	"9992" = Scenes.ZEDebug2,
+	"9990" = Scenes.TITLE,
+	"9991" = Scenes.DEBUG,
+	"9992" = Scenes.DEBUG2,
 	
 	# Real Levels
-	"0001" = Scenes.ZETutorial1,
+	"0001" = Scenes.TUTORIAL1,
 	
-	"0387" = Scenes.ZELevel1,
-	"9102" = Scenes.ZELevel2
+	"0387" = Scenes.LEVEL1,
+	"9102" = Scenes.LEVEL2
 	# "1476" = 
 	# "5829" = 
 	# "0053" = 
