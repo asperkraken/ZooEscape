@@ -4,11 +4,11 @@ extends CharacterBody2D
 const stepNoise = "res://Assets/Sound/deep_thump.ogg"
 const slipNoise = "res://Assets/Sound/squelch.ogg"
 
-enum PlayerState {
-	Idle,
-	InWater,
-	OnExit,
-	Sliding
+enum playerState {
+	IDLE,
+	INWATER,
+	ONEXIT,
+	SLIDING
 }
 
 @onready var dirToAnimtionName := {
@@ -23,11 +23,11 @@ enum PlayerState {
 @onready var currentDir: Vector2 = Vector2.DOWN
 @onready var sprite := $AnimatedSprite2D
 @onready var ray := $RayCast2D
-@onready var currentState: PlayerState = PlayerState.Idle
+@onready var currentState: playerState = playerState.IDLE
 @onready var moveTimer := 0.0
 @onready var lastMoveDir := Vector2.DOWN
 
-signal InWater
+signal inWater
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,15 +37,15 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if currentState == PlayerState.Idle:
+	if currentState == playerState.IDLE:
 		if Input.is_action_just_pressed("DigitalUp"):
-			MovePlayer(Vector2.UP)
+			movePlayer(Vector2.UP)
 		elif Input.is_action_just_pressed("DigitalRight"):
-			MovePlayer(Vector2.RIGHT)
+			movePlayer(Vector2.RIGHT)
 		elif Input.is_action_just_pressed("DigitalDown"):
-			MovePlayer(Vector2.DOWN)
+			movePlayer(Vector2.DOWN)
 		elif Input.is_action_just_pressed("DigitalLeft"):
-			MovePlayer(Vector2.LEFT)
+			movePlayer(Vector2.LEFT)
 			
 		if Input.is_action_pressed("DigitalUp") || Input.is_action_pressed("DigitalRight") || Input.is_action_pressed("DigitalDown") || Input.is_action_pressed("DigitalLeft"):
 			moveTimer += delta
@@ -55,26 +55,26 @@ func _process(delta: float) -> void:
 			
 		if moveTimer >= moveSpeed:
 			if Input.is_action_pressed("DigitalUp"):
-				MovePlayer(Vector2.UP)
+				movePlayer(Vector2.UP)
 			elif Input.is_action_pressed("DigitalRight"):
-				MovePlayer(Vector2.RIGHT)
+				movePlayer(Vector2.RIGHT)
 			elif Input.is_action_pressed("DigitalDown"):
-				MovePlayer(Vector2.DOWN)
+				movePlayer(Vector2.DOWN)
 			elif Input.is_action_pressed("DigitalLeft"):
-				MovePlayer(Vector2.LEFT)
+				movePlayer(Vector2.LEFT)
 			
 			moveTimer = 0
 		
-		if Input.is_action_pressed("ActionButton"):
-			# Detect if "ray" is colliding with an object
+		if Input.is_action_just_pressed("ActionButton"):
+			# Detect if "ray" is colliding with an object (e.g., Player is facing a Switch)
 			# - If so, try to interact
 			if ray.is_colliding():
-				InteractWithRayCollider(ray.get_collider())
-	elif currentState == PlayerState.Sliding:
+				interactWithRayCollider(ray.get_collider())
+	elif currentState == playerState.SLIDING:
 		moveTimer += delta
 		
 		if moveTimer >= moveSpeed:
-			MovePlayer(lastMoveDir)
+			movePlayer(lastMoveDir)
 			moveTimer = 0
 	
 	if Globals.Current_Settings["passwordWindowOpen"] == true:
@@ -82,34 +82,39 @@ func _process(delta: float) -> void:
 
 
 # Called to move the player
-func MovePlayer(dir: Vector2) -> void:
+func movePlayer(dir: Vector2) -> void:
 	var _pitch = randf_range(-0.25,0.25)
 	$StepCue.pitch_scale = 1+_pitch
 	$StepCue.play()
-
+	
+	# Change the direction the Player is facing
 	sprite.play(dirToAnimtionName[dir])
 	ray.target_position = dir * Globals.ZETileSize
 	ray.force_raycast_update()
 	
+	# After changing the direction the Player is facing,
+	# if the Player's RayCast2D is colliding, do logic
 	if ray.is_colliding():
 		var collidingObj: Object = ray.get_collider()
+		# If the collider is a Box, try to move the Box and the Player
 		if collidingObj is ZEBoxArea:
 			if collidingObj.Move(dir):
 				$ZEHud.movesValue += 1
 				position += dir * Globals.ZETileSize
+	
+	# Otherwise, if the RayCast2D is not colliding, simply move
 	elif !ray.is_colliding():
 		$ZEHud.movesValue += 1
 		position += dir * Globals.ZETileSize
 		lastMoveDir = dir
 
+
 # Called to attempt interaction with various objects when player is facing a collider
-func InteractWithRayCollider(obj: Object) -> void:
-	# Is colliding object interactable?
+func interactWithRayCollider(collidingObj: Object) -> void:
 	# - This expects a collision body as a child of a different node, like a Sprite2D, CharacterBody2D, or Area2D
-	# - See the ZESwitch.tscn file for scene tree example	
-	if obj.is_in_group("ZEInteractable"):
-		if obj is ZESwitch:
-			obj.ChangeState()
+	# - See the ZESwitch.tscn file for scene tree example
+	if collidingObj is ZESwitchArea: # Is the object a Switch?
+		collidingObj.flipSwitch()
 
 
 func _on_ground_check_area_entered(area: Area2D) -> void:
@@ -118,19 +123,18 @@ func _on_ground_check_area_entered(area: Area2D) -> void:
 	if(layer == 2):
 		$ZEHud.closeHud()
 		SoundControl.playCue(SoundControl.fail,3.0)
-		currentState = PlayerState.InWater
+		currentState = playerState.INWATER
 	
 		# tell the level to restart
-		InWater.emit()
+		inWater.emit()
 	elif(layer == 4):
 		if(!ray.is_colliding()):
-			currentState = PlayerState.Sliding
+			currentState = playerState.SLIDING
 			$StepCue.stream = load(slipNoise)
 		else:
-			currentState = PlayerState.Idle
-		
+			currentState = playerState.IDLE
 
 
 func _on_ground_check_area_exited(_area: Area2D) -> void:
-	currentState = PlayerState.Idle
+	currentState = playerState.IDLE
 	$StepCue.stream = load(stepNoise)
