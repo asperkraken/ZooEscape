@@ -1,21 +1,20 @@
 extends Node2D
 
-enum state {
-	closed,
-	open
-}
 
-@onready var currentState: int = state.closed
+@export_enum("CLOSED", "OPEN") var gateState: int = 0 # the initial state of the Gate, Closed or Open
 
+
+# Called when the Node enters the Scene Tree for the first time
 func _ready() -> void:
-	$Sprite2D.frame = currentState
+	$Sprite2D.frame = gateState
 
-func SetState(newState: int) -> void:
-	currentState = newState
+
+# Called to change the state of the Gate
+func changeState() -> void:
+	gateState = !gateState
+	$Sprite2D.frame = gateState
 	
-	if currentState == state.open:
+	if gateState == 1:
 		$Area2D.collision_layer = 0
 	else:
 		$Area2D.collision_layer = 1
-	
-	$Sprite2D.frame = currentState

@@ -1,49 +1,44 @@
 extends AnimatedSprite2D
 
-# If you have multiple switches, use this to identify the switch
-@export var ButtonName: String = "Button"
 
 # Track the state of the switch: 0 = off, 1 = on
-enum ButtonState {
-	off,
-	on
-}
+@export_enum ("OFF", "ON") var buttonState: int = 0
 
 # Array to store handles to controlled children in
-var ControlledChildren: Array = []
+var controlledChildren: Array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	frame = ButtonState.off
+	frame = buttonState
 	for child in self.get_children():
 		if child != $ButtonArea:
-			ControlledChildren.append(child)
+			controlledChildren.append(child)
 
 # Body entered the Button's Area
 func _on_area_2d_body_entered(_body: Node2D) -> void:
 		SoundControl.playCue(SoundControl.scratch,1.2)
-		toggle_children(ButtonState.on)
+		toggle_children()
 
 # Body exited the Button's Area
 func _on_area_2d_body_exited(_body: Node2D) -> void:
 		SoundControl.playCue(SoundControl.scratch,1.5)
-		toggle_children(ButtonState.off)
+		toggle_children()
 
 
 # for areas like box enter
 func _on_button_area_area_entered(_area: Area2D) -> void:
 	SoundControl.playCue(SoundControl.scuff,1.0)
-	toggle_children(ButtonState.on)
+	toggle_children()
 
 
 # for areas like box exit
 func _on_button_area_area_exited(_area: Area2D) -> void:
 	SoundControl.playCue(SoundControl.scuff,0.9)
-	toggle_children(ButtonState.off)
+	toggle_children()
 
 
-func toggle_children(state: ButtonState) -> void:
-	frame = state
-	if ControlledChildren:
-		for Child: Node in ControlledChildren:
-			Child.SetState(state)
+func toggle_children() -> void:
+	frame = buttonState
+	if controlledChildren:
+		for child: Node in controlledChildren:
+			child.changeState()

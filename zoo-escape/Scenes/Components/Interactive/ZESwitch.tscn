@@ -1,42 +1,38 @@
-[gd_scene load_steps=8 format=3 uid="uid://nxr8rseg5q8w"]
+[gd_scene load_steps=7 format=3 uid="uid://cuh4bgpegyhgw"]
 
-[ext_resource type="Script" uid="uid://ccilquqj852o" path="res://Scripts/Components/Interactive/ZESwitch.gd" id="1_miqxl"]
-[ext_resource type="Texture2D" uid="uid://ca5necjstkbt8" path="res://Assets/Images/ZESwitch.png" id="2_fx841"]
-[ext_resource type="Script" uid="uid://uc065ctdh5hp" path="res://Scripts/Components/Interactive/ZESwitchArea.gd" id="3_7xl7m"]
+[ext_resource type="Script" uid="uid://ccilquqj852o" path="res://Scripts/Components/Interactive/ZESwitch.gd" id="1_74ffm"]
+[ext_resource type="Texture2D" uid="uid://ca5necjstkbt8" path="res://Assets/Images/ZESwitch.png" id="2_2gdec"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3fsxv"]
-atlas = ExtResource("2_fx841")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jil8d"]
+size = Vector2(16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ec8ha"]
+atlas = ExtResource("2_2gdec")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l5f87"]
-atlas = ExtResource("2_fx841")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kr0e"]
+atlas = ExtResource("2_2gdec")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_yogdv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_egu81"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3fsxv")
+"texture": SubResource("AtlasTexture_ec8ha")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l5f87")
+"texture": SubResource("AtlasTexture_1kr0e")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1wmwe"]
-size = Vector2(16, 16)
+[node name="Area2D" type="Area2D" groups=["ZESwitches"]]
+script = ExtResource("1_74ffm")
 
-[node name="Switch" type="AnimatedSprite2D"]
-sprite_frames = SubResource("SpriteFrames_yogdv")
-script = ExtResource("1_miqxl")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jil8d")
 
-[node name="SwitchArea" type="Area2D" parent="." groups=["ZEInteractable"]]
-script = ExtResource("3_7xl7m")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwitchArea"]
-shape = SubResource("RectangleShape2D_1wmwe")
-
-[connection signal="SwitchState" from="SwitchArea" to="." method="_on_switch_area_switch_state"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_egu81")

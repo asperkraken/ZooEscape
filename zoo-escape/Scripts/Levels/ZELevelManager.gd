@@ -78,7 +78,7 @@ func _on_exit_tile_player_exits() -> void:
 
 func nextRoom(): ## load next level
 	nextLevel = $ExitTile.NextLevelCode
-	player.currentState = player.PlayerState.OnExit
+	player.currentState = player.playerState.ONEXIT
 	if nextLevel != str(SceneManager.gameRoot.title):
 		SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals[nextLevel])
 	else:
