@@ -1,6 +1,6 @@
 class_name ZESwitchArea extends Area2D
 
-@export_enum("OFF", "ON") var switchState: int = 0 # The Switch's state, Off or On
+@export_enum("OFF:0", "ON:1") var switchState: int = 0 # The Switch's state; Off = 0 or On = 1
 @export var autoRevert := false # Does this switch revert to the previous state automatically?
 @export var autoRevertTime := 5.0 # Time elapse before autoRevert
 var recentlySwitched := false # Was this Switch recently switched?
