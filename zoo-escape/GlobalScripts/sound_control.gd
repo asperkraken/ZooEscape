@@ -7,17 +7,18 @@ extends Node2D
 
 
 ## export for testing purposes, const to set boundaries and ease debugging
-const DEFAULT_VOLUME = -15
-const SILENCE = -80
+const MAX_VOLUME = 0
+const DEFAULT_VOLUME = -6
+const SILENCE = -20
 const defaultBgm = "res://Assets/Sound/theme.ogg"
 const testBgm = "res://Assets/Sound/tutorial.ogg"
 var currentBgm : String
 
 ## references to global volume levels (we can have options for this to adjust)
-var masterLevel : int = Globals.Current_Options_Settings['master_volume']
-var bgmLevel : int = Globals.Current_Options_Settings['music_volume']
-var sfxLevel : int = Globals.Current_Options_Settings['sfx_volume']
-var cueLevel : int = Globals.Current_Options_Settings['cue_volume']
+var masterLevel : float = Globals.Current_Options_Settings['master_volume']
+var bgmLevel : float = Globals.Current_Options_Settings['music_volume']
+var sfxLevel : float = Globals.Current_Options_Settings['sfx_volume']
+var cueLevel : float = Globals.Current_Options_Settings['cue_volume']
 var volumeReference : float = bgmLevel
 @export var fadeRate : float = 0.2 ## default fade rate, can be updated in code
 
@@ -64,11 +65,11 @@ func _process(delta: float) -> void: ## listen for fade states and update volume
 
 
 ## values set for sound levels
-func setSoundPreferences(_master:int,_bgm:int, _sfx:int, _cue:int):
+func setSoundPreferences(_master:float,_bgm:float, _sfx:float, _cue:float):
 	AudioServer.set_bus_volume_db(0,_master)
-	$BGM.volume_db = _bgm ## default to silence for fade in
-	$SFX.volume_db = _sfx
-	$Cue.volume_db = _cue
+	AudioServer.set_bus_volume_db(1,_cue)
+	AudioServer.set_bus_volume_db(2,_sfx)
+	AudioServer.set_bus_volume_db(3,_bgm)
 
 
 
@@ -148,3 +149,4 @@ func bgmFadingMachine(_delta:float,_rate:float):
 
 func resetMusicFade():
 	fadeState = FADE_STATES.SILENCE
+	$BGM.volume_db = SILENCE

@@ -2,12 +2,20 @@ class_name GameRoot extends Node2D
 
 @onready var aniPlayer: AnimationPlayer = $AnimationPlayer
 var title = load(Scenes.ZETITLE)
+var bgmLevel : float
+var sfxLevel : float
+var cueLevel : float
+var masterLevel : float
 
 func _ready() -> void:
 	SceneManager.gameRoot = self
 	aniPlayer.play("RESET")
 	SoundControl.resetMusicFade() ## reset music state
 	Globals.Game_Globals["player_score"] = 0
+	bgmLevel = SoundControl.bgmLevel
+	sfxLevel = SoundControl.sfxLevel
+	cueLevel = SoundControl.cueLevel
+	masterLevel = SoundControl.masterLevel
 
 
 func _process(_delta: float) -> void:
@@ -20,6 +28,7 @@ func GoToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
 	aniPlayer.play("FadeOut")
 	await aniPlayer.animation_finished ## wait until animation finish before change
 	
+	SoundControl.setSoundPreferences(masterLevel,bgmLevel,sfxLevel,cueLevel)
 	OldScene.queue_free() # free old scene
 	var newCurrentScene := NewScene.instantiate()
 	add_child(newCurrentScene) # add new scene
@@ -37,7 +46,7 @@ func ReturnToTitle() -> void:
 	aniPlayer.play("FadeOut")
 	await aniPlayer.animation_finished
 
-
+	SoundControl.setSoundPreferences(masterLevel,bgmLevel,sfxLevel,cueLevel)
 	get_tree().reload_current_scene()
 
 	aniPlayer.play("FadeIn") ## restore processing on animation end

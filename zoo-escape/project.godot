@@ -25,7 +25,7 @@ buses/default_bus_layout="res://Assets/Sound/default_bus_layout.tres"
 Globals="*res://GlobalScripts/globals.gd"
 Scenes="*res://GlobalScripts/scenes.gd"
 SceneManager="*res://GlobalScripts/scene_manager.gd"
-SoundControl="*res://GlobalScripts/sound_control.tscn"
+SoundControl="*res://Scenes/Core/sound_control.tscn"
 
 [display]
 

@@ -1,19 +1,19 @@
 extends Control
 
 ## info to display for options
-@export var masterInfo : String
-@export var bgmInfo : String
-@export var sfxInfo : String
-@export var cueInfo : String
-@export var deadzoneInfo : String
-@export var exitInfo : String
+@export_multiline var masterInfo : String
+@export_multiline var bgmInfo : String
+@export_multiline var sfxInfo : String
+@export_multiline var cueInfo : String
+@export_multiline var deadzoneInfo : String
+@export_multiline var exitInfo : String
 
 ## grab global value references
-var masterVolume : int = Globals.Current_Options_Settings["master_volume"]
-var bgmVolume : int = Globals.Current_Options_Settings["music_volume"]
-var sfxVolume : int = Globals.Current_Options_Settings["sfx_volume"]
-var cueVolume : int = Globals.Current_Options_Settings["cue_volume"]
-var analogDeadzone : float = Globals.Current_Options_Settings["analog_deadzone"]
+var masterVolume : int = Globals.Current_Options_Settings.get("master_volume")
+var bgmVolume : int = Globals.Current_Options_Settings.get("music_volume")
+var sfxVolume : int = Globals.Current_Options_Settings.get("sfx_volume")
+var cueVolume : int = Globals.Current_Options_Settings.get("cue_volume")
+var analogDeadzone : float = Globals.Current_Options_Settings.get("analog_deadzone")
 
 ## holders for percentage values
 var masterPercent
@@ -22,9 +22,6 @@ var sfxPercent
 var cuePercent
 
 ## set hard limits
-const MAX_VOLUME = 0
-const DEFAULT_VOLUME = SoundControl.DEFAULT_VOLUME
-const SILENCE = -80
 const DEADZONE_MAX = 1.0
 const DEADZONE_MIN = 0.20
 
@@ -43,6 +40,7 @@ func _ready() -> void:
 	## update text and set first button on master bgm down
 	$MasterGroup/MasterSlider.grab_focus()
 	focusInfoRelay("MASTER",masterInfo)
+	$Description.text = masterInfo
 	$Animator.play("roll_info")
 	
 
@@ -72,11 +70,11 @@ func _process(_delta: float) -> void: ## single button fast value scroll in dead
 
 
 func globalSettingsUpdate(): ## update global settings
-	Globals.Current_Options_Settings.set("master_volume", masterVolume)
-	Globals.Current_Options_Settings.set("music_volume", bgmVolume)
-	Globals.Current_Options_Settings.set("sfx_volume", sfxVolume)
-	Globals.Current_Options_Settings.set("cue_volume", cueVolume)
-	Globals.Current_Options_Settings.set("analog_deadzone", analogDeadzone)
+	Globals.Current_Options_Settings["master_volume"] = masterVolume
+	Globals.Current_Options_Settings["music_volume"] = bgmVolume
+	Globals.Current_Options_Settings["sfx_volume"] = sfxVolume
+	Globals.Current_Options_Settings["cue_volume"] = cueVolume
+	Globals.Current_Options_Settings["analog_deadzone"] = analogDeadzone
 	SoundControl.setSoundPreferences(masterVolume,bgmVolume,sfxVolume,cueVolume)
 	## set deadzones
 	InputMap.action_set_deadzone("DigitalDown",analogDeadzone)
@@ -97,9 +95,9 @@ func focusInfoRelay(logic:String,info:String):
 ## widget to convert audio level to visual percent feedback
 func percentageConversion(_volumeLevel):
 	var _volume = abs(_volumeLevel) ## get volume level
-	var _rate = 0.8 ## 80/100
-	var _percentage = 100-int(_volume/_rate) ## take total from 100 for rate
-	return _percentage ## return value and store in scene
+	const _rate = 0.2 ## 20/100
+	var _percentage = 100-roundi(abs(_volume/_rate)) ## take total from 100 for rate, clean display
+	return _percentage ## return value and display in scene
 
 
 func _on_master_slider_value_changed(value: float) -> void:

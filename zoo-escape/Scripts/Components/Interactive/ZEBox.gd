@@ -20,6 +20,7 @@ func Move(dir: Vector2) -> bool:
 		SoundControl.playSfx(SoundControl.scuff)
 		return false
 
+
 func _on_water_check_area_entered(area: Area2D) -> void:
 		SoundControl.playSfx(SoundControl.splorch)
 		area.queue_free()

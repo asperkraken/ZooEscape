@@ -1,19 +1,31 @@
 extends Node2D
 
-var menuState = MENU_STATES.NEW_GAME
-enum MENU_STATES {
-	NEW_GAME,
-	PASSWORD,
-	SETTINGS,
-	EXIT}
+
 var areYouSure : bool = false
+## get sound level references from global
+var bgmLevel = SoundControl.bgmLevel
+var sfxLevel = SoundControl.sfxLevel
+var cueLevel = SoundControl.cueLevel
+var masterLevel = SoundControl.masterLevel
 
 
 func _ready() -> void:
 	$NewGameButton.grab_focus()
 	setLevelGlobals()
+	## set global sound
+	SoundControl.setSoundPreferences(masterLevel,bgmLevel,sfxLevel,cueLevel)
 	SoundControl.resetMusicFade() ## reset music state
 	SceneManager.currentScene = self
+
+
+## listen for exit call from escape button
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("CancelButton") or Input.is_action_just_pressed("PasswordButton"):
+		if !areYouSure: ## if not on warning, move focus to exit button
+			$ExitButton.grab_focus()
+			_on_exit_button_pressed()
+		else:
+			get_tree().quit()
 
 
 func setLevelGlobals() -> void:
@@ -66,21 +78,22 @@ func _on_settings_button_pressed() -> void:
 	SceneManager.GoToNewSceneString(Scenes.ZESETTINGS)
 
 
-func _on_exit_button_pressed() -> void:
-	if !areYouSure:
+func _on_exit_button_pressed() -> void: # listen for exit call
+	if !areYouSure: ## feedback and warning
 		$ExitButton/RollText.speed_scale = 1.0
 		areYouSure = true
 		$ExitButton/RollText.play("roll_in")
-	else:
+	else: ## close program
 		get_tree().quit()
 
 
-func areYouSureReset():
+func areYouSureReset(): ## closes warning state for exit
 	areYouSure = false
 	$ExitButton/RollText.speed_scale = 2.0
 	$ExitButton/RollText.play_backwards("roll_in")
 
 
+## functions to grab focus
 func focusEntered(_focusSelect:Button):
 	_focusSelect.grab_click_focus()
 
@@ -133,5 +146,5 @@ func _on_exit_button_focus_exited() -> void:
 
 
 func _on_exit_button_mouse_exited() -> void:
-	if areYouSure:
+	if areYouSure: ## if leaving exit area, reset state
 		areYouSureReset()

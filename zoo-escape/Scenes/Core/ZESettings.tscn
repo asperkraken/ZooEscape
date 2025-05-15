@@ -53,11 +53,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i6roa")
-masterInfo = "Controls total volume of all sound."
-bgmInfo = "Controls volume level of background music."
-sfxInfo = "Controls volume of environmental sound effects."
-cueInfo = "Controls volume of system cues like pause noises."
-deadzoneInfo = "Controls the level at which analog direction inputs trigger."
+masterInfo = "Controls total volume of 
+all sound."
+bgmInfo = "Controls volume level 
+of background music."
+sfxInfo = "Controls volume level of
+sound effects."
+cueInfo = "Controls volume of system
+cues like pause noises."
+deadzoneInfo = "Controls the level at which
+analog direction inputs trigger."
 exitInfo = "Escape to main menu."
 metadata/_edit_lock_ = true
 
@@ -109,7 +114,7 @@ theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "80%"
+text = "70%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -124,9 +129,10 @@ focus_neighbor_top = NodePath("../../EscapeButton")
 focus_neighbor_bottom = NodePath("../../BGMGroup/BGMSlider")
 focus_next = NodePath("../../BGMGroup/BGMSlider")
 focus_previous = NodePath("../../EscapeButton")
-min_value = -80.0
+min_value = -20.0
 max_value = 0.0
-value = -16.0
+step = 0.2
+value = -6.0
 
 [node name="BGMGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -162,7 +168,7 @@ theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "80%"
+text = "70%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -177,9 +183,10 @@ focus_neighbor_top = NodePath("../../MasterGroup/MasterSlider")
 focus_neighbor_bottom = NodePath("../../SFXGroup/SFXSlider")
 focus_next = NodePath("../../SFXGroup/SFXSlider")
 focus_previous = NodePath("../../MasterGroup/MasterSlider")
-min_value = -80.0
+min_value = -20.0
 max_value = 0.0
-value = -16.0
+step = 0.2
+value = -6.0
 
 [node name="SFXGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -215,7 +222,7 @@ theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "80%"
+text = "70%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -230,9 +237,10 @@ focus_neighbor_top = NodePath("../../BGMGroup/BGMSlider")
 focus_neighbor_bottom = NodePath("../../CueGroup/CueSlider")
 focus_next = NodePath("../../CueGroup/CueSlider")
 focus_previous = NodePath("../../BGMGroup/BGMSlider")
-min_value = -80.0
+min_value = -20.0
 max_value = 0.0
-value = -16.0
+step = 0.2
+value = -6.0
 
 [node name="CueGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -268,7 +276,7 @@ theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
 theme_override_font_sizes/font_size = 16
-text = "80%"
+text = "70%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -283,9 +291,10 @@ focus_neighbor_top = NodePath("../../SFXGroup/SFXSlider")
 focus_neighbor_bottom = NodePath("../../DeadzoneGroup/DeadzoneDown")
 focus_next = NodePath("../../DeadzoneGroup/DeadzoneDown")
 focus_previous = NodePath("../../SFXGroup/SFXSlider")
-min_value = -80.0
+min_value = -20.0
 max_value = 0.0
-value = -16.0
+step = 0.2
+value = -6.0
 
 [node name="DeadzoneGroup" type="Control" parent="."]
 anchors_preset = 0
@@ -365,12 +374,11 @@ offset_top = 312.0
 offset_right = 632.0
 offset_bottom = 352.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
-theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
-theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_jvrum")
-theme_override_font_sizes/font_size = 12
-text = "Descriptions of settings here. Joy and applause."
-autowrap_mode = 1
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0188679
 metadata/_edit_lock_ = true

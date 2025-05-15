@@ -11,11 +11,13 @@ script = ExtResource("1_wp1sj")
 process_mode = 4
 stream = ExtResource("2_v1cck")
 volume_db = -80.0
+bus = &"Bgm"
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 process_mode = 1
+bus = &"Sfx"
 
 [node name="Cue" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_l54mi")
-volume_db = -24.0
+bus = &"Cue"
