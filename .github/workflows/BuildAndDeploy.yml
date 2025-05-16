@@ -1,13 +1,18 @@
-name: "godot-ci export"
-on: 
-  pull_request:
-    branches:
-      - main
+name: Build and Deploy
+on:
+  push:
+    tags: ["v*"]
 
+permissions:
+  contents: write
 env:
   GODOT_VERSION: 4.4
   EXPORT_NAME: ZooEscape
   PROJECT_PATH: zoo-escape
+
+concurrency:
+  group: build-and-deploy
+  cancel-in-progress: false
 
 jobs:
   export-windows:
@@ -109,3 +114,43 @@ jobs:
        with:
          name: web
          path: build/web
+
+  create-release:
+    needs: [export-windows, export-linux, export-mac, export-web]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Zip platform builds
+        run: |
+          zip -r windows-build.zip windows/
+          zip -r linux-build.zip linux/
+          zip -r mac-build.zip mac/
+          zip -r web-build.zip web/
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            *-build.zip
+          body: ${{ github.event.head_commit.message }}
+  deploy-itch:
+    needs: [create-release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Install and setup Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default --proto =https
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+      - name: Push to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCH_IO_API_KEY }}
+        run: |
+          ./butler push windows ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:windows --userversion ${{ github.ref_name }}
+          ./butler push linux ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:linux --userversion ${{ github.ref_name }}
+          ./butler push mac ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:mac --userversion ${{ github.ref_name }}
+          ./butler push web ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:web --userversion ${{ github.ref_name }}
