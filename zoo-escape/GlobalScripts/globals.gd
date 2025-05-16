@@ -5,10 +5,12 @@ extends Node
 
 # Volume settings are included by default and changed by the SettingsManager
 # Do not alter this variable within your game; use the SettingsManager
-@onready var Current_Volume_Settings := {
-	"master_volume": null,
-	"music_volume": null,
-	"fx_volume": null
+var Current_Options_Settings := {
+	"master_volume": -6,
+	"music_volume": -6,
+	"sfx_volume": -6,
+	"cue_volume": -6,
+	"analog_deadzone": 0.50
 }
 
 ## this will store global values for transferring level data to hud
@@ -19,7 +21,7 @@ extends Node
 
 # Globally available settings that can be used to store different settings
 # Used to hold additional settings for your game, as needed
-@onready var Current_Settings  := {
+@onready var Current_Settings := {
 	"passwordWindowOpen": false ## global hud control flag
 }
 
@@ -65,7 +67,7 @@ extends Node
 }
 
 
-@onready var High_Scoreboard  := {
+@onready var High_Scoreboard := {
 	"ZAP": 20000,
 	"MKW": 19000,
 	"GUS": 18000,

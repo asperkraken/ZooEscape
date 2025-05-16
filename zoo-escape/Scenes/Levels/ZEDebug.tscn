@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://catmq3n8ijbp6"]
+[gd_scene load_steps=14 format=4 uid="uid://catmq3n8ijbp6"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/ZELevelManager.gd" id="1_68k30"]
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/ZETiles.tres" id="1_d2x4x"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cuh4bgpegyhgw" path="res://Scenes/Components/Interactive/ZESwitch.tscn" id="8_ygj1o"]
 [ext_resource type="PackedScene" uid="uid://dvj8b6tkhitto" path="res://Scenes/Components/Interactive/ZEGate.tscn" id="9_gasfj"]
 [ext_resource type="PackedScene" uid="uid://cxubfhy8y0hcg" path="res://Scenes/Components/Interactive/ZEBox.tscn" id="9_lbuof"]
+[ext_resource type="PackedScene" uid="uid://6adav1tkreiw" path="res://Scenes/Components/Interactive/ZEBall.tscn" id="12_1t63g"]
 
 [node name="Debug" type="Node2D"]
 script = ExtResource("1_68k30")
@@ -214,8 +215,15 @@ position = Vector2(48, 0)
 [node name="Box" parent="." instance=ExtResource("9_lbuof")]
 position = Vector2(104, 88)
 
+[node name="Button2" parent="." instance=ExtResource("7_ekvyi")]
+position = Vector2(216, 72)
+
+[node name="ZEBall" parent="." instance=ExtResource("12_1t63g")]
+position = Vector2(72, 72)
+
 [node name="Player" parent="." instance=ExtResource("2_ykc06")]
 position = Vector2(56, 40)
+metadata/_edit_lock_ = true
 
 [connection signal="PlayerExits" from="ExitTile" to="." method="_on_exit_tile_player_exits"]
 [connection signal="AllSteakCollected" from="SteakManager" to="." method="_on_steak_manager_all_steak_collected"]

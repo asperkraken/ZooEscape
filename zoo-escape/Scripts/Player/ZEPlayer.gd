@@ -96,8 +96,8 @@ func movePlayer(dir: Vector2) -> void:
 	# if the Player's RayCast2D is colliding, do logic
 	if ray.is_colliding():
 		var collidingObj: Object = ray.get_collider()
+		if collidingObj is ZEBoxArea or collidingObj is ZEBall:
 		# If the collider is a Box, try to move the Box and the Player
-		if collidingObj is ZEBoxArea:
 			if collidingObj.Move(dir):
 				$ZEHud.movesValue += 1
 				position += dir * Globals.ZETileSize
