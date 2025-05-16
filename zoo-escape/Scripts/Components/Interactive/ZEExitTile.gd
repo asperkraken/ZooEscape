@@ -13,7 +13,7 @@ func _process(_delta: float) -> void:
 	pass
 
 # play the animation and audio cue
-func actavateExit() -> void:
+func activateExit() -> void:
 	$OpenCue.play()
 	play("Active")
 	

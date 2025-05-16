@@ -91,7 +91,7 @@ func nextRoom(): ## load next level
 		exitGame()
 
 func allSteaksCollected() -> void:
-	exitTile.actavateExit() ## update score and apply exit score open bonus
+	exitTile.activateExit() ## update score and apply exit score open bonus
 	var _old = Globals.Game_Globals.get("player_score")
 	Globals.Game_Globals.set("player_score", (_old + ExitScoreBonus))
 
