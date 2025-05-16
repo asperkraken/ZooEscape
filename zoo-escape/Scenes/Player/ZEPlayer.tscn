@@ -167,6 +167,7 @@ offset_top = -180.0
 offset_right = -320.0
 offset_bottom = -180.0
 inGameMode = true
+metadata/_edit_lock_ = true
 
 [node name="Button1" parent="ZEPassword/ButtonBox" index="0" groups=["buttons"]]
 process_mode = 3

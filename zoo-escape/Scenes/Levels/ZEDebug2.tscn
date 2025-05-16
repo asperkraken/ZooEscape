@@ -21,7 +21,6 @@ tile_set = ExtResource("2_317uw")
 
 [node name="ExitTile" parent="." instance=ExtResource("3_bj522")]
 position = Vector2(232, 88)
-NextLevelCode = "9990"
 
 [node name="SteakManager" type="Node2D" parent="."]
 script = ExtResource("4_4sndc")
@@ -49,3 +48,4 @@ position = Vector2(56, 40)
 
 [connection signal="PlayerExits" from="ExitTile" to="." method="_on_exit_tile_player_exits"]
 [connection signal="AllSteakCollected" from="SteakManager" to="." method="_on_steak_manager_all_steak_collected"]
+[connection signal="inWater" from="Player" to="." method="_on_player_in_water"]
