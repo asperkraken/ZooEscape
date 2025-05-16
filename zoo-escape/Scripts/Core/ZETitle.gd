@@ -1,19 +1,10 @@
 extends Node2D
 
-
 var areYouSure: bool = false
-## get sound level references from global
-var bgmLevel = SoundControl.bgmLevel
-var sfxLevel = SoundControl.sfxLevel
-var cueLevel = SoundControl.cueLevel
-var masterLevel = SoundControl.masterLevel
-
 
 func _ready() -> void:
 	$NewGameButton.grab_focus()
-	setLevelGlobals()
 	## set global sound
-	SoundControl.setSoundPreferences(masterLevel, bgmLevel, sfxLevel, cueLevel)
 	SoundControl.resetMusicFade() ## reset music state
 	SceneManager.currentScene = self
 

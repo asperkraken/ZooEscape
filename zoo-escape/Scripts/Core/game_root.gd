@@ -1,7 +1,7 @@
 class_name GameRoot extends Node2D
 
 @onready var aniPlayer: AnimationPlayer = $AnimationPlayer
-var title = load(Scenes.ZETITLE)
+var title = load(Scenes.TITLE)
 var bgmLevel : float
 var sfxLevel : float
 var cueLevel : float

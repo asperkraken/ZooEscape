@@ -1,10 +1,8 @@
 extends Node2D
 
-
 @onready var bgm = $BGM ## music (pauses position on pause)
 @onready var sfx = $SFX ## in-game sound effects (pauses position on pause)
 @onready var cue = $Cue ## ui sound effects (ignores pause)
-
 
 ## export for testing purposes, const to set boundaries and ease debugging
 const MAX_VOLUME = 0
@@ -15,16 +13,16 @@ const testBgm = "res://Assets/Sound/tutorial.ogg"
 var currentBgm : String
 
 ## references to global volume levels (we can have options for this to adjust)
-var masterLevel : float = Globals.Current_Options_Settings['master_volume']
-var bgmLevel : float = Globals.Current_Options_Settings['music_volume']
-var sfxLevel : float = Globals.Current_Options_Settings['sfx_volume']
-var cueLevel : float = Globals.Current_Options_Settings['cue_volume']
-var volumeReference : float = bgmLevel
-@export var fadeRate : float = 0.2 ## default fade rate, can be updated in code
+var masterLevel: float = Globals.Current_Options_Settings['master_volume']
+var bgmLevel: float = Globals.Current_Options_Settings['music_volume']
+var sfxLevel: float = Globals.Current_Options_Settings['sfx_volume']
+var cueLevel: float = Globals.Current_Options_Settings['cue_volume']
+var volumeReference := bgmLevel
+@export var fadeRate := 0.2 ## default fade rate, can be updated in code
 
 
 ## fade state machine for audio fading
-var fadeState : int = 0
+var fadeState := 0
 enum FADE_STATES {
 	SILENCE, ## no audio
 	IN_TRIGGER, ## audio starts increase (one-shot)
@@ -35,23 +33,21 @@ enum FADE_STATES {
 
 
 ## global audio references for easy access
-const alert = "res://Assets/Sound/alert.ogg"
-const blip = "res://Assets/Sound/blip.ogg"
-const chomp = "res://Assets/Sound/chompy.ogg"
-const down = "res://Assets/Sound/flourish_down.ogg"
-const pickup = "res://Assets/Sound/pickup.ogg"
-const flutter = "res://Assets/Sound/flutter.ogg"
-const fail = "res://Assets/Sound/game_over.ogg"
-const ruined = "res://Assets/Sound/crumble_noise.ogg"
-const scratch = "res://Assets/Sound/scratch_delay.ogg"
-const scuff = "res://Assets/Sound/scuff_noise.ogg"
-const splorch = "res://Assets/Sound/splorch.ogg"
-const success = "res://Assets/Sound/success.ogg"
-const thump = "res://Assets/Sound/thump.ogg"
-const zap = "res://Assets/Sound/zap_delayed.ogg"
-const start = "res://Assets/Sound/flourish_up.ogg"
-
-
+const alert := "res://Assets/Sound/alert.ogg"
+const blip := "res://Assets/Sound/blip.ogg"
+const chomp := "res://Assets/Sound/chompy.ogg"
+const down := "res://Assets/Sound/flourish_down.ogg"
+const pickup := "res://Assets/Sound/pickup.ogg"
+const flutter := "res://Assets/Sound/flutter.ogg"
+const fail := "res://Assets/Sound/game_over.ogg"
+const ruined := "res://Assets/Sound/crumble_noise.ogg"
+const scratch := "res://Assets/Sound/scratch_delay.ogg"
+const scuff := "res://Assets/Sound/scuff_noise.ogg"
+const splorch := "res://Assets/Sound/splorch.ogg"
+const success := "res://Assets/Sound/success.ogg"
+const thump := "res://Assets/Sound/thump.ogg"
+const zap := "res://Assets/Sound/zap_delayed.ogg"
+const start := "res://Assets/Sound/flourish_up.ogg"
 
 
 func _ready() -> void: ## sound preferences retrieved at ready
@@ -63,7 +59,6 @@ func _process(delta: float) -> void: ## listen for fade states and update volume
 	if fadeState != FADE_STATES.PEAK_VOLUME:
 		bgmFadingMachine(delta,fadeRate)
 
-
 ## values set for sound levels
 func setSoundPreferences(_master:float,_bgm:float, _sfx:float, _cue:float):
 	AudioServer.set_bus_volume_db(0,_master)
@@ -71,15 +66,12 @@ func setSoundPreferences(_master:float,_bgm:float, _sfx:float, _cue:float):
 	AudioServer.set_bus_volume_db(2,_sfx)
 	AudioServer.set_bus_volume_db(3,_bgm)
 
-
-
 ## call bgm file and play (state machine handles stop and start automatically)
 func playBgm() -> void:
 	var _loadBgm = load(currentBgm)
 	bgm.volume_db = bgmLevel
 	bgm.stream = _loadBgm
 	bgm.play()
-
 
 ## to update fade value
 func fadeRateUpdate(_newValue:float):
@@ -97,8 +89,6 @@ func levelChangeSoundCall(_value:float, _music:String):
 func stopSounds() -> void:
 	bgm.stop()
 	sfx.stop()
-
-
 
 ## call sfx file and play
 func playSfx(_sfxFile:String):

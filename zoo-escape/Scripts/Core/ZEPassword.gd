@@ -28,7 +28,7 @@ var inputBufferActive : bool = true ## hold input until window fades in
 ## materials for shader changes on password entry
 const correctShader = preload("res://Assets/Shaders/wobbly_material.tres")
 const failShader = preload("res://Assets/Shaders/error_shake_x.tres")
-const title = Scenes.ZETITLE
+const title = Scenes.TITLE
 const empty = "----"
 const correctedVector = Vector2(-320,-160)
 

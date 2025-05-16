@@ -25,7 +25,7 @@ buses/default_bus_layout="uid://slak83a5uy2t"
 Scenes="*res://GlobalScripts/scenes.gd"
 SceneManager="*res://GlobalScripts/scene_manager.gd"
 Globals="*res://GlobalScripts/globals.gd"
-SoundControl="*res://GlobalScripts/sound_control.tscn"
+SoundControl="*res://Scenes/Core/sound_control.tscn"
 
 [display]
 
