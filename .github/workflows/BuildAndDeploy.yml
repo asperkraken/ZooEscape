@@ -1,0 +1,214 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+env:
+  GODOT_VERSION: 4.4
+  EXPORT_NAME: ZooEscape
+  PROJECT_PATH: zoo-escape
+
+concurrency:
+  group: build-and-deploy
+  cancel-in-progress: false
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:${GODOT_VERSION}
+      options: --memory=12g --cpus=2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Time
+        run: |
+          apt-get update
+          apt-get install -y time
+      - name: Pre-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Windows Build
+        run: |
+          mkdir -v -p build/windows
+          EXPORT_DIR="$(readlink -f build)"
+          cd ${PROJECT_PATH}
+          /usr/bin/time -v godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/${{ vars.GAME_NAME }}.exe"
+      - name: Post-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: build/windows
+
+  export-linux:
+    needs: [export-windows]
+    name: Linux Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:${GODOT_VERSION}
+      options: --memory=12g --cpus=2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Time
+        run: |
+          apt-get update
+          apt-get install -y time
+      - name: Pre-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Linux Build
+        run: |
+          mkdir -v -p build/linux
+          EXPORT_DIR="$(readlink -f build)"
+          cd ${PROJECT_PATH}
+          /usr/bin/time -v godot --headless --verbose --export-release "Linux/X11" "$EXPORT_DIR/linux/${{ vars.GAME_NAME }}.x86_64"
+      - name: Post-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: build/linux
+
+  export-web:
+    needs: [export-linux]
+    name: Web Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:${GODOT_VERSION}
+      options: --memory=12g --cpus=2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Time
+        run: |
+          apt-get update
+          apt-get install -y time
+      - name: Pre-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Web Build
+        run: |
+          mkdir -v -p build/web
+          EXPORT_DIR="$(readlink -f build)"
+          cd ${PROJECT_PATH}
+          /usr/bin/time -v godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
+      - name: Post-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: build/web
+
+  export-mac:
+    needs: [export-web]
+    name: Mac Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:${GODOT_VERSION}
+      options: --memory=12g --cpus=2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Time
+        run: |
+          apt-get update
+          apt-get install -y time
+      - name: Pre-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Mac Build
+        run: |
+          mkdir -v -p build/mac
+          EXPORT_DIR="$(readlink -f build)"
+          cd ${PROJECT_PATH}
+          /usr/bin/time -v godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/${{ vars.GAME_NAME }}.zip"
+      - name: Post-Build Memory Stats
+        run: |
+          free -h
+          top -b -n 1 | head -n 5
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac
+          path: build/mac
+
+  create-release:
+    needs: [export-windows, export-linux, export-mac, export-web]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Zip platform builds
+        run: |
+          zip -r windows-build.zip windows/
+          zip -r linux-build.zip linux/
+          zip -r mac-build.zip mac/
+          zip -r web-build.zip web/
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: |
+            *-build.zip
+          body: ${{ github.event.head_commit.message }}
+  deploy-itch:
+    needs: [create-release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+      - name: Install and setup Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default --proto =https
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+      - name: Push to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.ITCH_IO_API_KEY }}
+        run: |
+          ./butler push windows ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:windows --userversion ${{ github.ref_name }}
+          ./butler push linux ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:linux --userversion ${{ github.ref_name }}
+          ./butler push mac ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:mac --userversion ${{ github.ref_name }}
+          ./butler push web ${{ secrets.ITCH_USERNAME }}/${{ vars.GAME_NAME }}:web --userversion ${{ github.ref_name }}
