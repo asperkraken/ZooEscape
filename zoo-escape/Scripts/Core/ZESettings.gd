@@ -103,9 +103,10 @@ func percentageConversion(_volumeLevel):
 func _on_master_slider_value_changed(value: float) -> void:
 	if !bufferState: ## if no buffer, change levels
 		masterVolume = $MasterGroup/MasterSlider.value
-		masterPercent = percentageConversion(masterVolume)
+		masterPercent = abs(percentageConversion(masterVolume))
 		$MasterGroup/MasterValue.text = str(masterPercent)+"%"
 		globalSettingsUpdate()
+		SoundControl.muteAudioBusCheck()
 
 
 func _on_master_slider_focus_entered() -> void:
@@ -122,6 +123,7 @@ func _on_bgm_slider_value_changed(value: float) -> void:
 		bgmPercent = percentageConversion(bgmVolume)
 		$BGMGroup/BGMValue.text = str(bgmPercent)+"%"
 		globalSettingsUpdate()
+		SoundControl.muteAudioBusCheck()
 
 
 
@@ -139,6 +141,7 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 		sfxPercent = percentageConversion(sfxVolume)
 		$SFXGroup/SFXValue.text = str(sfxPercent)+"%"
 		globalSettingsUpdate()
+		SoundControl.muteAudioBusCheck()
 
 
 func _on_sfx_slider_focus_entered() -> void:
@@ -163,6 +166,7 @@ func _on_cue_slider_value_changed(value: float) -> void:
 		cuePercent = percentageConversion(cueVolume)
 		$CueGroup/CueValue.text = str(cuePercent)+"%"
 		globalSettingsUpdate()
+		SoundControl.muteAudioBusCheck()
 
 
 func _on_cue_slider_focus_entered() -> void:

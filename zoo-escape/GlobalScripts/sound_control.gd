@@ -74,7 +74,7 @@ func setSoundPreferences(_master:float,_bgm:float, _sfx:float, _cue:float):
 
 
 ## call bgm file and play (state machine handles stop and start automatically)
-func playBgm():
+func playBgm() -> void:
 	var _loadBgm = load(currentBgm)
 	bgm.volume_db = bgmLevel
 	bgm.stream = _loadBgm
@@ -94,9 +94,10 @@ func levelChangeSoundCall(_value:float, _music:String):
 
 
 # hard stop function
-func stopSounds():
+func stopSounds() -> void:
 	bgm.stop()
 	sfx.stop()
+
 
 
 ## call sfx file and play
@@ -127,14 +128,14 @@ func bgmFadingMachine(_delta:float,_rate:float):
 			playBgm() ## start play
 			fadeState+=1 ## move to next
 		FADE_STATES.IN_CURVE:
-			if volumeReference < masterLevel: ## increase volume while below target
+			if volumeReference < bgmLevel: ## increase volume while below target
 				volumeReference+=(_delta+_rate)
 			else: ## then update state
 				fadeState+=1
 		FADE_STATES.PEAK_VOLUME: # hold volume steady when not fading
-			volumeReference = masterLevel
+			volumeReference = bgmLevel
 		FADE_STATES.OUT_TRIGGER: # start volume decrease (one-shot)
-			if volumeReference >= masterLevel:
+			if volumeReference >= bgmLevel:
 				volumeReference-=(_delta+_rate)
 				fadeState+=1
 		FADE_STATES.OUT_CURVE: ## if not silence, reduce rate
@@ -147,6 +148,32 @@ func bgmFadingMachine(_delta:float,_rate:float):
 			fadeState+=1
 
 
-func resetMusicFade():
+func resetMusicFade() -> void:
 	fadeState = FADE_STATES.SILENCE
 	$BGM.volume_db = SILENCE
+
+
+## external function for checking mute state
+func muteAudioBusCheck() -> void:
+	if AudioServer.get_bus_volume_db(0) < -19:
+		AudioServer.set_bus_mute(0,true)
+	else:
+		AudioServer.set_bus_mute(0,false)
+
+
+	if AudioServer.get_bus_volume_db(3) < -19:
+		AudioServer.set_bus_mute(3,true)
+	else:
+		AudioServer.set_bus_mute(3,false)
+
+
+	if AudioServer.get_bus_volume_db(2) < -19:
+		AudioServer.set_bus_mute(2,true)
+	else:
+		AudioServer.set_bus_mute(2,false)
+
+
+	if AudioServer.get_bus_volume_db(1) < -19:
+		AudioServer.set_bus_mute(1,true)
+	else:
+		AudioServer.set_bus_mute(1,false)
