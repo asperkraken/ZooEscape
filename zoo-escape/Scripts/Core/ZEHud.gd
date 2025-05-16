@@ -1,37 +1,35 @@
 extends Control
 
 
-var steakValue : int = 1 ## live monitor of steak total
-var timerValue : int = 1 ## live monitor of timer
-var movesValue : int = 0 ## live monitor of moves
-var scoreCurrent : int = Globals.Game_Globals.get("player_score") ## player score
-var secondBonus : int = 50 ## values for abstraction from parent to apply
-var movePenalty : int = 25
-var moveMonitoring : bool = false ## shows timer has started
-var timesUp : bool = false ## shows time is out
-var allSteaksCollected : bool = false ## shows goal is open
-var resetBarVisible : bool = false ## reset bar flag for external reference
-var resetGauge : float = 0.0 ## to compare with level manager
-var password : String = "ABCD" ## abstraction for password
-var warningTime : int = 10 ## value when warning cues
-var timeLimit : int = 30 # value to change for each level
+var steakValue := 1 ## live monitor of steak total
+var timerValue := 1 ## live monitor of timer
+var movesValue := 0 ## live monitor of moves
+var scoreCurrent: int = Globals.Game_Globals.get("player_score") ## player score
+var secondBonus := 50 ## values for abstraction from parent to apply
+var movePenalty := 25
+var moveMonitoring := false ## shows timer has started
+var timesUp := false ## shows time is out
+var allSteaksCollected := false ## shows goal is open
+var resetBarVisible := false ## reset bar flag for external reference
+var resetGauge := 0.0 ## to compare with level manager
+var password := "ABCD" ## abstraction for password
+var warningTime := 10 ## value when warning cues
+var timeLimit := 30 # value to change for each level
 signal restart_room ## reload signal
 signal exit_game ## exit to title signal
 signal score_processed ## score processing signal for process score
-var post_score : bool = false ## post score process flag, prevents overloading buffer
-var scoreProcessState : SCORE_PROCESS_STATES = SCORE_PROCESS_STATES.IDLE
+var post_score := false ## post score process flag, prevents overloading buffer
+var scoreProcessState := SCORE_PROCESS_STATES.IDLE
 enum SCORE_PROCESS_STATES {
 	IDLE,
 	TIME_PROCESS,
 	MOVE_PROCESS,
 	POST}
-var focusState : int = 0
+var focusState := 0
 var passwordState = Globals.Current_Settings["passwordWindowOpen"]
 enum FOCUS_STATES {
 	RESTART,
 	EXIT}
-
-
 
 func _ready() -> void: ## reset animations at ready, fetch start values
 	self.add_to_group("hud")
@@ -82,8 +80,6 @@ func _process(_delta: float) -> void:
 
 	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
 		scoreProcessing()
-		get_tree().paused = true
-
 
 ## button to grab focus from keyboard for timeout buttons
 func buttonFocusGrab():
