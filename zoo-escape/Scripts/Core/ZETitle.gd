@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var areYouSure : bool = false
+var areYouSure: bool = false
 ## get sound level references from global
 var bgmLevel = SoundControl.bgmLevel
 var sfxLevel = SoundControl.sfxLevel
@@ -13,7 +13,7 @@ func _ready() -> void:
 	$NewGameButton.grab_focus()
 	setLevelGlobals()
 	## set global sound
-	SoundControl.setSoundPreferences(masterLevel,bgmLevel,sfxLevel,cueLevel)
+	SoundControl.setSoundPreferences(masterLevel, bgmLevel, sfxLevel, cueLevel)
 	SoundControl.resetMusicFade() ## reset music state
 	SceneManager.currentScene = self
 
@@ -28,54 +28,20 @@ func _process(delta: float) -> void:
 			get_tree().quit()
 
 
-func setLevelGlobals() -> void:
-	# debug levels
-	Globals.Game_Globals["9990"] = Scenes.ZETITLE
-	Globals.Game_Globals["9991"] = Scenes.ZEDEBUG
-	Globals.Game_Globals["9992"] = Scenes.ZEDEBUG2
-	
-	# Real Levels
-	Globals.Game_Globals["0001"] = Scenes.ZETUTORIAL1
-	
-	Globals.Game_Globals["0387"] = Scenes.ZELEVEL1
-	# Globals.Game_Globals["9102"] = 
-	# Globals.Game_Globals["1476"] = 
-	# Globals.Game_Globals["5829"] = 
-	# Globals.Game_Globals["0053"] = 
-	
-	# Globals.Game_Globals["7618"] = 
-	# Globals.Game_Globals["2940"] = 
-	# Globals.Game_Globals["8365"] = 
-	# Globals.Game_Globals["0721"] = 
-	# Globals.Game_Globals["6594"] = 
-	
-	# Globals.Game_Globals["3082"] = 
-	# Globals.Game_Globals["9817"] = 
-	# Globals.Game_Globals["4250"] = 
-	# Globals.Game_Globals["1639"] = 
-	# Globals.Game_Globals["7048"] = 
-	
-	# Globals.Game_Globals["2561"] = 
-	# Globals.Game_Globals["8934"] = 
-	# Globals.Game_Globals["0195"] = 
-	# Globals.Game_Globals["5473"] = 
-	# Globals.Game_Globals["3706"] = 
-
-
 func _on_new_game_button_pressed() -> void:
-	SoundControl.playCue(SoundControl.start,1.0)
-	SceneManager.GoToNewSceneString(Scenes.ZETUTORIAL1)
-	Globals.Game_Globals.set("player_score",0)
+	SoundControl.playCue(SoundControl.start, 1.0)
+	SceneManager.GoToNewSceneString(Scenes.TUTORIAL1)
+	Globals.Game_Globals.set("player_score", 0)
 	### change bgm and fade on out
-	SoundControl.levelChangeSoundCall(1.0,SoundControl.defaultBgm)
+	SoundControl.levelChangeSoundCall(1.0, SoundControl.defaultBgm)
 
 
 func _on_password_button_pressed() -> void:
-	SceneManager.GoToNewSceneString(Scenes.ZEPASSWORD)
+	SceneManager.GoToNewSceneString(Scenes.PASSWORD)
 
 
 func _on_settings_button_pressed() -> void:
-	SceneManager.GoToNewSceneString(Scenes.ZESETTINGS)
+	SceneManager.GoToNewSceneString(Scenes.SETTINGS)
 
 
 func _on_exit_button_pressed() -> void: # listen for exit call
@@ -94,11 +60,11 @@ func areYouSureReset(): ## closes warning state for exit
 
 
 ## functions to grab focus
-func focusEntered(_focusSelect:Button):
+func focusEntered(_focusSelect: Button):
 	_focusSelect.grab_click_focus()
 
 
-func mouseEntered(_mouseSelect:Button):
+func mouseEntered(_mouseSelect: Button):
 	_mouseSelect.grab_focus()
 
 
