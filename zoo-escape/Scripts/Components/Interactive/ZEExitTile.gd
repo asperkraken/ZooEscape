@@ -1,7 +1,6 @@
 extends AnimatedSprite2D
 
-@export var NextLevelCode: String = "9990"
-var _levelExitFlag : bool = false
+@export var NextLevelCode := "9990"
 signal PlayerExits(LevelToGoTo: String)
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +19,5 @@ func ActavateExit() -> void:
 	
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if animation == "Active" && body.is_in_group("ZEPlayer") and !_levelExitFlag:
-		_levelExitFlag = true
+	if animation == "Active" && body.is_in_group("ZEPlayer"):
 		PlayerExits.emit() ## emit signal no longer needs level data

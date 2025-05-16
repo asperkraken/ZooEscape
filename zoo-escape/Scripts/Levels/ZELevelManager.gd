@@ -1,18 +1,18 @@
 class_name ZELevelManager extends Node2D
 
-@export var LevelCode: String = "" ## stores as password
-@export var LevelTime: int = 60 ## level time limit relayed to hud
-@export var WarningTime: int = 15 ## time out warning threshold
-@export var ExitScoreBonus: int = 500 ## local editor variables to effect bonuses
-@export var PerSecondBonus: int = 100
-@export var PerMovePenalty: int = 25
-@export var TutorialScoreBypass: bool = false
+@export var LevelCode := "" ## stores as password
+@export var LevelTime := 60 ## level time limit relayed to hud
+@export var WarningTime := 15 ## time out warning threshold
+@export var ExitScoreBonus := 500 ## local editor variables to effect bonuses
+@export var PerSecondBonus := 100
+@export var PerMovePenalty := 25
+@export var TutorialScoreBypass := false
 @onready var player := $Player
 @onready var resetTime := 0.0
 @onready var nextLevel: String = $ExitTile.NextLevelCode ## pointer for next scene string
 var loadingScore = Globals.Game_Globals.get("player_score") ## compare score for reloads
 var localHud = null ## pointer for hud
-var timeUp: bool = false ## to monitor local hud timer
+var timeUp := false ## to monitor local hud timer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -75,7 +75,6 @@ func _on_exit_tile_player_exits() -> void:
 
 
 func nextRoom(): ## load next level
-	nextLevel = $ExitTile.NextLevelCode
 	player.currentState = player.playerState.ONEXIT
 	if nextLevel != str(SceneManager.gameRoot.title):
 		SceneManager.call_deferred("GoToNewSceneString", Globals.Game_Globals[nextLevel])
