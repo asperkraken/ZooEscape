@@ -40,7 +40,7 @@ func _physics_process(_delta: float) -> void:
 			Idle()
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(_body: Node2D) -> void:
 	if currentState != STATES.IDLE && raycast.is_colliding():
 		var collider = raycast.get_collider()
 		if collider.name == "Wall":
