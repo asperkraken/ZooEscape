@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://2i13sllf0okh"]
+
+[ext_resource type="Script" uid="uid://bo7t3ku40m3v5" path="res://Scripts/Components/Creatures/ZEPatrollingEnemy.gd" id="1_ygkbb"]
+[ext_resource type="Texture2D" uid="uid://dwofl5vl2f7w2" path="res://Assets/Images/PeaBody.png" id="2_m1urw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygkbb"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouhvy"]
+size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s4wm"]
+atlas = ExtResource("2_m1urw")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1xji"]
+atlas = ExtResource("2_m1urw")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty57y"]
+atlas = ExtResource("2_m1urw")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt4gx"]
+atlas = ExtResource("2_m1urw")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a4q1r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s4wm")
+}],
+"loop": true,
+"name": &"IdleDown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1xji")
+}],
+"loop": true,
+"name": &"IdleLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty57y")
+}],
+"loop": true,
+"name": &"IdleRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt4gx")
+}],
+"loop": true,
+"name": &"IdleUp",
+"speed": 5.0
+}]
+
+[node name="PatrollingEnemy" type="CharacterBody2D"]
+script = ExtResource("1_ygkbb")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ygkbb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_ouhvy")
+metadata/_edit_lock_ = true
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+visible = false
+target_position = Vector2(0, 16)
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_a4q1r")
+animation = &"IdleDown"
+autoplay = "IdleDown"
+metadata/_edit_lock_ = true
+
+[node name="WaypointManager" type="Node" parent="."]
+
+[node name="Waypoint0" type="Marker2D" parent="WaypointManager"]
+position = Vector2(16, 16)
+gizmo_extents = 8.0
+
+[node name="Waypoint1" type="Marker2D" parent="WaypointManager"]
+position = Vector2(112, 16)
+
+[node name="Waypoint2" type="Marker2D" parent="WaypointManager"]
+position = Vector2(112, 80)
+
+[node name="Waypoint3" type="Marker2D" parent="WaypointManager"]
+position = Vector2(112, 144)
+
+[node name="Waypoint4" type="Marker2D" parent="WaypointManager"]
+position = Vector2(16, 144)
+
+[node name="Waypoint5" type="Marker2D" parent="WaypointManager"]
+position = Vector2(16, 80)
