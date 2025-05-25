@@ -3555,7 +3555,6 @@ offset_right = 624.0
 offset_bottom = 180.0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(160, 112)
-mouse_filter = 2
 color = Color(0.380392, 0.25098, 0.478431, 1)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
@@ -3874,6 +3873,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 56.0
 offset_bottom = 56.0
+mouse_filter = 1
 
 [node name="GearIcon" type="AnimatedSprite2D" parent="SettingsButton"]
 position = Vector2(24, 24)

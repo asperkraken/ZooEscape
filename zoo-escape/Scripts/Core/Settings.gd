@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 enum FOCUS_GROUPS {
 	ESCAPE,
@@ -46,6 +46,7 @@ var buttons := []
 func _ready() -> void:
 	sliders = get_tree().get_nodes_in_group("sliders")
 	buttons = get_tree().get_nodes_in_group("buttons")
+	self.add_to_group("Settings")
 	# update text and set first button on master bgm down
 	# update all text and values with globals from load data
 	
@@ -68,28 +69,16 @@ func _ready() -> void:
 	$CueGroup/CueValue.text = str(cuePercent) + "%"
 	$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
 	
-	# grab first focus and roll in info text
-	$MasterGroup/MasterSlider.grab_focus()
-	focusInfoRelay("MASTER", masterInfo)
-	$Description.text = masterInfo
-	$Animator.play("roll_info")
-	
-	
+	# if from title, roll menu in
 	if !Globals.currentAppState.get("gameRunning"):
+		$MasterGroup/MasterSlider.grab_focus()
+		focusInfoRelay("MASTER", masterInfo)
+		$Description.text = masterInfo
 		$Fader.play("open")
-	else:
-		windowPlacement()
+		$Animator.play("roll_info")
+	else: # if in game, change text and keep invisible
 		$EscapeButton.text = "0 / TAB"
 		exitInfo = "Return to game and unpause."
-
-
-## places the window in player view
-func windowPlacement() -> void:
-	var _player : CharacterBody2D = get_tree().get_first_node_in_group("Player")
-	var _pos = Vector2(_player.global_position)
-		
-	self.position.x = _pos.x-320
-	self.position.y = _pos.y-180
 
 
 # Called every render frame
@@ -124,8 +113,7 @@ func _process(_delta: float) -> void: # single button fast value scroll in deadz
 		## if settings button pressed in game, place window then open or close
 		if Input.is_action_just_pressed("SettingsButton") and Globals.currentAppState.get("passwordWindowOpen") == false:
 			if Globals.currentAppState.get("gameRunning") == true: ## only do this in game
-				if !get_tree().paused: ## listen to process state to determine correct behavior
-					windowPlacement()
+				if !Globals.currentAppState.get("settingsWindowOpen"): ## listen to process state to determine correct behavior
 					openSettingsCall()
 				else:
 					closeSettingsCall()
@@ -163,8 +151,10 @@ func percentageConversion(_volumeLevel) -> int:
 
 # function to open the settings window in-game
 func openSettingsCall() -> void:
+	self.visible = true
 	Globals.currentAppState.set("settingsWindowOpen", true)
 	$Fader.play("open") ## open animation
+	$Animator.play("roll_info")
 	get_tree().paused = true # hold processing
 	for button in buttons: # enable buttons and sliders
 		button.disabled = false
@@ -180,15 +170,13 @@ func openSettingsCall() -> void:
 func closeSettingsCall() -> void:
 	Globals.currentAppState.set("settingsWindowOpen", false)
 	$Fader.play_backwards("open") ## close animation
+	$Animator.play("close_info")
 	get_tree().paused = false # resume processing
 	for button in buttons: # disable buttons and sliders
 		button.disabled = true
 	for slider in sliders:
 		slider.editable = false
 		slider.scrollable = false
-	
-	## keep escape button active for main screen
-	$EscapeButton.disabled = false
 
 
 # update master volume on slide
@@ -209,12 +197,14 @@ func masterTextUpdate() -> void:
 
 # grab master group focus
 func _on_master_slider_focus_entered() -> void:
-	focusInfoRelay("MASTER", masterInfo) # focus grab
+	if focusGroup != FOCUS_GROUPS.MASTER:
+		focusInfoRelay("MASTER", masterInfo) # focus grab
 
 
 # mouse hovering master slider
 func _on_master_slider_mouse_entered() -> void:
-	focusInfoRelay("MASTER", masterInfo) # focus grab
+	if focusGroup != FOCUS_GROUPS.MASTER:
+		focusInfoRelay("MASTER", masterInfo) # focus grab
 
 
 # update bgm levels
@@ -250,12 +240,14 @@ func bgmTextUpdate() -> void:
 
 # grab bgm focus
 func _on_bgm_slider_focus_entered() -> void:
-	focusInfoRelay("BGM", bgmInfo)
+	if focusGroup != FOCUS_GROUPS.BGM:
+		focusInfoRelay("BGM", bgmInfo)
 
 
 # mouse hovering bgm slider
 func _on_bgm_slider_mouse_entered() -> void:
-	focusInfoRelay("BGM", bgmInfo)
+	if focusGroup != FOCUS_GROUPS.BGM:
+		focusInfoRelay("BGM", bgmInfo)
 
 
 # update sfx level
@@ -275,12 +267,14 @@ func sfxTextUpdate() -> void:
 
 # grab sfx focus
 func _on_sfx_slider_focus_entered() -> void:
-	focusInfoRelay("SFX", sfxInfo)
+	if focusGroup != FOCUS_GROUPS.SFX:
+		focusInfoRelay("SFX", sfxInfo)
 
 
 # mouse hovering sfx slider
 func _on_sfx_slider_mouse_entered() -> void:
-	focusInfoRelay("SFX", sfxInfo)
+	if focusGroup != FOCUS_GROUPS.SFX:
+		focusInfoRelay("SFX", sfxInfo)
 
 
 # sound fx test on starting drag
@@ -310,12 +304,14 @@ func cueTextUpdate() -> void:
 
 # grab cue group focus
 func _on_cue_slider_focus_entered() -> void:
-	focusInfoRelay("CUE", cueInfo)
+	if focusGroup != FOCUS_GROUPS.CUE:
+		focusInfoRelay("CUE", cueInfo)
 
 
 # grab cue focus
 func _on_cue_slider_mouse_entered() -> void:
-	focusInfoRelay("CUE", cueInfo)
+	if focusGroup != FOCUS_GROUPS.CUE:
+		focusInfoRelay("CUE", cueInfo)
 
 
 # cue test on drag
@@ -342,12 +338,14 @@ func _on_deadzone_down_pressed() -> void:
 
 # grab deadzone focus
 func _on_deadzone_down_focus_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	if focusGroup != FOCUS_GROUPS.DEADZONE:
+		focusInfoRelay("DEADZONE", deadzoneInfo)
 
 
 # grab deadzone focus
 func _on_deadzone_down_mouse_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	if focusGroup != FOCUS_GROUPS.DEADZONE:
+		focusInfoRelay("DEADZONE", deadzoneInfo)
 
 
 # update deadzone levels
@@ -364,12 +362,14 @@ func _on_deadzone_up_pressed() -> void:
 
 # grab deadzone focus
 func _on_deadzone_up_focus_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	if focusGroup != FOCUS_GROUPS.DEADZONE:
+		focusInfoRelay("DEADZONE", deadzoneInfo)
 
 
 # grab deadzone focus
 func _on_deadzone_up_mouse_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	if focusGroup != FOCUS_GROUPS.DEADZONE:
+		focusInfoRelay("DEADZONE", deadzoneInfo)
 
 
 # save data on escape
@@ -380,23 +380,31 @@ func _on_escape_button_pressed() -> void:
 			globalSettingsUpdate() # update global settings
 			SceneManager.goToTitle() # go to title
 		else:
-			if Globals.currentAppState.get("gameRunning") == true:
-				if Globals.currentAppState.get("settingsWindowOpen") == false:
-					openSettingsCall()
-				else:
-					closeSettingsCall()
+			if Globals.currentAppState.get("settingsWindowOpen") == false:
+				openSettingsCall()
+			else:
+				closeSettingsCall()
 
 
 # grab escape button focus
 func _on_escape_button_focus_entered() -> void:
-	focusInfoRelay("ESCAPE", exitInfo)
+	if focusGroup != FOCUS_GROUPS.ESCAPE:
+		focusInfoRelay("ESCAPE", exitInfo)
 
 
 # grab escape button focus
 func _on_escape_button_mouse_entered() -> void:
-	focusInfoRelay("ESCAPE", exitInfo)
+	if focusGroup != FOCUS_GROUPS.ESCAPE:
+		focusInfoRelay("ESCAPE", exitInfo)
 
 
 # input buffer added to avoid accidental input on load
 func _on_input_buffer_timeout() -> void:
 	bufferState = false
+
+
+func _on_fader_animation_finished(_anim_name: StringName) -> void:
+	if $Header.visible_ratio > 0.5:
+		$Header.visible_ratio = 1.0
+	else:
+		self.visible = false

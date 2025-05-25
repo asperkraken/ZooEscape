@@ -98,8 +98,9 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_released("RightBumper"):
 		resetTime = 0 # fade bar and reset
-		if localHud.resetBarVisible:
-			localHud.resetBarFade()
+		if localHud != null: # check for bar before call or errors
+			if localHud.resetBarVisible:
+				localHud.resetBarFade()
 	
 	if resetTime > 2:
 		resetTime = -10 # added to avoid crash from input overload

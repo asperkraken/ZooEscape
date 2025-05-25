@@ -35,11 +35,12 @@ var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process func
 var focusState := 0 # state of time out window ui focus
 var passwordState := false # shows password window is open
 var tutorialMode := false # tutorial mode state (goes to hud)
-
+var localSettings = null
 
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
+	localSettings = get_tree().get_first_node_in_group("Settings")
 	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
@@ -318,3 +319,11 @@ func _on_exit_button_mouse_entered() -> void:
 # opens settings in game (handled in settings)
 func _on_settings_button_pressed() -> void:
 	SoundControl.playCue(SoundControl.blip, 3.0)
+	
+	var settings = get_tree().get_first_node_in_group("Settings")
+	
+	## control window opening
+	if Globals.currentAppState.get("settingsWindowOpen"):
+		settings.closeSettingsCall()
+	else:
+		settings.openSettingsCall()
