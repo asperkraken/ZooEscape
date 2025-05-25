@@ -1,4 +1,4 @@
-class_name ZEHud extends Control
+class_name ZEHud extends CanvasLayer
 
 
 signal restart_room # reload signal
@@ -22,7 +22,7 @@ var timerValue := 1 # live monitor of timer
 var movesValue := 0 # live monitor of moves
 var scoreCurrent := 0  # player score
 var secondBonus := 50 # values for abstraction from parent to apply
-var movePenalty := 25
+var movePenalty := 25 # score penalty per move
 var moveMonitoring := false # shows timer has started
 var timesUp := false # shows time is out
 var allSteaksCollected := false # shows goal is open
@@ -31,21 +31,22 @@ var resetGauge := 0.0 # to compare with level manager
 var password := "ABCD" # abstraction for password
 var warningTime := 10 # value when warning cues
 var timeLimit := 30 # value to change for each level
-var post_score := false # post score process flag, prevents overloading buffer
-var scoreProcessState := SCORE_PROCESS_STATES.IDLE
-var focusState := 0
-var passwordState := false
-
+var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process function at level end
+var focusState := 0 # state of time out window ui focus
+var passwordState := false # shows password window is open
+var tutorialMode := false # tutorial mode state (goes to hud)
+var localSettings = null
 
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
+	localSettings = get_tree().get_first_node_in_group("Settings")
 	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
 	$HudWindow/TimerValue.text = str(timeLimit) + "s" # update value at start
 	steakValueFetch()
-	timerValue = timeLimit
+	timeCheck()
 	# to avoid queueing error on prompt
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
@@ -53,12 +54,27 @@ func _ready() -> void: # reset animations at ready, fetch start values
 	passwordState = Globals.currentAppState.get("passwordWindowOpen")
 
 
+## double check time values vs globals
+func timeCheck() -> void:
+	var _manager : ZELevelManager = get_tree().get_first_node_in_group("LevelManager") # get level manager root
+	var _timeCheck : int = _manager.levelTime # check time
+	var _warningCheck : int = _manager.warningTime # check warning
+	if timeLimit != _timeCheck: # update if needed
+		timeLimit = _timeCheck
+	if warningTime != _warningCheck:
+		warningTime = _warningCheck
+
+
+
 # Runs every frame
 func _process(_delta: float) -> void:
+	$SettingsButton/GearIcon.play("default") # play gear animation
+	
 	# monitor password state to hold hud move monitoring
 	passwordState = Globals.currentAppState["passwordWindowOpen"]
 	scoreCurrent = Globals.currentGameData.get("player_score")
 	$HudWindow/ScoreValue.text = str(scoreCurrent)
+	
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
 	if !timesUp and passwordState == false: # if timer not out, update values and monitor inputs
@@ -79,7 +95,8 @@ func _process(_delta: float) -> void:
 	# this number taken from levelManager
 	$ResetBar.value = resetGauge 
 	
-	if timesUp:
+	# only grab button focus for time out buttons if time is out
+	if timesUp: 
 		if Input.is_action_just_pressed("DigitalDown"):
 			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalLeft"):
@@ -89,6 +106,7 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("DigitalUp"):
 			buttonFocusGrab()
 	
+	## score processes when not idle or done
 	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
 		scoreProcessing()
 
@@ -107,8 +125,10 @@ func buttonFocusGrab() -> void:
 	match focusState:
 		FOCUS_STATES.RESTART:
 			$ExitButton.grab_focus()
+			$ExitButton.grab_click_focus()
 		FOCUS_STATES.EXIT:
 			$RestartButton.grab_focus()
+			$RestartButton.grab_click_focus()
 
 
 # input start function and flip flop state
@@ -118,9 +138,12 @@ func levelTimerStart() -> void:
 		$HudWindow.scale.x = 1
 	
 	if !moveMonitoring:
-		$HUDAnimationAlt.play("timer_start") # play timer ping on separate animator
-		moveMonitoring = true # moves now monitored
-		$LevelTimer.start(1) # timer starts on first input
+		if !tutorialMode: ## check for tutorial state (given by level manager)
+			$HUDAnimationAlt.play("timer_start") # play timer ping on separate animator
+			moveMonitoring = true # moves now monitored
+			$LevelTimer.start(1) # timer starts on first input
+		else:
+			$HudWindow/TimerValue.text = "NONE" ## put tutorial time text
 
 
 # update label values with strings
@@ -160,7 +183,7 @@ func steakValueFetch() -> void:
 
 # time functionality
 func _on_level_timer_timeout() -> void:
-	if scoreProcessState == SCORE_PROCESS_STATES.IDLE: # do not log timeouts during score processing
+	if scoreProcessState == SCORE_PROCESS_STATES.IDLE and !tutorialMode: # do not log timeouts during score processing
 		if timerValue >= 1 and !timesUp: # if time not up, clock counts down
 			timerValue -= 1
 			$LevelTimer.start(1)
@@ -168,6 +191,8 @@ func _on_level_timer_timeout() -> void:
 		if timerValue == 0: # on time up, flip state, stop non-system noises and trigger feedback
 			$HUDAnimationAlt.play("close")
 			SoundControl.stopSounds()
+			$RestartButton.disabled = false
+			$ExitButton.disabled = false
 			get_tree().paused = true
 			moveMonitoring = false
 			$LevelTimer.stop()
@@ -189,6 +214,7 @@ func _on_hud_animation_animation_finished(anim_name: StringName) -> void:
 		$RestartButton.disabled = false
 		$ExitButton.disabled = false
 		$RestartButton.grab_focus()
+		$RestartButton.grab_click_focus()
 		$HUDAnimation.stop()
 
 
@@ -197,22 +223,24 @@ func _on_open_timer_timeout() -> void:
 	$HUDAnimation.play("open")
 
 
-# button for restart
+# button emits signal to restart if time out
 func _on_restart_button_pressed() -> void:
-	$HudWindow.visible = false # hide window to avoid artifacting/bugs
-	SoundControl.playCue(SoundControl.flutter,3.0)
-	buttonsDisabled()
-	SoundControl.resetMusicFade()
-	restart_room.emit() # signal to levelManager to reload
+	if timesUp:
+		$HudWindow.visible = false # hide window to avoid artifacting/bugs
+		SoundControl.playCue(SoundControl.flutter, 3.0)
+		buttonsDisabled()
+		SoundControl.resetMusicFade()
+		restart_room.emit() # signal to levelManager to reload
 
 
-# button for exiting the game
+# button for exiting the game if time out
 func _on_exit_button_pressed() -> void:
-	$HudWindow.visible = false
-	SoundControl.playCue(SoundControl.ruined,0.5)
-	buttonsDisabled()
-	SoundControl.resetMusicFade()
-	exit_game.emit() # signal to levelManager to exit to title
+	if timesUp:
+		$HudWindow.visible = false
+		SoundControl.playCue(SoundControl.ruined, 0.5)
+		buttonsDisabled()
+		SoundControl.resetMusicFade()
+		exit_game.emit() # signal to levelManager to exit to title
 
 
 # function to close buttons on input
@@ -252,18 +280,50 @@ func scoreProcessing() -> void:
 		SCORE_PROCESS_STATES.TIME_PROCESS:
 			if timerValue > 0: # timer adds bonus until zero
 				timerValue -= 1
-				var _old: int = Globals.currentGameData.get("player_score")
-				Globals.currentGameData.set("player_score", (_old + secondBonus))
+				Globals.scoreUpdate(secondBonus, true)
 			else:
 				scoreProcessState = SCORE_PROCESS_STATES.MOVE_PROCESS # then state flips
 		SCORE_PROCESS_STATES.MOVE_PROCESS:
 			if movesValue > 0: # moves subtract penalty until zero
 				movesValue-=1
-				var _old2 = Globals.currentGameData.get("player_score")
-				Globals.currentGameData.set("player_score", (_old2-movePenalty))
+				Globals.scoreUpdate(movePenalty, false)
 			else: # then state flips back to off
 				print("Score processed!")
 				score_processed.emit() # after emitting one signal
 				scoreProcessState = SCORE_PROCESS_STATES.POST
 		SCORE_PROCESS_STATES.POST:
 			pass
+			# empty state to end processing
+
+
+# grab mouse focus for restart
+func _on_restart_button_focus_entered() -> void:
+	$RestartButton.grab_click_focus()
+
+
+# grab click focus for restart
+func _on_restart_button_mouse_entered() -> void:
+	$RestartButton.grab_focus()
+
+
+# grab mouse focus for exit
+func _on_exit_button_focus_entered() -> void:
+	$ExitButton.grab_click_focus()
+
+
+# grab input focus for exit
+func _on_exit_button_mouse_entered() -> void:
+	$ExitButton.grab_focus()
+
+
+# opens settings in game (handled in settings)
+func _on_settings_button_pressed() -> void:
+	SoundControl.playCue(SoundControl.blip, 3.0)
+	
+	var settings = get_tree().get_first_node_in_group("Settings")
+	
+	## control window opening
+	if Globals.currentAppState.get("settingsWindowOpen"):
+		settings.closeSettingsCall()
+	else:
+		settings.openSettingsCall()

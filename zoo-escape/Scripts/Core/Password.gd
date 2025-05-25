@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 
 # materials for shader changes on password entry
@@ -6,7 +6,7 @@ const correctShader := preload("res://Assets/Shaders/WobblyMaterial.tres")
 const failShader := preload("res://Assets/Shaders/ErrorShakeX.tres")
 const title := Scenes.TITLE
 const empty := "----"
-const correctedVector := Vector2(-320,-160)
+const correctedVector := Vector2(-320,-180)
 
 # states to control focus and input
 enum NUMBER_FOCUS_STATES {
@@ -33,16 +33,18 @@ var inputBufferActive := true # hold input until window fades in
 
 
 # Called when the node enters the scene tree for the first time
+# get app state before determining behavior of menu
 func _ready() -> void:
+	inGameMode = Globals.currentAppState.get("gameRunning")
 	code.text = empty # reset text
-	if !inGameMode: # fade in and queue buffers, grab focus
+	if Globals.currentAppState.get("gameRunning") == false: # fade in and queue buffers, grab focus
 		$Animator.play("fade_in")
 		$InputBufferTimer.start()
 		$ButtonBox/Button1.grab_focus()
-		allStatesFlywheel(true,true) # all hud flags true with animation in
+		allStatesFlywheel(true, true) # all hud flags true with animation in
 	else:
-		allStatesFlywheel(false,false) # hud flags off but no animation
-		self.position = correctedVector
+		allStatesFlywheel(false, false) # hud flags off but no animation
+
 
 
 # Called when input is detected
@@ -51,20 +53,21 @@ func _input(_event: InputEvent) -> void:
 		fetchInput() # listen for input outside game from frontend
 		numberInputGrab()
 		
-	if inGameMode: # listen for password button (escape)
-		if Input.is_action_just_pressed("PasswordButton"):
+	if inGameMode: # listen for password button (escape) but watch for settings window
+		if Input.is_action_just_pressed("PasswordButton") and Globals.currentAppState.get("settingsWindowOpen") == false:
 			if !inputBufferActive: # is input buffer expired? (waits from start)
 				if windowOpenFlag == false: # is window already open?
 					$InputBufferTimer.start()
 					$ButtonBox/Button1.grab_focus()
 					buttonBatchControl(true)
-					allStatesFlywheel(true,true) # open all hud states, animation in
+					allStatesFlywheel(true, true) # open all hud states, animation in
 				else:
 					buttonBatchControl(false)
-					allStatesFlywheel(false,true)
+					allStatesFlywheel(false, true)
 			else: # close all states with animation out
-				allStatesFlywheel(false,true)
-		
+				allStatesFlywheel(false, true)
+
+
 	if inGameMode and windowOpenFlag == true:
 		fetchInput()
 		numberInputGrab()
@@ -120,7 +123,7 @@ func _numericFocusCheck() -> void:
 		$ButtonBox/ButtonEnter.grab_focus()
 
 
-# TODO: This needs a descriptive comment here
+# disable all buttons widget
 func allStatesFlywheel(logic: bool, animate: bool) -> void:
 	# first bool, logic for all hud states, second bool determines if animation necessary
 	Globals.currentAppState["passwordWindowOpen"] = logic # global hud logic
@@ -144,7 +147,7 @@ func randomBlipCue() -> void:
 # grabbing global input
 func fetchInput() -> void:
 	if Input.is_action_just_pressed("PasswordButton"):
-		SoundControl.playCue(SoundControl.down,2.0)
+		SoundControl.playCue(SoundControl.down, 2.0)
 		if inGameMode and !windowOpenFlag:
 			get_tree().paused = true
 			$Animator.play_backwards("fade_in")
@@ -154,6 +157,8 @@ func fetchInput() -> void:
 			windowOpenFlag = true
 		else:
 			get_tree().paused = false
+			buttonBatchControl(false)
+
 		
 		if !inGameMode:
 			returnToTitle()
@@ -165,10 +170,9 @@ func fetchInput() -> void:
 				$ButtonBox/ButtonEnter.grab_focus()
 			
 		if Globals.PASSWORDS.has(code.text): # if level code correct, show feedback
-			SoundControl.playCue(SoundControl.success,2.5)
+			SoundControl.playCue(SoundControl.success, 2.5)
 			code.material = correctShader
 			code.modulate = Color.GREEN_YELLOW
-			Globals.currentGameData["player_score"] = 0 # NOTE:  Why is this happening here instead of in the GameRoot or somewhere besides a menu?
 			$LoadSceneBuffer.start(loadSceneBufferTime) # begin buffer to load
 			
 		if !"-" in code.text: # if no blanks, go to enter button
@@ -182,7 +186,7 @@ func fetchInput() -> void:
 			codeRemoval()
 		else:
 			buttonBatchControl(false)
-			allStatesFlywheel(false,true)
+			allStatesFlywheel(false, true)
 			if !inGameMode: # if in from frontend, return thru frontend
 				returnToTitle()
 
@@ -210,7 +214,7 @@ func buttonBatchControl(logic:bool) -> void:
 # return sound cue and load function
 func returnToTitle() -> void:
 	SoundControl.playCue(SoundControl.down, 1.4)
-	SceneManager.call_deferred("GoToNewSceneString", title)
+	SceneManager.call_deferred("goToNewSceneString", title)
 
 
 # check code for answer
@@ -231,7 +235,8 @@ func answerCheck() -> void:
 
 # load scene at end of load buffer timer
 func _on_load_scene_buffer_timeout() -> void:
-	SceneManager.call_deferred("GoToNewSceneString", Globals.PASSWORDS[code.text])
+	Globals.currentAppState.set("gameRunning", true)
+	SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[code.text])
 
 
 # get number by state and input
@@ -441,7 +446,7 @@ func _on_button_clear_pressed() -> void:
 		if !inGameMode:
 			returnToTitle()
 		else:
-			allStatesFlywheel(false,true)
+			allStatesFlywheel(false, true)
 
 
 # Called when Clear button focused
@@ -471,4 +476,5 @@ func _on_button_enter_mouse_entered() -> void:
 
 # alpha of blur backdrop changes each frame with parent (self)
 func _process(_delta: float) -> void:
-	$Backdrop.material.set_shader_parameter("parentAlpha", self.modulate.a)
+	$Backdrop.material.set_shader_parameter("parentAlpha", $PasswordWindow.modulate.a)
+	

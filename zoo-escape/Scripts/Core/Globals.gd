@@ -50,14 +50,14 @@ var currentSettings := {
 
 # Globally accessible data related to the currently active game
 var currentGameData := {
-	"time_limit": 60,
-	"warning_threshold": 15,
 	"player_score": 0, # player score total
 }
 
 # Globally accessible data related to the state of the application
 var currentAppState := {
-	"passwordWindowOpen": false # global hud control flag
+	"passwordWindowOpen": false, # global hud control flag
+	"settingsWindowOpen" : false, # global hud control flag
+	"gameRunning" : false # flag to change hud behaviors in game
 }
 
 # TODO: Try combining highScoreboardNames with highScoreBoardValues into one Dictionary.
@@ -86,3 +86,29 @@ var highScoreboardValues = [
 	17000,
 	16000
 ]
+
+
+# global function for changing score, with bool for determining plus/minus
+func scoreUpdate(value:int,buff:bool) -> void:
+	var _scoreCheck : int = currentGameData.get("player_score") # get current score
+	var _newScore : int # create holder for totaling
+	if buff == true: # is it a buff?
+		_newScore = _scoreCheck + value # add
+	else:
+		_newScore = _scoreCheck - value # or subtract
+
+	currentGameData.set("player_score",_newScore) # then update global
+
+
+# global function to update input deadzones
+func deadzoneUpdate() -> void:
+	var _deadzone : float = currentSettings.get("analog_deadzone")
+	InputMap.action_set_deadzone("DigitalLeft", _deadzone)
+	InputMap.action_set_deadzone("DigitalDown", _deadzone)
+	InputMap.action_set_deadzone("DigitalRight", _deadzone)
+	InputMap.action_set_deadzone("DigitalUp", _deadzone)
+
+
+# function to set game running flag for ui event monitoring
+func gameRunning(logic:bool) -> void:
+	currentAppState.set("gameRunning", logic)

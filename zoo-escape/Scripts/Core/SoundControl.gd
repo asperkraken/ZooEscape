@@ -51,15 +51,19 @@ const zap := "res://Assets/Sound/ZapDelayed.ogg"
 const start := "res://Assets/Sound/FlourishUp.ogg"
 
 
-func _ready() -> void: # sound preferences retrieved at ready
+ # sound preferences retrieved at ready
+func _ready() -> void:
 	setSoundPreferences(masterLevel,SILENCE,sfxLevel,cueLevel) # set levels
 	currentBgm = testBgm # default title music
 
 
-func _process(delta: float) -> void: # listen for fade states and update volumes
+ # listen for fade states and update volumes
+func _process(delta: float) -> void:
 	if !AudioServer.is_bus_mute(3): # check volume reference/bgm bus
 		if fadeState != FADE_STATES.PEAK_VOLUME: # fade trigger if bgm not muted
 			bgmFadingMachine(delta,fadeRate)
+		else:
+			pass
 
 
 # values set for sound levels
@@ -88,7 +92,7 @@ func fadeRateUpdate(_newValue:float) -> void:
 	fadeRate = _newValue
 
 
-# queue next track and update fade if needed
+# queue next track and update fade if needed (called remotely)
 func levelChangeSoundCall(_value:float, _music:String) -> void:
 	currentBgm = _music # allows music to change on next fade start
 	fadeState = FADE_STATES.OUT_TRIGGER
@@ -99,6 +103,7 @@ func levelChangeSoundCall(_value:float, _music:String) -> void:
 func stopSounds() -> void:
 	bgm.stop()
 	sfx.stop()
+
 
 # call sfx file and play
 func playSfx(_sfxFile:String) -> void:
@@ -152,7 +157,8 @@ func bgmFadingMachine(_delta:float,_rate:float) -> void:
 				fadeState = FADE_STATES.IN_TRIGGER
 
 
-func resetMusicFade() -> void: # external function for resetting music volume
+# external function for resetting music volume
+func resetMusicFade() -> void: 
 	fadeState = FADE_STATES.SILENCE
 	$BGM.volume_db = SILENCE
 
