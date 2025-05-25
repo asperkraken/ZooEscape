@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://nheh2k2bhpjo"]
+[gd_scene load_steps=75 format=4 uid="uid://nheh2k2bhpjo"]
 
 [ext_resource type="Script" uid="uid://c0lknsfkxfvqt" path="res://Scripts/Core/Hud.gd" id="1_v7gog"]
 [ext_resource type="FontFile" uid="uid://bq7xf2p04pmff" path="res://Assets/Fonts/RetroFontImported.tres" id="2_douv2"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://tefa4iuuwip6" path="res://Assets/Sound/Twinkle3.ogg" id="4_hv3f2"]
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="5_e5oyd"]
 [ext_resource type="Texture2D" uid="uid://bux0jend2lpdp" path="res://Assets/Images/UIFocusGradient.png" id="6_douv2"]
+[ext_resource type="Texture2D" uid="uid://doycf4hxegdkd" path="res://Assets/Images/Icons/gear_sprite.png" id="6_fes7x"]
 
 [sub_resource type="Image" id="Image_qn8em"]
 data = {
@@ -2979,19 +2980,19 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath(".:modulate")
+tracks/8/path = NodePath("HudWindow/SteaksText:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(0.0333333),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("HudWindow/SteaksText:modulate")
+tracks/9/path = NodePath("HudWindow/SteaksValue:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3003,19 +3004,19 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("HudWindow/SteaksValue:modulate")
+tracks/10/path = NodePath("RestartButton:modulate")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("RestartButton:modulate")
+tracks/11/path = NodePath("ExitButton:modulate")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -3027,19 +3028,19 @@ tracks/11/keys = {
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ExitButton:modulate")
+tracks/12/path = NodePath("RestartButton:disabled")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("RestartButton:disabled")
+tracks/13/path = NodePath("ExitButton:disabled")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
@@ -3051,43 +3052,43 @@ tracks/13/keys = {
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("ExitButton:disabled")
+tracks/14/path = NodePath("OpenCue:pitch_scale")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [3.0]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("OpenCue:pitch_scale")
+tracks/15/path = NodePath("HudWindow:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [3.0]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("HudWindow:modulate")
+tracks/16/path = NodePath("ResetBar:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("ResetBar:modulate")
+tracks/17/path = NodePath("TimeOutCurtain/PasswordBox:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -3099,26 +3100,26 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("TimeOutCurtain/PasswordBox:modulate")
+tracks/18/path = NodePath("HudWindow/TimerValue:text")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": ["----"]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("HudWindow/TimerValue:text")
+tracks/19/path = NodePath("SettingsButton:modulate")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["----"]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_v7gog"]
@@ -3210,7 +3211,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
+tracks/2/path = NodePath("SettingsButton:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -3496,6 +3497,42 @@ _data = {
 &"warning": SubResource("Animation_yycug")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4iw3"]
+atlas = ExtResource("6_fes7x")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugh5x"]
+atlas = ExtResource("6_fes7x")
+region = Rect2(34, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxtjt"]
+atlas = ExtResource("6_fes7x")
+region = Rect2(68, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7myin"]
+atlas = ExtResource("6_fes7x")
+region = Rect2(102, 0, 34, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kumpa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4iw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugh5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxtjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7myin")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8xvoy"]
 texture = ExtResource("6_douv2")
 
@@ -3505,29 +3542,22 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hv3f2"]
 bg_color = Color(0, 0.752505, 0.754017, 1)
 
-[node name="ZEHud" type="Control" groups=["hud"]]
+[node name="ZEHud" type="CanvasLayer" groups=["hud"]]
 process_mode = 3
-modulate = Color(1, 1, 1, 0)
-layout_mode = 3
-anchors_preset = 0
-offset_left = -320.0
-offset_top = -180.0
-offset_right = 320.0
-offset_bottom = 184.0
 script = ExtResource("1_v7gog")
 metadata/_edit_lock_ = true
 
 [node name="HudWindow" type="ColorRect" parent="."]
 process_mode = 3
-layout_mode = 0
 offset_left = 464.0
 offset_top = 12.0
 offset_right = 624.0
 offset_bottom = 180.0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(160, 112)
-mouse_filter = 2
 color = Color(0.380392, 0.25098, 0.478431, 1)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="HUDBorder" type="Line2D" parent="HudWindow"]
 position = Vector2(-0.00119241, 1.55085)
@@ -3745,7 +3775,6 @@ metadata/_edit_lock_ = true
 
 [node name="TimeOutCurtain" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
 offset_right = 640.0
 offset_bottom = 364.0
 mouse_filter = 2
@@ -3788,7 +3817,6 @@ vertical_alignment = 1
 
 [node name="TimeOutLabel" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
 offset_left = 160.0
 offset_top = 400.0
 offset_right = 480.0
@@ -3839,10 +3867,22 @@ stream = ExtResource("4_hv3f2")
 volume_db = -6.0
 pitch_scale = 2.0
 
+[node name="SettingsButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 56.0
+mouse_filter = 1
+
+[node name="GearIcon" type="AnimatedSprite2D" parent="SettingsButton"]
+position = Vector2(24, 24)
+sprite_frames = SubResource("SpriteFrames_kumpa")
+frame_progress = 0.823026
+
 [node name="RestartButton" type="Button" parent="."]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
 offset_left = 168.0
 offset_top = 220.0
 offset_right = 312.0
@@ -3868,7 +3908,6 @@ metadata/_edit_lock_ = true
 [node name="ExitButton" type="Button" parent="."]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
 offset_left = 328.0
 offset_top = 220.0
 offset_right = 472.0
@@ -3893,7 +3932,6 @@ metadata/_edit_lock_ = true
 
 [node name="ResetBar" type="ProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 0
 offset_left = 480.0
 offset_top = 188.0
 offset_right = 608.0
@@ -3920,6 +3958,7 @@ vertical_alignment = 1
 
 [connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="focus_entered" from="RestartButton" to="." method="_on_restart_button_focus_entered"]
 [connection signal="mouse_entered" from="RestartButton" to="." method="_on_restart_button_mouse_entered"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
