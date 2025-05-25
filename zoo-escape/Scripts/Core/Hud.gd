@@ -36,6 +36,7 @@ var focusState := 0 # state of time out window ui focus
 var passwordState := false # shows password window is open
 var tutorialMode := false # tutorial mode state (goes to hud)
 var localSettings = null
+var stepIconCount : int = 0
 
 
 # Runs at the start set up
@@ -44,7 +45,7 @@ func _ready() -> void: # reset animations at ready, fetch start values
 	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
-	$HudWindow/TimerValue.text = str(timeLimit) + "s" # update value at start
+	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start
 	steakValueFetch()
 	timeCheck()
 	# to avoid queueing error on prompt
@@ -65,6 +66,10 @@ func timeCheck() -> void:
 		warningTime = _warningCheck
 
 
+## visual feedback for all steaks collected
+func steakWiggle() -> void:
+	$HUDIcons/SteakIcon.play("feedback")
+
 
 # Runs every frame
 func _process(_delta: float) -> void:
@@ -73,7 +78,7 @@ func _process(_delta: float) -> void:
 	# monitor password state to hold hud move monitoring
 	passwordState = Globals.currentAppState["passwordWindowOpen"]
 	scoreCurrent = Globals.currentGameData.get("player_score")
-	$HudWindow/ScoreValue.text = str(scoreCurrent)
+	$HUDIcons/ScoreValue.text = str(scoreCurrent)
 	
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
@@ -94,6 +99,7 @@ func _process(_delta: float) -> void:
 	
 	# this number taken from levelManager
 	$ResetBar.value = resetGauge 
+	$HUDIcons/MovesIcon.play("feedback") ## run animation, it has its own pause frames
 	
 	# only grab button focus for time out buttons if time is out
 	if timesUp: 
@@ -105,6 +111,10 @@ func _process(_delta: float) -> void:
 			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalUp"):
 			buttonFocusGrab()
+	else:
+		## warning animation for low time
+		if timerValue < warningTime and timerValue > 0:
+			$HUDIcons/TimerIcon.play("feedback")
 	
 	## score processes when not idle or done
 	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
@@ -143,25 +153,25 @@ func levelTimerStart() -> void:
 			moveMonitoring = true # moves now monitored
 			$LevelTimer.start(1) # timer starts on first input
 		else:
-			$HudWindow/TimerValue.text = "NONE" ## put tutorial time text
+			$HUDIcons/TimerValue.text = "NONE" ## put tutorial time text
 
 
 # update label values with strings
 func valueMonitoring() -> void:
 	# listen for steaks collected and update as needed
 	if !allSteaksCollected:
-		$HudWindow/SteaksValue.text = str(steakValue) + "x"
+		$HUDIcons/SteaksValue.text = str(steakValue) + "x"
 	else:
-		$HudWindow/SteaksValue.text = "GOAL!!" # if all captured, goal text
+		$HUDIcons/SteaksValue.text = "GOAL" # if all captured, goal text
 	
-	$HudWindow/MovesValue.text = str(movesValue) + "m"
+	$HUDIcons/MovesValue.text = str(movesValue) + "m"
 	
 	# update timer as it counts down
 	if timerValue < timeLimit and moveMonitoring:
-		$HudWindow/TimerValue.text = str(timerValue) + "s"
+		$HUDIcons/TimerValue.text = str(timerValue) + "s"
 	if timerValue == 0 and scoreProcessState == SCORE_PROCESS_STATES.IDLE: # last second warning
-		$HudWindow/TimerValue.modulate = Color.RED
-		$HudWindow/TimerText.modulate = Color.RED
+		$HUDIcons/TimerValue.modulate = Color.RED
+		$HUDIcons/TimerText.modulate = Color.RED
 
 
 # if all collected, run animation
@@ -172,7 +182,7 @@ func valueMonitoring() -> void:
 
 # function for updating password, referenced by manager/ui
 func passwordReport(data:String) -> void: 
-	$HudWindow/PasswordValue.text = data
+	$HUDIcons/PasswordValue.text = data
 
 
 # count amount of steaks in scene
@@ -204,6 +214,7 @@ func _on_level_timer_timeout() -> void:
 		
 		# warnings during period of time before time out (variable)
 		if timerValue < warningTime and timerValue > 0:
+			$HUDIcons/TimerIcon.play("feedback")
 			$HUDAnimation.play("warning")
 			$OpenCue.play() # additional warning cue every even second for dynamics
 

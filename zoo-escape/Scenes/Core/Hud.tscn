@@ -1,13 +1,266 @@
-[gd_scene load_steps=75 format=4 uid="uid://nheh2k2bhpjo"]
+[gd_scene load_steps=112 format=4 uid="uid://nheh2k2bhpjo"]
 
 [ext_resource type="Script" uid="uid://c0lknsfkxfvqt" path="res://Scripts/Core/Hud.gd" id="1_v7gog"]
-[ext_resource type="FontFile" uid="uid://bq7xf2p04pmff" path="res://Assets/Fonts/RetroFontImported.tres" id="2_douv2"]
+[ext_resource type="Texture2D" uid="uid://4ujrmavb2g2p" path="res://Assets/Images/Icons/timericon.png" id="2_lxtjt"]
+[ext_resource type="FontFile" uid="uid://dhoekvwsc0xfp" path="res://Assets/Fonts/Orange Kid.otf" id="3_7myin"]
 [ext_resource type="AudioStream" uid="uid://bq8tj3gdm84xr" path="res://Assets/Sound/Twinkle1.ogg" id="3_8xvoy"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="3_hv3f2"]
 [ext_resource type="AudioStream" uid="uid://tefa4iuuwip6" path="res://Assets/Sound/Twinkle3.ogg" id="4_hv3f2"]
+[ext_resource type="SpriteFrames" uid="uid://dyocpchrkapw4" path="res://Assets/UI_Resources/step_icon_frames.tres" id="4_kumpa"]
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="5_e5oyd"]
+[ext_resource type="Texture2D" uid="uid://be6ay2ee1504e" path="res://Assets/Images/Icons/dancing_steak.png" id="5_uqj5e"]
 [ext_resource type="Texture2D" uid="uid://bux0jend2lpdp" path="res://Assets/Images/UIFocusGradient.png" id="6_douv2"]
 [ext_resource type="Texture2D" uid="uid://doycf4hxegdkd" path="res://Assets/Images/Icons/gear_sprite.png" id="6_fes7x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36vq4"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6t02"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0j045"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6umdj"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sdyc"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pv0w"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frfm6"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dotw1"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjjkc"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irshd"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4iee"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3pxe"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpy2l"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxvc5"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv4ln"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fl42"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_demfb"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yanxo"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apkt1"]
+atlas = ExtResource("2_lxtjt")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nn744"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36vq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6t02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0j045")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6umdj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sdyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pv0w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frfm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dotw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjjkc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irshd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4iee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3pxe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpy2l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxvc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv4ln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fl42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_demfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yanxo")
+}],
+"loop": true,
+"name": &"feedback",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apkt1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47n1c"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_860fo"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebn5j"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8csh"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv7m6"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi3d7"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60xak"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hinef"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v8hd"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_00yse"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcvwg"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ccdnb"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yemqb"]
+atlas = ExtResource("5_uqj5e")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dt1g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47n1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_860fo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebn5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8csh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv7m6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi3d7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60xak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hinef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v8hd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_00yse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcvwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ccdnb")
+}],
+"loop": true,
+"name": &"feedback",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yemqb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="Image" id="Image_qn8em"]
 data = {
@@ -2896,7 +3149,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HudWindow/TimerText:modulate")
+tracks/1/path = NodePath("HUDIcons/TimerValue:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -2908,187 +3161,187 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HudWindow/TimerValue:modulate")
+tracks/2/path = NodePath("AlertCue:playing")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
+"update": 1,
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("AlertCue:playing")
+tracks/3/path = NodePath("TimeOutCurtain:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("TimeOutCurtain:modulate")
+tracks/4/path = NodePath("HudWindow:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(0, 1)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("HudWindow:scale")
+tracks/5/path = NodePath("TimeOutLabel:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 1)]
+"values": [Vector2(160, 400)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("TimeOutLabel:position")
+tracks/6/path = NodePath("TimeOutLabel:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(160, 400)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("TimeOutLabel:modulate")
+tracks/7/path = NodePath("HUDIcons/SteaksValue:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("HudWindow/SteaksText:modulate")
+tracks/8/path = NodePath("RestartButton:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("HudWindow/SteaksValue:modulate")
+tracks/9/path = NodePath("ExitButton:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("RestartButton:modulate")
+tracks/10/path = NodePath("RestartButton:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ExitButton:modulate")
+tracks/11/path = NodePath("ExitButton:disabled")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [true]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("RestartButton:disabled")
+tracks/12/path = NodePath("OpenCue:pitch_scale")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [3.0]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("ExitButton:disabled")
+tracks/13/path = NodePath("HudWindow:modulate")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("OpenCue:pitch_scale")
+tracks/14/path = NodePath("ResetBar:modulate")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [3.0]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("HudWindow:modulate")
+tracks/15/path = NodePath("TimeOutCurtain/PasswordBox:modulate")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("ResetBar:modulate")
+tracks/16/path = NodePath("HUDIcons/TimerValue:text")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": ["----"]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("TimeOutCurtain/PasswordBox:modulate")
+tracks/17/path = NodePath("SettingsButton:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -3100,26 +3353,50 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("HudWindow/TimerValue:text")
+tracks/18/path = NodePath("HUDIcons:modulate")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["----"]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("SettingsButton:modulate")
+tracks/19/path = NodePath("HUDIcons/HUDBorder:scale")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(0, 0)]
+}
+tracks/20/type = "value"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("HUDIcons/TimerIcon:modulate")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("HUDIcons/TimerValue:visible_ratio")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
 }
 
 [sub_resource type="Animation" id="Animation_v7gog"]
@@ -3150,6 +3427,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HUDIcons/HUDBorder:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1.5), Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HUDIcons:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_bvk10"]
 resource_name = "goal"
@@ -3158,22 +3459,10 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HudWindow/SteaksText:modulate")
+tracks/0/path = NodePath("HUDIcons/SteaksValue:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 1, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HudWindow/SteaksValue:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -3219,6 +3508,30 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HUDIcons:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HUDIcons/HUDBorder:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1.5)]
 }
 
 [sub_resource type="Animation" id="Animation_douv2"]
@@ -3357,22 +3670,10 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HudWindow/TimerText:modulate")
+tracks/0/path = NodePath("HUDIcons/TimerValue:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HudWindow/TimerValue:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.0333333),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -3382,11 +3683,11 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_bk4hq"]
 resource_name = "timer_start"
 length = 0.5
-step = 0.5
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HudWindow/TimerText:modulate")
+tracks/0/path = NodePath("HUDIcons/TimerValue:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3398,50 +3699,62 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HudWindow/TimerValue:modulate")
+tracks/1/path = NodePath("OpenCue:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 0, 1), Color(1, 1, 1, 1)]
+"update": 1,
+"values": [true, false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("OpenCue:playing")
+tracks/2/path = NodePath("OpenCue:pitch_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"update": 0,
+"values": [2.75, 3.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("OpenCue:pitch_scale")
+tracks/3/path = NodePath("HUDIcons/TimerValue:text")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [2.75, 3.0]
+"update": 1,
+"values": ["START", "START"]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("HudWindow/TimerValue:text")
+tracks/4/path = NodePath("HUDIcons/TimerIcon:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": ["START!!", "START!!"]
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HUDIcons/TimerValue:visible_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
 [sub_resource type="Animation" id="Animation_yycug"]
@@ -3450,7 +3763,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HudWindow/TimerText:modulate")
+tracks/0/path = NodePath("HUDIcons/TimerValue:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -3462,26 +3775,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("HudWindow/TimerValue:modulate")
+tracks/1/path = NodePath("AlertCue:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("AlertCue:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HUDIcons/TimerIcon:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_snii7"]
@@ -3545,36 +3858,50 @@ bg_color = Color(0, 0.752505, 0.754017, 1)
 [node name="ZEHud" type="CanvasLayer" groups=["hud"]]
 process_mode = 3
 script = ExtResource("1_v7gog")
-metadata/_edit_lock_ = true
 
 [node name="HudWindow" type="ColorRect" parent="."]
 process_mode = 3
-offset_left = 464.0
-offset_top = 12.0
+offset_left = 312.0
+offset_top = 16.0
 offset_right = 624.0
-offset_bottom = 180.0
+offset_bottom = 72.0
 scale = Vector2(1e-05, 1)
 pivot_offset = Vector2(160, 112)
 color = Color(0.380392, 0.25098, 0.478431, 1)
 metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
-[node name="HUDBorder" type="Line2D" parent="HudWindow"]
-position = Vector2(-0.00119241, 1.55085)
-scale = Vector2(1, 1.49)
-points = PackedVector2Array(160, 0, 0, 0, 0, 112, 160, 112)
+[node name="HUDIcons" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HUDBorder" type="Line2D" parent="HUDIcons"]
+position = Vector2(314.999, 9.55085)
+scale = Vector2(1e-05, 1e-05)
+points = PackedVector2Array(309.001, 4.32829, -2.99881, 4.32829, -2.99881, 41.9122, 309.001, 41.9122)
 closed = true
 width = 3.0
 default_color = Color(0.560784, 0.239216, 0.654902, 1)
+joint_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="TimerText" type="Label" parent="HudWindow"]
+[node name="TimerIcon" type="AnimatedSprite2D" parent="HUDIcons"]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(595, 34)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_nn744")
+animation = &"idle"
+frame_progress = 0.342454
+metadata/_edit_lock_ = true
+
+[node name="TimerValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 112.0
-offset_bottom = 32.0
+offset_left = 573.0
+offset_top = 42.0
+offset_right = 619.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.474797, 1.11302e-06, 3.60981e-07, 1)
 theme_override_colors/font_outline_color = Color(0.137255, 0, 0, 0.6)
@@ -3582,40 +3909,26 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
-text = "TIME"
-autowrap_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="TimerValue" type="Label" parent="HudWindow"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 48.0
-offset_top = 24.0
-offset_right = 152.0
-offset_bottom = 48.0
-theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
-theme_override_colors/font_shadow_color = Color(0.474797, 1.11302e-06, 3.60981e-07, 1)
-theme_override_colors/font_outline_color = Color(0.137255, 0, 0, 0.6)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 9
-theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
 text = "----"
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 1
 metadata/_edit_lock_ = true
 
-[node name="MovesText" type="Label" parent="HudWindow"]
+[node name="MovesIcon" type="AnimatedSprite2D" parent="HUDIcons"]
+position = Vector2(536, 34)
+scale = Vector2(0.8, 0.8)
+sprite_frames = ExtResource("4_kumpa")
+animation = &"feedback"
+
+[node name="MovesValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 40.0
-offset_right = 112.0
-offset_bottom = 64.0
+offset_left = 509.0
+offset_top = 42.0
+offset_right = 565.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.474797, 1.11302e-06, 3.60981e-07, 1)
 theme_override_colors/font_outline_color = Color(0.137255, 0, 0, 0.6)
@@ -3623,40 +3936,26 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
-text = "MOVES"
-autowrap_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="MovesValue" type="Label" parent="HudWindow"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 48.0
-offset_top = 56.0
-offset_right = 152.0
-offset_bottom = 80.0
-theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
-theme_override_colors/font_shadow_color = Color(0.474797, 1.11302e-06, 3.60981e-07, 1)
-theme_override_colors/font_outline_color = Color(0.137255, 0, 0, 0.6)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 9
-theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
 text = "0m"
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 1
-metadata/_edit_lock_ = true
 
-[node name="SteaksText" type="Label" parent="HudWindow"]
+[node name="SteakIcon" type="AnimatedSprite2D" parent="HUDIcons"]
+position = Vector2(479, 33)
+scale = Vector2(1.6, 1.6)
+sprite_frames = SubResource("SpriteFrames_5dt1g")
+animation = &"idle"
+frame_progress = 0.0316095
+
+[node name="SteaksValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 72.0
-offset_right = 112.0
-offset_bottom = 96.0
+offset_left = 452.0
+offset_top = 42.0
+offset_right = 508.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.474797, 1.11302e-06, 3.60981e-07, 1)
 theme_override_colors/font_outline_color = Color(0.137255, 0, 0, 0.6)
@@ -3664,40 +3963,19 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
-text = "STEAKS"
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
+text = "GOAL"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 1
-metadata/_edit_lock_ = true
 
-[node name="SteaksValue" type="Label" parent="HudWindow"]
+[node name="ScoreText" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 48.0
-offset_top = 88.0
-offset_right = 152.0
-offset_bottom = 112.0
-theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
-theme_override_colors/font_shadow_color = Color(0.474797, 1.11302e-06, 3.60981e-07, 1)
-theme_override_colors/font_outline_color = Color(0.137255, 0, 0, 0.6)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 9
-theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
-text = "GOAL!!"
-horizontal_alignment = 2
-autowrap_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="ScoreText" type="Label" parent="HudWindow"]
-texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 104.0
-offset_right = 112.0
-offset_bottom = 128.0
+offset_left = 318.0
+offset_top = 18.0
+offset_right = 367.0
+offset_bottom = 43.0
 theme_override_colors/font_color = Color(0.952941, 0.760784, 0.12549, 1)
 theme_override_colors/font_shadow_color = Color(0.571136, 0.449937, 0.0322193, 1)
 theme_override_colors/font_outline_color = Color(0.126573, 0.0915162, 0.00188519, 1)
@@ -3705,19 +3983,18 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
 text = "SCORE"
+vertical_alignment = 1
 autowrap_mode = 1
-metadata/_edit_lock_ = true
 
-[node name="ScoreValue" type="Label" parent="HudWindow"]
+[node name="ScoreValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 48.0
-offset_top = 120.0
-offset_right = 152.0
-offset_bottom = 144.0
+offset_left = 363.0
+offset_top = 18.0
+offset_right = 443.0
+offset_bottom = 43.0
 theme_override_colors/font_color = Color(0.952941, 0.760784, 0.12549, 1)
 theme_override_colors/font_shadow_color = Color(0.571136, 0.449937, 0.0322193, 1)
 theme_override_colors/font_outline_color = Color(0.126573, 0.0915162, 0.00188519, 1)
@@ -3725,20 +4002,18 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
 text = "0"
 horizontal_alignment = 2
 autowrap_mode = 1
-metadata/_edit_lock_ = true
 
-[node name="PasswordText" type="Label" parent="HudWindow"]
+[node name="PasswordText" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 8.0
-offset_top = 136.0
-offset_right = 112.0
-offset_bottom = 160.0
+offset_left = 318.0
+offset_top = 42.0
+offset_right = 399.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(0.254902, 0.870588, 0.584314, 1)
 theme_override_colors/font_shadow_color = Color(0.113132, 0.409142, 0.268613, 1)
 theme_override_colors/font_outline_color = Color(0.00951307, 0.0875832, 0.0445567, 1)
@@ -3746,19 +4021,18 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
 text = "PASSWORD"
+vertical_alignment = 1
 autowrap_mode = 1
-metadata/_edit_lock_ = true
 
-[node name="PasswordValue" type="Label" parent="HudWindow"]
+[node name="PasswordValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
-layout_mode = 0
-offset_left = 48.0
-offset_top = 152.0
-offset_right = 152.0
-offset_bottom = 176.0
+offset_left = 404.0
+offset_top = 42.0
+offset_right = 444.0
+offset_bottom = 67.0
 theme_override_colors/font_color = Color(0.254902, 0.870588, 0.584314, 1)
 theme_override_colors/font_shadow_color = Color(0.113132, 0.409142, 0.268613, 1)
 theme_override_colors/font_outline_color = Color(0.00951307, 0.0875832, 0.0445567, 1)
@@ -3766,12 +4040,11 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 9
 theme_override_constants/shadow_outline_size = 6
-theme_override_fonts/font = ExtResource("2_douv2")
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_7myin")
+theme_override_font_sizes/font_size = 20
 text = "----"
 horizontal_alignment = 2
 autowrap_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="TimeOutCurtain" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -3790,6 +4063,8 @@ offset_right = 472.0
 offset_bottom = 140.0
 mouse_filter = 2
 color = Color(4.9334e-07, 0, 0.300713, 1)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="PasswordBorder" type="Line2D" parent="TimeOutCurtain/PasswordBox"]
 z_index = -1
@@ -3933,9 +4208,9 @@ metadata/_edit_lock_ = true
 [node name="ResetBar" type="ProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_left = 480.0
-offset_top = 188.0
-offset_right = 608.0
-offset_bottom = 212.0
+offset_top = 84.0
+offset_right = 624.0
+offset_bottom = 108.0
 theme_override_styles/background = SubResource("StyleBoxFlat_8xvoy")
 theme_override_styles/fill = SubResource("StyleBoxFlat_hv3f2")
 max_value = 2.0
@@ -3945,7 +4220,7 @@ metadata/_edit_lock_ = true
 
 [node name="ResetLabel" type="Label" parent="ResetBar"]
 layout_mode = 0
-offset_right = 128.0
+offset_right = 144.0
 offset_bottom = 23.0
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 2
@@ -3956,6 +4231,7 @@ text = "HOLD R TO RESET"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="animation_finished" from="HUDIcons/MovesIcon" to="." method="_on_moves_icon_animation_finished"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
