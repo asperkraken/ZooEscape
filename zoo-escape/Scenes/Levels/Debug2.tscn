@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://ivfqm5d81hl5"]
+[gd_scene load_steps=6 format=4 uid="uid://ivfqm5d81hl5"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/LevelManager.gd" id="1_jtl3e"]
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/Tiles.tres" id="2_317uw"]
 [ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/Components/Interactive/ExitTile.tscn" id="3_bj522"]
-[ext_resource type="Script" uid="uid://7jmx121he3g2" path="res://Scripts/Components/Interactive/SteakManager.gd" id="4_4sndc"]
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="5_kbwgl"]
 [ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/Player/Player.tscn" id="8_i2blw"]
 
@@ -17,32 +16,29 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAA
 tile_set = ExtResource("2_317uw")
 
 [node name="Wall" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAADAAEAAwABAAAAAAAEAAEAAwABAAAAAAAFAAEAAwABAAAAAAAGAAEAAwABAAAAAAAHAAEAAwABAAAAAAAIAAEAAwABAAAAAAAOAAIAAwABAAAAAAAPAAIAAwABAAAAAAAQAAIAAwABAAAAAAAJAAEAAwABAAAAAAACAAEAAwAAAAAAAAACAAIAAwAAAAEAAAACAAMAAwAAAAEAAAACAAQAAwAAAAEAAAACAAUAAwAAAAEAAAACAAYAAwAAAAEAAAACAAcAAwAAAAIAAAADAAcAAwABAAAAAAAEAAcAAwABAAAAAAAFAAcAAwACAAAAAAAFAAgAAwAAAAEAAAAFAAkAAwAAAAEAAAAFAAoAAwAAAAEAAAAFAAsAAwAAAAIAAAAGAAsAAwABAAAAAAAHAAsAAwABAAAAAAAIAAsAAwABAAAAAAAJAAsAAwABAAAAAAAKAAsAAwABAAAAAAALAAsAAwABAAAAAAAMAAsAAwABAAAAAAANAAsAAwABAAAAAAAOAAsAAwABAAAAAAAPAAsAAwABAAAAAAAQAAsAAwABAAAAAAARAAsAAwACAAIAAAARAAoAAAABAAMAAAARAAkAAAABAAMAAAARAAgAAAABAAMAAAARAAcAAAABAAMAAAARAAYAAAABAAMAAAARAAUAAAABAAMAAAARAAQAAAABAAMAAAARAAMAAAABAAMAAAARAAIAAwACAAAAAAAKAAIAAwAAAAIAAAALAAIAAwABAAAAAAAMAAIAAwABAAAAAAANAAIAAwABAAAAAAAKAAEAAwACAAAAAAAGAAIAAwABAAAAAAAHAAIAAwABAAAAAAA=")
+tile_map_data = PackedByteArray("AAADAAEAAwABAAAAAAAEAAEAAwABAAAAAAAFAAEAAwABAAAAAAAGAAEAAwABAAAAAAAHAAEAAwABAAAAAAAIAAEAAwABAAAAAAAOAAIAAwABAAAAAAAPAAIAAwABAAAAAAAQAAIAAwABAAAAAAAJAAEAAwABAAAAAAACAAEAAwAAAAAAAAACAAIAAwAAAAEAAAACAAMAAwAAAAEAAAACAAQAAwAAAAEAAAACAAUAAwAAAAEAAAACAAYAAwAAAAEAAAACAAcAAwAAAAIAAAADAAcAAwABAAAAAAAEAAcAAwABAAAAAAAFAAcAAwACAAAAAAAFAAgAAwAAAAEAAAAFAAkAAwAAAAEAAAAFAAoAAwAAAAEAAAAFAAsAAwAAAAIAAAAGAAsAAwABAAAAAAAHAAsAAwABAAAAAAAIAAsAAwABAAAAAAAJAAsAAwABAAAAAAAKAAsAAwABAAAAAAALAAsAAwABAAAAAAAMAAsAAwABAAAAAAANAAsAAwABAAAAAAAOAAsAAwABAAAAAAAPAAsAAwABAAAAAAAQAAsAAwABAAAAAAARAAsAAwACAAIAAAARAAoAAwACAAEAAAARAAkAAwACAAEAAAARAAgAAwACAAEAAAARAAcAAwACAAEAAAARAAYAAwACAAEAAAARAAUAAwACAAEAAAARAAQAAwACAAEAAAARAAMAAwACAAEAAAARAAIAAwACAAAAAAAKAAIAAwAAAAIAAAALAAIAAwABAAAAAAAMAAIAAwABAAAAAAANAAIAAwABAAAAAAAKAAEAAwACAAAAAAA=")
 tile_set = ExtResource("2_317uw")
 
 [node name="ExitTile" parent="." instance=ExtResource("3_bj522")]
 position = Vector2(232, 88)
 nextLevelCode = "9993"
 
-[node name="SteakManager" type="Node2D" parent="."]
-script = ExtResource("4_4sndc")
-
-[node name="Steak" parent="SteakManager" instance=ExtResource("5_kbwgl")]
+[node name="Steak" parent="." instance=ExtResource("5_kbwgl")]
 position = Vector2(200, 56)
 
-[node name="Steak5" parent="SteakManager" instance=ExtResource("5_kbwgl")]
+[node name="Steak5" parent="." instance=ExtResource("5_kbwgl")]
 position = Vector2(184, 56)
 
-[node name="Steak6" parent="SteakManager" instance=ExtResource("5_kbwgl")]
+[node name="Steak6" parent="." instance=ExtResource("5_kbwgl")]
 position = Vector2(168, 56)
 
-[node name="Steak2" parent="SteakManager" instance=ExtResource("5_kbwgl")]
+[node name="Steak2" parent="." instance=ExtResource("5_kbwgl")]
 position = Vector2(216, 56)
 
-[node name="Steak3" parent="SteakManager" instance=ExtResource("5_kbwgl")]
+[node name="Steak3" parent="." instance=ExtResource("5_kbwgl")]
 position = Vector2(232, 56)
 
-[node name="Steak4" parent="SteakManager" instance=ExtResource("5_kbwgl")]
+[node name="Steak4" parent="." instance=ExtResource("5_kbwgl")]
 position = Vector2(152, 56)
 
 [node name="Player" parent="." instance=ExtResource("8_i2blw")]

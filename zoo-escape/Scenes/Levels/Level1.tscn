@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=4 uid="uid://ce5kde7d343lq"]
+[gd_scene load_steps=9 format=4 uid="uid://ce5kde7d343lq"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/LevelManager.gd" id="1_x1u7g"]
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/Tiles.tres" id="2_3a3vc"]
 [ext_resource type="PackedScene" uid="uid://64cp455l5y64" path="res://Scenes/Components/Interactive/Button.tscn" id="3_2q305"]
 [ext_resource type="PackedScene" uid="uid://dvj8b6tkhitto" path="res://Scenes/Components/Interactive/Gate.tscn" id="4_p1kfa"]
 [ext_resource type="PackedScene" uid="uid://cxubfhy8y0hcg" path="res://Scenes/Components/Interactive/Box.tscn" id="5_bnk20"]
-[ext_resource type="Script" uid="uid://7jmx121he3g2" path="res://Scripts/Components/Interactive/SteakManager.gd" id="6_5bs81"]
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="7_0mdn8"]
 [ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/Player/Player.tscn" id="8_ykhfs"]
 [ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/Components/Interactive/ExitTile.tscn" id="9_p1kfa"]
@@ -29,40 +28,37 @@ position = Vector2(216, 184)
 [node name="Gate" parent="Button" instance=ExtResource("4_p1kfa")]
 position = Vector2(16, 32)
 
-[node name="SteakManager" type="Node2D" parent="."]
-script = ExtResource("6_5bs81")
-
-[node name="Steak" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(216, 280)
 
-[node name="Steak2" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak2" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(232, 280)
 
-[node name="Steak3" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak3" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(248, 280)
 
-[node name="Steak4" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak4" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(232, 264)
 
-[node name="Steak5" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak5" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(328, 264)
 
-[node name="Steak6" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak6" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(392, 264)
 
-[node name="Steak7" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak7" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(360, 184)
 
-[node name="Steak8" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak8" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(200, 152)
 
-[node name="Steak9" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak9" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(200, 200)
 
-[node name="Steak10" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak10" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(264, 200)
 
-[node name="Steak11" parent="SteakManager" instance=ExtResource("7_0mdn8")]
+[node name="Steak11" parent="." instance=ExtResource("7_0mdn8")]
 position = Vector2(328, 152)
 
 [node name="Box" parent="." instance=ExtResource("5_bnk20")]

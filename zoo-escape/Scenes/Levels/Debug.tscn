@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=4 uid="uid://catmq3n8ijbp6"]
+[gd_scene load_steps=11 format=4 uid="uid://catmq3n8ijbp6"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/LevelManager.gd" id="1_68k30"]
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/Tiles.tres" id="1_d2x4x"]
-[ext_resource type="Script" uid="uid://7jmx121he3g2" path="res://Scripts/Components/Interactive/SteakManager.gd" id="2_bxppo"]
 [ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/Player/Player.tscn" id="2_ykc06"]
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="5_h7q7r"]
 [ext_resource type="PackedScene" uid="uid://64cp455l5y64" path="res://Scenes/Components/Interactive/Button.tscn" id="7_ekvyi"]
@@ -29,25 +28,22 @@ tile_set = ExtResource("1_d2x4x")
 position = Vector2(232, 88)
 nextLevelCode = "9992"
 
-[node name="SteakManager" type="Node2D" parent="."]
-script = ExtResource("2_bxppo")
-
-[node name="Steak" parent="SteakManager" instance=ExtResource("5_h7q7r")]
+[node name="Steak" parent="." instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 120)
 
-[node name="Steak5" parent="SteakManager" instance=ExtResource("5_h7q7r")]
+[node name="Steak5" parent="." instance=ExtResource("5_h7q7r")]
 position = Vector2(136, 56)
 
-[node name="Steak6" parent="SteakManager" instance=ExtResource("5_h7q7r")]
+[node name="Steak6" parent="." instance=ExtResource("5_h7q7r")]
 position = Vector2(136, 72)
 
-[node name="Steak2" parent="SteakManager" instance=ExtResource("5_h7q7r")]
+[node name="Steak2" parent="." instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 136)
 
-[node name="Steak3" parent="SteakManager" instance=ExtResource("5_h7q7r")]
+[node name="Steak3" parent="." instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 152)
 
-[node name="Steak4" parent="SteakManager" instance=ExtResource("5_h7q7r")]
+[node name="Steak4" parent="." instance=ExtResource("5_h7q7r")]
 position = Vector2(72, 88)
 
 [node name="Switch" parent="." instance=ExtResource("8_ygj1o")]

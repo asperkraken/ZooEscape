@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=4 uid="uid://cjt08f0ic1lh4"]
+[gd_scene load_steps=10 format=4 uid="uid://cjt08f0ic1lh4"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/LevelManager.gd" id="1_bb20r"]
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/Tiles.tres" id="2_4jow1"]
 [ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/Components/Interactive/ExitTile.tscn" id="3_xpjke"]
-[ext_resource type="Script" uid="uid://7jmx121he3g2" path="res://Scripts/Components/Interactive/SteakManager.gd" id="4_nwetp"]
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="5_vbfcr"]
 [ext_resource type="PackedScene" uid="uid://cuh4bgpegyhgw" path="res://Scenes/Components/Interactive/Switch.tscn" id="8_5qm4x"]
 [ext_resource type="PackedScene" uid="uid://dvj8b6tkhitto" path="res://Scenes/Components/Interactive/Gate.tscn" id="9_7juyi"]
@@ -114,64 +113,61 @@ position = Vector2(-16, 0)
 rotation = -1.5708
 gateState = 1
 
-[node name="SteakManager" type="Node2D" parent="."]
-script = ExtResource("4_nwetp")
-
-[node name="Steak" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-24, 200)
 
-[node name="Steak2" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak2" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(8, 200)
 
-[node name="Steak3" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak3" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(40, 200)
 
-[node name="Steak4" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak4" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(72, 200)
 
-[node name="Steak5" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak5" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(104, 200)
 
-[node name="Steak6" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak6" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(136, 200)
 
-[node name="Steak7" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak7" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(168, 200)
 
-[node name="Steak8" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak8" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(200, 200)
 
-[node name="Steak9" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak9" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(232, 200)
 
-[node name="Steak10" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak10" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(264, 200)
 
-[node name="Steak11" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak11" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-72, 200)
 
-[node name="Steak12" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak12" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-56, 200)
 
-[node name="Steak13" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak13" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-120, 168)
 
-[node name="Steak14" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak14" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-72, 136)
 
-[node name="Steak15" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak15" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-72, 152)
 
-[node name="Steak16" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak16" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(-88, 152)
 
-[node name="Steak17" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak17" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(56, 56)
 
-[node name="Steak18" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak18" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(56, 104)
 
-[node name="Steak19" parent="SteakManager" instance=ExtResource("5_vbfcr")]
+[node name="Steak19" parent="." instance=ExtResource("5_vbfcr")]
 position = Vector2(56, 152)
 
 [node name="Box" parent="." instance=ExtResource("11_u2iw7")]
