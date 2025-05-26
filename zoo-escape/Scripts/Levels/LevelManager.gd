@@ -25,8 +25,9 @@ func _ready() -> void:
 	player.InWater.connect(restartRoom)
 	exitTile.PlayerExits.connect(exitLevel)
 	steakManager.AllSteaksCollected.connect(allSteaksCollected)
-	Globals.currentGameData.set("time_limit", levelTime)
-	Globals.currentGameData.set("warning_threshold", warningTime)
+	Globals.currentAppState["gameRunning"] = true
+	Globals.currentGameData["time_limit"] = levelTime
+	Globals.currentGameData["warning_threshold"] = warningTime
 	
 	# check to ensure bgm fade level is consistent
 	# if bgm fade level not normal, reset fade state so it fades in
