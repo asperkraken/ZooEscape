@@ -3898,6 +3898,7 @@ metadata/_edit_lock_ = true
 
 [node name="TimerValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 573.0
 offset_top = 42.0
 offset_right = 619.0
@@ -3925,6 +3926,7 @@ animation = &"feedback"
 
 [node name="MovesValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 509.0
 offset_top = 42.0
 offset_right = 565.0
@@ -3952,6 +3954,7 @@ frame_progress = 0.0316095
 
 [node name="SteaksValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 452.0
 offset_top = 42.0
 offset_right = 508.0
@@ -3972,6 +3975,7 @@ autowrap_mode = 1
 
 [node name="ScoreText" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 318.0
 offset_top = 18.0
 offset_right = 367.0
@@ -3991,6 +3995,7 @@ autowrap_mode = 1
 
 [node name="ScoreValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 363.0
 offset_top = 18.0
 offset_right = 443.0
@@ -4010,6 +4015,7 @@ autowrap_mode = 1
 
 [node name="PasswordText" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 318.0
 offset_top = 42.0
 offset_right = 399.0
@@ -4029,6 +4035,7 @@ autowrap_mode = 1
 
 [node name="PasswordValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
+layout_mode = 0
 offset_left = 404.0
 offset_top = 42.0
 offset_right = 444.0
