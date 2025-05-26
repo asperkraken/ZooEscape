@@ -3,7 +3,7 @@ class_name Hud extends CanvasLayer
 
 signal RestartRoom # reload signal
 signal ExitGame # exit to title signal
-signal score_processed # score processing signal for process score
+signal ScoreProcessed # score processing signal for process score
 
 enum FOCUS_STATES {
 	RESTART,
@@ -246,7 +246,7 @@ func scoreProcessing() -> void:
 				Globals.scoreUpdate(movePenalty, false)
 			else: # then state flips back to off
 				print("Score processed!")
-				score_processed.emit() # after emitting one signal
+				ScoreProcessed.emit() # after emitting one signal
 				scoreProcessState = SCORE_PROCESS_STATES.POST
 		_:
 			pass # default do nothing

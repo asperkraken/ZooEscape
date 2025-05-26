@@ -31,6 +31,7 @@ func _ready() -> void:
 		player.showMoveThought()
 	
 	exitTile.PlayerExits.connect(exitLevel)
+	steakManager.SteakCollected.connect(updateSteakCount)
 	steakManager.AllSteaksCollected.connect(allSteaksCollected)
 	hudFetch()
 	
@@ -52,7 +53,7 @@ func hudUpdate() -> void:
 	localHud = load(Scenes.HUD).instantiate()
 	localHud.RestartRoom.connect(restartRoom)
 	localHud.ExitGame.connect(exitGame)
-	localHud.score_processed.connect(nextRoom)
+	localHud.ScoreProcessed.connect(nextRoom)
 	# update global data report and local UI visual feedback
 	localHud.timeLimit = levelTime
 	localHud.warningTime = warningTime
@@ -61,6 +62,7 @@ func hudUpdate() -> void:
 	localHud.movePenalty = perMovePenalty
 	localHud.passwordReport(levelCode)
 	localHud.tutorialMode = tutorialScoreBypass
+	localHud.steakValue = steakManager.steakTotal
 	
 	get_tree().current_scene.add_child(localHud)
 
@@ -162,6 +164,11 @@ func exitGame() -> void:
 	Data.saveGameData()
 	hudClosing()
 	SceneManager.goToTitle()
-	
+
+
+# updates the move count on the hud
 func upateMoveCount() -> void:
 	localHud.movesValue += 1
+
+func updateSteakCount() -> void:
+	localHud.steakValue = steakManager.steakTotal
