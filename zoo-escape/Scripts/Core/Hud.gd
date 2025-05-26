@@ -1,9 +1,9 @@
-class_name ZEHud extends CanvasLayer
+class_name Hud extends CanvasLayer
 
 
-signal restart_room # reload signal
-signal exit_game # exit to title signal
-signal score_processed # score processing signal for process score
+signal RestartRoom # reload signal
+signal ExitGame # exit to title signal
+signal ScoreProcessed # score processing signal for process score
 
 enum FOCUS_STATES {
 	RESTART,
@@ -35,35 +35,19 @@ var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process func
 var focusState := 0 # state of time out window ui focus
 var passwordState := false # shows password window is open
 var tutorialMode := false # tutorial mode state (goes to hud)
-var localSettings = null
 var stepIconCount : int = 0
 
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
-	localSettings = get_tree().get_first_node_in_group("Settings")
-	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
 	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start
-	steakValueFetch()
-	timeCheck()
 	# to avoid queueing error on prompt
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
 	scoreCurrent = Globals.currentGameData.get("player_score")
 	passwordState = Globals.currentAppState.get("passwordWindowOpen")
-
-
-## double check time values vs globals
-func timeCheck() -> void:
-	var _manager : ZELevelManager = get_tree().get_first_node_in_group("LevelManager") # get level manager root
-	var _timeCheck : int = _manager.levelTime # check time
-	var _warningCheck : int = _manager.warningTime # check warning
-	if timeLimit != _timeCheck: # update if needed
-		timeLimit = _timeCheck
-	if warningTime != _warningCheck:
-		warningTime = _warningCheck
 
 
 ## visual feedback for all steaks collected
@@ -83,7 +67,6 @@ func _process(_delta: float) -> void:
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
 	if !timesUp and passwordState == false: # if timer not out, update values and monitor inputs
-		steakValueFetch()
 		valueMonitoring()
 	
 	# level timer does not start until first input
@@ -101,17 +84,7 @@ func _process(_delta: float) -> void:
 	$ResetBar.value = resetGauge 
 	$HUDIcons/MovesIcon.play("feedback") ## run animation, it has its own pause frames
 	
-	# only grab button focus for time out buttons if time is out
-	if timesUp: 
-		if Input.is_action_just_pressed("DigitalDown"):
-			buttonFocusGrab()
-		if Input.is_action_just_pressed("DigitalLeft"):
-			buttonFocusGrab()
-		if Input.is_action_just_pressed("DigitalRight"):
-			buttonFocusGrab()
-		if Input.is_action_just_pressed("DigitalUp"):
-			buttonFocusGrab()
-	else:
+	if !timesUp:
 		## warning animation for low time
 		if timerValue < warningTime and timerValue > 0:
 			$HUDIcons/TimerIcon.play("feedback")
@@ -119,26 +92,6 @@ func _process(_delta: float) -> void:
 	## score processes when not idle or done
 	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
 		scoreProcessing()
-
-
-# button to grab focus from keyboard for timeout buttons
-func buttonFocusGrab() -> void:
-	# lock state values and adjust each button press
-	focusState += 1
-	if focusState == 2:
-		focusState = 0
-	
-	var _variant := randf_range(-0.7, 0.7) # random blips
-	SoundControl.playCue(SoundControl.blip, (2.3 + _variant))
-	
-	# listen for state
-	match focusState:
-		FOCUS_STATES.RESTART:
-			$ExitButton.grab_focus()
-			$ExitButton.grab_click_focus()
-		FOCUS_STATES.EXIT:
-			$RestartButton.grab_focus()
-			$RestartButton.grab_click_focus()
 
 
 # input start function and flip flop state
@@ -185,12 +138,6 @@ func passwordReport(data:String) -> void:
 	$HUDIcons/PasswordValue.text = data
 
 
-# count amount of steaks in scene
-func steakValueFetch() -> void: 
-	var steakCount = get_tree().get_node_count_in_group("steaks")
-	steakValue = steakCount
-
-
 # time functionality
 func _on_level_timer_timeout() -> void:
 	if scoreProcessState == SCORE_PROCESS_STATES.IDLE and !tutorialMode: # do not log timeouts during score processing
@@ -211,6 +158,9 @@ func _on_level_timer_timeout() -> void:
 			timesUp = true
 			$AlertCue.pitch_scale = 0.5 # alert noise
 			$AlertCue.play()
+			$RestartButton.grab_focus()
+			$RestartButton.grab_click_focus()
+			
 		
 		# warnings during period of time before time out (variable)
 		if timerValue < warningTime and timerValue > 0:
@@ -236,22 +186,20 @@ func _on_open_timer_timeout() -> void:
 
 # button emits signal to restart if time out
 func _on_restart_button_pressed() -> void:
-	if timesUp:
-		$HudWindow.visible = false # hide window to avoid artifacting/bugs
-		SoundControl.playCue(SoundControl.flutter, 3.0)
-		buttonsDisabled()
-		SoundControl.resetMusicFade()
-		restart_room.emit() # signal to levelManager to reload
+	$HudWindow.visible = false # hide window to avoid artifacting/bugs
+	SoundControl.playCue(SoundControl.flutter, 3.0)
+	buttonsDisabled()
+	SoundControl.resetMusicFade()
+	RestartRoom.emit() # signal to levelManager to reload
 
 
 # button for exiting the game if time out
 func _on_exit_button_pressed() -> void:
-	if timesUp:
-		$HudWindow.visible = false
-		SoundControl.playCue(SoundControl.ruined, 0.5)
-		buttonsDisabled()
-		SoundControl.resetMusicFade()
-		exit_game.emit() # signal to levelManager to exit to title
+	$HudWindow.visible = false
+	SoundControl.playCue(SoundControl.ruined, 0.5)
+	buttonsDisabled()
+	SoundControl.resetMusicFade()
+	ExitGame.emit() # signal to levelManager to exit to title
 
 
 # function to close buttons on input
@@ -286,8 +234,6 @@ func resetPrompt() -> void:
 # score processing state machine
 func scoreProcessing() -> void:
 	match scoreProcessState:
-		SCORE_PROCESS_STATES.IDLE:
-			pass # don't process
 		SCORE_PROCESS_STATES.TIME_PROCESS:
 			if timerValue > 0: # timer adds bonus until zero
 				timerValue -= 1
@@ -300,26 +246,15 @@ func scoreProcessing() -> void:
 				Globals.scoreUpdate(movePenalty, false)
 			else: # then state flips back to off
 				print("Score processed!")
-				score_processed.emit() # after emitting one signal
+				ScoreProcessed.emit() # after emitting one signal
 				scoreProcessState = SCORE_PROCESS_STATES.POST
-		SCORE_PROCESS_STATES.POST:
-			pass
-			# empty state to end processing
-
-
-# grab mouse focus for restart
-func _on_restart_button_focus_entered() -> void:
-	$RestartButton.grab_click_focus()
+		_:
+			pass # default do nothing
 
 
 # grab click focus for restart
 func _on_restart_button_mouse_entered() -> void:
 	$RestartButton.grab_focus()
-
-
-# grab mouse focus for exit
-func _on_exit_button_focus_entered() -> void:
-	$ExitButton.grab_click_focus()
 
 
 # grab input focus for exit

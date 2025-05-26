@@ -1,7 +1,7 @@
 extends AnimatedSprite2D
 
-
 @export var bonus : int = 50  # The points for collecting a steak
+signal Collected
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,4 +13,5 @@ func bodyEntered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		Globals.scoreUpdate(bonus, true) # global score update
 		SoundControl.playSfx(SoundControl.pickup) # global sound call
+		Collected.emit()
 		queue_free()

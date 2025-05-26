@@ -14,7 +14,6 @@ func _ready() -> void:
 	get_parent().process_mode = Node.PROCESS_MODE_ALWAYS
 
 
-
 # this takes a loaded scene as argument and unpauses the tree
 func goToNewScenePacked(newScene: PackedScene) -> void:
 	# Before switching to another scene, make sure the scene tree is not paused
