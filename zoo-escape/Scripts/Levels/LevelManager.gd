@@ -170,5 +170,7 @@ func exitGame() -> void:
 func upateMoveCount() -> void:
 	localHud.movesValue += 1
 
+
+# updaes the stake counter on the hud
 func updateSteakCount() -> void:
 	localHud.steakValue = steakManager.steakTotal
