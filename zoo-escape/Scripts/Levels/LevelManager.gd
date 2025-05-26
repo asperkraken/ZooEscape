@@ -26,6 +26,10 @@ func _ready() -> void:
 	self.add_to_group("LevelManager")
 	player.InWater.connect(restartRoom)
 	player.PlayerMoved.connect(upateMoveCount)
+	
+	if tutorialScoreBypass:
+		player.showMoveThought()
+	
 	exitTile.PlayerExits.connect(exitLevel)
 	steakManager.AllSteaksCollected.connect(allSteaksCollected)
 	hudFetch()

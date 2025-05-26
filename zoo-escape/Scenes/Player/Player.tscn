@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://3ah88dbq7yi4"]
+[gd_scene load_steps=31 format=3 uid="uid://3ah88dbq7yi4"]
 
 [ext_resource type="Script" uid="uid://dbcs0mgpcg3be" path="res://Scripts/Player/Player.gd" id="1_fxagb"]
 [ext_resource type="Texture2D" uid="uid://cbcuw7wsx26tw" path="res://Assets/Images/CatSpritesheetGray.png" id="2_mim3m"]
@@ -146,18 +146,44 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmbf3"]
 size = Vector2(2, 2)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ude3g"]
+atlas = ExtResource("4_ude3g")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wape"]
+atlas = ExtResource("4_ude3g")
+region = Rect2(64, 0, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmcll"]
 atlas = ExtResource("4_ude3g")
 region = Rect2(0, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_t26db"]
+atlas = ExtResource("4_ude3g")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fk5o5"]
+atlas = ExtResource("4_ude3g")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_825xp"]
+atlas = ExtResource("4_ude3g")
+region = Rect2(128, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_4wape"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ude3g")
+}],
 "loop": true,
 "name": &"ActionC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wape")
+}],
 "loop": true,
 "name": &"ActionKB",
 "speed": 5.0
@@ -170,24 +196,28 @@ animations = [{
 "name": &"MoveC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t26db")
+}],
 "loop": true,
 "name": &"MoveKB",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fk5o5")
+}],
 "loop": true,
 "name": &"ResetC",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_825xp")
+}],
 "loop": true,
 "name": &"ResetKB",
-"speed": 5.0
-}, {
-"frames": [],
-"loop": true,
-"name": &"default",
 "speed": 5.0
 }]
 
@@ -223,7 +253,10 @@ volume_db = -18.0
 pitch_scale = 6.0
 
 [node name="ThoughtBubble" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_4wape")
-animation = &"MoveKB"
-autoplay = "default"
+animation = &"ActionC"
+
+[node name="IdleTimer" type="Timer" parent="."]
+wait_time = 7.5

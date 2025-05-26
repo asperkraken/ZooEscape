@@ -35,18 +35,14 @@ var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process func
 var focusState := 0 # state of time out window ui focus
 var passwordState := false # shows password window is open
 var tutorialMode := false # tutorial mode state (goes to hud)
-var localSettings = null
 var stepIconCount : int = 0
 
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
-	localSettings = get_tree().get_first_node_in_group("Settings")
-	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
 	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start
-	steakValueFetch()
 	# to avoid queueing error on prompt
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
@@ -71,7 +67,6 @@ func _process(_delta: float) -> void:
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
 	if !timesUp and passwordState == false: # if timer not out, update values and monitor inputs
-		steakValueFetch()
 		valueMonitoring()
 	
 	# level timer does not start until first input
@@ -141,12 +136,6 @@ func valueMonitoring() -> void:
 # function for updating password, referenced by manager/ui
 func passwordReport(data:String) -> void: 
 	$HUDIcons/PasswordValue.text = data
-
-
-# count amount of steaks in scene
-func steakValueFetch() -> void: 
-	var steakCount = get_tree().get_node_count_in_group("steaks")
-	steakValue = steakCount
 
 
 # time functionality
