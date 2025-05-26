@@ -43,4 +43,3 @@ nextLevelCode = "0387"
 position = Vector2(104, 136)
 
 [editable path="Player"]
-[editable path="Player/ZEPassword"]
