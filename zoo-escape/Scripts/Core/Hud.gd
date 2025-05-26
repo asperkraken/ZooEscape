@@ -1,4 +1,4 @@
-class_name ZEHud extends Control
+class_name ZEHud extends CanvasLayer
 
 
 signal restart_room # reload signal
@@ -35,15 +35,17 @@ var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process func
 var focusState := 0 # state of time out window ui focus
 var passwordState := false # shows password window is open
 var tutorialMode := false # tutorial mode state (goes to hud)
-
+var localSettings = null
+var stepIconCount : int = 0
 
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
+	localSettings = get_tree().get_first_node_in_group("Settings")
 	self.add_to_group("hud")
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
-	$HudWindow/TimerValue.text = str(timeLimit) + "s" # update value at start
+	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start
 	steakValueFetch()
 	timeCheck()
 	# to avoid queueing error on prompt
@@ -53,9 +55,9 @@ func _ready() -> void: # reset animations at ready, fetch start values
 	passwordState = Globals.currentAppState.get("passwordWindowOpen")
 
 
-## double check value vs globals
+## double check time values vs globals
 func timeCheck() -> void:
-	var _manager : Node = get_parent().get_parent() # get level manager root
+	var _manager : ZELevelManager = get_tree().get_first_node_in_group("LevelManager") # get level manager root
 	var _timeCheck : int = _manager.levelTime # check time
 	var _warningCheck : int = _manager.warningTime # check warning
 	if timeLimit != _timeCheck: # update if needed
@@ -64,12 +66,20 @@ func timeCheck() -> void:
 		warningTime = _warningCheck
 
 
+## visual feedback for all steaks collected
+func steakWiggle() -> void:
+	$HUDIcons/SteakIcon.play("feedback")
+
+
 # Runs every frame
 func _process(_delta: float) -> void:
+	$SettingsButton/GearIcon.play("default") # play gear animation
+	
 	# monitor password state to hold hud move monitoring
 	passwordState = Globals.currentAppState["passwordWindowOpen"]
 	scoreCurrent = Globals.currentGameData.get("player_score")
-	$HudWindow/ScoreValue.text = str(scoreCurrent)
+	$HUDIcons/ScoreValue.text = str(scoreCurrent)
+	
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
 	if !timesUp and passwordState == false: # if timer not out, update values and monitor inputs
@@ -89,8 +99,10 @@ func _process(_delta: float) -> void:
 	
 	# this number taken from levelManager
 	$ResetBar.value = resetGauge 
+	$HUDIcons/MovesIcon.play("feedback") ## run animation, it has its own pause frames
 	
-	if timesUp:
+	# only grab button focus for time out buttons if time is out
+	if timesUp: 
 		if Input.is_action_just_pressed("DigitalDown"):
 			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalLeft"):
@@ -99,7 +111,12 @@ func _process(_delta: float) -> void:
 			buttonFocusGrab()
 		if Input.is_action_just_pressed("DigitalUp"):
 			buttonFocusGrab()
+	else:
+		## warning animation for low time
+		if timerValue < warningTime and timerValue > 0:
+			$HUDIcons/TimerIcon.play("feedback")
 	
+	## score processes when not idle or done
 	if scoreProcessState != SCORE_PROCESS_STATES.IDLE:
 		scoreProcessing()
 
@@ -136,25 +153,25 @@ func levelTimerStart() -> void:
 			moveMonitoring = true # moves now monitored
 			$LevelTimer.start(1) # timer starts on first input
 		else:
-			$HudWindow/TimerValue.text = "NONE" ## put tutorial time text
+			$HUDIcons/TimerValue.text = "NONE" ## put tutorial time text
 
 
 # update label values with strings
 func valueMonitoring() -> void:
 	# listen for steaks collected and update as needed
 	if !allSteaksCollected:
-		$HudWindow/SteaksValue.text = str(steakValue) + "x"
+		$HUDIcons/SteaksValue.text = str(steakValue) + "x"
 	else:
-		$HudWindow/SteaksValue.text = "GOAL!!" # if all captured, goal text
+		$HUDIcons/SteaksValue.text = "GOAL" # if all captured, goal text
 	
-	$HudWindow/MovesValue.text = str(movesValue) + "m"
+	$HUDIcons/MovesValue.text = str(movesValue) + "m"
 	
 	# update timer as it counts down
 	if timerValue < timeLimit and moveMonitoring:
-		$HudWindow/TimerValue.text = str(timerValue) + "s"
+		$HUDIcons/TimerValue.text = str(timerValue) + "s"
 	if timerValue == 0 and scoreProcessState == SCORE_PROCESS_STATES.IDLE: # last second warning
-		$HudWindow/TimerValue.modulate = Color.RED
-		$HudWindow/TimerText.modulate = Color.RED
+		$HUDIcons/TimerValue.modulate = Color.RED
+		$HUDIcons/TimerText.modulate = Color.RED
 
 
 # if all collected, run animation
@@ -165,7 +182,7 @@ func valueMonitoring() -> void:
 
 # function for updating password, referenced by manager/ui
 func passwordReport(data:String) -> void: 
-	$HudWindow/PasswordValue.text = data
+	$HUDIcons/PasswordValue.text = data
 
 
 # count amount of steaks in scene
@@ -197,6 +214,7 @@ func _on_level_timer_timeout() -> void:
 		
 		# warnings during period of time before time out (variable)
 		if timerValue < warningTime and timerValue > 0:
+			$HUDIcons/TimerIcon.play("feedback")
 			$HUDAnimation.play("warning")
 			$OpenCue.play() # additional warning cue every even second for dynamics
 
@@ -216,22 +234,24 @@ func _on_open_timer_timeout() -> void:
 	$HUDAnimation.play("open")
 
 
-# button for restart
+# button emits signal to restart if time out
 func _on_restart_button_pressed() -> void:
-	$HudWindow.visible = false # hide window to avoid artifacting/bugs
-	SoundControl.playCue(SoundControl.flutter, 3.0)
-	buttonsDisabled()
-	SoundControl.resetMusicFade()
-	restart_room.emit() # signal to levelManager to reload
+	if timesUp:
+		$HudWindow.visible = false # hide window to avoid artifacting/bugs
+		SoundControl.playCue(SoundControl.flutter, 3.0)
+		buttonsDisabled()
+		SoundControl.resetMusicFade()
+		restart_room.emit() # signal to levelManager to reload
 
 
-# button for exiting the game
+# button for exiting the game if time out
 func _on_exit_button_pressed() -> void:
-	$HudWindow.visible = false
-	SoundControl.playCue(SoundControl.ruined, 0.5)
-	buttonsDisabled()
-	SoundControl.resetMusicFade()
-	exit_game.emit() # signal to levelManager to exit to title
+	if timesUp:
+		$HudWindow.visible = false
+		SoundControl.playCue(SoundControl.ruined, 0.5)
+		buttonsDisabled()
+		SoundControl.resetMusicFade()
+		exit_game.emit() # signal to levelManager to exit to title
 
 
 # function to close buttons on input
@@ -305,3 +325,16 @@ func _on_exit_button_focus_entered() -> void:
 # grab input focus for exit
 func _on_exit_button_mouse_entered() -> void:
 	$ExitButton.grab_focus()
+
+
+# opens settings in game (handled in settings)
+func _on_settings_button_pressed() -> void:
+	SoundControl.playCue(SoundControl.blip, 3.0)
+	
+	var settings = get_tree().get_first_node_in_group("Settings")
+	
+	## control window opening
+	if Globals.currentAppState.get("settingsWindowOpen"):
+		settings.closeSettingsCall()
+	else:
+		settings.openSettingsCall()

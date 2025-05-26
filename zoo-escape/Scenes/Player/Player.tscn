@@ -1,8 +1,7 @@
-[gd_scene load_steps=24 format=3 uid="uid://3ah88dbq7yi4"]
+[gd_scene load_steps=23 format=3 uid="uid://3ah88dbq7yi4"]
 
 [ext_resource type="Script" uid="uid://dbcs0mgpcg3be" path="res://Scripts/Player/Player.gd" id="1_fxagb"]
 [ext_resource type="Texture2D" uid="uid://cbcuw7wsx26tw" path="res://Assets/Images/CatSpritesheetGray.png" id="2_mim3m"]
-[ext_resource type="PackedScene" uid="uid://nheh2k2bhpjo" path="res://Scenes/Core/Hud.tscn" id="3_anyud"]
 [ext_resource type="AudioStream" uid="uid://b3v6myl26lgyv" path="res://Assets/Sound/DeepThump.ogg" id="5_gxbec"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_44cu1"]
@@ -146,7 +145,7 @@ size = Vector2(16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dmbf3"]
 size = Vector2(2, 2)
 
-[node name="Player" type="CharacterBody2D" groups=["ZEPlayer"]]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 process_mode = 1
 script = ExtResource("1_fxagb")
 
@@ -157,8 +156,6 @@ animation = &"IdleDown"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_72fhx")
-
-[node name="ZEHud" parent="." instance=ExtResource("3_anyud")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
