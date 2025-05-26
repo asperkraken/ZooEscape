@@ -225,5 +225,5 @@ pitch_scale = 6.0
 [node name="ThoughtBubble" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -26)
 sprite_frames = SubResource("SpriteFrames_4wape")
-animation = &"MoveC"
+animation = &"MoveKB"
 autoplay = "default"

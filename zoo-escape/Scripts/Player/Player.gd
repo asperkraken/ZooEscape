@@ -28,11 +28,10 @@ enum playerState {
 @onready var lastMoveDir := Vector2.DOWN
 
 signal InWater
-var localHud = null
+signal PlayerMoved
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	localHud = get_tree().get_first_node_in_group("hud") ## grab hud if there is none
 	randomize()
 	$StepCue.volume_db = SoundControl.sfxLevel-stepMuffleLevel # default player footsteps to low volume
 	$GroundCheck.body_entered.connect(bodyEnter)
@@ -41,8 +40,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	localHud = get_tree().get_first_node_in_group("hud") ## grab hud if there is none
-
 	if currentState == playerState.IDLE:
 		if Input.is_action_just_pressed("DigitalUp"):
 			movePlayer(Vector2.UP)
@@ -108,14 +105,14 @@ func movePlayer(dir: Vector2) -> void:
 			if collidingObj.move(dir):
 				position += dir * Globals.TILESIZE
 				if currentState == playerState.IDLE:
-					localHud.movesValue += 1
+					PlayerMoved.emit()
 	
 	# Otherwise, if the RayCast2D is not colliding, simply move
 	elif !ray.is_colliding():
 		position += dir * Globals.TILESIZE
 		lastMoveDir = dir
 		if currentState == playerState.IDLE:
-			localHud.movesValue += 1
+			PlayerMoved.emit()
 
 
 # Called to attempt interaction with various objects when player is facing a collider
@@ -131,7 +128,6 @@ func bodyEnter(body: Node2D) -> void:
 	if body is TileMapLayer:
 		var tilePos: Vector2i = body.local_to_map($GroundCheck.global_position)
 		if body.get_cell_tile_data(tilePos).get_custom_data("Water"):
-			localHud.closeHud()
 			SoundControl.playCue(SoundControl.fail,3.0)
 			currentState = playerState.INWATER
 		

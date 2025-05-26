@@ -1,4 +1,4 @@
-class_name ZELevelManager extends Node2D
+class_name LevelManager extends Node2D
 
 @export var levelCode := "" # stores as password
 @export var levelTime := 60 # level time limit relayed to hud
@@ -13,7 +13,7 @@ class_name ZELevelManager extends Node2D
 @onready var resetTime := 0.0
 @onready var nextLevel: String = exitTile.nextLevelCode # pointer for next scene string
 var loadingScore: Variant = Globals.currentGameData.get("player_score") # compare score for reloads
-var localHud = null # pointer for hud
+var localHud: Hud # pointer for hud
 var localPassword = null # pointer for password
 var localSettings = null # pointer for settings
 var timeUp := false # to monitor local hud timer
@@ -25,6 +25,7 @@ func _ready() -> void:
 	SceneManager.currentScene = self
 	self.add_to_group("LevelManager")
 	player.InWater.connect(restartRoom)
+	player.PlayerMoved.connect(upateMoveCount)
 	exitTile.PlayerExits.connect(exitLevel)
 	steakManager.AllSteaksCollected.connect(allSteaksCollected)
 	hudFetch()
@@ -37,10 +38,6 @@ func _ready() -> void:
 	
 ## this function grabs the hud elements and adds them to the level
 func hudFetch() -> void:
-	var _loadHud = load(Scenes.HUD)
-	var _newHud = _loadHud.instantiate()
-	get_tree().current_scene.add_child(_newHud)
-	localHud = _newHud
 	hudUpdate()
 	passwordFetch()
 	settingsFetch()
@@ -48,21 +45,20 @@ func hudFetch() -> void:
 
 ## this function loads and connects hud with signals and needed game variables
 func hudUpdate() -> void:
-	localHud.restart_room.connect(restartRoom)
-	localHud.exit_game.connect(exitGame)
+	localHud = load(Scenes.HUD).instantiate()
+	localHud.RestartRoom.connect(restartRoom)
+	localHud.ExitGame.connect(exitGame)
 	localHud.score_processed.connect(nextRoom)
 	# update global data report and local UI visual feedback
-	localHud.timeLimit = int(levelTime)
-	localHud.warningTime = int(warningTime)
-	localHud.timerValue = int(levelTime)
-	localHud.secondBonus = int(perSecondBonus)
-	localHud.movePenalty = int(perMovePenalty)
-	localHud.passwordReport(str(levelCode))
-	if tutorialScoreBypass == true:
-		localHud.tutorialMode = true
-	## grab the player and point them to the hud
-	var currentPlayer = get_tree().get_first_node_in_group("Player")
-	currentPlayer.localHud = localHud
+	localHud.timeLimit = levelTime
+	localHud.warningTime = warningTime
+	localHud.timerValue = levelTime
+	localHud.secondBonus = perSecondBonus
+	localHud.movePenalty = perMovePenalty
+	localHud.passwordReport(levelCode)
+	localHud.tutorialMode = tutorialScoreBypass
+	
+	get_tree().current_scene.add_child(localHud)
 
 
 ## this function pulls up the password window when needed
@@ -115,7 +111,7 @@ func exitLevel() -> void:
 	player.currentState = player.playerState.ONEXIT
 	SoundControl.playCue(SoundControl.success, 2.0) # sound trigger
 	if !tutorialScoreBypass: # process score before exit
-		localHud.scoreProcessState = 1
+		localHud.scoreProcessState = Hud.SCORE_PROCESS_STATES.TIME_PROCESS
 	else: # if tutorial, do not apply score bonuses/penalties
 		nextRoom()
 
@@ -162,3 +158,6 @@ func exitGame() -> void:
 	Data.saveGameData()
 	hudClosing()
 	SceneManager.goToTitle()
+	
+func upateMoveCount() -> void:
+	localHud.movesValue += 1
