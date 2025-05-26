@@ -77,7 +77,7 @@ func _ready() -> void:
 		$Fader.play("open")
 		$Animator.play("roll_info")
 	else: # if in game, change text and keep invisible
-		$EscapeButton.text = "0 / TAB"
+		$EscapeButton.text = "Back"
 		exitInfo = "Return to game and unpause."
 
 
