@@ -144,6 +144,7 @@ func hudClosing() -> void:
 func allSteaksCollected() -> void:
 	exitTile.activateExit()
 	Globals.scoreUpdate(exitScoreBonus, true)
+	localHud.steakWiggle() ## call for steak collected animation from hud
 
 
 # function to close hud and compare original score before reloading the level
