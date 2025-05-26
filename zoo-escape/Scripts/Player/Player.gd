@@ -106,14 +106,16 @@ func movePlayer(dir: Vector2) -> void:
 		if collidingObj is ZEBoxArea or collidingObj is ZEBall:
 		# If the collider is a Box, try to move the Box and the Player
 			if collidingObj.move(dir):
-				localHud.movesValue += 1
 				position += dir * Globals.TILESIZE
+				if currentState == playerState.IDLE:
+					localHud.movesValue += 1
 	
 	# Otherwise, if the RayCast2D is not colliding, simply move
 	elif !ray.is_colliding():
-		localHud.movesValue += 1
 		position += dir * Globals.TILESIZE
 		lastMoveDir = dir
+		if currentState == playerState.IDLE:
+			localHud.movesValue += 1
 
 
 # Called to attempt interaction with various objects when player is facing a collider

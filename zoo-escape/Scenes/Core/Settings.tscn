@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://dybggrx1korki"]
+[gd_scene load_steps=17 format=3 uid="uid://dybggrx1korki"]
 
 [ext_resource type="Script" uid="uid://bojgpxsrs8s60" path="res://Scripts/Core/Settings.gd" id="1_i6roa"]
+[ext_resource type="Material" uid="uid://boe8b8i1roaro" path="res://Assets/UI_Resources/SettingsMosaic.tres" id="2_atut8"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="2_jvrum"]
 [ext_resource type="StyleBox" uid="uid://bg1fatmttmcey" path="res://Assets/UI_Resources/FocusTexture.tres" id="3_jnco8"]
 [ext_resource type="StyleBox" uid="uid://d4ddxd4fvdf4o" path="res://Assets/UI_Resources/HoverTexture.tres" id="4_mow0n"]
@@ -8,24 +9,6 @@
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="6_7pssb"]
 [ext_resource type="Texture2D" uid="uid://dyhwvfgd74prv" path="res://Assets/Images/SelectorFlipH.png" id="6_bxk0w"]
 [ext_resource type="Texture2D" uid="uid://bv8r8myvdoftk" path="res://Assets/Images/Selector.png" id="7_7pssb"]
-
-[sub_resource type="Shader" id="Shader_dhxby"]
-code = "shader_type canvas_item;
-
-uniform float lod: hint_range(0.0, 5) = 0.0;
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture,filter_linear_mipmap;
-uniform float parentAlpha = 1.0;
-
-void fragment(){
-	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
-	COLOR = color;
-	COLOR.a = parentAlpha;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4rh1a"]
-shader = SubResource("Shader_dhxby")
-shader_parameter/lod = 2.584
-shader_parameter/parentAlpha = 1.0
 
 [sub_resource type="Animation" id="Animation_kbgmh"]
 length = 0.001
@@ -40,23 +23,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0188679]
-}
-
-[sub_resource type="Animation" id="Animation_sbfs6"]
-resource_name = "roll_info"
-length = 0.5
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Description:visible_ratio")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
 }
 
 [sub_resource type="Animation" id="Animation_4rh1a"]
@@ -74,6 +40,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_sbfs6"]
+resource_name = "roll_info"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Description:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kv0sb"]
@@ -306,7 +289,7 @@ metadata/_edit_lock_ = true
 
 [node name="Backdrop" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-material = SubResource("ShaderMaterial_4rh1a")
+material = ExtResource("2_atut8")
 offset_left = -17.0
 offset_top = -20.0
 offset_right = 656.0
