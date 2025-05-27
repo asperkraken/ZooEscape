@@ -1,8 +1,5 @@
 extends CanvasLayer
 
-# Window BG Color: #61407A
-# Window Border Color: #8F3DA7
-
 # Enums
 enum menuTypes {
 	NONE,
@@ -12,91 +9,145 @@ enum menuTypes {
 }
 
 # Variables
-var currentMenu := menuTypes.NONE
-var lastMenu := menuTypes.NONE
-var menuOpen := false
+var currentMenu: menuTypes = menuTypes.NONE
+var menuHeap: Array[menuTypes] = []
 
 # Handles to menus
-@onready var main := $MainMenu
-@onready var password := $PasswordMenu
-@onready var settings := $SettingsMenu
-
+@onready var menus: Dictionary[menuTypes, Control] = {
+	menuTypes.MAIN: $MainMenu,
+	menuTypes.PASSWORD: $PasswordMenu,
+	menuTypes.SETTINGS: $SettingsMenu,
+}
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
 	# Prevent this Node and its children from being paused
 	self.process_mode = Node.PROCESS_MODE_ALWAYS
-	main.SetMenu.connect(setMenu)
-	password.SetMenu.connect(setMenu)
-	#settings.SetMenu.connect(setMenu) # TODO: Add signal and emission to settings menu
-	switchMenus()
+	
+	# Connect all menu signals
+	for menu in menus.values():
+		# Connect menu signals to 'setMenu'
+		if menu.has_signal("SetMenu"):
+			menu.SetMenu.connect(setMenu)
+		
+		# Connect menu signals to 'goBack'
+		if menu.has_signal("GoBack"):
+			menu.GoBack.connect(goBack)
+	
+	# Open the MainMenu by default
+	setMenu(menuTypes.MAIN)
 
 
 # Called when an InputEvent is detected
 func _input(event: InputEvent) -> void:
-	# Hide/Show the Password Menu
-	if event.is_action_pressed("MenuButton"):
-		# Mark InputEvent as handled so it only triggers once
-		get_viewport().set_input_as_handled()
-		if currentMenu == menuTypes.MAIN: # If MainMenu open...
-			if Globals.currentAppState.gameRunning: # If a game is running, set the menu to NONE
-				setMenu(menuTypes.NONE)
-			else: # If game not running, set menu to MainMenu to prevent closing
-				setMenu(menuTypes.MAIN)
-		else: # If MainMenu not open, open it
-			setMenu(menuTypes.MAIN)
+	# Only handle single, intentional 'press' events
+	if !event.is_pressed() || event.is_echo():
+		return
 	
-	# Hide/Show the Password Menu
-	if event.is_action_pressed("PasswordButton"):
-		# Mark InputEvent as handled so it only triggers once
-		get_viewport().set_input_as_handled()
-		if currentMenu == menuTypes.PASSWORD:
-			setMenu(lastMenu)
-		else:
-			setMenu(menuTypes.PASSWORD)
+	# Hide all menus, situationally
+	if event.is_action("CancelButton"):
+		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		if isGameRunning() && currentMenu == menuTypes.NONE:
+			setMenu(menuTypes.MAIN) # If a game is running and no menu is open, open MainMenu
+		
+		if currentMenu != menuTypes.MAIN && currentMenu != menuTypes.NONE:
+			goBack() # If a any menu other than MainMenu is open, go back in the menuHeap
 	
-	# Hide/Show the Settings Menu
-	elif event.is_action_pressed("SettingsButton"):
-		# Mark InputEvent as handled so it only triggers once
-		get_viewport().set_input_as_handled()
-		if currentMenu == menuTypes.SETTINGS:
-			setMenu(lastMenu)
+	# Show/Hide the MainMenu
+	if event.is_action("MenuButton"):
+		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		if currentMenu != menuTypes.MAIN:
+			setMenu(menuTypes.MAIN) # if MainMenu is not open, open it
+		elif isGameRunning():
+			setMenu(menuTypes.NONE) # If MainMenu is open and a game is running, close it
 		else:
+			setMenu(menuTypes.MAIN) # If a game is not running, show MainMenu
+	
+	# Show/Hide the PasswordMenu
+	if event.is_action("PasswordButton"):
+		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		if currentMenu != menuTypes.PASSWORD:
+			setMenu(menuTypes.PASSWORD) # If PasswordMenu is not open, open it
+		else:
+			goBack() # If PasswordMenu is open, go back in the menuHeap
+	
+	# Show/Hide the SettingsMenu
+	elif event.is_action("SettingsButton"):
+		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		if currentMenu != menuTypes.SETTINGS: # If SettingsMenu is not open, open it
 			setMenu(menuTypes.SETTINGS)
+		else:
+			goBack() # If SettingsMenu is open, go back in the menuHeap
+
+
+# Determine if a game is running
+func isGameRunning() -> bool:
+	return Globals.currentGameData.get("gameRunning", false)
 
 
 # Called to switch menus
-func switchMenus() -> void:
-	match currentMenu:
-		# Hide all menus
-		menuTypes.NONE:
-			main.hideMenu()
-			password.hideMenu()
-			settings.visible = false # TODO: Make showMenu and hideMenu functions for settings
-		# Show main menu
-		menuTypes.MAIN:
-			main.showMenu()
-			password.hideMenu()
-			settings.visible = false # TODO: Make showMenu and hideMenu functions for settings
-		# Show password menu
-		menuTypes.PASSWORD:
-			main.hideMenu()
-			password.showMenu()
-			settings.visible = false # TODO: Make showMenu and hideMenu functions for settings
-		# Show settings menu
-		menuTypes.SETTINGS:
-			main.hideMenu()
-			password.hideMenu()
-			settings.visible = true # TODO: Make showMenu and hideMenu functions for settings
+func switchMenu() -> void:
+	# Hide all menus
+	hideMenus()
 	
+	# Open the correct menu
+	if currentMenu != menuTypes.NONE:
+		var menu = menus.get(currentMenu)
+		if menu && menu.has_method("showMenu"):
+			menu.showMenu()
+		
 	# If no menu is showing, unpause the game
 	if currentMenu == menuTypes.NONE:
 		get_tree().paused = false
+	
 	# If any menu is showing, pause the game
 	else:
 		get_tree().paused = true
 
+
+# Called to hide all menus
+func hideMenus() -> void:
+	for menu in menus.values():
+		if menu.has_method("hideMenu"):
+			menu.hideMenu()
+
+
+# Called by all functions everywhere to change menus
 func setMenu(newMenu: menuTypes) -> void:
-	lastMenu = currentMenu
+	# Check newMenu against various scenarios
+	match newMenu:
+		menuTypes.NONE: # If requested menu is NONE, close all menus
+			menuHeap.clear()
+			currentMenu = menuTypes.NONE
+			switchMenu()
+			return
+		
+		currentMenu: # If requested menu is same as current menu, do nothing
+			return
+		
+		menuTypes.MAIN: # If requested menu is MAIN, clear the heap
+			menuHeap.clear()
+	
+	# If newMenu is in the heap, remove all elements on the top of the array
+	if menuHeap.has(newMenu):
+		while menuHeap.has(newMenu):
+			menuHeap.pop_back()
+	
+	# Finally, open the requested menu
+	menuHeap.push_back(newMenu)
 	currentMenu = newMenu
-	switchMenus()
+	switchMenu()
+
+
+# Called to reverse the menuHeap (useful for when ESC is used to close menus)
+func goBack() -> void:
+	if menuHeap.size() > 1:  # Ensure there's a previous menu to go back to
+		menuHeap.pop_back()  # Remove the current menu
+		print("Going back in the heap: ", currentMenu, " -> ", menuHeap.back())
+		currentMenu = menuHeap.back()  # Set currentMenu to the last menu in the heap
+		switchMenu()
+	else:
+		if !isGameRunning():
+			setMenu(menuTypes.MAIN)
+			return
+		setMenu(menuTypes.NONE)  # If no previous menu, close all menus

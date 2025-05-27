@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmhbojvsjsq0"]
+[gd_scene load_steps=11 format=3 uid="uid://cmhbojvsjsq0"]
 
 [ext_resource type="Script" uid="uid://b4e8ul7se7xgj" path="res://Scripts/Core/MenuMain.gd" id="1_yuxgg"]
 [ext_resource type="Texture2D" uid="uid://bg626xfxp25i2" path="res://Assets/Images/MainMenuBackground.png" id="2_7a404"]
+[ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="3_7a404"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="3_nt7sf"]
 [ext_resource type="StyleBox" uid="uid://bg1fatmttmcey" path="res://Assets/UI_Resources/FocusTexture.tres" id="4_2i1af"]
 [ext_resource type="StyleBox" uid="uid://d4ddxd4fvdf4o" path="res://Assets/UI_Resources/HoverTexture.tres" id="5_kbsxh"]
@@ -52,12 +53,82 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yuxgg")
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.172549, 0.231373, 1)
+
+[node name="MenuImage" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 152.0
 offset_right = 488.0
 offset_bottom = 360.0
 texture = ExtResource("2_7a404")
+
+[node name="PausedHint" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -174.0
+offset_right = 164.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.121569, 0.239216, 0.254902, 1)
+theme_override_fonts/font = ExtResource("3_7a404")
+theme_override_font_sizes/font_size = 32
+text = "[ PAUSED ]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HintBackground" type="ColorRect" parent="PausedHint"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.156863, 0.156863, 0.156863, 0.784314)
+
+[node name="ResumeButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 4.0
+offset_right = 144.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../BackButton")
+focus_neighbor_bottom = NodePath("../PasswordButton")
+focus_next = NodePath("../PasswordButton")
+focus_previous = NodePath("../BackButton")
+theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
+theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_styles/focus = ExtResource("4_2i1af")
+theme_override_styles/hover = ExtResource("5_kbsxh")
+theme_override_styles/pressed = ExtResource("6_rfi1q")
+text = "Resume Game"
 
 [node name="NewGameButton" type="Button" parent="."]
 layout_mode = 1
@@ -73,6 +144,7 @@ offset_bottom = 76.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_right = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
 focus_next = NodePath("../PasswordButton")
 focus_previous = NodePath("../ExitButton")
@@ -92,6 +164,7 @@ offset_top = 264.0
 offset_right = 464.0
 offset_bottom = 296.0
 focus_neighbor_top = NodePath("../NewGameButton")
+focus_neighbor_right = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath("../SettingsButton")
 focus_next = NodePath("../SettingsButton")
 focus_previous = NodePath("../NewGameButton")
@@ -123,6 +196,33 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Settings"
+
+[node name="BackButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -144.0
+offset_top = 124.0
+offset_right = 144.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
+focus_next = NodePath("../ResumeButton")
+focus_previous = NodePath("../SettingsButton")
+theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
+theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_styles/focus = ExtResource("4_2i1af")
+theme_override_styles/hover = ExtResource("5_kbsxh")
+theme_override_styles/pressed = ExtResource("6_rfi1q")
+text = "Back to Title"
 
 [node name="ExitButton" type="Button" parent="."]
 layout_mode = 0

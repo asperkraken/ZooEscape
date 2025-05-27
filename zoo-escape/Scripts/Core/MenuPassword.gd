@@ -1,10 +1,7 @@
 extends Control
 
-signal SetMenu(menu: MenuManager.menuTypes)
-
-# Window BG Color: #61407A
-# Window Border Color: #8F3DA7
-
+# Signals
+signal GoBack
 
 # materials for shader changes on password entry
 const correctShader := preload("res://Assets/Shaders/WobblyMaterial.tres")
@@ -27,6 +24,7 @@ enum focusStates {
 	ENTER
 }
 
+# Variables
 @export var loadSceneBufferTime := 1 # Buffer until password scene loads
 var focusState := 1 # current focus
 var codeTextPos := 0 # position in code
@@ -35,23 +33,31 @@ var inputBufferActive := true # hold input until window fades in
 
 # Handles to child nodes
 @onready var code := $Window/Code # text ref for code
-@onready var buttons: Array[Button] = [
-	# The button order in the scene tree can change, but this array must be in the same order as the focusStates enum
-	$Window/Buttons/Row4/Button0, $Window/Buttons/Row1/Button1, $Window/Buttons/Row1/Button2,
-	$Window/Buttons/Row1/Button3, $Window/Buttons/Row2/Button4, $Window/Buttons/Row2/Button5,
-	$Window/Buttons/Row2/Button6, $Window/Buttons/Row3/Button7, $Window/Buttons/Row3/Button8,
-	$Window/Buttons/Row3/Button9, $Window/Buttons/Row4/ButtonClear, $Window/Buttons/Row4/ButtonEnter
-]
+@onready var buttons: Dictionary[focusStates, Button] = {
+	focusStates.ZERO: $Window/Buttons/Row4/Button0,
+	focusStates.ONE: $Window/Buttons/Row1/Button1,
+	focusStates.TWO: $Window/Buttons/Row1/Button2,
+	focusStates.THREE: $Window/Buttons/Row1/Button3,
+	focusStates.FOUR: $Window/Buttons/Row2/Button4,
+	focusStates.FIVE: $Window/Buttons/Row2/Button5,
+	focusStates.SIX: $Window/Buttons/Row2/Button6,
+	focusStates.SEVEN: $Window/Buttons/Row3/Button7,
+	focusStates.EIGHT: $Window/Buttons/Row3/Button8,
+	focusStates.NINE: $Window/Buttons/Row3/Button9,
+	focusStates.CLEAR: $Window/Buttons/Row4/ButtonClear,
+	focusStates.ENTER: $Window/Buttons/Row4/ButtonEnter,
+}
 
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
 	# Connect buttons to event handlers
-	for i: int in buttons.size():
-		buttons[i].pressed.connect(onButtonPressed.bind(i))
-		buttons[i].focus_entered.connect(onButtonFocusEntered.bind(i))
-		buttons[i].mouse_entered.connect(onButtonMouseEntered.bind(i))
+	for button in buttons.values():
+		button.pressed.connect(onButtonPressed.bind(buttons.find_key(button)))
+		button.focus_entered.connect(onButtonFocusEntered.bind(buttons.find_key(button)))
+		button.mouse_entered.connect(onButtonMouseEntered.bind(buttons.find_key(button)))
 		
+	# Lock the menu to input for 0.5s
 	startInputBuffer()
 
 
@@ -63,14 +69,12 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("ActionButton"):
 			# Prevent more nodes from processing this input
 			get_viewport().set_input_as_handled()
-			print("PasswordMenu: ActionButton pressed!")
 			onButtonPressed(focusState)
 		
 		# Check for CancelButton inputs to erase the last input from the code
 		if event.is_action_pressed("CancelButton"):
 			# Prevent more nodes from processing this input
 			get_viewport().set_input_as_handled()
-			print("PasswordMenu: CancelButton pressed!")
 			onButtonMouseEntered(focusStates.CLEAR)
 			onButtonPressed(focusStates.CLEAR)
 		
@@ -156,21 +160,21 @@ func codeEffectReset() -> void:
 
 # Called by the MenuManager to show the PasswordMenu
 func showMenu() -> void:
-	codeReset()					
-	startInputBuffer()
+	codeReset() # Reset code value
+	startInputBuffer() # Lock window to input for 0.5s
 	onButtonMouseEntered(focusStates.ONE) # set focusState and grab_focus
-	self.visible = true
+	self.visible = true # Now You See Me
 
 
-# Called to hide the PasswordMenu and reset the value entered
+# Called to hide the PasswordMenu
 func hideMenu() -> void:
-	self.visible = false
+	self.visible = false # Now You Don't
 
 
 # Called to return to the last menu
 func returnToLastMenu() -> void:
 	SoundControl.playCue(SoundControl.down, 1.4)
-	SetMenu.emit(MenuManager.lastMenu)
+	GoBack.emit() # Bye!
 
 
 ### Timer Event Handlers
@@ -187,15 +191,13 @@ func onInputBufferTimerTimeout() -> void:
 
 # load scene at end of load buffer timer
 func onLoadSceneBufferTimeout() -> void:
-	print("Password Menu: Attempting to change levels!")
 	SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[tempCode])
-	SetMenu.emit(MenuManager.menuTypes.NONE)
 
 ### Button Event Handlers
 # Called when a button is pressed
 func onButtonPressed(i: int) -> void:
 	match i as focusStates:
-		# If a Numeric_ buttons was pressed 
+		# If a Numeric_ buttons was pressed (0 - 9)
 		focusStates.ZERO, \
 		focusStates.ONE, \
 		focusStates.TWO, \
@@ -206,18 +208,15 @@ func onButtonPressed(i: int) -> void:
 		focusStates.SEVEN, \
 		focusStates.EIGHT, \
 		focusStates.NINE:
-			# Try add one didgt to code
-			codeSetDigit(i)
+			codeSetDigit(i) # Try add one didgt to code
 		
 		# If Clear button was pressed
 		focusStates.CLEAR: # 10
-			# Try to delete digit from end of code
-			codeEraseDigit()
+			codeEraseDigit() # Try to delete digit from end of code
 		
 		# If Enter button was pressed
 		focusStates.ENTER: # 11
-			# Check for correct code
-			codeCheck()
+			codeCheck() # Check for correct code
 
 # Called when mouse hovers a button, have that button grab_focus
 func onButtonMouseEntered(i: int) -> void:

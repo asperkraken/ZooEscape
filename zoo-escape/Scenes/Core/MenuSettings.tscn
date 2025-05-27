@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjoj03uah2tp8"]
+[gd_scene load_steps=13 format=3 uid="uid://cjoj03uah2tp8"]
 
 [ext_resource type="Script" uid="uid://2qrx6d2bu2c1" path="res://Scripts/Core/MenuSettings.gd" id="1_ioldb"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="2_a0my0"]
@@ -24,6 +24,9 @@ tracks/0/keys = {
 "values": [0.0188679]
 }
 
+[sub_resource type="Animation" id="Animation_ioldb"]
+resource_name = "fadeIn"
+
 [sub_resource type="Animation" id="Animation_sbfs6"]
 resource_name = "roll_info"
 tracks/0/type = "value"
@@ -42,6 +45,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kv0sb"]
 _data = {
 &"RESET": SubResource("Animation_kbgmh"),
+&"fadeIn": SubResource("Animation_ioldb"),
 &"roll_info": SubResource("Animation_sbfs6")
 }
 
@@ -53,6 +57,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ioldb")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.180392, 0.172549, 0.231373, 0.862745)
 metadata/_edit_lock_ = true
 
 [node name="Header" type="Label" parent="."]
@@ -142,7 +155,7 @@ theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_a0my0")
 theme_override_font_sizes/font_size = 16
-text = "BGM VOLUME"
+text = "MUSIC VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -196,7 +209,7 @@ theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
 theme_override_fonts/font = ExtResource("2_a0my0")
 theme_override_font_sizes/font_size = 16
-text = "SFX VOLUME"
+text = "SOUND FX VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 

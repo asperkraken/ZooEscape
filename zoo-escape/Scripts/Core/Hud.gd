@@ -47,7 +47,6 @@ func _ready() -> void: # reset animations at ready, fetch start values
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
 	scoreCurrent = Globals.currentGameData.get("player_score")
-	passwordState = Globals.currentAppState.get("passwordWindowOpen")
 
 
 ## visual feedback for all steaks collected
@@ -60,7 +59,11 @@ func _process(_delta: float) -> void:
 	$SettingsButton/GearIcon.play("default") # play gear animation
 	
 	# monitor password state to hold hud move monitoring
-	passwordState = Globals.currentAppState["passwordWindowOpen"]
+	if !MenuManager.currentMenu == MenuManager.menuTypes.PASSWORD:
+		passwordState = false
+	else:
+		passwordState = true
+
 	scoreCurrent = Globals.currentGameData.get("player_score")
 	$HUDIcons/ScoreValue.text = str(scoreCurrent)
 	
@@ -265,11 +268,7 @@ func _on_exit_button_mouse_entered() -> void:
 # opens settings in game (handled in settings)
 func _on_settings_button_pressed() -> void:
 	SoundControl.playCue(SoundControl.blip, 3.0)
-	
-	var settings = get_tree().get_first_node_in_group("Settings")
-	
+		
 	## control window opening
-	if Globals.currentAppState.get("settingsWindowOpen"):
-		settings.closeSettingsCall()
-	else:
-		settings.openSettingsCall()
+	if !MenuManager.currentMenu == MenuManager.menuTypes.SETTINGS:
+		MenuManager.setMenu(MenuManager.menuTypes.SETTINGS)

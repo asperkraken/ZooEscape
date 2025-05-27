@@ -1,5 +1,9 @@
 extends Control
 
+# Signals
+signal GoBack
+
+# Enums
 enum focusGroups {
 	ESCAPE,
 	MASTER,
@@ -11,7 +15,7 @@ enum focusGroups {
 
 # Constants
 const DEADZONE_MAX := 1.0
-const DEADZONE_MIN := 0.20
+const DEADZONE_MIN := 0.2
 
 # Info to display for options -- Values are hard-coded in case they deleted in the editor
 @export_multiline var masterInfo := "Controls total volume of \nall sound."
@@ -22,17 +26,7 @@ const DEADZONE_MIN := 0.20
 @export_multiline var exitInfo := "Close this menu.  Settings \n are automatically saved."
 
 # Grab global value references
-var masterVolume: float = Globals.currentSettings["master_volume"]
-var bgmVolume: float = Globals.currentSettings["music_volume"]
-var sfxVolume: float = Globals.currentSettings["sfx_volume"]
-var cueVolume: float = Globals.currentSettings["cue_volume"]
 var analogDeadzone: float = Globals.currentSettings["analog_deadzone"]
-
-# Holders for percentage values
-var masterPercent: int
-var bgmPercent: int
-var sfxPercent: int
-var cuePercent: int
 
 # Variables
 var bufferState := true # hold player input until timer flips
@@ -42,33 +36,18 @@ var focusGroup := focusGroups.MASTER # shows which control area has focus
 
 # Called when node enters the scene tree for the first time
 func _ready() -> void:
-	# update text and set first button on master bgm down
-	# update all text and values with globals from load data
-	
-	# update percents
-	masterPercent = percentageConversion(masterVolume)
-	bgmPercent = percentageConversion(bgmVolume)
-	sfxPercent = percentageConversion(sfxVolume)
-	cuePercent = percentageConversion(cueVolume)
-	
 	# update slider positions
-	$MasterGroup/MasterSlider.value = masterVolume
-	$BGMGroup/BGMSlider.value = bgmVolume
-	$SFXGroup/SFXSlider.value = sfxVolume
-	$CueGroup/CueSlider.value = cueVolume
+	$MasterGroup/MasterSlider.value = Globals.currentSettings["master_volume"]
+	$BGMGroup/BGMSlider.value = Globals.currentSettings["music_volume"]
+	$SFXGroup/SFXSlider.value = Globals.currentSettings["sfx_volume"]
+	$CueGroup/CueSlider.value = Globals.currentSettings["cue_volume"]
 	
 	# update percent texts
-	$MasterGroup/MasterValue.text = str(masterPercent) + "%"
-	$BGMGroup/BGMValue.text = str(bgmPercent) + "%"
-	$SFXGroup/SFXValue.text = str(sfxPercent) + "%"
-	$CueGroup/CueValue.text = str(cuePercent) + "%"
+	$MasterGroup/MasterValue.text = str(percentageConversion(Globals.currentSettings["master_volume"])) + "%"
+	$BGMGroup/BGMValue.text = str(percentageConversion(Globals.currentSettings["music_volume"])) + "%"
+	$SFXGroup/SFXValue.text = str(percentageConversion(Globals.currentSettings["sfx_volume"])) + "%"
+	$CueGroup/CueValue.text = str(percentageConversion(Globals.currentSettings["cue_volume"])) + "%"
 	$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
-	
-	# grab first focus and roll in info text
-	$MasterGroup/MasterSlider.grab_focus()
-	focusInfoRelay("MASTER", masterInfo)
-	$Description.text = masterInfo
-	$Animator.play("roll_info")
 
 
 # Called every render frame
@@ -99,17 +78,36 @@ func _process(_delta: float) -> void:
 					_on_escape_button_pressed() # trigger escape function
 
 
+# Called by tthe MenuManager to show the SettingsMenu
+func showMenu() -> void:
+	self.visible = true
+	$MasterGroup/MasterSlider.call_deferred("grab_focus")
+
+
+# Called to hide the SettingsMenu
+func hideMenu() -> void:
+	self.visible = false
+
+
+func returnToLastMenu() -> void:
+	SoundControl.playCue(SoundControl.down, 1.4)
+	if settingsChanged:
+		Data.saveGameData()
+		settingsChanged = false
+	GoBack.emit()
+
+
 # update settings in global dictionary, update global volume buses and set deadzones
-func globalSettingsUpdate() -> void: # update global settings
-	Globals.currentSettings["master_volume"] = masterVolume
-	Globals.currentSettings["music_volume"] = bgmVolume
-	Globals.currentSettings["sfx_volume"] = sfxVolume
-	Globals.currentSettings["cue_volume"] = cueVolume
-	Globals.currentSettings["analog_deadzone"] = analogDeadzone
+func updateSoundControl() -> void: # update global settings
 	# set sound levels
-	SoundControl.setSoundPreferences(masterVolume, bgmVolume, sfxVolume, cueVolume)
+	SoundControl.setSoundPreferences(
+		$MasterGroup/MasterSlider.value,
+		$BGMGroup/BGMSlider.value,
+		$SFXGroup/SFXSlider.value,
+		$CueGroup/CueSlider.value
+	)
 	# set deadzones
-	Globals.deadzoneUpdate()
+	SoundControl.muteAudioBusCheck()
 
 
 # focus info widget to update info text on focus change
@@ -129,66 +127,63 @@ func percentageConversion(_volumeLevel) -> int:
 	return _percentage # return value and display in scene
 
 
+#### SLIDER VALUES CHANGED
 # update master volume on slide
-func _on_master_slider_value_changed(_value: float) -> void:
+func _on_master_slider_value_changed(value: float) -> void:
 	if !bufferState: # if no buffer, change levels
-		masterTextUpdate()
-		$MasterGroup/MasterValue.text = str(masterPercent) + "%"
-		globalSettingsUpdate()
+		updateSoundControl()
+		Globals.currentSettings["master_volume"] = value
+		updateText("MASTER", value)
+		settingsChanged = true
+
+# update bgm levels
+func _on_bgm_slider_value_changed(value: float) -> void:
+	if !bufferState:
+		updateSoundControl()
+		Globals.currentSettings["music_volume"] = value
 		SoundControl.muteAudioBusCheck()
+		updateText("BGM", value)
+		settingsChanged = true
+
+# update sfx level
+func _on_sfx_slider_value_changed(value: float) -> void:
+	if !bufferState:
+		updateSoundControl()
+		Globals.currentSettings["sfx_volume"] = value
+		SoundControl.muteAudioBusCheck()
+		updateText("SFX", value)
+		settingsChanged = true
+
+# update cue levels
+func _on_cue_slider_value_changed(value: float) -> void:
+	if !bufferState:
+		updateSoundControl()
+		Globals.currentSettings["cue_volume"] = value
+		SoundControl.muteAudioBusCheck()
+		updateText("cue", value)
+		settingsChanged = true
 
 
-# update text for master volume level
-func masterTextUpdate() -> void:
-	masterVolume = $MasterGroup/MasterSlider.value
-	masterPercent = abs(percentageConversion(masterVolume))
-	$MasterGroup/MasterValue.text = str(masterPercent) + "%"
+#### TEXT UPDATES
+func updateText(which: String, value: float):
+	match which:
+		"MASTER":
+			$MasterGroup/MasterValue.text = str(abs(percentageConversion(value))) + "%"
+		"BGM":
+			$BGMGroup/BGMValue.text = str(abs(percentageConversion(value))) + "%"
+		"SFX":
+			$SFXGroup/SFXValue.text = str(abs(percentageConversion(value))) + "%"
+		"CUE":
+			$CueGroup/CueValue.text = str(abs(percentageConversion(value))) + "%"
+		"DEADZONE":
+			$DeadzoneGroup/DeadzoneValue.text = str(value)
 
 
-# grab master group focus
-func _on_master_slider_focus_entered() -> void:
-	focusInfoRelay("MASTER", masterInfo) # focus grab
 
-
+#### MOUSE ENTERED
 # mouse hovering master slider
 func _on_master_slider_mouse_entered() -> void:
 	focusInfoRelay("MASTER", masterInfo) # focus grab
-
-
-# update bgm levels
-func _on_bgm_slider_value_changed(_value: float) -> void:
-	if !bufferState:
-		bgmTextUpdate()
-		globalSettingsUpdate()
-		SoundControl.muteAudioBusCheck()
-
-
-# on drag grab and release, check values for mute
-func _on_bgm_slider_drag_ended(_value_changed: bool) -> void:
-	if $BGMGroup/BGMSlider.value <= -20:
-		SoundControl.stopBgm()
-	else:
-		SoundControl.playBgm()
-
-
-# on drag grab and release, check values for mute
-func _on_bgm_slider_drag_started() -> void:
-	if $BGMGroup/BGMSlider.value <= -20:
-		SoundControl.stopBgm()
-	else:
-		SoundControl.playBgm()
-
-
-# update text for bgm volume level
-func bgmTextUpdate() -> void:
-	bgmVolume = $BGMGroup/BGMSlider.value
-	bgmPercent = percentageConversion(bgmVolume)
-	$BGMGroup/BGMValue.text = str(bgmPercent) + "%"
-
-
-# grab bgm focus
-func _on_bgm_slider_focus_entered() -> void:
-	focusInfoRelay("BGM", bgmInfo)
 
 
 # mouse hovering bgm slider
@@ -196,59 +191,9 @@ func _on_bgm_slider_mouse_entered() -> void:
 	focusInfoRelay("BGM", bgmInfo)
 
 
-# update sfx level
-func _on_sfx_slider_value_changed(_value: float) -> void:
-	if !bufferState:
-		sfxTextUpdate()
-		globalSettingsUpdate()
-		SoundControl.muteAudioBusCheck()
-
-
-# update text for sfx volume level
-func sfxTextUpdate() -> void:
-	sfxVolume = $SFXGroup/SFXSlider.value
-	sfxPercent = percentageConversion(sfxVolume)
-	$SFXGroup/SFXValue.text = str(sfxPercent) + "%"
-
-
-# grab sfx focus
-func _on_sfx_slider_focus_entered() -> void:
-	focusInfoRelay("SFX", sfxInfo)
-
-
 # mouse hovering sfx slider
 func _on_sfx_slider_mouse_entered() -> void:
 	focusInfoRelay("SFX", sfxInfo)
-
-
-# sound fx test on starting drag
-func _on_sfx_slider_drag_started() -> void:
-	SoundControl.playSfx(SoundControl.scratch) # audio cue for testing on grab
-
-
-# sound fx test on releasing drag
-func _on_sfx_slider_drag_ended(_value_changed: bool) -> void:
-	SoundControl.playSfx(SoundControl.scratch) # audio cue for testing after release
-
-
-# update cue levels
-func _on_cue_slider_value_changed(_value: float) -> void:
-	if !bufferState:
-		cueTextUpdate()
-		globalSettingsUpdate()
-		SoundControl.muteAudioBusCheck()
-
-
-# update text for cue volume level
-func cueTextUpdate() -> void:
-	cueVolume = $CueGroup/CueSlider.value
-	cuePercent = percentageConversion(cueVolume)
-	$CueGroup/CueValue.text = str(cuePercent) + "%"
-
-
-# grab cue group focus
-func _on_cue_slider_focus_entered() -> void:
-	focusInfoRelay("CUE", cueInfo)
 
 
 # grab cue focus
@@ -256,30 +201,8 @@ func _on_cue_slider_mouse_entered() -> void:
 	focusInfoRelay("CUE", cueInfo)
 
 
-# cue test on drag
-func _on_cue_slider_drag_started() -> void:
-	SoundControl.playCue(SoundControl.pickup, 1.0) # audio cue for testing on grab
-
-
-# cue test on release
-func _on_cue_slider_drag_ended(_value_changed: bool) -> void:
-	SoundControl.playCue(SoundControl.pickup, 1.0) # audio cue for testing after release
-
-
-# update deadzone levels
-func _on_deadzone_down_pressed() -> void:
-	if !bufferState:
-		var _downValue := analogDeadzone - 0.01
-		if _downValue < DEADZONE_MIN:
-			_downValue = DEADZONE_MIN
-
-		analogDeadzone = _downValue
-		$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
-		Globals.deadzoneUpdate()
-
-
 # grab deadzone focus
-func _on_deadzone_down_focus_entered() -> void:
+func _on_deadzone_up_mouse_entered() -> void:
 	focusInfoRelay("DEADZONE", deadzoneInfo)
 
 
@@ -288,16 +211,31 @@ func _on_deadzone_down_mouse_entered() -> void:
 	focusInfoRelay("DEADZONE", deadzoneInfo)
 
 
-# update deadzone levels
-func _on_deadzone_up_pressed() -> void:
-	if !bufferState:
-		var _upValue := analogDeadzone + 0.01
-		if _upValue > DEADZONE_MAX:
-			_upValue = DEADZONE_MAX
+# grab escape button focus
+func _on_escape_button_mouse_entered() -> void:
+	focusInfoRelay("ESCAPE", exitInfo)
 
-		analogDeadzone = _upValue
-		$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
-		Globals.deadzoneUpdate()
+
+
+#### FOCUS ENTERED
+# grab master group focus
+func _on_master_slider_focus_entered() -> void:
+	focusInfoRelay("MASTER", masterInfo) # focus grab
+
+
+# grab bgm focus
+func _on_bgm_slider_focus_entered() -> void:
+	focusInfoRelay("BGM", bgmInfo)
+
+
+# grab sfx focus
+func _on_sfx_slider_focus_entered() -> void:
+	focusInfoRelay("SFX", sfxInfo)
+
+
+# grab cue group focus
+func _on_cue_slider_focus_entered() -> void:
+	focusInfoRelay("CUE", cueInfo)
 
 
 # grab deadzone focus
@@ -306,15 +244,8 @@ func _on_deadzone_up_focus_entered() -> void:
 
 
 # grab deadzone focus
-func _on_deadzone_up_mouse_entered() -> void:
+func _on_deadzone_down_focus_entered() -> void:
 	focusInfoRelay("DEADZONE", deadzoneInfo)
-
-
-# save data on escape
-func _on_escape_button_pressed() -> void:
-	if !bufferState:
-		Data.saveGameData()
-		globalSettingsUpdate() # update global settings
 
 
 # grab escape button focus
@@ -322,11 +253,80 @@ func _on_escape_button_focus_entered() -> void:
 	focusInfoRelay("ESCAPE", exitInfo)
 
 
-# grab escape button focus
-func _on_escape_button_mouse_entered() -> void:
-	focusInfoRelay("ESCAPE", exitInfo)
+
+#### DRAG STARTED
+# on drag grab and release, check values for mute
+func _on_bgm_slider_drag_started() -> void:
+	if !SoundControl.bgm.has_stream_playback():
+		SoundControl.playBgm()
 
 
+# sound fx test on starting drag
+func _on_sfx_slider_drag_started() -> void:
+	SoundControl.playSfx(SoundControl.scratch) # audio cue for testing on grab
+
+
+# cue test on drag
+func _on_cue_slider_drag_started() -> void:
+	SoundControl.playCue(SoundControl.pickup, 1.0) # audio cue for testing on grab
+
+
+
+#### DRAG ENDED
+# on drag grab and release, check values for mute
+func _on_bgm_slider_drag_ended(_value_changed: bool) -> void:
+	if !SoundControl.bgm.has_stream_playback():
+		SoundControl.playBgm()
+
+
+# sound fx test on releasing drag
+func _on_sfx_slider_drag_ended(_value_changed: bool) -> void:
+	SoundControl.playSfx(SoundControl.scratch) # audio cue for testing after release
+
+
+# cue test on release
+func _on_cue_slider_drag_ended(_value_changed: bool) -> void:
+	SoundControl.playCue(SoundControl.pickup, 1.0) # audio cue for testing after release
+
+
+
+#### ON PRESSED
+# update deadzone levels
+func _on_deadzone_down_pressed() -> void:
+	if !bufferState:
+		var _downValue := analogDeadzone - 0.01
+		if _downValue < DEADZONE_MIN:
+			_downValue = DEADZONE_MIN
+		
+		analogDeadzone = _downValue
+		Globals.currentSettings["analog_deadzone"] = analogDeadzone
+		updateText("DEADOZNE", analogDeadzone)
+		Globals.deadzoneUpdate()
+		settingsChanged = true
+
+
+# update deadzone levels
+func _on_deadzone_up_pressed() -> void:
+	if !bufferState:
+		var _upValue := analogDeadzone + 0.01
+		if _upValue > DEADZONE_MAX:
+			_upValue = DEADZONE_MAX
+		
+		analogDeadzone = _upValue
+		Globals.currentSettings["analog_deadzone"] = analogDeadzone
+		updateText("DEADOZNE", analogDeadzone)
+		Globals.deadzoneUpdate()
+		settingsChanged = true
+
+
+# save data on escape
+func _on_escape_button_pressed() -> void:
+	if !bufferState:
+		returnToLastMenu()
+
+
+
+#### TIMER TIMEOUT
 # input buffer added to avoid accidental input on load
 func _on_input_buffer_timeout() -> void:
 	bufferState = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bq8h4mq117i5a"]
 
 [ext_resource type="Script" uid="uid://b42attwhyi8mb" path="res://Scripts/Core/GameRoot.gd" id="1_rqi4g"]
-[ext_resource type="PackedScene" uid="uid://btf34yssdxdc5" path="res://Scenes/Core/Title2.tscn" id="3_qpv71"]
+[ext_resource type="PackedScene" uid="uid://btf34yssdxdc5" path="res://Scenes/Core/Title.tscn" id="3_qpv71"]
 
 [sub_resource type="Animation" id="Animation_hyb4l"]
 resource_name = "FadeIn"
@@ -93,7 +93,8 @@ _data = {
 &"RESET": SubResource("Animation_awmvw")
 }
 
-[node name="GameRoot" type="Node2D"]
+[node name="GameRoot" type="Node"]
+process_mode = 3
 script = ExtResource("1_rqi4g")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

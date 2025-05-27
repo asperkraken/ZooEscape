@@ -20,28 +20,9 @@ const DEFAULT_NAMES := [
 	"ZOO"]
 
 
-# grab game data and update dictionary for save
-func fetchGameData() -> Dictionary:
-	saveData = {
-		"master_volume" = Globals.currentSettings.get("master_volume"),
-		"music_volume" = Globals.currentSettings.get("music_volume"),
-		"sfx_volume" = Globals.currentSettings.get("sfx_volume"),
-		"cue_volume" = Globals.currentSettings.get("cue_volume"),
-		"analog_deadzone" = Globals.currentSettings.get("analog_deadzone"),
-		"highScoreboardValues" = Globals.highScoreboardValues,
-		"highScoreboardNames" = Globals.highScoreboardNames
-	}
-	
-	return saveData
+func _ready() -> void:
+	loadData()
 
-
-# open file, fetch data, convert dictionary to json and save
-func saveGameData()-> void:
-	access = FileAccess.open(FILEPATH, FileAccess.WRITE)
-	saveData = fetchGameData()
-	access.store_string(JSON.stringify(saveData))
-	access.close()
-	
 
 # apply default settings
 func defaultGameData() -> void:
@@ -58,6 +39,23 @@ func defaultGameData() -> void:
 	SoundControl.resetMusicFade()
 
 
+# open file, fetch data, convert dictionary to json and save
+func saveGameData()-> void:
+	access = FileAccess.open(FILEPATH, FileAccess.WRITE)
+	saveData = {
+		"master_volume" = Globals.currentSettings.get("master_volume"),
+		"music_volume" = Globals.currentSettings.get("music_volume"),
+		"sfx_volume" = Globals.currentSettings.get("sfx_volume"),
+		"cue_volume" = Globals.currentSettings.get("cue_volume"),
+		"analog_deadzone" = Globals.currentSettings.get("analog_deadzone"),
+		"highScoreboardValues" = Globals.highScoreboardValues,
+		"highScoreboardNames" = Globals.highScoreboardNames
+	}
+	access.store_string(JSON.stringify(saveData))
+	access.close()
+	print("Data: Data saved!")
+
+
 # load with check
 func loadData()-> void:
 	if !FileAccess.file_exists(FILEPATH): # if no file, default settings
@@ -66,8 +64,8 @@ func loadData()-> void:
 	else: # if file, parse json and apply to global values
 		access = FileAccess.open(FILEPATH, FileAccess.READ)
 		saveData = JSON.parse_string(access.get_as_text())
-		print("Data loaded!")
 		access.close()
+		print("Data: Data loaded!")
 		## update global values
 		Globals.currentSettings["master_volume"] = saveData.master_volume
 		Globals.currentSettings["music_volume"] = saveData.music_volume

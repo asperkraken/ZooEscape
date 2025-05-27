@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 
 @onready var bgm := $BGM # music (pauses position on pause)
 @onready var sfx := $SFX # in-game sound effects (pauses position on pause)
@@ -76,6 +76,7 @@ func setSoundPreferences(_master:float,_bgm:float, _sfx:float, _cue:float) -> vo
 
 # call bgm file and play (state machine handles stop and start automatically)
 func playBgm() -> void:
+	print("SoundControl: Playing bgmusic") # BUG: When a new level loads, this function is called twice.  Should debug that.
 	var _loadBgm = load(currentBgm)
 	bgm.volume_db = bgmLevel
 	bgm.stream = _loadBgm

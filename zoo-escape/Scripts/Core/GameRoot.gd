@@ -1,4 +1,4 @@
-class_name GameRoot extends Node2D
+class_name GameRoot extends Node
 
 @onready var aniPlayer: AnimationPlayer = $AnimationPlayer
 
@@ -6,8 +6,6 @@ class_name GameRoot extends Node2D
 func _ready() -> void:
 	SceneManager.gameRoot = self
 	aniPlayer.play("RESET")
-	SoundControl.resetMusicFade() # reset music state
-
 
 # Called to progress the game to the next sceene
 func goToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
@@ -16,7 +14,7 @@ func goToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
 	set_physics_process(false)
 	aniPlayer.play("FadeOut")
 	await aniPlayer.animation_finished # wait until animation finish before change
-
+	
 	OldScene.queue_free() # free old scene
 	var newCurrentScene := NewScene.instantiate()
 	add_child(newCurrentScene) # add new scene
