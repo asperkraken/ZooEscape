@@ -147,7 +147,9 @@ func steakCollected() -> void:
 	
 	if steakCount == 0:
 		allSteaksCollected()
-	
+
+
+# when a level loads count all steaks
 func setupSteaks() -> void:
 	var steaks := findChildrenInGroup("steaks")
 	if steaks:
@@ -156,7 +158,8 @@ func setupSteaks() -> void:
 			steak.Collected.connect(steakCollected)
 
 
-func findChildrenInGroup(group: String = "", which: Node = self, arr := []) -> Array:
+# find all children in a given group
+func findChildrenInGroup(group := "", which: Node = self, arr := []) -> Array:
 	for child in which.get_children():
 		if child.is_in_group(group):
 			arr.push_back(child)
