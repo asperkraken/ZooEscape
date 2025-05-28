@@ -11,10 +11,8 @@ class_name LevelManager extends Node2D
 @onready var exitTile := $ExitTile
 @onready var resetTime := 0.0
 @onready var nextLevel: String = exitTile.nextLevelCode # pointer for next scene string
-var loadingScore: Variant = Globals.currentGameData.get("player_score") # compare score for reloads
-var localHud: Hud # pointer for hud
-var localPassword = null # pointer for password
-var localSettings = null # pointer for settings
+var loadingScore: int = Globals.currentGameData.get("player_score") # compare score for reloads
+var localHud = null # pointer for hud
 var timeUp := false # to monitor local hud timer
 var steakCount := 0
 @export var levelBgm := "res://Assets/Sound/Theme.ogg"
@@ -23,6 +21,8 @@ var steakCount := 0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SceneManager.currentScene = self
+	Globals.currentGameData["gameRunning"] = true # A game is now running.  It's official!
+	self.process_mode = Node.PROCESS_MODE_PAUSABLE # Allow the LevelManager to be paused when the scene tree is paused
 	self.add_to_group("LevelManager")
 	player.InWater.connect(restartRoom)
 	player.PlayerMoved.connect(upateMoveCount)
@@ -38,17 +38,10 @@ func _ready() -> void:
 	# if bgm fade level not normal, reset fade state so it fades in
 	if SoundControl.fadeState != SoundControl.FADE_STATES.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
 		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
-	
-	
-## this function grabs the hud elements and adds them to the level
+
+
+# this function grabs the hud elements and adds them to the level
 func hudFetch() -> void:
-	hudUpdate()
-	passwordFetch()
-	settingsFetch()
-
-
-## this function loads and connects hud with signals and needed game variables
-func hudUpdate() -> void:
 	localHud = load(Scenes.HUD).instantiate()
 	localHud.RestartRoom.connect(restartRoom)
 	localHud.ExitGame.connect(exitGame)
@@ -63,27 +56,8 @@ func hudUpdate() -> void:
 	localHud.tutorialMode = tutorialScoreBypass
 	localHud.steakValue = steakCount
 	
-	get_tree().current_scene.add_child(localHud)
+	self.add_child(localHud)
 
-
-## this function pulls up the password window when needed
-func passwordFetch() -> void:
-	var _loadWindow = load(Scenes.PASSWORD)
-	var _newWindow = _loadWindow.instantiate()
-	get_tree().current_scene.add_child(_newWindow)
-	_newWindow.inGameMode = true
-	localPassword = _newWindow
-
-
-## and this grabs the settings window when needed
-func settingsFetch() -> void:
-	var _check = get_tree().get_nodes_in_group("Settings")
-	if _check.size()==0:
-		var _loadSettings = load(Scenes.SETTINGS)
-		var _newSettings = _loadSettings.instantiate()
-		get_tree().current_scene.add_child(_newSettings)
-		localSettings = _newSettings
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -134,11 +108,6 @@ func nextRoom() -> void:
 # and to prevent stack overflow of hud scenes
 func hudClosing() -> void:
 	localHud.queue_free()
-	localPassword.queue_free()
-	localSettings.queue_free()
-	Globals.currentAppState.set("passwordWindowOpen", false)
-	Globals.currentAppState.set("settingsWindowOpen", false)
-
 
 
 # update score and apply exit score and bonus
@@ -160,9 +129,10 @@ func restartRoom() -> void:
 
 # game exit function, returns to title after cleaming out hud
 func exitGame() -> void:
-	Data.saveGameData()
 	hudClosing()
-	SceneManager.goToTitle()
+	Data.saveGameData()
+	Globals.currentGameData["gameRunning"] = false
+	SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE)
 
 
 # updates the move count on the hud

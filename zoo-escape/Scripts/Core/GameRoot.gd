@@ -1,14 +1,11 @@
-class_name GameRoot extends Node2D
+class_name GameRoot extends Node
 
 @onready var aniPlayer: AnimationPlayer = $AnimationPlayer
-var title := load(Scenes.TITLE)
 
 
 func _ready() -> void:
 	SceneManager.gameRoot = self
 	aniPlayer.play("RESET")
-	SoundControl.resetMusicFade() # reset music state
-
 
 # Called to progress the game to the next sceene
 func goToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
@@ -17,7 +14,7 @@ func goToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
 	set_physics_process(false)
 	aniPlayer.play("FadeOut")
 	await aniPlayer.animation_finished # wait until animation finish before change
-
+	
 	OldScene.queue_free() # free old scene
 	var newCurrentScene := NewScene.instantiate()
 	add_child(newCurrentScene) # add new scene
@@ -26,19 +23,4 @@ func goToNextScene(OldScene: Node, NewScene: PackedScene) -> void:
 	aniPlayer.play("FadeIn") # start animation
 	await aniPlayer.animation_finished # and when it finishes
 	set_process_input(true) # restore processing
-	set_physics_process(true)
-
-
-# Called to return to the game's Title scene
-func returnToTitle() -> void:
-	set_process_input(false) # end processing, just like new scene
-	set_physics_process(false)
-	aniPlayer.play("FadeOut")
-	await aniPlayer.animation_finished
-
-	get_tree().reload_current_scene()
-
-	aniPlayer.play("FadeIn") # restore processing on animation end
-	await aniPlayer.animation_finished
-	set_process_input(true)
 	set_physics_process(true)

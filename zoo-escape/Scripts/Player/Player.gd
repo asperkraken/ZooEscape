@@ -86,9 +86,6 @@ func _process(delta: float) -> void:
 			movePlayer(lastMoveDir)
 			moveTimer = 0
 	
-	if Globals.currentAppState["passwordWindowOpen"]:
-		get_tree().paused = true # NOTE: This should be happening at a higher level in the scene tree
-
 
 # Called to move the player
 func movePlayer(dir: Vector2) -> void:
