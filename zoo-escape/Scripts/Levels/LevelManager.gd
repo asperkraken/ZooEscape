@@ -9,12 +9,12 @@ class_name LevelManager extends Node2D
 @export var tutorialScoreBypass := false
 @onready var player := $Player
 @onready var exitTile := $ExitTile
-@onready var steakManager := $SteakManager
 @onready var resetTime := 0.0
 @onready var nextLevel: String = exitTile.nextLevelCode # pointer for next scene string
 var loadingScore: int = Globals.currentGameData.get("player_score") # compare score for reloads
 var localHud = null # pointer for hud
 var timeUp := false # to monitor local hud timer
+var steakCount := 0
 @export var levelBgm := "res://Assets/Sound/Theme.ogg"
 
 
@@ -31,8 +31,7 @@ func _ready() -> void:
 		player.showMoveThought()
 	
 	exitTile.PlayerExits.connect(exitLevel)
-	steakManager.SteakCollected.connect(updateSteakCount)
-	steakManager.AllSteaksCollected.connect(allSteaksCollected)
+	setupSteaks()
 	hudFetch()
 	
 	# check to ensure bgm fade level is consistent
@@ -55,7 +54,7 @@ func hudFetch() -> void:
 	localHud.movePenalty = perMovePenalty
 	localHud.passwordReport(levelCode)
 	localHud.tutorialMode = tutorialScoreBypass
-	localHud.steakValue = steakManager.steakTotal
+	localHud.steakValue = steakCount
 	
 	self.add_child(localHud)
 
@@ -142,5 +141,31 @@ func upateMoveCount() -> void:
 
 
 # updaes the stake counter on the hud
-func updateSteakCount() -> void:
-	localHud.steakValue = steakManager.steakTotal
+func steakCollected() -> void:
+	steakCount -= 1
+	localHud.steakValue = steakCount
+	
+	if steakCount == 0:
+		allSteaksCollected()
+
+
+# when a level loads count all steaks
+func setupSteaks() -> void:
+	var steaks := findChildrenInGroup("steaks")
+	if steaks:
+		steakCount = steaks.size()
+		for steak: Steak in steaks:
+			steak.Collected.connect(steakCollected)
+
+
+# find all children in a given group
+func findChildrenInGroup(group := "", which: Node = self, arr := []) -> Array:
+	for child in which.get_children():
+		if child.is_in_group(group):
+			arr.push_back(child)
+		
+		# If the child has children, see if that child has nodes in the group
+		if child.get_children().size() >= 1:
+			arr = findChildrenInGroup(group, child, arr)
+	
+	return arr

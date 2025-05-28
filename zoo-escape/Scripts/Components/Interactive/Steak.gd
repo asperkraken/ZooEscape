@@ -1,4 +1,4 @@
-extends AnimatedSprite2D
+class_name Steak extends AnimatedSprite2D
 
 @export var bonus : int = 50  # The points for collecting a steak
 signal Collected
