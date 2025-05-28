@@ -167,11 +167,6 @@ func showMenu() -> void:
 	show() # Now You See Me
 
 
-# Called to hide the PasswordMenu
-func hideMenu() -> void:
-	hide() # Now You Don't
-
-
 # Called to return to the last menu
 func returnToLastMenu() -> void:
 	SoundControl.playCue(SoundControl.down, 1.4)

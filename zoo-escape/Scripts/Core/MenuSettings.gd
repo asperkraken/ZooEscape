@@ -84,11 +84,6 @@ func showMenu() -> void:
 	$MasterGroup/MasterSlider.call_deferred("grab_focus")
 
 
-# Called to hide the SettingsMenu
-func hideMenu() -> void:
-	hide()
-
-
 func returnToLastMenu() -> void:
 	SoundControl.playCue(SoundControl.down, 1.4)
 	if settingsChanged:

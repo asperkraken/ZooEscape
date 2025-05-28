@@ -190,8 +190,3 @@ func showMenu() -> void:
 			lastButton = buttonTypes.NEWGAME
 		lastButtonFocus()
 	show()
-
-
-# Called to hide the MainMenu and reset the value entered
-func hideMenu() -> void:
-	hide()

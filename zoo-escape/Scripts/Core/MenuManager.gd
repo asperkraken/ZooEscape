@@ -104,8 +104,7 @@ func switchMenu() -> void:
 # Called to hide all menus
 func hideMenus() -> void:
 	for menu in menus.values():
-		if menu.has_method("hideMenu"):
-			menu.hideMenu()
+			menu.hide()
 
 
 # Called by all functions everywhere to change menus
