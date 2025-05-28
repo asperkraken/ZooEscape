@@ -48,7 +48,7 @@ func _input(event: InputEvent) -> void:
 	# Hide all menus, situationally
 	if event.is_action("CancelButton"):
 		get_viewport().set_input_as_handled() # Mark InputEvent as handled
-		if isGameRunning() && currentMenu == menuTypes.NONE:
+		if Globals.currentGameData["gameRunning"] && currentMenu == menuTypes.NONE:
 			setMenu(menuTypes.MAIN) # If a game is running and no menu is open, open MainMenu
 		
 		if currentMenu != menuTypes.MAIN && currentMenu != menuTypes.NONE:
@@ -59,7 +59,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled() # Mark InputEvent as handled
 		if currentMenu != menuTypes.MAIN:
 			setMenu(menuTypes.MAIN) # if MainMenu is not open, open it
-		elif isGameRunning():
+		elif Globals.currentGameData["gameRunning"]:
 			setMenu(menuTypes.NONE) # If MainMenu is open and a game is running, close it
 		else:
 			setMenu(menuTypes.MAIN) # If a game is not running, show MainMenu
@@ -79,11 +79,6 @@ func _input(event: InputEvent) -> void:
 			setMenu(menuTypes.SETTINGS)
 		else:
 			goBack() # If SettingsMenu is open, go back in the menuHeap
-
-
-# Determine if a game is running
-func isGameRunning() -> bool:
-	return Globals.currentGameData.get("gameRunning", false)
 
 
 # Called to switch menus
@@ -147,7 +142,7 @@ func goBack() -> void:
 		currentMenu = menuHeap.back()  # Set currentMenu to the last menu in the heap
 		switchMenu()
 	else:
-		if !isGameRunning():
+		if !Globals.currentGameData["gameRunning"]:
 			setMenu(menuTypes.MAIN)
 			return
 		setMenu(menuTypes.NONE)  # If no previous menu, close all menus

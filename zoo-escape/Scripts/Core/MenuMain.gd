@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 		# Hide all menus if a game is running
 		if event.is_action("CancelButton"):
 			get_viewport().set_input_as_handled() # Mark InputEvent as handled
-			if MenuManager.isGameRunning():
+			if Globals.currentGameData["gameRunning"]:
 				onButtonMouseEntered(buttonTypes.RESUME)
 				onButtonPressed(buttonTypes.RESUME)
 			else:
@@ -154,7 +154,7 @@ func lastButtonFocus() -> void:
 
 # Called by the MenuManager to show the MainMenu
 func showMenu() -> void:
-	if MenuManager.isGameRunning(): # If a game is running, use all these settings
+	if Globals.currentGameData["gameRunning"]: # If a game is running, use all these settings
 		bgRect.visible = false
 		pausedHint.visible = true
 		buttons[buttonTypes.RESUME].visible = true
