@@ -42,7 +42,7 @@ const PASSWORDS := {
 # Globally accessible storage locker for the user's settings
 var currentSettings := {
 	"master_volume": -6,
-	"music_volume": -6, # -6 by default is too loud for this -DevMV
+	"music_volume": -6,
 	"sfx_volume": -6,
 	"cue_volume": -6,
 	"analog_deadzone": 0.50,
@@ -50,14 +50,8 @@ var currentSettings := {
 
 # Globally accessible data related to the currently active game
 var currentGameData := {
+	"gameRunning" : false, # flag to change hud behaviors in game
 	"player_score": 0, # player score total
-}
-
-# Globally accessible data related to the state of the application
-var currentAppState := {
-	"passwordWindowOpen": false, # global hud control flag
-	"settingsWindowOpen" : false, # global hud control flag
-	"gameRunning" : false # flag to change hud behaviors in game
 }
 
 # TODO: Try combining highScoreboardNames with highScoreBoardValues into one Dictionary.
@@ -107,8 +101,3 @@ func deadzoneUpdate() -> void:
 	InputMap.action_set_deadzone("DigitalDown", _deadzone)
 	InputMap.action_set_deadzone("DigitalRight", _deadzone)
 	InputMap.action_set_deadzone("DigitalUp", _deadzone)
-
-
-# function to set game running flag for ui event monitoring
-func gameRunning(logic:bool) -> void:
-	currentAppState.set("gameRunning", logic)
