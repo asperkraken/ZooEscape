@@ -149,8 +149,20 @@ func steakCollected() -> void:
 		allSteaksCollected()
 	
 func setupSteaks() -> void:
-	var steaks := get_tree().get_nodes_in_group("steaks")
+	var steaks := findChildrenInGroup("steaks")
 	if steaks:
+		steakCount = steaks.size()
 		for steak: Steak in steaks:
 			steak.Collected.connect(steakCollected)
-			steakCount += 1
+
+
+func findChildrenInGroup(group: String = "", which: Node = self, arr := []) -> Array:
+	for child in which.get_children():
+		if child.is_in_group(group):
+			arr.push_back(child)
+		
+		# If the child has children, see if that child has nodes in the group
+		if child.get_children().size() >= 1:
+			arr = findChildrenInGroup(group, child, arr)
+	
+	return arr

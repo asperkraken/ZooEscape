@@ -28,7 +28,7 @@ tile_set = ExtResource("1_d2x4x")
 position = Vector2(232, 88)
 nextLevelCode = "9992"
 
-[node name="SteakHolder" type="Node" parent="."]
+[node name="SteakHolder" type="Node2D" parent="."]
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 120)
