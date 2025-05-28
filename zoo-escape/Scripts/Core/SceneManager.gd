@@ -1,8 +1,8 @@
 extends Node
 
 
-var gameRoot: GameRoot = null # This is set by gameroot when it is ready
-var currentScene: Node = null # This is set by the level manager when it is ready
+var gameRoot: GameRoot # This is set by gameroot when it is ready
+var currentScene: Node # This is set by the level manager when it is ready
 
 # this takes a loaded scene as argument and unpauses the tree
 func goToNewScenePacked(newScene: PackedScene) -> void:

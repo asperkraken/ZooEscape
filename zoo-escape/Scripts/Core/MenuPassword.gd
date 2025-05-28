@@ -1,12 +1,13 @@
 extends Control
 
 # Signals
+signal SetMenu(menu: MenuManager.menuTypes)
 signal GoBack
 
 # materials for shader changes on password entry
-const correctShader := preload("res://Assets/Shaders/WobblyMaterial.tres")
-const failShader := preload("res://Assets/Shaders/ErrorShakeX.tres")
-const empty := "----"
+const CORRECTSHADRE := preload("res://Assets/Shaders/WobblyMaterial.tres")
+const FAILSHADER := preload("res://Assets/Shaders/ErrorShakeX.tres")
+const EMPTY := "----"
 
 # states to control focus and input
 enum focusStates {
@@ -64,7 +65,7 @@ func _ready() -> void:
 # Called when input is detected
 func _input(event: InputEvent) -> void:
 	# ONLY detect inputs if Password window is visible and ready
-	if self.visible && !inputBufferActive:
+	if visible && !inputBufferActive: # NOTE: Let's discuss whether we actually want this inputbuffer any longer.  It was useful when all the menus were loaded with scenemanager, but far less useful now.
 		# Check for ActionButton inputs to press whichever button has focus
 		if event.is_action_pressed("ActionButton"):
 			# Prevent more nodes from processing this input
@@ -95,7 +96,7 @@ func randomBlipCue() -> void:
 
 # Called to reset the code input field
 func codeReset() -> void:
-	code.text = empty
+	code.text = EMPTY
 	codeTextPos = 0
 
 
@@ -133,7 +134,7 @@ func codeCheck() -> void:
 	if !code.text.contains("-") && Globals.PASSWORDS.has(code.text): # yay
 		startInputBuffer()
 		tempCode = code.text # Store the entered code
-		code.material = correctShader
+		code.material = CORRECTSHADRE
 		code.modulate = Color.GREEN_YELLOW
 		SoundControl.playCue(SoundControl.success, 1.5)
 		$TextEffectTimer.start(0.5)
@@ -142,7 +143,7 @@ func codeCheck() -> void:
 		startInputBuffer()
 		codeTextPos = 0
 		code.text = "XXXX"
-		code.material = failShader
+		code.material = FAILSHADER
 		code.modulate = Color.CRIMSON
 		SoundControl.playCue(SoundControl.down, 1.5)
 		$TextEffectTimer.start(0.5)
@@ -163,12 +164,12 @@ func showMenu() -> void:
 	codeReset() # Reset code value
 	startInputBuffer() # Lock window to input for 0.5s
 	onButtonMouseEntered(focusStates.ONE) # set focusState and grab_focus
-	self.visible = true # Now You See Me
+	show() # Now You See Me
 
 
 # Called to hide the PasswordMenu
 func hideMenu() -> void:
-	self.visible = false # Now You Don't
+	hide() # Now You Don't
 
 
 # Called to return to the last menu
@@ -191,6 +192,7 @@ func onInputBufferTimerTimeout() -> void:
 
 # load scene at end of load buffer timer
 func onLoadSceneBufferTimeout() -> void:
+	SetMenu.emit(MenuManager.menuTypes.NONE)
 	SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[tempCode])
 
 ### Button Event Handlers

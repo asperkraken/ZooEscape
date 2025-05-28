@@ -22,7 +22,7 @@ var menuHeap: Array[menuTypes] = []
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
 	# Prevent this Node and its children from being paused
-	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	# Connect all menu signals
 	for menu in menus.values():
@@ -35,7 +35,8 @@ func _ready() -> void:
 			menu.GoBack.connect(goBack)
 	
 	# Open the MainMenu by default
-	setMenu(menuTypes.MAIN)
+	if get_tree().current_scene == GameRoot: # This keeps the menu from appearing automatically if running a scene independently.
+		setMenu(menuTypes.MAIN)
 
 
 # Called when an InputEvent is detected
@@ -143,7 +144,6 @@ func setMenu(newMenu: menuTypes) -> void:
 func goBack() -> void:
 	if menuHeap.size() > 1:  # Ensure there's a previous menu to go back to
 		menuHeap.pop_back()  # Remove the current menu
-		print("Going back in the heap: ", currentMenu, " -> ", menuHeap.back())
 		currentMenu = menuHeap.back()  # Set currentMenu to the last menu in the heap
 		switchMenu()
 	else:

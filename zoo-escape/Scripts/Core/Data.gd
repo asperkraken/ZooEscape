@@ -40,7 +40,7 @@ func defaultGameData() -> void:
 
 
 # open file, fetch data, convert dictionary to json and save
-func saveGameData()-> void:
+func saveGameData() -> void:
 	access = FileAccess.open(FILEPATH, FileAccess.WRITE)
 	saveData = {
 		"master_volume" = Globals.currentSettings.get("master_volume"),
@@ -53,11 +53,10 @@ func saveGameData()-> void:
 	}
 	access.store_string(JSON.stringify(saveData))
 	access.close()
-	print("Data: Data saved!")
 
 
 # load with check
-func loadData()-> void:
+func loadData() -> void:
 	if !FileAccess.file_exists(FILEPATH): # if no file, default settings
 		print("No save detected. Default data loaded.")
 		defaultGameData()
@@ -65,7 +64,6 @@ func loadData()-> void:
 		access = FileAccess.open(FILEPATH, FileAccess.READ)
 		saveData = JSON.parse_string(access.get_as_text())
 		access.close()
-		print("Data: Data loaded!")
 		## update global values
 		Globals.currentSettings["master_volume"] = saveData.master_volume
 		Globals.currentSettings["music_volume"] = saveData.music_volume

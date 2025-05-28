@@ -17,13 +17,13 @@ enum focusGroups {
 const DEADZONE_MAX := 1.0
 const DEADZONE_MIN := 0.2
 
-# Info to display for options -- Values are hard-coded in case they deleted in the editor
-@export_multiline var masterInfo := "Controls total volume of \nall sound."
-@export_multiline var bgmInfo := "Controls volume level \nof background music."
-@export_multiline var sfxInfo := "Controls volume level of \nsound effects."
-@export_multiline var cueInfo := "Controls volume of system \ncues like pause noises."
-@export_multiline var deadzoneInfo := "Controls the level at which \nanalog direction inputs trigger."
-@export_multiline var exitInfo := "Close this menu.  Settings \n are automatically saved."
+# Info to display for options
+const MASTERINFO := "Controls total volume of \nall sound."
+const BGMINFO := "Controls volume level \nof background music."
+const SFXINFO := "Controls volume level of \nsound effects."
+const CUEINFO := "Controls volume of system \ncues like pause noises."
+const DEADZONEINFO := "Controls the level at which \nanalog direction inputs trigger."
+const EXITINFO := "Close this menu.  Settings \n are automatically saved."
 
 # Grab global value references
 var analogDeadzone: float = Globals.currentSettings["analog_deadzone"]
@@ -53,7 +53,7 @@ func _ready() -> void:
 # Called every render frame
 func _process(_delta: float) -> void:
 	# ONLY detect inputs when this menu is visible and ready
-	if self.visible && !bufferState:
+	if visible && !bufferState: # NOTE: Let's discuss whether we still need this buffer state with the new menu system
 			if Input.is_action_pressed("ActionButton") and focusGroup == focusGroups.DEADZONE:
 				if $DeadzoneGroup/DeadzoneDown.has_focus() and analogDeadzone > DEADZONE_MIN:
 					analogDeadzone -= 0.01 # adjust deadzone and update text
@@ -80,13 +80,13 @@ func _process(_delta: float) -> void:
 
 # Called by tthe MenuManager to show the SettingsMenu
 func showMenu() -> void:
-	self.visible = true
+	show()
 	$MasterGroup/MasterSlider.call_deferred("grab_focus")
 
 
 # Called to hide the SettingsMenu
 func hideMenu() -> void:
-	self.visible = false
+	hide()
 
 
 func returnToLastMenu() -> void:
@@ -183,74 +183,74 @@ func updateText(which: String, value: float):
 #### MOUSE ENTERED
 # mouse hovering master slider
 func _on_master_slider_mouse_entered() -> void:
-	focusInfoRelay("MASTER", masterInfo) # focus grab
+	focusInfoRelay("MASTER", MASTERINFO) # focus grab
 
 
 # mouse hovering bgm slider
 func _on_bgm_slider_mouse_entered() -> void:
-	focusInfoRelay("BGM", bgmInfo)
+	focusInfoRelay("BGM", BGMINFO)
 
 
 # mouse hovering sfx slider
 func _on_sfx_slider_mouse_entered() -> void:
-	focusInfoRelay("SFX", sfxInfo)
+	focusInfoRelay("SFX", SFXINFO)
 
 
 # grab cue focus
 func _on_cue_slider_mouse_entered() -> void:
-	focusInfoRelay("CUE", cueInfo)
+	focusInfoRelay("CUE", CUEINFO)
 
 
 # grab deadzone focus
 func _on_deadzone_up_mouse_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	focusInfoRelay("DEADZONE", DEADZONEINFO)
 
 
 # grab deadzone focus
 func _on_deadzone_down_mouse_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	focusInfoRelay("DEADZONE", DEADZONEINFO)
 
 
 # grab escape button focus
 func _on_escape_button_mouse_entered() -> void:
-	focusInfoRelay("ESCAPE", exitInfo)
+	focusInfoRelay("ESCAPE", EXITINFO)
 
 
 
 #### FOCUS ENTERED
 # grab master group focus
 func _on_master_slider_focus_entered() -> void:
-	focusInfoRelay("MASTER", masterInfo) # focus grab
+	focusInfoRelay("MASTER", MASTERINFO) # focus grab
 
 
 # grab bgm focus
 func _on_bgm_slider_focus_entered() -> void:
-	focusInfoRelay("BGM", bgmInfo)
+	focusInfoRelay("BGM", BGMINFO)
 
 
 # grab sfx focus
 func _on_sfx_slider_focus_entered() -> void:
-	focusInfoRelay("SFX", sfxInfo)
+	focusInfoRelay("SFX", SFXINFO)
 
 
 # grab cue group focus
 func _on_cue_slider_focus_entered() -> void:
-	focusInfoRelay("CUE", cueInfo)
+	focusInfoRelay("CUE", CUEINFO)
 
 
 # grab deadzone focus
 func _on_deadzone_up_focus_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	focusInfoRelay("DEADZONE", DEADZONEINFO)
 
 
 # grab deadzone focus
 func _on_deadzone_down_focus_entered() -> void:
-	focusInfoRelay("DEADZONE", deadzoneInfo)
+	focusInfoRelay("DEADZONE", DEADZONEINFO)
 
 
 # grab escape button focus
 func _on_escape_button_focus_entered() -> void:
-	focusInfoRelay("ESCAPE", exitInfo)
+	focusInfoRelay("ESCAPE", EXITINFO)
 
 
 

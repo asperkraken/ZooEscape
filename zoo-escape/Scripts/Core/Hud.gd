@@ -5,10 +5,6 @@ signal RestartRoom # reload signal
 signal ExitGame # exit to title signal
 signal ScoreProcessed # score processing signal for process score
 
-enum FOCUS_STATES {
-	RESTART,
-	EXIT
-}
 
 enum SCORE_PROCESS_STATES {
 	IDLE,
@@ -32,10 +28,8 @@ var password := "ABCD" # abstraction for password
 var warningTime := 10 # value when warning cues
 var timeLimit := 30 # value to change for each level
 var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process function at level end
-var focusState := 0 # state of time out window ui focus
-var passwordState := false # shows password window is open
 var tutorialMode := false # tutorial mode state (goes to hud)
-var stepIconCount : int = 0
+var stepIconCount := 0
 
 
 # Runs at the start set up
@@ -59,21 +53,16 @@ func _process(_delta: float) -> void:
 	$SettingsButton/GearIcon.play("default") # play gear animation
 	
 	# monitor password state to hold hud move monitoring
-	if !MenuManager.currentMenu == MenuManager.menuTypes.PASSWORD:
-		passwordState = false
-	else:
-		passwordState = true
-
 	scoreCurrent = Globals.currentGameData.get("player_score")
 	$HUDIcons/ScoreValue.text = str(scoreCurrent)
 	
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
-	if !timesUp and passwordState == false: # if timer not out, update values and monitor inputs
+	if !timesUp: # if timer not out, update values and monitor inputs
 		valueMonitoring()
 	
 	# level timer does not start until first input
-	if !moveMonitoring and !timesUp and passwordState == false:
+	if !moveMonitoring and !timesUp:
 		if Input.is_action_just_pressed("DigitalDown"):
 			levelTimerStart()
 		if Input.is_action_just_pressed("DigitalLeft"):
@@ -137,7 +126,7 @@ func valueMonitoring() -> void:
 
 
 # function for updating password, referenced by manager/ui
-func passwordReport(data:String) -> void: 
+func passwordReport(data: String) -> void: 
 	$HUDIcons/PasswordValue.text = data
 
 
@@ -248,7 +237,6 @@ func scoreProcessing() -> void:
 				movesValue-=1
 				Globals.scoreUpdate(movePenalty, false)
 			else: # then state flips back to off
-				print("Score processed!")
 				ScoreProcessed.emit() # after emitting one signal
 				scoreProcessState = SCORE_PROCESS_STATES.POST
 		_:

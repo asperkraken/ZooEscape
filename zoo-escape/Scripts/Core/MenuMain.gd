@@ -20,7 +20,7 @@ var lastButton := buttonTypes.NEWGAME
 # Handles to child nodes
 @onready var bgRect := $Background
 @onready var pausedHint := $PausedHint
-@onready var buttons := {
+@onready var buttons: Dictionary[buttonTypes, Button] = {
 	buttonTypes.RESUME: $ResumeButton,
 	buttonTypes.NEWGAME: $NewGameButton,
 	buttonTypes.PASSWORD: $PasswordButton,
@@ -37,17 +37,17 @@ func _ready() -> void:
 		$ExitButton.hide()
 	
 	# Connect menu button signals to Event Handlers
-	for i: int in buttons.size():
-		buttons[i].pressed.connect(onButtonPressed.bind(i))
-		buttons[i].mouse_entered.connect(onButtonMouseEntered.bind(i))
-		buttons[i].focus_entered.connect(onButtonFocusEntered.bind(i))
+	for button in buttons.values():
+		button.pressed.connect(onButtonPressed.bind(buttons.find_key(button)))
+		button.mouse_entered.connect(onButtonMouseEntered.bind(buttons.find_key(button)))
+		button.focus_entered.connect(onButtonFocusEntered.bind(buttons.find_key(button)))
 	
 	# Focus on the last button to be used in this window (New Game by default)
 	lastButtonFocus()
 
 func _input(event: InputEvent) -> void:
 	# ONLY detect inputs if MainMenu is visible
-	if self.visible:
+	if visible:
 		# Only handle single, intentional 'press' events
 		if !event.is_pressed() || event.is_echo():
 			return
@@ -189,9 +189,9 @@ func showMenu() -> void:
 		if lastButton == buttonTypes.BACK:
 			lastButton = buttonTypes.NEWGAME
 		lastButtonFocus()
-	self.visible = true
+	show()
 
 
 # Called to hide the MainMenu and reset the value entered
 func hideMenu() -> void:
-	self.visible = false
+	hide()
