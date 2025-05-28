@@ -28,22 +28,24 @@ tile_set = ExtResource("1_d2x4x")
 position = Vector2(232, 88)
 nextLevelCode = "9992"
 
-[node name="Steak" parent="." instance=ExtResource("5_h7q7r")]
+[node name="SteakHolder" type="Node" parent="."]
+
+[node name="Steak" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 120)
 
-[node name="Steak5" parent="." instance=ExtResource("5_h7q7r")]
+[node name="Steak5" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(136, 56)
 
-[node name="Steak6" parent="." instance=ExtResource("5_h7q7r")]
+[node name="Steak6" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(136, 72)
 
-[node name="Steak2" parent="." instance=ExtResource("5_h7q7r")]
+[node name="Steak2" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 136)
 
-[node name="Steak3" parent="." instance=ExtResource("5_h7q7r")]
+[node name="Steak3" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(248, 152)
 
-[node name="Steak4" parent="." instance=ExtResource("5_h7q7r")]
+[node name="Steak4" parent="SteakHolder" instance=ExtResource("5_h7q7r")]
 position = Vector2(72, 88)
 
 [node name="Switch" parent="." instance=ExtResource("8_ygj1o")]

@@ -149,7 +149,8 @@ func steakCollected() -> void:
 		allSteaksCollected()
 	
 func setupSteaks() -> void:
-	for child in get_children():
-		if child.is_in_group("steaks"):
+	var steaks := get_tree().get_nodes_in_group("steaks")
+	if steaks:
+		for steak: Steak in steaks:
+			steak.Collected.connect(steakCollected)
 			steakCount += 1
-			child.Collected.connect(steakCollected)

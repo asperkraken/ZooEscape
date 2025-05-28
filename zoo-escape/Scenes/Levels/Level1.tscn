@@ -28,37 +28,39 @@ position = Vector2(216, 184)
 [node name="Gate" parent="Button" instance=ExtResource("4_p1kfa")]
 position = Vector2(16, 32)
 
-[node name="Steak" parent="." instance=ExtResource("7_0mdn8")]
+[node name="SteakHolder" type="Node" parent="."]
+
+[node name="Steak" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(216, 280)
 
-[node name="Steak2" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak2" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(232, 280)
 
-[node name="Steak3" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak3" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(248, 280)
 
-[node name="Steak4" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak4" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(232, 264)
 
-[node name="Steak5" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak5" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(328, 264)
 
-[node name="Steak6" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak6" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(392, 264)
 
-[node name="Steak7" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak7" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(360, 184)
 
-[node name="Steak8" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak8" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(200, 152)
 
-[node name="Steak9" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak9" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(200, 200)
 
-[node name="Steak10" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak10" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(264, 200)
 
-[node name="Steak11" parent="." instance=ExtResource("7_0mdn8")]
+[node name="Steak11" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
 position = Vector2(328, 152)
 
 [node name="Box" parent="." instance=ExtResource("5_bnk20")]

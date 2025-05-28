@@ -69,10 +69,12 @@ position = Vector2(72, 72)
 [node name="Box3" parent="." instance=ExtResource("8_613vg")]
 position = Vector2(72, 104)
 
-[node name="Steak" parent="." instance=ExtResource("6_88ppj")]
+[node name="SteakHolder" type="Node" parent="."]
+
+[node name="Steak" parent="SteakHolder" instance=ExtResource("6_88ppj")]
 position = Vector2(72, 168)
 
-[node name="Steak2" parent="." instance=ExtResource("6_88ppj")]
+[node name="Steak2" parent="SteakHolder" instance=ExtResource("6_88ppj")]
 position = Vector2(264, -8)
 
 [node name="Player" parent="." instance=ExtResource("10_uxmkr")]
