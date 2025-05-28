@@ -32,10 +32,6 @@ var lastButton := buttonTypes.NEWGAME
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
-	# If playing the web version, hide the Exit button
-	if OS.get_name() == "Web":
-		$ExitButton.hide()
-	
 	# Connect menu button signals to Event Handlers
 	for button in buttons.values():
 		button.pressed.connect(onButtonPressed.bind(buttons.find_key(button)))
@@ -177,7 +173,7 @@ func showMenu() -> void:
 		buttons[buttonTypes.RESUME].visible = false
 		buttons[buttonTypes.NEWGAME].visible = true
 		buttons[buttonTypes.BACK].visible = false
-		buttons[buttonTypes.EXIT].visible = true
+		buttons[buttonTypes.EXIT].visible = !OS.get_name() == "Web" # If playing the web version, hide the Exit button
 		buttons[buttonTypes.PASSWORD].position.y = 264
 		buttons[buttonTypes.PASSWORD].focus_neighbor_top = "../NewGameButton"
 		buttons[buttonTypes.PASSWORD].focus_previous = "../NewGameButton"
