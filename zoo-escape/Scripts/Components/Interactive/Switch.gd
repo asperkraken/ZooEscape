@@ -82,11 +82,14 @@ func _process(delta: float) -> void:
 func localTimerAudioModulate() -> void:
 	match sprite.frame:
 		0:
+			$LocalCue.volume_db = 0
 			$LocalCue.pitch_scale = 1.0
 		4:
 			$LocalCue.pitch_scale = 1.1
+			$LocalCue.volume_db = 2
 		8:
 			$LocalCue.pitch_scale = 1.2
+			$LocalCue.volume_db = 4
 
 
 ## on every even frame that is not zero, play a sound for warning
@@ -136,5 +139,5 @@ func flipSwitch() -> void:
 		# If reecently used, do nothing
 		else:
 			# call sound from outside to avoid cutoff
-			SoundControl.playSfx(SoundControl.down)
+			SoundControl.playSfx(SoundControl.oontz)
 			return
