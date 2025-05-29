@@ -34,6 +34,9 @@ var stepIconCount := 0
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
+	## make sure to find level manager to double check level time
+	var _manager = get_tree().get_first_node_in_group("LevelManager")
+	timeLimit = _manager.levelTime
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
 	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start

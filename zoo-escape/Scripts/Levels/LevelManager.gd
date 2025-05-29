@@ -123,7 +123,6 @@ func restartRoom() -> void:
 	var _score : int = Globals.currentGameData.get("player_score")
 	if _score != loadingScore: ## load score from first level boot
 		Globals.currentGameData.set("player_score", loadingScore)
-	hudClosing()
 	SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[levelCode])
 
 

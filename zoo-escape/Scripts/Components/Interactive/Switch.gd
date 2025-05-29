@@ -13,10 +13,12 @@ enum switchStates {
 @export_category("Auto-Revert Settings")
 @export var autoRevert := false # Does this switch revert to the previous state automatically?  If auto-revert is enabled, an appropriate switch style is used automatically.
 @export_range(0.5, 60.0, 0.1) var autoRevertTime := 3.0 # Time elapse before autoRevert; Minimum: 0.5, Maximum: 60.0
+@export_range(1,3,1) var warningSoundInterval := 3 # amount of frames passing before warning tones 
 
 # Additional Variables
 var recentlySwitched := false # Was this Switch recently switched?
 var revertTimer := 0.0 # Track the time until the switch auto-Reverts
+var soundTimer := 0.0
 var controlledChildren: Array[Node] = [] # Array to store handles to controlled children
 var frameCount := 0 # Track how many frames are in the animation when using an autoRevert Switch
 
@@ -40,12 +42,13 @@ func _ready() -> void:
 	
 	# Create an array of all objects controlled by this Switch
 	for child in get_children():
-		if child != collider && child != sprite:
+		if child != collider && child != sprite && child != AudioStreamPlayer:
 			controlledChildren.append(child)
 
 
 # Called every render frame
 func _process(delta: float) -> void:
+	localTimerAudioModulate()
 	# If not autoRevert, exit early
 	if !autoRevert:
 		return
@@ -65,7 +68,7 @@ func _process(delta: float) -> void:
 			
 			# Set the sprite's frame to the frame index
 			sprite.frame = frameIdx
-		
+
 		# If revertTimer greater than or equal to autoRevertTime, revert state and children
 		else:
 			setSwitchState(!switchState)
@@ -74,8 +77,28 @@ func _process(delta: float) -> void:
 			sprite.frame = 0
 
 
+
+## changes sound for audible feedback as switch state changes
+func localTimerAudioModulate() -> void:
+	match sprite.frame:
+		0:
+			$LocalCue.pitch_scale = 1.0
+		4:
+			$LocalCue.pitch_scale = 1.1
+		8:
+			$LocalCue.pitch_scale = 1.2
+
+
+## on every even frame that is not zero, play a sound for warning
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if sprite.frame % 2 == 0 and sprite.frame != 0:
+		$LocalCue.play()
+
+
+
 # Called to change the state of the Switch
 func setSwitchState(newState: int) -> void:
+	localTimerAudioModulate()
 	switchState = newState as switchStates # typecasting newState as an enum
 	toggleChildren()
 	if !autoRevert:
@@ -86,8 +109,9 @@ func setSwitchState(newState: int) -> void:
 func toggleChildren() -> void:
 	if controlledChildren:
 			for child: Node in controlledChildren:
+				if !child is AudioStreamPlayer:
 				# Set some variable / property -- replace below as needed
-				child.changeState()
+					child.changeState()
 
 
 # Called to retrieve the state of this switch
@@ -111,5 +135,6 @@ func flipSwitch() -> void:
 		
 		# If reecently used, do nothing
 		else:
-			# TODO: Play a type of "bzzzt" sound to indicate switch is busy
+			# call sound from outside to avoid cutoff
+			SoundControl.playSfx(SoundControl.down)
 			return

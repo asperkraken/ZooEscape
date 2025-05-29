@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjoj03uah2tp8"]
+[gd_scene load_steps=14 format=3 uid="uid://cjoj03uah2tp8"]
 
 [ext_resource type="Script" uid="uid://2qrx6d2bu2c1" path="res://Scripts/Core/MenuSettings.gd" id="1_ioldb"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="2_a0my0"]
+[ext_resource type="Material" uid="uid://boe8b8i1roaro" path="res://Assets/UI_Resources/SettingsMosaic.tres" id="2_uld2q"]
 [ext_resource type="StyleBox" uid="uid://bg1fatmttmcey" path="res://Assets/UI_Resources/FocusTexture.tres" id="3_uld2q"]
 [ext_resource type="StyleBox" uid="uid://d4ddxd4fvdf4o" path="res://Assets/UI_Resources/HoverTexture.tres" id="4_etoxc"]
 [ext_resource type="StyleBox" uid="uid://b6pmunfpdsdix" path="res://Assets/UI_Resources/PressedTexture.tres" id="5_s6d8b"]
@@ -59,6 +60,7 @@ grow_vertical = 2
 script = ExtResource("1_ioldb")
 
 [node name="Background" type="ColorRect" parent="."]
+material = ExtResource("2_uld2q")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
