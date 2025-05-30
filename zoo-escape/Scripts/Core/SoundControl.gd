@@ -49,6 +49,8 @@ const success := "res://Assets/Sound/Success.ogg"
 const thump := "res://Assets/Sound/Thump.ogg"
 const zap := "res://Assets/Sound/ZapDelayed.ogg"
 const start := "res://Assets/Sound/FlourishUp.ogg"
+const bzzzt := "res://Assets/Sound/Pinknoise.ogg"
+const oontz := "res://Assets/Sound/Boop.ogg"
 
 
  # sound preferences retrieved at ready

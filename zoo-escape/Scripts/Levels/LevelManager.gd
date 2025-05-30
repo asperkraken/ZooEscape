@@ -25,9 +25,9 @@ func _ready() -> void:
 	self.process_mode = Node.PROCESS_MODE_PAUSABLE # Allow the LevelManager to be paused when the scene tree is paused
 	self.add_to_group("LevelManager")
 	player.InWater.connect(restartRoom)
-	player.PlayerMoved.connect(upateMoveCount)
+	player.PlayerMoved.connect(updateMoveCount)
 	
-	if tutorialScoreBypass:
+	if tutorialScoreBypass: ## show tutorial bubble if in tutorial stage
 		player.showMoveThought()
 	
 	exitTile.PlayerExits.connect(exitLevel)
@@ -123,8 +123,8 @@ func restartRoom() -> void:
 	var _score : int = Globals.currentGameData.get("player_score")
 	if _score != loadingScore: ## load score from first level boot
 		Globals.currentGameData.set("player_score", loadingScore)
-	hudClosing()
 	SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[levelCode])
+	get_tree().paused = false ## double check to make sure tree is not paused or load error
 
 
 # game exit function, returns to title after cleaming out hud
@@ -136,7 +136,7 @@ func exitGame() -> void:
 
 
 # updates the move count on the hud
-func upateMoveCount() -> void:
+func updateMoveCount() -> void:
 	localHud.movesValue += 1
 
 

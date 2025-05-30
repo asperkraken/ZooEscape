@@ -25,8 +25,8 @@ var allSteaksCollected := false # shows goal is open
 var resetBarVisible := false # reset bar flag for external reference
 var resetGauge := 0.0 # to compare with level manager
 var password := "ABCD" # abstraction for password
-var warningTime := 10 # value when warning cues
-var timeLimit := 30 # value to change for each level
+var warningTime := 15 # value when warning cues
+var timeLimit := 60 # value to change for each level
 var scoreProcessState := SCORE_PROCESS_STATES.IDLE # state of score process function at level end
 var tutorialMode := false # tutorial mode state (goes to hud)
 var stepIconCount := 0
@@ -34,6 +34,7 @@ var stepIconCount := 0
 
 # Runs at the start set up
 func _ready() -> void: # reset animations at ready, fetch start values
+	## make sure to find level manager to double check level time
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
 	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start
@@ -41,6 +42,7 @@ func _ready() -> void: # reset animations at ready, fetch start values
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
 	scoreCurrent = Globals.currentGameData.get("player_score")
+	
 
 
 ## visual feedback for all steaks collected
@@ -112,7 +114,7 @@ func valueMonitoring() -> void:
 	$HUDIcons/MovesValue.text = str(movesValue) + "m"
 	
 	# update timer as it counts down
-	if timerValue < timeLimit and moveMonitoring:
+	if timerValue < timeLimit:
 		$HUDIcons/TimerValue.text = str(timerValue) + "s"
 	if timerValue == 0 and scoreProcessState == SCORE_PROCESS_STATES.IDLE: # last second warning
 		$HUDIcons/TimerValue.modulate = Color.RED
