@@ -3856,7 +3856,6 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 bg_color = Color(0, 0.752505, 0.754017, 1)
 
 [node name="ZEHud" type="CanvasLayer" groups=["hud"]]
-process_mode = 3
 script = ExtResource("1_v7gog")
 
 [node name="HudWindow" type="ColorRect" parent="."]

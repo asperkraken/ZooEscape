@@ -112,7 +112,6 @@ func setSwitchState(newState: int) -> void:
 func toggleChildren() -> void:
 	if controlledChildren:
 			for child: Node in controlledChildren:
-				if !child is AudioStreamPlayer:
 				# Set some variable / property -- replace below as needed
 					child.changeState()
 
