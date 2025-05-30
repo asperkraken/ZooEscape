@@ -50,8 +50,8 @@ var currentSettings := {
 
 # Globally accessible data related to the currently active game
 var currentGameData := {
-	"gameRunning" : false, # flag to change hud behaviors in game
-	"player_score": 0, # player score total
+	"gameRunning": false, # flag to change hud and window behaviors in game
+	"playerScore": 0, # player score total (useful for reloads and moving to the next level)
 }
 
 # TODO: Try combining highScoreboardNames with highScoreBoardValues into one Dictionary.
@@ -82,22 +82,9 @@ var highScoreboardValues = [
 ]
 
 
-# global function for changing score, with bool for determining plus/minus
-func scoreUpdate(value:int,buff:bool) -> void:
-	var _scoreCheck : int = currentGameData.get("player_score") # get current score
-	var _newScore : int # create holder for totaling
-	if buff == true: # is it a buff?
-		_newScore = _scoreCheck + value # add
-	else:
-		_newScore = _scoreCheck - value # or subtract
-
-	currentGameData.set("player_score",_newScore) # then update global
-
-
 # global function to update input deadzones
 func deadzoneUpdate() -> void:
-	var _deadzone : float = currentSettings.get("analog_deadzone")
-	InputMap.action_set_deadzone("DigitalLeft", _deadzone)
-	InputMap.action_set_deadzone("DigitalDown", _deadzone)
-	InputMap.action_set_deadzone("DigitalRight", _deadzone)
-	InputMap.action_set_deadzone("DigitalUp", _deadzone)
+	InputMap.action_set_deadzone("DigitalLeft", currentSettings["analog_deadzone"])
+	InputMap.action_set_deadzone("DigitalDown", currentSettings["analog_deadzone"])
+	InputMap.action_set_deadzone("DigitalRight", currentSettings["analog_deadzone"])
+	InputMap.action_set_deadzone("DigitalUp", currentSettings["analog_deadzone"])

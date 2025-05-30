@@ -4158,6 +4158,7 @@ mouse_filter = 1
 [node name="GearIcon" type="AnimatedSprite2D" parent="SettingsButton"]
 position = Vector2(24, 24)
 sprite_frames = SubResource("SpriteFrames_kumpa")
+autoplay = "default"
 frame_progress = 0.823026
 
 [node name="RestartButton" type="Button" parent="."]
@@ -4236,7 +4237,6 @@ text = "HOLD R TO RESET"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="animation_finished" from="HUDIcons/MovesIcon" to="." method="_on_moves_icon_animation_finished"]
 [connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
 [connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]

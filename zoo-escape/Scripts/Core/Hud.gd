@@ -22,7 +22,6 @@ var movePenalty := 25 # score penalty per move
 var moveMonitoring := false # shows timer has started
 var timesUp := false # shows time is out
 var allSteaksCollected := false # shows goal is open
-var resetBarVisible := false # reset bar flag for external reference
 var resetGauge := 0.0 # to compare with level manager
 var password := "ABCD" # abstraction for password
 var warningTime := 10 # value when warning cues
@@ -36,26 +35,14 @@ var stepIconCount := 0
 func _ready() -> void: # reset animations at ready, fetch start values
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
-	$HUDIcons/TimerValue.text = str(timeLimit) + "s" # update value at start
 	# to avoid queueing error on prompt
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
-	scoreCurrent = Globals.currentGameData.get("player_score")
-
-
-## visual feedback for all steaks collected
-func steakWiggle() -> void:
-	$HUDIcons/SteakIcon.play("feedback")
+	scoreCurrent = Globals.currentGameData.get("playerScore")
 
 
 # Runs every frame
 func _process(_delta: float) -> void:
-	$SettingsButton/GearIcon.play("default") # play gear animation
-	
-	# monitor password state to hold hud move monitoring
-	scoreCurrent = Globals.currentGameData.get("player_score")
-	$HUDIcons/ScoreValue.text = str(scoreCurrent)
-	
 	# fetch password from level manager and update
 	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(password)
 	if !timesUp: # if timer not out, update values and monitor inputs
@@ -125,9 +112,9 @@ func valueMonitoring() -> void:
 		$HUDAnimationAlt.play("goal") # play on alt to prevent conflicts
 
 
-# function for updating password, referenced by manager/ui
-func passwordReport(data: String) -> void: 
-	$HUDIcons/PasswordValue.text = data
+# visual feedback for all steaks collected
+func steakWiggle() -> void:
+	$HUDIcons/SteakIcon.play("feedback")
 
 
 # time functionality
@@ -206,14 +193,12 @@ func closeHud()  -> void:
 
 
 # functions to hide and reveal reset bar
-func resetBarReveal() -> void: 
-	resetBarVisible = true
+func resetBarReveal() -> void:
 	$HUDAnimationAlt.play("reset_fader")
 
 
 # remote function to fade out reset bar on release
-func resetBarFade() -> void: 
-	resetBarVisible = false
+func resetBarFade() -> void:
 	$HUDAnimationAlt.play_backwards("reset_fader")
 
 
@@ -229,18 +214,16 @@ func scoreProcessing() -> void:
 		SCORE_PROCESS_STATES.TIME_PROCESS:
 			if timerValue > 0: # timer adds bonus until zero
 				timerValue -= 1
-				Globals.scoreUpdate(secondBonus, true)
+				Globals.currentGameData["playerScore"] += secondBonus
 			else:
 				scoreProcessState = SCORE_PROCESS_STATES.MOVE_PROCESS # then state flips
 		SCORE_PROCESS_STATES.MOVE_PROCESS:
 			if movesValue > 0: # moves subtract penalty until zero
 				movesValue-=1
-				Globals.scoreUpdate(movePenalty, false)
+				Globals.currentGameData["playerScore"] -= movePenalty
 			else: # then state flips back to off
 				ScoreProcessed.emit() # after emitting one signal
 				scoreProcessState = SCORE_PROCESS_STATES.POST
-		_:
-			pass # default do nothing
 
 
 # grab click focus for restart
@@ -256,7 +239,29 @@ func _on_exit_button_mouse_entered() -> void:
 # opens settings in game (handled in settings)
 func _on_settings_button_pressed() -> void:
 	SoundControl.playCue(SoundControl.blip, 3.0)
-		
-	## control window opening
-	if !MenuManager.currentMenu == MenuManager.menuTypes.SETTINGS:
-		MenuManager.setMenu(MenuManager.menuTypes.SETTINGS)
+	MenuManager.setMenu(MenuManager.menuTypes.SETTINGS)
+
+
+# updates time text on hud
+func updateTimeText(time: int) -> void:
+	$HUDIcons/TimerValue.text = str(time) + "s"
+
+
+# updates score text on hud
+func updateScoreText(value) -> void:
+	$HUDIcons/ScoreValue.text = str(value)
+
+
+# updates move text on hud
+func updateMovesText(count) -> void:
+	$HUDIcons/MovesValue.text = str(count) + "m"
+
+
+# updates steak text on hud
+func updateSteaksText(count: int) -> void:
+	$HUDIcons/SteaksValue.text = str(count) + "x"
+
+
+# updates password text on hud
+func updatePasswordText(code: String) -> void:
+	$HUDIcons/PasswordValue.text = code
