@@ -5,7 +5,7 @@ signal SetMenu(menu: MenuManager.menuTypes)
 signal GoBack
 
 # materials for shader changes on password entry
-const CORRECTSHADRE := preload("res://Assets/Shaders/WobblyMaterial.tres")
+const CORRECTSHADER := preload("res://Assets/Shaders/WobblyMaterial.tres")
 const FAILSHADER := preload("res://Assets/Shaders/ErrorShakeX.tres")
 const EMPTY := "----"
 
@@ -134,7 +134,7 @@ func codeCheck() -> void:
 	if !code.text.contains("-") && Globals.PASSWORDS.has(code.text): # yay
 		startInputBuffer()
 		tempCode = code.text # Store the entered code
-		code.material = CORRECTSHADRE
+		code.material = CORRECTSHADER
 		code.modulate = Color.GREEN_YELLOW
 		SoundControl.playCue(SoundControl.success, 1.5)
 		$TextEffectTimer.start(0.5)
