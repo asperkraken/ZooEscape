@@ -42,7 +42,7 @@ func _ready() -> void:
 	
 	# Create an array of all objects controlled by this Switch
 	for child in get_children():
-		if child != collider && child != sprite && child != AudioStreamPlayer:
+		if child != collider && child != sprite && child is not AudioStreamPlayer:
 			controlledChildren.append(child)
 
 
