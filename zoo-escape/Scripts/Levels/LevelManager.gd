@@ -45,9 +45,6 @@ func _ready() -> void:
 	exitTile.PlayerExits.connect(exitLevel)
 	
 	# Set currentGameData in Globals
-	Globals.currentGameData.timeLimit = timeLimit
-	Globals.currentGameData.warningTime = warningTime
-	Globals.currentGameData.isLevelTutorial = isLevelTutorial
 	if !Globals.currentGameData.gameRunning:
 		Globals.currentGameData.gameRunning = true # Critical for MenuManager to work as intended in-game
 		Globals.currentGameData.playerScore = 0 # Reset the carry-over score if a game was not running (usually after quitting a previous game)
