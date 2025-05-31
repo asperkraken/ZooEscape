@@ -55,7 +55,6 @@ func _ready() -> void:
 	
 	if isLevelTutorial:
 		player.showMoveThought() # Show tutorial bubble if in tutorial stage
-		hud.setTutorialText() # Set some text values for tutorialMode
 	
 	# check to ensure bgm fade level is consistent
 	# if bgm fade level not normal, reset fade state so it fades in
@@ -79,7 +78,6 @@ func _process(delta: float) -> void:
 					
 				if timeLeft <= warningTime && timeLeft % 2 == 0: # If the remaining time is less than warning time, give warnings
 					hud.giveTimeWarning()
-					hud.modulateTimerColor()
 				
 				if elapsedTime >= timeLimit: # If elapsedTime is greater than timeLimit, time's up!
 					timesUp = true
@@ -164,15 +162,15 @@ func setupHud() -> void:
 	hud.updatePasswordText(levelCode)
 	hud.updateSteaksText(steakCount)
 	hud.updateMovesText(moveCount)
-	hud.updateTimeText(timeLimit)
 	add_child(hud)
 
 
 # Called to play some animations on the HUD when the player first moves (indicating level has begun)
 func startLevel() -> void:
-	hud.playTimeTextReset()
 	if !isLevelTutorial:
-		hud.playTimerStart()
+		hud.playTimerStart() # If playing a regular level, set time value to "START" and play an icon animation
+	else:
+		hud.setTutorialText() # If playing a tutorial level, set the TimeValue text to "NONE"
 
 
 # Updates the score with the provided value (can be positive or negative)
@@ -191,12 +189,11 @@ func updateMoveCount() -> void:
 
 # Updates the steaksCollected variable
 func steakCollected(value: int) -> void:
-	if steakCount > 0: # If there's a steakCount to reduce, reduce it!
-		steakCount -= 1
-		hud.updateSteaksText(steakCount)
-		updateScore(value)
+	steakCount -= 1
+	hud.updateSteaksText(steakCount)
+	updateScore(value)
 	
-	if steakCount <= 0: # Check again to see if steakCount dropped to 0
+	if steakCount <= 0: # If steakCount dropped to 0, activate the exitTile
 		exitTile.activateExit()
 
 
@@ -231,6 +228,7 @@ func exitLevel() -> void:
 
 # Load the next level
 func loadNextLevel() -> void:
+	hud.closeHud()
 	if nextLevel != Globals.PASSWORDS.find_key(Scenes.TITLE):
 		SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[nextLevel])
 	else:

@@ -14,15 +14,6 @@ func _ready() -> void: # reset animations at ready, fetch volume values
 	# to avoid queueing error on prompt
 	$OpenCue.volume_db = SoundControl.cueLevel
 	$AlertCue.volume_db = SoundControl.cueLevel
-	
-	if $HudWindow.scale.x < 1: # window bug fixing # NOTE: To whomever put this in: when is this necessary?  Please discuss in Discord.
-		$HudWindow.scale.x = 1
-
-
-# Play animation when level begins
-func playTimeTextReset() -> void:
-	pass
-	#$HUDAnimationAlt.play("time_text_reset") # reset time text
 
 
 # Play animation when level begins
@@ -40,12 +31,6 @@ func giveTimeWarning() -> void:
 	$HUDIcons/TimerIcon.play("feedback")
 	$HUDAnimation.play("warning")
 	$OpenCue.play() # Audio warning cue
-
-
-# Called to turn the timer text red for time warnings
-func modulateTimerColor() -> void:
-	$HUDIcons/TimerValue.modulate = Color.RED
-	$HUDIcons/TimerIcon.modulate = Color.RED
 
 
 # Show the Timeout window when out of time

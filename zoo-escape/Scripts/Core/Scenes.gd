@@ -16,6 +16,6 @@ const DEBUG3 := "res://Scenes/Levels/Debug3.tscn"
 
 # Zoo Escape Production Level Scenes
 const TUTORIAL1 := "res://Scenes/Levels/Tutorial1.tscn"
-const LEVEL1 := "res://Scenes/Levels/Level1.tscn" # timeLimit: 120
-const LEVEL2 := "res://Scenes/Levels/Level2.tscn" # timeLimit: 120
-const LEVEL3 := "res://Scenes/Levels/Level3.tscn" # timeLimit: 60
+const LEVEL1 := "res://Scenes/Levels/Level1.tscn"
+const LEVEL2 := "res://Scenes/Levels/Level2.tscn"
+const LEVEL3 := "res://Scenes/Levels/Level3.tscn"
