@@ -28,6 +28,7 @@ enum playerState {
 @onready var currentState := playerState.IDLE
 @onready var moveTimer := 0.0
 @onready var lastMoveDir := Vector2.DOWN
+@onready var facingDir := Vector2.DOWN # this catches the last input to determine ball direction
 
 signal InWater
 signal PlayerMoved
@@ -49,12 +50,16 @@ func _process(delta: float) -> void:
 			
 		if Input.is_action_just_pressed("DigitalUp"):
 			movePlayer(Vector2.UP)
+			facingDir = Vector2.UP # update facing vector
 		elif Input.is_action_just_pressed("DigitalRight"):
 			movePlayer(Vector2.RIGHT)
+			facingDir = Vector2.RIGHT
 		elif Input.is_action_just_pressed("DigitalDown"):
 			movePlayer(Vector2.DOWN)
+			facingDir = Vector2.DOWN
 		elif Input.is_action_just_pressed("DigitalLeft"):
 			movePlayer(Vector2.LEFT)
+			facingDir = Vector2.LEFT
 			
 		if Input.is_action_pressed("DigitalUp") || Input.is_action_pressed("DigitalRight") || Input.is_action_pressed("DigitalDown") || Input.is_action_pressed("DigitalLeft"):
 			moveTimer += delta
@@ -65,12 +70,16 @@ func _process(delta: float) -> void:
 		if moveTimer >= moveSpeed:
 			if Input.is_action_pressed("DigitalUp"):
 				movePlayer(Vector2.UP)
+				facingDir = Vector2.UP
 			elif Input.is_action_pressed("DigitalRight"):
 				movePlayer(Vector2.RIGHT)
+				facingDir = Vector2.RIGHT
 			elif Input.is_action_pressed("DigitalDown"):
 				movePlayer(Vector2.DOWN)
+				facingDir = Vector2.DOWN
 			elif Input.is_action_pressed("DigitalLeft"):
 				movePlayer(Vector2.LEFT)
+				facingDir = Vector2.LEFT
 			
 			moveTimer = 0
 		
@@ -103,7 +112,7 @@ func movePlayer(dir: Vector2) -> void:
 	# if the Player's RayCast2D is colliding, do logic
 	if ray.is_colliding():
 		var collidingObj: Object = ray.get_collider()
-		if collidingObj is ZEBoxArea or collidingObj is ZEBall:
+		if collidingObj is ZEBoxArea:
 		# If the collider is a Box, try to move the Box and the Player
 			if collidingObj.move(dir):
 				position += dir * Globals.TILESIZE
@@ -126,6 +135,9 @@ func interactWithRayCollider(collidingObj: Object) -> void:
 	if collidingObj is ZESwitchArea: # Is the object a Switch?
 		thoughtBubble.hide()
 		collidingObj.flipSwitch()
+	if collidingObj is ZEBall:
+		if !collidingObj.isFacingWall:
+			collidingObj.move(facingDir)
 
 
 # do stuff depending on what you step on. 
@@ -174,3 +186,5 @@ func checkForInteract() -> void:
 		if collidingObj is ZESwitchArea:
 			thoughtBubble.show()
 			thoughtBubble.play("ActionKB")
+		if collidingObj is ZEBall:
+			collidingObj.isPlayerFacing = true
