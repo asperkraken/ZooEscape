@@ -133,7 +133,7 @@ func updateSteaksText(count: int) -> void:
 # updates password text on hud
 func updatePasswordText(code: String) -> void:
 	$HUDIcons/PasswordValue.text = code # Password value in the HUD
-	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: "+str(code) # Password label in the Time Out window
+	$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: " + str(code) # Password label in the Time Out window
 
 
 # Open SettingsMenu in game (handled by MenuManager)

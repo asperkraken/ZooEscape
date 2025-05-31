@@ -63,7 +63,7 @@ var currentGameData := {
 
 # Global storage space for player names in the high scores list
 # NOTE: See the above TODO.
-var highScoreboardNames = [
+var highScoreboardNames := [
 	"ZAP",
 	"MKV",
 	"GUS",
@@ -73,7 +73,7 @@ var highScoreboardNames = [
 
 # Global storage space for scores in the high scores list
 # NOTE: See the above TODO.
-var highScoreboardValues = [
+var highScoreboardValues := [
 	20000,
 	19000,
 	18000,
@@ -84,7 +84,7 @@ var highScoreboardValues = [
 
 # global function to update input deadzones
 func deadzoneUpdate() -> void:
-	InputMap.action_set_deadzone("DigitalLeft", currentSettings["analog_deadzone"])
-	InputMap.action_set_deadzone("DigitalDown", currentSettings["analog_deadzone"])
-	InputMap.action_set_deadzone("DigitalRight", currentSettings["analog_deadzone"])
-	InputMap.action_set_deadzone("DigitalUp", currentSettings["analog_deadzone"])
+	InputMap.action_set_deadzone("DigitalLeft", currentSettings.analog_deadzone)
+	InputMap.action_set_deadzone("DigitalDown", currentSettings.analog_deadzone)
+	InputMap.action_set_deadzone("DigitalRight", currentSettings.analog_deadzone)
+	InputMap.action_set_deadzone("DigitalUp", currentSettings.analog_deadzone)

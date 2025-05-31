@@ -1,6 +1,6 @@
 class_name Steak extends AnimatedSprite2D
 
-@export var bonus : int = 50  # The points for collecting a steak
+@export var bonus := 50  # The points for collecting a steak
 signal Collected(value)
 
 # Called when the node enters the scene tree for the first time.
