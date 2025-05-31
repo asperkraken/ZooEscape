@@ -136,8 +136,8 @@ func interactWithRayCollider(collidingObj: Object) -> void:
 		thoughtBubble.hide()
 		collidingObj.flipSwitch()
 	if collidingObj is ZEBall:
-		if !collidingObj.isFacingWall:
-			collidingObj.move(facingDir)
+		thoughtBubble.hide()
+		collidingObj.move(facingDir)
 
 
 # do stuff depending on what you step on. 
@@ -187,4 +187,5 @@ func checkForInteract() -> void:
 			thoughtBubble.show()
 			thoughtBubble.play("ActionKB")
 		if collidingObj is ZEBall:
-			collidingObj.isPlayerFacing = true
+			thoughtBubble.show()
+			thoughtBubble.play("ActionKB")
