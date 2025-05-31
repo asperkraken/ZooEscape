@@ -9,6 +9,7 @@ func goToNewScenePacked(newScene: PackedScene) -> void:
 	
 	# Switch the scenes
 	gameRoot.goToNextScene(currentScene, newScene)
+	get_tree().paused = false # Make sure the scene tree is unpaused for the next level to load in properly
 
 
 # this takes a filename/string as argument and loads it with the previous function
