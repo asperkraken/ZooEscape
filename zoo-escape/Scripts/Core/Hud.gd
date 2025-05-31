@@ -101,7 +101,6 @@ func resetBarUpdate(value: float) -> void:
 # Set some text values if we're playing a tutorial
 func setTutorialText():
 	$HUDIcons/TimerValue.text = "NONE"
-	$HUDIcons/ScoreValue.text = "----"
 
 
 # Updates time text on hud
