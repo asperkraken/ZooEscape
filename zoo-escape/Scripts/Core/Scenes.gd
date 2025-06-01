@@ -16,7 +16,7 @@ const DEBUG3 := "res://Scenes/Levels/Debug3.tscn"
 
 # Zoo Escape Production Level Scenes
 const TUTORIAL1 := "res://Scenes/Levels/Tutorial1.tscn"
-const TUTORIAL2 := "res://Scenes/Levels/Tutorial2.tscn"
 const LEVEL1 := "res://Scenes/Levels/Level1.tscn"
 const LEVEL2 := "res://Scenes/Levels/Level2.tscn"
 const LEVEL3 := "res://Scenes/Levels/Level3.tscn"
+const LEVEL4 := "res://Scenes/Levels/Level4.tscn"

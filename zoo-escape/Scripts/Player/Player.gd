@@ -143,8 +143,8 @@ func bodyEnter(body: Node2D) -> void:
 			SoundControl.playCue(SoundControl.fail,3.0)
 			currentState = playerState.INWATER
 			$AnimatedSprite2D.play("Drown")
-			var localHud = get_tree().get_first_node_in_group("hud")
-			localHud.closeHud()
+			var manager = get_tree().get_first_node_in_group("LevelManager")
+			manager.hud.closeHud()
 		elif body.get_cell_tile_data(tilePos).get_custom_data("Ice"):
 			if(!ray.is_colliding()):
 				# if ice, audio cues and state change
@@ -192,6 +192,6 @@ func checkForInteract() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "Drown":
 		$AnimatedSprite2D.frame = 31 # hold last frame
-		var localHud = get_tree().get_first_node_in_group("hud") # grab hud
-		localHud.visible = false # prevent popup on close
+		var manager = get_tree().get_first_node_in_group("LevelManager")
+		manager.hud.visible = false
 		InWater.emit() # level reload call
