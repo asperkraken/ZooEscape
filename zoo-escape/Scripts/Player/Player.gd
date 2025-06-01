@@ -191,7 +191,6 @@ func checkForInteract() -> void:
 # this function reloads the level after the player's drown animation
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "Drown":
-		$AnimatedSprite2D.frame = 31 # hold last frame
 		var manager = get_tree().get_first_node_in_group("LevelManager")
 		manager.hud.visible = false
 		InWater.emit() # level reload call
