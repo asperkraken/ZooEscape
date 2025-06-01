@@ -50,16 +50,12 @@ func _process(delta: float) -> void:
 			
 		if Input.is_action_just_pressed("DigitalUp"):
 			movePlayer(Vector2.UP)
-			facingDir = Vector2.UP # update facing vector
 		elif Input.is_action_just_pressed("DigitalRight"):
 			movePlayer(Vector2.RIGHT)
-			facingDir = Vector2.RIGHT
 		elif Input.is_action_just_pressed("DigitalDown"):
 			movePlayer(Vector2.DOWN)
-			facingDir = Vector2.DOWN
 		elif Input.is_action_just_pressed("DigitalLeft"):
 			movePlayer(Vector2.LEFT)
-			facingDir = Vector2.LEFT
 			
 		if Input.is_action_pressed("DigitalUp") || Input.is_action_pressed("DigitalRight") || Input.is_action_pressed("DigitalDown") || Input.is_action_pressed("DigitalLeft"):
 			moveTimer += delta
@@ -70,16 +66,12 @@ func _process(delta: float) -> void:
 		if moveTimer >= moveSpeed:
 			if Input.is_action_pressed("DigitalUp"):
 				movePlayer(Vector2.UP)
-				facingDir = Vector2.UP
 			elif Input.is_action_pressed("DigitalRight"):
 				movePlayer(Vector2.RIGHT)
-				facingDir = Vector2.RIGHT
 			elif Input.is_action_pressed("DigitalDown"):
 				movePlayer(Vector2.DOWN)
-				facingDir = Vector2.DOWN
 			elif Input.is_action_pressed("DigitalLeft"):
 				movePlayer(Vector2.LEFT)
-				facingDir = Vector2.LEFT
 			
 			moveTimer = 0
 		
@@ -98,6 +90,7 @@ func _process(delta: float) -> void:
 
 # Called to move the player
 func movePlayer(dir: Vector2) -> void:
+	facingDir = dir # update direction of "pushing" for ball
 	var _pitch = randf_range(-0.25, 0.25)
 	$StepCue.pitch_scale = 1 + _pitch
 	$StepCue.play()
