@@ -16,7 +16,7 @@ enum states {
 func _ready() -> void:
 	$GroundCheck.body_entered.connect(bodyEnter)
 	$GroundCheck.body_exited.connect(bodyExit)
-	
+
 func _physics_process(delta: float) -> void:
 	if currentState == states.SLIDING:
 		moveTimer += delta
@@ -24,6 +24,10 @@ func _physics_process(delta: float) -> void:
 		if moveTimer >= slideSpeed:
 			move(currentDir)
 			moveTimer = 0
+	
+	if currentState == states.INWATER:
+		$Sprite.play("float")
+
 
 # if possable moves the box and reports back to caller
 func move(dir: Vector2) -> bool:
