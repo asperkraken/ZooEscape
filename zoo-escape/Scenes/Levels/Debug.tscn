@@ -77,6 +77,12 @@ position = Vector2(216, 72)
 [node name="ZEBall" parent="." instance=ExtResource("12_1t63g")]
 position = Vector2(72, 72)
 
+[node name="ZEBall2" parent="." instance=ExtResource("12_1t63g")]
+position = Vector2(104, 152)
+
+[node name="ZEBall3" parent="." instance=ExtResource("12_1t63g")]
+position = Vector2(120, 120)
+
 [node name="Player" parent="." instance=ExtResource("2_ykc06")]
 position = Vector2(56, 40)
 metadata/_edit_lock_ = true

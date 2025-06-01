@@ -28,6 +28,7 @@ enum playerState {
 @onready var currentState := playerState.IDLE
 @onready var moveTimer := 0.0
 @onready var lastMoveDir := Vector2.DOWN
+@onready var facingDir := Vector2.DOWN # this catches the last input to determine ball direction
 
 signal InWater
 signal PlayerMoved
@@ -89,6 +90,7 @@ func _process(delta: float) -> void:
 
 # Called to move the player
 func movePlayer(dir: Vector2) -> void:
+	facingDir = dir # update direction of "pushing" for ball
 	var _pitch = randf_range(-0.25, 0.25)
 	$StepCue.pitch_scale = 1 + _pitch
 	$StepCue.play()
@@ -103,7 +105,7 @@ func movePlayer(dir: Vector2) -> void:
 	# if the Player's RayCast2D is colliding, do logic
 	if ray.is_colliding():
 		var collidingObj: Object = ray.get_collider()
-		if collidingObj is ZEBoxArea or collidingObj is ZEBall:
+		if collidingObj is ZEBoxArea:
 		# If the collider is a Box, try to move the Box and the Player
 			if collidingObj.move(dir):
 				position += dir * Globals.TILESIZE
@@ -126,6 +128,9 @@ func interactWithRayCollider(collidingObj: Object) -> void:
 	if collidingObj is ZESwitchArea: # Is the object a Switch?
 		thoughtBubble.hide()
 		collidingObj.flipSwitch()
+	if collidingObj is ZEBall:
+		thoughtBubble.hide()
+		collidingObj.move(facingDir)
 
 
 # do stuff depending on what you step on. 
@@ -172,5 +177,8 @@ func checkForInteract() -> void:
 	if ray.is_colliding():
 		var collidingObj: Object = ray.get_collider()
 		if collidingObj is ZESwitchArea:
+			thoughtBubble.show()
+			thoughtBubble.play("ActionKB")
+		if collidingObj is ZEBall:
 			thoughtBubble.show()
 			thoughtBubble.play("ActionKB")
