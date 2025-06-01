@@ -3245,7 +3245,7 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ExitButton:modulate")
+tracks/9/path = NodePath("QuitButton:modulate")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
@@ -3269,7 +3269,7 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ExitButton:disabled")
+tracks/11/path = NodePath("QuitButton:disabled")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
@@ -3329,19 +3329,19 @@ tracks/15/keys = {
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("HUDIcons/TimerValue:text")
+tracks/16/path = NodePath("SettingsButton:modulate")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["----"]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/17/type = "value"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("SettingsButton:modulate")
+tracks/17/path = NodePath("HUDIcons:modulate")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
@@ -3353,46 +3353,34 @@ tracks/17/keys = {
 tracks/18/type = "value"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("HUDIcons:modulate")
+tracks/18/path = NodePath("HUDIcons/HUDBorder:scale")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(0, 0)]
 }
 tracks/19/type = "value"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("HUDIcons/HUDBorder:scale")
+tracks/19/path = NodePath("HUDIcons/TimerIcon:modulate")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/20/type = "value"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("HUDIcons/TimerIcon:modulate")
+tracks/20/path = NodePath("HUDIcons/TimerValue:visible_ratio")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-tracks/21/type = "value"
-tracks/21/imported = false
-tracks/21/enabled = true
-tracks/21/path = NodePath("HUDIcons/TimerValue:visible_ratio")
-tracks/21/interp = 1
-tracks/21/loop_wrap = true
-tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -3618,7 +3606,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ExitButton:modulate")
+tracks/5/path = NodePath("QuitButton:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -3642,7 +3630,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("ExitButton:disabled")
+tracks/7/path = NodePath("QuitButton:disabled")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -3682,8 +3670,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_bk4hq"]
 resource_name = "timer_start"
-length = 0.5
-step = 0.1
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -3691,7 +3678,7 @@ tracks/0/path = NodePath("HUDIcons/TimerValue:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 0, 1), Color(1, 1, 1, 1)]
@@ -3715,7 +3702,7 @@ tracks/2/path = NodePath("OpenCue:pitch_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [2.75, 3.0]
@@ -3727,7 +3714,7 @@ tracks/3/path = NodePath("HUDIcons/TimerValue:text")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": ["START", "START"]
@@ -3739,7 +3726,7 @@ tracks/4/path = NodePath("HUDIcons/TimerIcon:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
@@ -3751,7 +3738,7 @@ tracks/5/path = NodePath("HUDIcons/TimerValue:visible_ratio")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
@@ -3921,6 +3908,8 @@ position = Vector2(536, 34)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_kumpa")
 animation = &"feedback"
+autoplay = "feedback"
+frame_progress = 0.985226
 
 [node name="MovesValue" type="Label" parent="HUDIcons"]
 texture_filter = 1
@@ -4115,11 +4104,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="LevelTimer" type="Timer" parent="."]
-process_mode = 1
-one_shot = true
-ignore_time_scale = true
-
 [node name="OpenTimer" type="Timer" parent="."]
 process_mode = 1
 one_shot = true
@@ -4158,6 +4142,7 @@ mouse_filter = 1
 [node name="GearIcon" type="AnimatedSprite2D" parent="SettingsButton"]
 position = Vector2(24, 24)
 sprite_frames = SubResource("SpriteFrames_kumpa")
+autoplay = "default"
 frame_progress = 0.823026
 
 [node name="RestartButton" type="Button" parent="."]
@@ -4167,12 +4152,12 @@ offset_left = 168.0
 offset_top = 220.0
 offset_right = 312.0
 offset_bottom = 272.0
-focus_neighbor_left = NodePath("../ExitButton")
-focus_neighbor_top = NodePath("../ExitButton")
-focus_neighbor_right = NodePath("../ExitButton")
-focus_neighbor_bottom = NodePath("../ExitButton")
-focus_next = NodePath("../ExitButton")
-focus_previous = NodePath("../ExitButton")
+focus_neighbor_left = NodePath("../QuitButton")
+focus_neighbor_top = NodePath("../QuitButton")
+focus_neighbor_right = NodePath("../QuitButton")
+focus_neighbor_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 0)
 theme_override_colors/font_hover_pressed_color = Color(0, 0.662728, 1.54018e-06, 1)
 theme_override_colors/font_hover_color = Color(0.88494, 0.884941, 0, 1)
@@ -4185,7 +4170,7 @@ disabled = true
 text = "TRY AGAIN?"
 metadata/_edit_lock_ = true
 
-[node name="ExitButton" type="Button" parent="."]
+[node name="QuitButton" type="Button" parent="."]
 process_mode = 3
 modulate = Color(1, 1, 1, 0)
 offset_left = 328.0
@@ -4207,7 +4192,7 @@ theme_override_font_sizes/font_size = 10
 theme_override_styles/focus = SubResource("StyleBoxTexture_8xvoy")
 theme_override_styles/hover = SubResource("StyleBoxTexture_8xvoy")
 disabled = true
-text = "EXIT TO TITLE"
+text = "QUIT GAME"
 metadata/_edit_lock_ = true
 
 [node name="ResetBar" type="ProgressBar" parent="."]
@@ -4236,11 +4221,9 @@ text = "HOLD R TO RESET"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="animation_finished" from="HUDIcons/MovesIcon" to="." method="_on_moves_icon_animation_finished"]
-[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
-[connection signal="timeout" from="OpenTimer" to="." method="_on_open_timer_timeout"]
-[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="mouse_entered" from="RestartButton" to="." method="_on_restart_button_mouse_entered"]
-[connection signal="pressed" from="RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="mouse_entered" from="ExitButton" to="." method="_on_exit_button_mouse_entered"]
-[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="timeout" from="OpenTimer" to="." method="onOpenTimerTimeout"]
+[connection signal="pressed" from="SettingsButton" to="." method="onSettingsButtonPressed"]
+[connection signal="mouse_entered" from="RestartButton" to="." method="onRestartButtonMouseEntered"]
+[connection signal="pressed" from="RestartButton" to="." method="onRestartButtonPressed"]
+[connection signal="mouse_entered" from="QuitButton" to="." method="onQuitButtonMouseEntered"]
+[connection signal="pressed" from="QuitButton" to="." method="onQuitButtonPressed"]

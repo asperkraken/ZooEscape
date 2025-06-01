@@ -42,7 +42,7 @@ func _ready() -> void:
 	
 	# Create an array of all objects controlled by this Switch
 	for child in get_children():
-		if child != collider && child != sprite && child != AudioStreamPlayer:
+		if child != collider && child != sprite && child is not AudioStreamPlayer:
 			controlledChildren.append(child)
 
 
@@ -82,11 +82,14 @@ func _process(delta: float) -> void:
 func localTimerAudioModulate() -> void:
 	match sprite.frame:
 		0:
+			$LocalCue.volume_db = 0
 			$LocalCue.pitch_scale = 1.0
 		4:
 			$LocalCue.pitch_scale = 1.1
+			$LocalCue.volume_db = 2
 		8:
 			$LocalCue.pitch_scale = 1.2
+			$LocalCue.volume_db = 4
 
 
 ## on every even frame that is not zero, play a sound for warning
@@ -109,7 +112,6 @@ func setSwitchState(newState: int) -> void:
 func toggleChildren() -> void:
 	if controlledChildren:
 			for child: Node in controlledChildren:
-				if !child is AudioStreamPlayer:
 				# Set some variable / property -- replace below as needed
 					child.changeState()
 
@@ -136,5 +138,5 @@ func flipSwitch() -> void:
 		# If reecently used, do nothing
 		else:
 			# call sound from outside to avoid cutoff
-			SoundControl.playSfx(SoundControl.down)
+			SoundControl.playSfx(SoundControl.oontz)
 			return

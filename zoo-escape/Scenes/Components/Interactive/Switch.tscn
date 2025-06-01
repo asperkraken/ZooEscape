@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dldy32r2iygvy" path="res://Assets/Images/SwitchLeverOn.png" id="7_6vf68"]
 [ext_resource type="Texture2D" uid="uid://d1cr6pet8xpy4" path="res://Assets/Images/SwitchToggleOff.png" id="9_gauf0"]
 [ext_resource type="Texture2D" uid="uid://bh261q7vvtnyl" path="res://Assets/Images/SwitchToggleOn.png" id="10_p8i8w"]
-[ext_resource type="AudioStream" uid="uid://iiar1e12rfis" path="res://Assets/Sound/Alert.ogg" id="11_gpg24"]
+[ext_resource type="AudioStream" uid="uid://c8l1foxdwa6do" path="res://Assets/Sound/Pinknoise.ogg" id="11_gpg24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jil8d"]
 size = Vector2(16, 16)
