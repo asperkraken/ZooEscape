@@ -23,7 +23,7 @@ buses/default_bus_layout="uid://slak83a5uy2t"
 [autoload]
 
 Scenes="*res://Scripts/Core/Scenes.gd"
-SceneManager="*res://Scripts/Core/SceneManager.gd"
+SceneManager="*res://Scenes/Components/Interactive/SceneManager.gd"
 Globals="*res://Scripts/Core/Globals.gd"
 SoundControl="*res://Scenes/Core/SoundControl.tscn"
 Data="*res://Scenes/Core/Data.tscn"

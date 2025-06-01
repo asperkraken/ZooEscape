@@ -28,7 +28,7 @@ var modulatedTime := moveWidthTime
 
 
 # Called to move the ball if possible from player
-func move(dir:Vector2):
+func move(dir: Vector2):
 	# check prevents "rolling in place" animation if facing same direction
 	if raycast.target_position != dir * (Globals.TILESIZE * 4):
 		$BallSprite.play("roll")
@@ -84,6 +84,8 @@ func _on_move_timer_timeout() -> void:
 		STATES.MOVING:
 			position += dirCheck * Globals.TILESIZE
 			$MoveTimer.start(modulatedTime) # this time is called if terrain in unchanged
+			if modulatedTime == moveWidthTime*2:
+				$BallSprite.play("float")
 			if modulatedTime != moveWidthTime*2: # do not show water if out of water
 				$BallSprite.play("roll")
 			if modulatedTime != moveWidthTime*3: # return speed if not sliding

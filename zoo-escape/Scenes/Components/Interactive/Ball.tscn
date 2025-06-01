@@ -10,7 +10,7 @@ size = Vector2(112, 112)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f46uy"]
 size = Vector2(80, 80)
 
-[node name="ZEBall" type="Area2D"]
+[node name="Ball" type="Area2D"]
 scale = Vector2(0.125, 0.125)
 script = ExtResource("1_kjo4a")
 
