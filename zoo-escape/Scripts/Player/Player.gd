@@ -37,11 +37,12 @@ signal PlayerMoved
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	$StepCue.volume_db = SoundControl.sfxLevel-stepMuffleLevel # default player footsteps to low volume
+	$StepCue.volume_db = SoundControl.sfxLevel - stepMuffleLevel # default player footsteps to low volume
 	$GroundCheck.body_entered.connect(bodyEnter)
 	$GroundCheck.body_exited.connect(bodyExit)
 	$GroundCheck.area_entered.connect(areaEnter)
 	idleTimer.timeout.connect(showResetThought)
+	$AnimatedSprite2D.play("IdleDown")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -135,18 +136,18 @@ func interactWithRayCollider(collidingObj: Object) -> void:
 		collidingObj.move(facingDir)
 
 
-# do stuff depending on what you step on. 
+# give feedback and state change dependent on terrain
 func bodyEnter(body: Node2D) -> void:
 	if body is TileMapLayer:
 		var tilePos: Vector2i = body.local_to_map($GroundCheck.global_position)
 		if body.get_cell_tile_data(tilePos).get_custom_data("Water"):
-			SoundControl.playCue(SoundControl.fail,3.0)
+			# if in water, visual and audio cues before level call triggers
+			SoundControl.playCue(SoundControl.fail, 3.0)
 			currentState = playerState.INWATER
-		
-			# tell the level to restart
-			InWater.emit()
+			$AnimatedSprite2D.play("Drown")
 		elif body.get_cell_tile_data(tilePos).get_custom_data("Ice"):
-			if(!ray.is_colliding()):
+			if (!ray.is_colliding()):
+				# if ice, audio cues and state change
 				currentState = playerState.SLIDING
 				$StepCue.stream = load(SLIPNOISE)
 			else:
@@ -157,13 +158,6 @@ func bodyEnter(body: Node2D) -> void:
 func bodyExit(_body: Node2D) -> void:
 	currentState = playerState.IDLE
 	$StepCue.stream = load(STEPNOISE)
-
-
-# check the ground to any area 2d
-func areaEnter(area: Area2D) -> void:
-	# if on a ice corner prvent input by setting the state to CORNERSLIDING
-	if area.get_collision_mask_value(4):
-		currentState = playerState.CORNERSLIDING
 
 
 # sets the thought bubble to reset
@@ -192,3 +186,9 @@ func checkForInteract() -> void:
 		if collidingObj is ZEBall:
 			thoughtBubble.show()
 			thoughtBubble.play("ActionKB")
+
+
+# this function reloads the level after the player's drown animation
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "Drown":
+		InWater.emit() # level reload call

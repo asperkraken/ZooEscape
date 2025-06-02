@@ -16,7 +16,7 @@ enum states {
 func _ready() -> void:
 	$GroundCheck.body_entered.connect(bodyEnter)
 	$GroundCheck.body_exited.connect(bodyExit)
-	
+
 func _physics_process(delta: float) -> void:
 	if currentState == states.SLIDING:
 		moveTimer += delta
@@ -24,6 +24,10 @@ func _physics_process(delta: float) -> void:
 		if moveTimer >= slideSpeed:
 			move(currentDir)
 			moveTimer = 0
+	
+	if currentState == states.INWATER:
+		$Sprite.play("float")
+
 
 # if possable moves the box and reports back to caller
 func move(dir: Vector2) -> bool:
@@ -44,7 +48,9 @@ func bodyEnter(body: Node2D) -> void:
 	if body is TileMapLayer:
 		var tilePos: Vector2i = body.local_to_map($GroundCheck.global_position)
 		if body.get_cell_tile_data(body.local_to_map($GroundCheck.global_position)).get_custom_data("Water"):
-			body.set_cell(body.local_to_map($GroundCheck.global_position), 2, body.get_cell_atlas_coords(body.local_to_map($GroundCheck.global_position)))
+			# check old id before updating to new to ensure correct tilemap set
+			var _oldSourceId = body.get_cell_source_id(body.local_to_map($GroundCheck.global_position))
+			body.set_cell(body.local_to_map($GroundCheck.global_position), int(_oldSourceId+1), body.get_cell_atlas_coords(body.local_to_map($GroundCheck.global_position)))
 			SoundControl.playSfx(SoundControl.splorch)
 			currentState = states.INWATER
 			collision_layer = 0

@@ -23,6 +23,7 @@ func playTimerStart() -> void:
 
 # Play HUD close animation
 func closeHud()  -> void: 
+	$SettingsButton.hide()
 	$HUDAnimationAlt.play("close")
 
 
