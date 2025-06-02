@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs5710bjj0jnu"
-path="res://.godot/imported/SandTileLayer.png-3587edaa113fd4b4aae6c1a9e352909d.ctex"
+uid="uid://bd6scvkcckq6l"
+path="res://.godot/imported/WaterTilesSandLayer.png-b998e50c3268f9f4bd338ae51074f964.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/SandTileLayer.png"
-dest_files=["res://.godot/imported/SandTileLayer.png-3587edaa113fd4b4aae6c1a9e352909d.ctex"]
+source_file="res://Assets/Images/WaterTilesSandLayer.png"
+dest_files=["res://.godot/imported/WaterTilesSandLayer.png-b998e50c3268f9f4bd338ae51074f964.ctex"]
 
 [params]
 
