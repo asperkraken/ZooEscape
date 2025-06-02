@@ -155,7 +155,7 @@ func _on_cue_slider_value_changed(value: float) -> void:
 		updateSoundControl()
 		Globals.currentSettings["cue_volume"] = value
 		SoundControl.muteAudioBusCheck()
-		updateText("cue", value)
+		updateText("CUE", value)
 		settingsChanged = true
 
 

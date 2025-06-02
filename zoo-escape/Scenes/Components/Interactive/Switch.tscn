@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://cuh4bgpegyhgw"]
+[gd_scene load_steps=82 format=3 uid="uid://cuh4bgpegyhgw"]
 
 [ext_resource type="Script" uid="uid://ccilquqj852o" path="res://Scripts/Components/Interactive/Switch.gd" id="1_74ffm"]
 [ext_resource type="Texture2D" uid="uid://bx2l5v7cw366k" path="res://Assets/Images/SwitchButtons.png" id="2_f5w4f"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dldy32r2iygvy" path="res://Assets/Images/SwitchLeverOn.png" id="7_6vf68"]
 [ext_resource type="Texture2D" uid="uid://d1cr6pet8xpy4" path="res://Assets/Images/SwitchToggleOff.png" id="9_gauf0"]
 [ext_resource type="Texture2D" uid="uid://bh261q7vvtnyl" path="res://Assets/Images/SwitchToggleOn.png" id="10_p8i8w"]
+[ext_resource type="AudioStream" uid="uid://c8l1foxdwa6do" path="res://Assets/Sound/Pinknoise.ogg" id="11_gpg24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jil8d"]
 size = Vector2(16, 16)
@@ -552,3 +553,10 @@ shape = SubResource("RectangleShape2D_jil8d")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_egu81")
 animation = &"Lever"
+
+[node name="LocalCue" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_gpg24")
+max_polyphony = 2
+bus = &"Sfx"
+
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
