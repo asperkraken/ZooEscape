@@ -85,6 +85,7 @@ position = Vector2(104, 72)
 
 [node name="ExitTile" parent="." instance=ExtResource("3_nvbyj")]
 position = Vector2(472, 8)
+nextLevelCode = "4111"
 
 [node name="Button" parent="." instance=ExtResource("4_3i7ro")]
 position = Vector2(472, 168)
