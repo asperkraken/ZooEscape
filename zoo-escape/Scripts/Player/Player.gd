@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 const STEPNOISE := "res://Assets/Sound/DeepThump.ogg"
 const SLIPNOISE := "res://Assets/Sound/Squelch.ogg"
@@ -7,7 +7,8 @@ enum playerState {
 	IDLE,
 	INWATER,
 	ONEXIT,
-	SLIDING
+	SLIDING,
+	CORNERSLIDING
 }
 
 @onready var dirToAnimtionName := {
@@ -36,9 +37,10 @@ signal PlayerMoved
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	$StepCue.volume_db = SoundControl.sfxLevel-stepMuffleLevel # default player footsteps to low volume
+	$StepCue.volume_db = SoundControl.sfxLevel - stepMuffleLevel # default player footsteps to low volume
 	$GroundCheck.body_entered.connect(bodyEnter)
 	$GroundCheck.body_exited.connect(bodyExit)
+	$GroundCheck.area_entered.connect(areaEnter)
 	idleTimer.timeout.connect(showResetThought)
 	$AnimatedSprite2D.play("IdleDown")
 
@@ -140,11 +142,11 @@ func bodyEnter(body: Node2D) -> void:
 		var tilePos: Vector2i = body.local_to_map($GroundCheck.global_position)
 		if body.get_cell_tile_data(tilePos).get_custom_data("Water"):
 			# if in water, visual and audio cues before level call triggers
-			SoundControl.playCue(SoundControl.fail,3.0)
+			SoundControl.playCue(SoundControl.fail, 3.0)
 			currentState = playerState.INWATER
 			$AnimatedSprite2D.play("Drown")
 		elif body.get_cell_tile_data(tilePos).get_custom_data("Ice"):
-			if(!ray.is_colliding()):
+			if (!ray.is_colliding()):
 				# if ice, audio cues and state change
 				currentState = playerState.SLIDING
 				$StepCue.stream = load(SLIPNOISE)
@@ -156,6 +158,13 @@ func bodyEnter(body: Node2D) -> void:
 func bodyExit(_body: Node2D) -> void:
 	currentState = playerState.IDLE
 	$StepCue.stream = load(STEPNOISE)
+	
+	
+# check the ground to any area 2dAdd commentMore actions
+func areaEnter(area: Area2D) -> void:
+	# if on a ice corner prvent input by setting the state to CORNERSLIDING
+	if area.get_collision_mask_value(4):
+		currentState = playerState.CORNERSLIDING
 
 
 # sets the thought bubble to reset

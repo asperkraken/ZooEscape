@@ -552,7 +552,7 @@ shape = SubResource("RectangleShape2D_jil8d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_egu81")
-animation = &"ToggleOFF"
+animation = &"Lever"
 
 [node name="LocalCue" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_gpg24")
