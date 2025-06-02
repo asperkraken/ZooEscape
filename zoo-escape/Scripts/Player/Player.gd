@@ -158,6 +158,13 @@ func bodyEnter(body: Node2D) -> void:
 func bodyExit(_body: Node2D) -> void:
 	currentState = playerState.IDLE
 	$StepCue.stream = load(STEPNOISE)
+	
+	
+# check the ground to any area 2dAdd commentMore actions
+func areaEnter(area: Area2D) -> void:
+	# if on a ice corner prvent input by setting the state to CORNERSLIDING
+	if area.get_collision_mask_value(4):
+		currentState = playerState.CORNERSLIDING
 
 
 # sets the thought bubble to reset

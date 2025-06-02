@@ -131,6 +131,7 @@ position = Vector2(88, -168)
 
 [node name="ExitTile" parent="." instance=ExtResource("4_cg0u6")]
 position = Vector2(152, -216)
+nextLevelCode = "5829"
 
 [node name="Player" parent="." instance=ExtResource("3_0q1mu")]
 position = Vector2(-8, -8)
