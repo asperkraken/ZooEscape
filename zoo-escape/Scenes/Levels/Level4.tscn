@@ -25,6 +25,34 @@ tile_set = ExtResource("2_rdlb3")
 tile_map_data = PackedByteArray("AAD//+3/AwAAAAAAAAAAAO3/AwABAAAAAAABAO3/AwABAAAAAAACAO3/AwABAAAAAAADAO3/AwABAAAAAAAEAO3/AwABAAAAAAAFAO3/AwABAAAAAAAHAO3/AwACAAAAAAAGAO3/AwABAAAAAAD+//j/AwAAAAIAAAD+//f/AwADAAEAAAD+//b/AwADAAEAAAD///b/AwAFAAEAAAADAPj/AwABAAMAAAADAPn/AwAAAAEAAAADAPr/AwACAAIAAAACAPr/AwABAAIAAAABAPr/AwABAAIAAAAAAPr/AwABAAIAAAD///r/AwABAAIAAAD+//r/AwAAAAAAAAD+//v/AwAAAAEAAAAHAPf/AwACAAEAAAD+//z/AwAEAAEAAAD9//z/AwABAAAAAAD8//z/AwAEAAIAAAD7//z/AwAAAAAAAAD+//3/AwACAAEAAAD+//7/AwACAAIAAAD7//7/AwAAAAIAAAD7//3/AwAAAAEAAAD///z/AwABAAAAAAAAAPz/AwABAAAAAAABAPz/AwABAAAAAAACAPz/AwABAAAAAAADAPz/AwABAAAAAAAEAPz/AwABAAAAAAD//wIAAwABAAIAAAAAAAIAAwABAAIAAAABAAIAAwABAAIAAAACAAIAAwABAAIAAAADAAIAAwABAAIAAAAEAAIAAwABAAIAAAAFAPz/AwACAAAAAAAFAAIAAwACAAIAAAAFAAEAAwACAAEAAAAFAAAAAwACAAEAAAAFAP//AwACAAEAAAAFAP7/AwACAAEAAAAFAP3/AwACAAEAAAD+/wIAAwAAAAIAAAD+/wAAAwACAAAAAAD8//7/AwABAAAAAAD9//7/AwABAAAAAAD9/wAAAwABAAAAAAD8/wAAAwABAAAAAAD+/wEAAwAAAAEAAAD7/wAAAwABAAAAAAD6/wAAAwABAAAAAAD5/wAAAwAAAAIAAAD2//z/AwAAAAIAAAD5//z/AwACAAAAAAD5//3/AwAAAAEAAAD5//7/AwAAAAEAAAD5////AwAAAAEAAAD4//z/AwABAAAAAAD3//z/AwABAAAAAAD2//v/AwAAAAEAAAD2//r/AwAAAAEAAAD2//n/AwAAAAEAAAD2//j/AwAAAAEAAAD2//f/AwAAAAEAAAD2//b/AwAAAAEAAAD2//X/AwAAAAAAAAD3//X/AwABAAAAAAD4//X/AwABAAAAAAD5//X/AwABAAAAAAD6//X/AwABAAAAAAD7//X/AwABAAAAAAD8//X/AwAEAAAAAAD9//X/AwABAAAAAAD+//X/AwAEAAEAAAD///X/AwAFAAEAAAD+//T/AwADAAEAAAD///T/AwAFAAEAAAD+//P/AwAAAAAAAAD///P/AwAFAAEAAAD//+7/AwAAAAEAAAD//+//AwAAAAEAAAD///D/AwAAAAEAAAD///H/AwAAAAEAAAD///L/AwAAAAEAAAAHAO7/AwAAAAEAAAAHAO//AwAAAAEAAAAHAPD/AwAAAAEAAAAHAPP/AwAAAAAAAAAHAPT/AwAAAAEAAAAHAPX/AwAAAAEAAAAHAPb/AwAAAAEAAAAHAPH/AwAAAAIAAAAIAPH/AwABAAAAAAAJAPH/AwABAAAAAAAIAPP/AwABAAAAAAAJAPP/AwABAAAAAAAKAPP/AwACAAIAAAAKAPH/AwACAAAAAAAKAPL/AwACAAEAAAAAAP3/AAADAAMAAAD//wAAAAADAAMAAAAEAP7/AAADAAMAAAD8//3/AAABAAEAAAD9//3/AAABAAEAAAD8//b/AwACAAEAAAD8//f/AwACAAEAAAD8//j/AwABAAUAAAD8//v/AwACAAEAAAD8//r/AwABAAMAAAD5//v/AAADAAMAAAAEAPj/AwABAAMAAAD///f/AwAFAAEAAAAHAPj/AwAAAAEAAAAHAPn/AwAAAAEAAAAHAPr/AwACAAIAAAAEAPr/AwAAAAIAAAAEAPn/AwACAAEAAAAFAPr/AwABAAAAAAAGAPr/AwABAAAAAAD///j/AwACAAIAAAD///v/AAABAAAAAAAAAPv/AAABAAAAAAABAPv/AAABAAAAAAACAPv/AAABAAAAAAADAPv/AAABAAAAAAAEAPv/AAABAAAAAAAFAPv/AAABAAAAAAAGAPv/AAABAAAAAAAHAPv/AAABAAAAAAAIAPv/AAABAAAAAAAJAPv/AAABAAAAAAAGAPz/AAABAAAAAAAGAP3/AAABAAAAAAAGAP7/AAABAAAAAAAGAP//AAABAAAAAAAHAPz/AAABAAEAAAAIAP3/AAADAAMAAAAJAP3/AAABAAEAAAAJAP7/AAABAAEAAAAIAP7/AAABAAEAAAAIAPz/AAABAAEAAAAJAPz/AAABAAEAAAAHAP3/AAABAAEAAAAHAP7/AAABAAEAAAAHAP//AAAAAAAAAAAIAP//AAADAAMAAAAJAP//AAAEAAMAAAAHAAAAAAADAAMAAAAJAAAAAAADAAMAAAAIAPn/AAADAAMAAAAJAPj/AAADAAMAAAAIAPf/AAADAAMAAAD3//3/AAADAAMAAAD1//3/AAADAAMAAAD1//v/AAADAAMAAAD1//b/AAADAAMAAAD1//T/AAADAAMAAAD3//T/AAADAAMAAAAFAOz/AAADAAMAAAACAOz/AAADAAMAAAD//+z/AAADAAMAAAD+/+3/AAADAAMAAAAIAO7/AAADAAMAAAD+//L/AAADAAMAAAD2//T/AQADAAMAAAD1//X/AQADAAMAAAD+/+7/AQADAAAAAAD+/+//AQADAAEAAAD+//D/AQADAAEAAAD+//H/AQADAAIAAAAIAPD/AQAAAAMAAAAIAPT/AQAAAAMAAAAJAPT/AQACAAMAAAAJAPD/AQACAAMAAAAIAPj/AAADAAIAAAAJAPf/AAAEAAIAAAAJAPn/AAAEAAIAAAAKAPf/AAABAAAAAAAKAPj/AAABAAAAAAAKAPn/AAABAAAAAAD1//f/AAABAAAAAAD1//j/AAABAAAAAAD1//n/AAABAAAAAAD1//r/AAABAAAAAAD1//7/AAAEAAIAAAD2//7/AAABAAAAAAD3//7/AAAEAAIAAAD2//3/AAABAAAAAAD1////AAABAAAAAAD2////AAABAAAAAAD3////AAABAAAAAAD0//7/AAABAAAAAAD0////AAAEAAIAAAD0//3/AAAEAAIAAAD4//3/AAABAAAAAAD4//7/AAABAAAAAAD4////AAABAAAAAAD4/wAAAAABAAAAAAD1/wAAAAABAAAAAAD0/wAAAAABAAAAAAD2/wAAAAAEAAIAAAD3/wAAAAAEAAIAAAD9/wEAAAABAAAAAAD8/wEAAAABAAAAAAD7/wEAAAABAAAAAAD6/wEAAAABAAAAAAD5/wEAAAABAAAAAAD4/wEAAAABAAAAAAD9/wIAAAAEAAIAAAD8/wIAAAAEAAIAAAD7/wIAAAAEAAIAAAD6/wIAAAAEAAIAAAD5/wIAAAAEAAIAAAD4/wIAAAAEAAIAAAD3/wIAAAAEAAIAAAD2/wIAAAAEAAIAAAD1/wIAAAAEAAIAAAD0/wIAAAAEAAIAAAD0/wEAAAAEAAIAAAD1/wEAAAAEAAIAAAD2/wEAAAAEAAIAAAD3/wEAAAAEAAIAAADz/wIAAAAEAAIAAADz/wEAAAAEAAIAAADy/wIAAAAEAAIAAAD0/wMAAAAEAAIAAADz/wMAAAAEAAIAAAD2/wMAAAAEAAIAAAD3/wMAAAAEAAIAAAD1/wMAAAAEAAIAAAD4/wMAAAABAAAAAAD5/wMAAAABAAAAAAD6/wMAAAABAAAAAAD7/wMAAAABAAAAAAD8/wMAAAABAAAAAAD9/wMAAAABAAAAAAD+/wMAAAABAAAAAAD//wMAAAABAAAAAAAAAAMAAAABAAAAAAABAAMAAAABAAAAAAADAAMAAAABAAEAAAAEAAMAAAABAAEAAAAFAAMAAAABAAEAAAAGAAIAAAABAAEAAAAHAAEAAAABAAEAAAAEAAUAAAADAAMAAAAGAAQAAAADAAMAAAAIAAIAAAADAAMAAAAHAAMAAQADAAMAAAACAAMAAQADAAMAAAAGAAAAAQADAAAAAAAGAAEAAQADAAIAAAA=")
 tile_set = ExtResource("2_rdlb3")
 
+[node name="Interactives" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Box" parent="Interactives" instance=ExtResource("6_mslv2")]
+position = Vector2(-120, -104)
+
+[node name="Box2" parent="Interactives" instance=ExtResource("6_mslv2")]
+position = Vector2(-104, -136)
+
+[node name="Box3" parent="Interactives" instance=ExtResource("6_mslv2")]
+position = Vector2(-88, -88)
+
+[node name="Box4" parent="Interactives" instance=ExtResource("6_mslv2")]
+position = Vector2(88, -120)
+
+[node name="Box5" parent="Interactives" instance=ExtResource("6_mslv2")]
+position = Vector2(88, -152)
+
+[node name="ZEBall" parent="Interactives" instance=ExtResource("8_8ljkw")]
+position = Vector2(56, 8)
+
+[node name="ZEBall2" parent="Interactives" instance=ExtResource("8_8ljkw")]
+position = Vector2(-104, -120)
+
+[node name="ZEBall3" parent="Interactives" instance=ExtResource("8_8ljkw")]
+position = Vector2(56, -152)
+
 [node name="SteakHolder" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
@@ -76,56 +104,28 @@ position = Vector2(136, -216)
 [node name="Steak16" parent="SteakHolder" instance=ExtResource("5_cg0u6")]
 position = Vector2(88, -168)
 
-[node name="Interactives" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="Box" parent="Interactives" instance=ExtResource("6_mslv2")]
-position = Vector2(-120, -104)
-
-[node name="Box2" parent="Interactives" instance=ExtResource("6_mslv2")]
-position = Vector2(-104, -136)
-
-[node name="Box3" parent="Interactives" instance=ExtResource("6_mslv2")]
-position = Vector2(-88, -88)
-
-[node name="Box4" parent="Interactives" instance=ExtResource("6_mslv2")]
-position = Vector2(88, -120)
-
-[node name="Box5" parent="Interactives" instance=ExtResource("6_mslv2")]
-position = Vector2(88, -152)
-
-[node name="ZEBall" parent="Interactives" instance=ExtResource("8_8ljkw")]
-position = Vector2(56, 8)
-
-[node name="ZEBall2" parent="Interactives" instance=ExtResource("8_8ljkw")]
-position = Vector2(-104, -120)
-
-[node name="ZEBall3" parent="Interactives" instance=ExtResource("8_8ljkw")]
-position = Vector2(56, -152)
-
-[node name="Button" parent="Interactives" instance=ExtResource("4_yokso")]
+[node name="Button" parent="." instance=ExtResource("4_yokso")]
 position = Vector2(56, -24)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Gate" parent="Interactives/Button" instance=ExtResource("5_mslv2")]
+[node name="Gate" parent="Button" instance=ExtResource("5_mslv2")]
 position = Vector2(-144, -16)
 
-[node name="Button2" parent="Interactives" instance=ExtResource("4_yokso")]
+[node name="Button2" parent="." instance=ExtResource("4_yokso")]
 position = Vector2(-104, -88)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Gate" parent="Interactives/Button2" instance=ExtResource("5_mslv2")]
+[node name="Gate" parent="Button2" instance=ExtResource("5_mslv2")]
 position = Vector2(48, -16)
 
-[node name="Button3" parent="Interactives" instance=ExtResource("4_yokso")]
+[node name="Button3" parent="." instance=ExtResource("4_yokso")]
 position = Vector2(56, -280)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Gate" parent="Interactives/Button3" instance=ExtResource("5_mslv2")]
+[node name="Gate" parent="Button3" instance=ExtResource("5_mslv2")]
 position = Vector2(64, 64)
 
 [node name="ExitTile" parent="." instance=ExtResource("4_cg0u6")]
@@ -136,3 +136,4 @@ position = Vector2(-8, -8)
 
 [editable path="Interactives/Box4"]
 [editable path="Interactives/Box5"]
+[editable path="Player"]
