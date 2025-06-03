@@ -24,7 +24,7 @@ tile_set = ExtResource("2_n22ft")
 [node name="SteakHolder" type="Node2D" parent="."]
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(56, -328)
+position = Vector2(56, -336)
 
 [node name="Steak5" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
 position = Vector2(8, -344)
@@ -1434,10 +1434,6 @@ autoRevert = true
 autoRevertTime = 115.0
 
 [node name="Gate" parent="Switch" instance=ExtResource("5_gjkbe")]
-position = Vector2(0, 32)
-gateState = 1
-
-[node name="Gate2" parent="Switch" instance=ExtResource("5_gjkbe")]
 position = Vector2(0, -192)
 
 [node name="ExitTile" parent="." instance=ExtResource("3_ad80x")]
