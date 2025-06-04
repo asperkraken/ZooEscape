@@ -10,6 +10,7 @@
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7qi4k"]
 texture = ExtResource("1_25cf1")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 1:1/0 = 0
@@ -28,6 +29,7 @@ texture = ExtResource("1_25cf1")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1uv75"]
 texture = ExtResource("2_3xmff")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:0/0/custom_data_0 = true
@@ -130,6 +132,7 @@ texture = ExtResource("2_3xmff")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87yh2"]
 texture = ExtResource("3_tdegi")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -166,6 +169,7 @@ texture = ExtResource("3_tdegi")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_chcwq"]
 texture = ExtResource("4_g5sk8")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -205,6 +209,7 @@ texture = ExtResource("4_g5sk8")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_43my4"]
 texture = ExtResource("5_chcwq")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -238,6 +243,7 @@ texture = ExtResource("5_chcwq")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wx523"]
 texture = ExtResource("5_43my4")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 0:0/0/custom_data_0 = true
@@ -340,6 +346,7 @@ texture = ExtResource("5_43my4")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ajsnh"]
 texture = ExtResource("7_wx523")
+texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -375,6 +382,7 @@ texture = ExtResource("7_wx523")
 5:5/0 = 0
 
 [resource]
+tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 physics_layer_1/collision_layer = 2
 physics_layer_1/collision_mask = 2

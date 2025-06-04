@@ -1,7 +1,7 @@
 extends Node
 
 # Global constant that tells the game the sizes of our tiles
-const TILESIZE := 16
+const TILESIZE := 32
 
 # Globally accessible list of passwords and corresponding scenes
 const PASSWORDS := {

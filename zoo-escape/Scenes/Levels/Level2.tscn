@@ -26,56 +26,59 @@ tile_set = ExtResource("2_bxkus")
 [node name="SteakHolder" type="Node2D" parent="."]
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("6_88ppj")]
-position = Vector2(72, 168)
+position = Vector2(144, 336)
 
 [node name="Steak2" parent="SteakHolder" instance=ExtResource("6_88ppj")]
-position = Vector2(264, -8)
+position = Vector2(528, -16)
 
 [node name="ExitTile" parent="." instance=ExtResource("9_ncahn")]
-position = Vector2(328, 72)
+position = Vector2(656, 144)
 nextLevelCode = "1476"
 
 [node name="Button" parent="." instance=ExtResource("4_o6d5b")]
-position = Vector2(168, 72)
+position = Vector2(336, 144)
 
 [node name="Gate" parent="Button" instance=ExtResource("5_bxkus")]
 position = Vector2(48, 0)
 rotation = -1.5708
+scale = Vector2(0.5, 0.5)
 
 [node name="Button2" parent="." instance=ExtResource("4_o6d5b")]
-position = Vector2(264, 88)
+position = Vector2(528, 176)
 
 [node name="Gate" parent="Button2" instance=ExtResource("5_bxkus")]
 position = Vector2(0, -80)
+scale = Vector2(0.5, 0.5)
 
 [node name="Gate2" parent="Button2" instance=ExtResource("5_bxkus")]
-position = Vector2(48, -15)
+position = Vector2(48, -16)
 rotation = 1.5708
+scale = Vector2(0.5, 0.5)
 gateState = 1
 
 [node name="Switch" parent="." instance=ExtResource("5_kf4kq")]
-position = Vector2(88, 40)
+position = Vector2(176, 80)
 autoRevert = true
 autoRevertTime = 2.5
 
 [node name="Gate" parent="Switch" instance=ExtResource("5_bxkus")]
-position = Vector2(32, 32)
+position = Vector2(64, 64)
 rotation = 1.5708
 
 [node name="Box" parent="." instance=ExtResource("8_613vg")]
-position = Vector2(72, 88)
+position = Vector2(144, 144)
 
 [node name="Box4" parent="." instance=ExtResource("8_613vg")]
-position = Vector2(168, 72)
+position = Vector2(336, 144)
 
 [node name="Box6" parent="." instance=ExtResource("8_613vg")]
-position = Vector2(264, 56)
+position = Vector2(528, 112)
 
 [node name="Box2" parent="." instance=ExtResource("8_613vg")]
-position = Vector2(72, 72)
+position = Vector2(144, 176)
 
 [node name="Box3" parent="." instance=ExtResource("8_613vg")]
-position = Vector2(72, 104)
+position = Vector2(144, 208)
 
 [node name="Player" parent="." instance=ExtResource("10_uxmkr")]
-position = Vector2(72, 40)
+position = Vector2(144, 80)

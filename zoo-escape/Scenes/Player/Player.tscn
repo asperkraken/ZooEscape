@@ -571,8 +571,7 @@ process_mode = 1
 script = ExtResource("1_fxagb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2.38419e-07, 1.19209e-07)
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_w2ove")
 animation = &"IdleDown"
 

@@ -25,55 +25,54 @@ tile_set = ExtResource("2_3a3vc")
 [node name="SteakHolder" type="Node2D" parent="."]
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(216, 280)
+position = Vector2(432, 560)
 
 [node name="Steak2" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(232, 280)
+position = Vector2(496, 560)
 
 [node name="Steak3" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(248, 280)
+position = Vector2(464, 560)
 
 [node name="Steak4" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(232, 264)
+position = Vector2(464, 528)
 
 [node name="Steak5" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(328, 264)
+position = Vector2(400, 400)
 
 [node name="Steak6" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(392, 264)
+position = Vector2(528, 400)
 
 [node name="Steak7" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(360, 184)
+position = Vector2(720, 368)
 
 [node name="Steak8" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(200, 152)
+position = Vector2(400, 304)
 
 [node name="Steak9" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(200, 200)
+position = Vector2(656, 528)
 
 [node name="Steak10" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(264, 200)
+position = Vector2(784, 528)
 
 [node name="Steak11" parent="SteakHolder" instance=ExtResource("7_0mdn8")]
-position = Vector2(328, 152)
+position = Vector2(656, 304)
 
 [node name="Button" parent="." instance=ExtResource("3_2q305")]
-position = Vector2(216, 184)
+position = Vector2(432, 368)
 
 [node name="Gate" parent="Button" instance=ExtResource("4_p1kfa")]
 position = Vector2(16, 32)
+scale = Vector2(0.5, 0.5)
 
 [node name="Box" parent="." instance=ExtResource("5_bnk20")]
-position = Vector2(248, 184)
+position = Vector2(496, 368)
 
 [node name="Box2" parent="." instance=ExtResource("5_bnk20")]
-position = Vector2(360, 152)
+position = Vector2(720, 304)
 
 [node name="ExitTile" parent="." instance=ExtResource("9_p1kfa")]
-position = Vector2(360, 280)
+position = Vector2(720, 560)
 nextLevelCode = "9102"
 
 [node name="Player" parent="." instance=ExtResource("8_ykhfs")]
-position = Vector2(392, 120)
-
-[editable path="Player"]
+position = Vector2(784, 240)

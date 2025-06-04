@@ -39,6 +39,7 @@ animations = [{
 size = Vector2(12, 12)
 
 [node name="Steak" type="AnimatedSprite2D" groups=["steaks"]]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_d3wr8")
 autoplay = "default"
 frame_progress = 0.86556

@@ -22,22 +22,20 @@ tile_set = ExtResource("1_hs4fp")
 [node name="SteakHolder" type="Node2D" parent="."]
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("4_75p33")]
-position = Vector2(152, 136)
+position = Vector2(304, 272)
 
 [node name="Steak2" parent="SteakHolder" instance=ExtResource("4_75p33")]
-position = Vector2(168, 136)
+position = Vector2(336, 272)
 
 [node name="Steak3" parent="SteakHolder" instance=ExtResource("4_75p33")]
-position = Vector2(184, 136)
+position = Vector2(368, 272)
 
 [node name="Steak4" parent="SteakHolder" instance=ExtResource("4_75p33")]
-position = Vector2(200, 136)
+position = Vector2(400, 272)
 
 [node name="ExitTile" parent="." instance=ExtResource("5_2ncts")]
-position = Vector2(248, 136)
+position = Vector2(496, 272)
 nextLevelCode = "0387"
 
 [node name="Player" parent="." instance=ExtResource("2_4b3dj")]
-position = Vector2(104, 136)
-
-[editable path="Player"]
+position = Vector2(208, 272)

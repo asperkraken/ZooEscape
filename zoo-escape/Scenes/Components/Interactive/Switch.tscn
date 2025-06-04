@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://c8l1foxdwa6do" path="res://Assets/Sound/Pinknoise.ogg" id="11_gpg24"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jil8d"]
-size = Vector2(16, 16)
+size = Vector2(32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7o368"]
 atlas = ExtResource("2_f5w4f")
@@ -551,6 +551,7 @@ script = ExtResource("1_74ffm")
 shape = SubResource("RectangleShape2D_jil8d")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_egu81")
 animation = &"Lever"
 
