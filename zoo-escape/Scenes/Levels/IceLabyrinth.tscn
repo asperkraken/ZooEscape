@@ -20,6 +20,7 @@ tile_set = ExtResource("2_n22ft")
 
 [node name="Wall" type="TileMapLayer" parent="."]
 tile_set = ExtResource("2_n22ft")
+metadata/_edit_lock_ = true
 
 [node name="SteakHolder" type="Node2D" parent="."]
 
@@ -524,23 +525,23 @@ position = Vector2(-40, -8)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner7" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, 24)
+position = Vector2(-624, 48)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner8" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -8)
+position = Vector2(-560, -16)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner9" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -72)
+position = Vector2(-560, -144)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner10" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -168)
+position = Vector2(-624, -336)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner11" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -200)
+position = Vector2(-560, -400)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner12" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -592,7 +593,7 @@ position = Vector2(-136, -40)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner23" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -360)
+position = Vector2(-624, -720)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner24" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -612,23 +613,23 @@ position = Vector2(-8, -488)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner28" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -552)
+position = Vector2(-624, -1104)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner29" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -584)
+position = Vector2(-560, -1168)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner30" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -648)
+position = Vector2(-560, -1296)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner31" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(8, -648)
+position = Vector2(16, -1296)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner32" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(72, -648)
+position = Vector2(144, -1296)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner33" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -712,7 +713,7 @@ position = Vector2(360, -136)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner53" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(296, -8)
+position = Vector2(592, -16)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner54" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -740,19 +741,19 @@ position = Vector2(296, -456)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner60" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(328, -488)
+position = Vector2(208, -1104)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner61" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(360, -520)
+position = Vector2(272, -1168)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner62" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(232, -680)
+position = Vector2(464, -1360)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner63" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(200, -648)
+position = Vector2(400, -1296)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner64" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -772,13 +773,13 @@ position = Vector2(-40, -40)
 position = Vector2(-40, -104)
 
 [node name="IceCorner178" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -104)
+position = Vector2(-560, -208)
 
 [node name="IceCorner179" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -40)
+position = Vector2(-560, -80)
 
 [node name="IceCorner180" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -136)
+position = Vector2(-624, -272)
 
 [node name="IceCorner181" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(-248, -264)
@@ -787,7 +788,7 @@ position = Vector2(-248, -264)
 position = Vector2(-280, -296)
 
 [node name="IceCorner183" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -328)
+position = Vector2(-624, -656)
 
 [node name="IceCorner184" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(-184, -328)
@@ -808,7 +809,7 @@ position = Vector2(-248, -456)
 position = Vector2(-280, -488)
 
 [node name="IceCorner234" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -520)
+position = Vector2(-624, -1040)
 
 [node name="IceCorner188" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(-56, -456)
@@ -826,28 +827,28 @@ position = Vector2(-152, -552)
 position = Vector2(-184, -584)
 
 [node name="IceCorner195" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -616)
+position = Vector2(-560, -1232)
 
 [node name="IceCorner196" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-280, -680)
+position = Vector2(-560, -1360)
 
 [node name="IceCorner197" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-312, -712)
+position = Vector2(-624, -1424)
 
 [node name="IceCorner198" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-88, -712)
+position = Vector2(-176, -1424)
 
 [node name="IceCorner231" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-56, -680)
+position = Vector2(-112, -1360)
 
 [node name="IceCorner199" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(104, -712)
+position = Vector2(208, -1424)
 
 [node name="IceCorner242" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(40, -712)
+position = Vector2(80, -1424)
 
 [node name="IceCorner200" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(136, -680)
+position = Vector2(272, -1360)
 
 [node name="IceCorner201" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(8, -616)
@@ -895,13 +896,13 @@ position = Vector2(296, -424)
 position = Vector2(360, -360)
 
 [node name="IceCorner228" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(360, -552)
+position = Vector2(16, -1232)
 
 [node name="IceCorner229" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(328, -584)
+position = Vector2(656, -1168)
 
 [node name="IceCorner230" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(232, -712)
+position = Vector2(464, -1424)
 
 [node name="IceCorner214" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(56, -200)
@@ -922,7 +923,7 @@ position = Vector2(200, -136)
 position = Vector2(200, -72)
 
 [node name="IceCorner221" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(296, -40)
+position = Vector2(592, -80)
 
 [node name="IceCorner222" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(360, -168)
@@ -960,7 +961,7 @@ position = Vector2(-216, -104)
 cornerPos = "BottomRight"
 
 [node name="IceCorner125" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-248, -136)
+position = Vector2(-496, -272)
 cornerPos = "BottomRight"
 
 [node name="IceCorner126" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -996,15 +997,15 @@ position = Vector2(264, -8)
 cornerPos = "BottomRight"
 
 [node name="IceCorner134" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(360, -40)
+position = Vector2(720, -80)
 cornerPos = "BottomRight"
 
 [node name="IceCorner135" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(392, -8)
+position = Vector2(784, -16)
 cornerPos = "BottomRight"
 
 [node name="IceCorner136" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(424, 24)
+position = Vector2(848, 48)
 cornerPos = "BottomRight"
 
 [node name="IceCorner137" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1024,7 +1025,7 @@ position = Vector2(424, -360)
 cornerPos = "BottomRight"
 
 [node name="IceCorner141" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(392, -392)
+position = Vector2(720, -848)
 cornerPos = "BottomRight"
 
 [node name="IceCorner142" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1152,31 +1153,31 @@ position = Vector2(-56, -616)
 cornerPos = "BottomRight"
 
 [node name="IceCorner169" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-88, -648)
+position = Vector2(-176, -1296)
 cornerPos = "BottomRight"
 
 [node name="IceCorner170" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-120, -680)
+position = Vector2(-240, -1360)
 cornerPos = "BottomRight"
 
 [node name="IceCorner171" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(40, -648)
+position = Vector2(80, -1296)
 cornerPos = "BottomRight"
 
 [node name="IceCorner172" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(104, -648)
+position = Vector2(208, -1296)
 cornerPos = "BottomRight"
 
 [node name="IceCorner173" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(360, -616)
+position = Vector2(720, -1232)
 cornerPos = "BottomRight"
 
 [node name="IceCorner174" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(392, -584)
+position = Vector2(784, -1168)
 cornerPos = "BottomRight"
 
 [node name="IceCorner175" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(424, -552)
+position = Vector2(848, -1104)
 cornerPos = "BottomRight"
 
 [node name="IceCorner4" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1212,7 +1213,7 @@ position = Vector2(-216, -200)
 cornerPos = "TopRight"
 
 [node name="IceCorner72" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-248, -168)
+position = Vector2(-496, -336)
 cornerPos = "TopRight"
 
 [node name="IceCorner73" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1228,43 +1229,43 @@ position = Vector2(40, -488)
 cornerPos = "TopRight"
 
 [node name="IceCorner76" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(264, -552)
+position = Vector2(528, -1104)
 cornerPos = "TopRight"
 
 [node name="IceCorner77" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(232, -520)
+position = Vector2(464, -1040)
 cornerPos = "TopRight"
 
 [node name="IceCorner78" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(360, -648)
+position = Vector2(720, -1296)
 cornerPos = "TopRight"
 
 [node name="IceCorner79" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(392, -680)
+position = Vector2(784, -1360)
 cornerPos = "TopRight"
 
 [node name="IceCorner80" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(424, -712)
+position = Vector2(848, -1424)
 cornerPos = "TopRight"
 
 [node name="IceCorner81" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(200, -712)
+position = Vector2(400, -1424)
 cornerPos = "TopRight"
 
 [node name="IceCorner82" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(72, -712)
+position = Vector2(144, -1424)
 cornerPos = "TopRight"
 
 [node name="IceCorner83" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(8, -712)
+position = Vector2(16, -1424)
 cornerPos = "TopRight"
 
 [node name="IceCorner84" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-120, -712)
+position = Vector2(-240, -1424)
 cornerPos = "TopRight"
 
 [node name="IceCorner85" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-24, -680)
+position = Vector2(-48, -1360)
 cornerPos = "TopRight"
 
 [node name="IceCorner86" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1284,23 +1285,23 @@ position = Vector2(72, -584)
 cornerPos = "TopRight"
 
 [node name="IceCorner89" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(168, -680)
+position = Vector2(336, -1360)
 cornerPos = "TopRight"
 
 [node name="IceCorner90" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(424, -520)
+position = Vector2(848, -1040)
 cornerPos = "TopRight"
 
 [node name="IceCorner91" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(296, -584)
+position = Vector2(592, -1168)
 cornerPos = "TopRight"
 
 [node name="IceCorner92" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(392, -488)
+position = Vector2(848, -656)
 cornerPos = "TopRight"
 
 [node name="IceCorner243" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(360, -456)
+position = Vector2(720, -912)
 cornerPos = "TopRight"
 
 [node name="IceCorner93" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1324,11 +1325,11 @@ position = Vector2(360, -264)
 cornerPos = "TopRight"
 
 [node name="IceCorner96" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(424, -136)
+position = Vector2(784, -208)
 cornerPos = "TopRight"
 
 [node name="IceCorner97" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(392, -104)
+position = Vector2(720, -144)
 cornerPos = "TopRight"
 
 [node name="IceCorner98" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -1440,5 +1441,4 @@ position = Vector2(0, -192)
 position = Vector2(56, -360)
 
 [node name="Player" parent="." instance=ExtResource("9_b8pr7")]
-position = Vector2(56, 40)
-metadata/_edit_lock_ = true
+position = Vector2(112, 80)
