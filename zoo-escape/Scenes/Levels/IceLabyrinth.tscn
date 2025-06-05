@@ -24,13 +24,11 @@ tile_set = ExtResource("2_n22ft")
 metadata/_edit_lock_ = true
 
 [node name="IceCorners" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="IceCorner" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(-272, 48)
-cornerPos = "BottomLeft"
-
-[node name="IceCorner5" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(-40, -2016)
 cornerPos = "BottomLeft"
 
 [node name="IceCorner6" parent="IceCorners" instance=ExtResource("4_kyj6s")]
@@ -914,8 +912,8 @@ position = Vector2(400, -656)
 cornerPos = "TopRight"
 
 [node name="IceCorner116" parent="IceCorners" instance=ExtResource("4_kyj6s")]
-position = Vector2(1152, -912)
-cornerPos = "TopRight"
+position = Vector2(656, -592)
+cornerPos = "BottomLeft"
 
 [node name="IceCorner110" parent="IceCorners" instance=ExtResource("4_kyj6s")]
 position = Vector2(-432, -400)
@@ -945,490 +943,490 @@ cornerPos = "TopRight"
 position = Vector2(1680, 32)
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(56, -336)
+position = Vector2(-1344, -1328)
 
 [node name="Steak5" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -344)
+position = Vector2(-2304, -144)
 
 [node name="Steak16" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(24, -216)
+position = Vector2(-1152, -1264)
 
 [node name="Steak6" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(104, -344)
+position = Vector2(-1376, -1456)
 
 [node name="Steak35" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(112, -264)
+position = Vector2(-1408, -1296)
 
 [node name="Steak37" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(168, -264)
+position = Vector2(-1648, -1008)
 
 [node name="Steak53" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(168, -328)
+position = Vector2(-1664, -720)
 
 [node name="Steak54" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(168, -360)
+position = Vector2(-1280, -880)
 
 [node name="Steak55" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(168, -424)
+position = Vector2(-1792, -1328)
 
 [node name="Steak56" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(296, -392)
+position = Vector2(-1728, -1296)
 
 [node name="Steak57" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(264, -360)
+position = Vector2(-1664, -1200)
 
 [node name="Steak58" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(264, -328)
+position = Vector2(-1568, -1264)
 
 [node name="Steak59" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(264, -216)
+position = Vector2(-1296, -1072)
 
 [node name="Steak61" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(232, -136)
+position = Vector2(-1488, -1008)
 
 [node name="Steak62" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(232, -104)
+position = Vector2(-1488, -1072)
 
 [node name="Steak63" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(232, -72)
+position = Vector2(-2160, 16)
 
 [node name="Steak64" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(232, -40)
+position = Vector2(-1856, -528)
 
 [node name="Steak65" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(192, -8)
+position = Vector2(-1920, -496)
 
 [node name="Steak66" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(144, -40)
+position = Vector2(-1984, -624)
 
 [node name="Steak67" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(144, -72)
+position = Vector2(-2128, -112)
 
 [node name="Steak68" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(144, -104)
+position = Vector2(-2128, -176)
 
 [node name="Steak69" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(128, -136)
+position = Vector2(-1536, -1136)
 
 [node name="Steak70" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(88, -56)
+position = Vector2(-1984, -816)
 
 [node name="Steak60" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(232, -232)
+position = Vector2(-1328, -1008)
 
 [node name="Steak81" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(144, -168)
+position = Vector2(-1600, -1136)
 
 [node name="Steak82" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(168, -200)
+position = Vector2(-1648, -1072)
 
 [node name="Steak83" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(200, -264)
+position = Vector2(-1696, -944)
 
 [node name="Steak84" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(80, -232)
+position = Vector2(-1472, -1392)
 
 [node name="Steak86" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(56, -272)
+position = Vector2(-1280, -1392)
 
 [node name="Steak87" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(104, -424)
+position = Vector2(-1536, -1392)
 
 [node name="Steak88" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(120, -456)
+position = Vector2(-1792, -880)
 
 [node name="Steak89" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(96, -488)
+position = Vector2(-1856, -928)
 
 [node name="Steak90" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(96, -520)
+position = Vector2(-1600, -1392)
 
 [node name="Steak91" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(72, -552)
+position = Vector2(-2240, -1136)
 
 [node name="Steak93" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(104, -584)
+position = Vector2(-2240, -752)
 
 [node name="Steak94" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(184, -552)
+position = Vector2(-2048, -368)
 
 [node name="Steak95" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(192, -520)
+position = Vector2(-1984, -1024)
 
 [node name="Steak96" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(176, -488)
+position = Vector2(-2048, -1072)
 
 [node name="Steak97" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(232, -456)
+position = Vector2(-2080, -880)
 
 [node name="Steak168" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(200, -424)
+position = Vector2(-1472, -1200)
 
 [node name="Steak98" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(264, -472)
+position = Vector2(-1808, -1008)
 
 [node name="Steak99" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -456)
+position = Vector2(-2016, -1264)
 
 [node name="Steak100" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -424)
+position = Vector2(-2048, -1328)
 
 [node name="Steak101" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(304, -592)
+position = Vector2(-1856, -1392)
 
 [node name="Steak102" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -536)
+position = Vector2(-1280, -560)
 
 [node name="Steak103" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -552)
+position = Vector2(-1568, -80)
 
 [node name="Steak116" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(424, -632)
+position = Vector2(-1088, -816)
 
 [node name="Steak117" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -632)
+position = Vector2(-960, -1008)
 
 [node name="Steak118" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(312, -680)
+position = Vector2(-1824, -1136)
 
 [node name="Steak119" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -712)
+position = Vector2(-960, -816)
 
 [node name="Steak120" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(152, -712)
+position = Vector2(-1472, -880)
 
 [node name="Steak121" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(200, -680)
+position = Vector2(-1792, -688)
 
 [node name="Steak122" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(280, -648)
+position = Vector2(-960, -1200)
 
 [node name="Steak123" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(256, -616)
+position = Vector2(-1744, -496)
 
 [node name="Steak124" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(168, -648)
+position = Vector2(-2304, -912)
 
 [node name="Steak125" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(136, -632)
+position = Vector2(-2240, -688)
 
 [node name="Steak126" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(208, -584)
+position = Vector2(-2176, -240)
 
 [node name="Steak127" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(56, -616)
+position = Vector2(-2240, -1072)
 
 [node name="Steak128" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-48, -784)
+position = Vector2(-1440, -944)
 
 [node name="Steak129" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-24, -632)
+position = Vector2(-1152, -688)
 
 [node name="Steak130" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-104, -584)
+position = Vector2(-1344, -688)
 
 [node name="Steak131" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-72, -552)
+position = Vector2(-2240, -912)
 
 [node name="Steak132" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-80, -520)
+position = Vector2(-1664, -880)
 
 [node name="Steak133" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-64, -488)
+position = Vector2(-2112, -496)
 
 [node name="Steak134" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-56, -424)
+position = Vector2(-2304, -528)
 
 [node name="Steak135" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-88, -440)
+position = Vector2(-1456, -560)
 
 [node name="Steak136" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-120, -456)
+position = Vector2(-1392, -368)
 
 [node name="Steak137" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-152, -392)
+position = Vector2(-1568, -704)
 
 [node name="Steak138" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-152, -360)
+position = Vector2(-1344, -432)
 
 [node name="Steak151" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-152, -328)
+position = Vector2(-1344, -560)
 
 [node name="Steak152" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-152, -296)
+position = Vector2(-1696, -112)
 
 [node name="Steak153" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-88, -248)
+position = Vector2(-832, -1296)
 
 [node name="Steak154" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-56, -264)
+position = Vector2(-896, -1296)
 
 [node name="Steak155" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-120, -232)
+position = Vector2(-2240, -368)
 
 [node name="Steak156" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-272, -208)
+position = Vector2(-896, -304)
 
 [node name="Steak157" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-200, -264)
+position = Vector2(-896, -528)
 
 [node name="Steak158" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-496, -208)
+position = Vector2(-1216, -240)
 
 [node name="Steak159" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-432, -304)
+position = Vector2(-1216, -176)
 
 [node name="Steak163" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-464, -16)
+position = Vector2(-1184, 16)
 
 [node name="Steak164" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-464, -80)
+position = Vector2(-1024, -112)
 
 [node name="Steak165" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-464, -144)
+position = Vector2(-1216, -112)
 
 [node name="Steak139" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-152, -488)
+position = Vector2(-1520, -432)
 
 [node name="Steak140" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-216, -456)
+position = Vector2(-1152, -464)
 
 [node name="Steak141" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-200, -424)
+position = Vector2(-1216, -304)
 
 [node name="Steak142" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-184, -520)
+position = Vector2(-1520, -496)
 
 [node name="Steak143" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-216, -536)
+position = Vector2(-1568, -592)
 
 [node name="Steak104" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -520)
+position = Vector2(-2112, -720)
 
 [node name="Steak105" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(424, -440)
+position = Vector2(-1872, -1200)
 
 [node name="Steak106" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -440)
+position = Vector2(-2112, -1104)
 
 [node name="Steak107" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(360, -488)
+position = Vector2(-1760, -1456)
 
 [node name="Steak169" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(360, -584)
+position = Vector2(-2176, -432)
 
 [node name="Steak108" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(360, -392)
+position = Vector2(-2112, -1456)
 
 [node name="Steak109" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -360)
+position = Vector2(-1840, -1072)
 
 [node name="Steak110" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -344)
+position = Vector2(-2080, -1392)
 
 [node name="Steak111" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -328)
+position = Vector2(-2176, -1200)
 
 [node name="Steak112" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(424, -248)
+position = Vector2(-1632, -464)
 
 [node name="Steak113" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -248)
+position = Vector2(-832, -912)
 
 [node name="Steak114" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(360, -296)
+position = Vector2(-2304, -1296)
 
 [node name="Steak115" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(360, -200)
+position = Vector2(-1024, -880)
 
 [node name="Steak92" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(40, -552)
+position = Vector2(-1792, -752)
 
 [node name="Steak85" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(80, -200)
+position = Vector2(-1248, -1200)
 
 [node name="Steak7" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -424)
+position = Vector2(-2112, -336)
 
 [node name="Steak8" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -456)
+position = Vector2(-1984, -432)
 
 [node name="Steak9" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -488)
+position = Vector2(-2240, -304)
 
 [node name="Steak10" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -520)
+position = Vector2(-2240, -528)
 
 [node name="Steak11" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -584)
+position = Vector2(-2080, -560)
 
 [node name="Steak12" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(8, -680)
+position = Vector2(-1344, -880)
 
 [node name="Steak13" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(112, -656)
+position = Vector2(-2112, -944)
 
 [node name="Steak14" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(72, -680)
+position = Vector2(-1344, -752)
 
 [node name="Steak15" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(40, -680)
+position = Vector2(-1472, -720)
 
 [node name="Steak17" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-216, -712)
+position = Vector2(-896, -752)
 
 [node name="Steak146" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-200, -680)
+position = Vector2(-896, -688)
 
 [node name="Steak147" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-96, -720)
+position = Vector2(-1152, -752)
 
 [node name="Steak148" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-168, -616)
+position = Vector2(-1024, -720)
 
 [node name="Steak18" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-312, -632)
+position = Vector2(-1664, -1392)
 
 [node name="Steak19" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-280, -552)
+position = Vector2(-1216, -496)
 
 [node name="Steak20" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-280, -520)
+position = Vector2(-1024, -560)
 
 [node name="Steak144" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-280, -440)
+position = Vector2(-1024, -496)
 
 [node name="Steak145" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-312, -440)
+position = Vector2(-832, -528)
 
 [node name="Steak21" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-280, -360)
+position = Vector2(-1024, -336)
 
 [node name="Steak22" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-560, -336)
+position = Vector2(-1392, -240)
 
 [node name="Steak149" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-216, -344)
+position = Vector2(-1424, -304)
 
 [node name="Steak150" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-248, -392)
+position = Vector2(-1088, -336)
 
 [node name="Steak23" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-560, -272)
+position = Vector2(-1392, -112)
 
 [node name="Steak24" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-624, -112)
+position = Vector2(-1392, -176)
 
 [node name="Steak160" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-208, -144)
+position = Vector2(-896, -144)
 
 [node name="Steak161" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-112, -272)
+position = Vector2(-1696, -176)
 
 [node name="Steak162" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-208, -208)
+position = Vector2(-896, -368)
 
 [node name="Steak25" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-496, 48)
+position = Vector2(-1296, -48)
 
 [node name="Steak26" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-240, 128)
+position = Vector2(-1024, -176)
 
 [node name="Steak27" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-208, -80)
+position = Vector2(-832, -144)
 
 [node name="Steak28" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-208, -16)
+position = Vector2(-960, -240)
 
 [node name="Steak36" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-128, -104)
+position = Vector2(-1504, -144)
 
 [node name="Steak38" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-64, -136)
+position = Vector2(-896, -1136)
 
 [node name="Steak48" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-64, -168)
+position = Vector2(-896, -1072)
 
 [node name="Steak49" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-48, -200)
+position = Vector2(-1696, -240)
 
 [node name="Steak50" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-32, -232)
+position = Vector2(-1104, -1328)
 
 [node name="Steak51" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-56, -328)
+position = Vector2(-1696, -48)
 
 [node name="Steak52" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-56, -360)
+position = Vector2(-1024, -1456)
 
 [node name="Steak39" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-16, -144)
+position = Vector2(-1056, -1392)
 
 [node name="Steak40" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-16, -80)
+position = Vector2(-2128, -48)
 
 [node name="Steak41" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-128, 128)
+position = Vector2(-1792, 16)
 
 [node name="Steak42" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-16, -16)
+position = Vector2(-1888, -176)
 
 [node name="Steak43" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-48, 128)
+position = Vector2(-1984, -752)
 
 [node name="Steak45" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-112, 48)
+position = Vector2(-1888, -112)
 
 [node name="Steak46" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(16, 112)
+position = Vector2(-1984, -688)
 
 [node name="Steak47" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-272, 128)
+position = Vector2(-992, -48)
 
 [node name="Steak34" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(-80, 128)
+position = Vector2(-1888, -48)
 
 [node name="Steak3" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(56, -24)
+position = Vector2(-1920, -960)
 
 [node name="Steak4" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(256, 24)
+position = Vector2(-1776, -432)
 
 [node name="Steak71" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(496, 48)
+position = Vector2(-1808, -368)
 
 [node name="Steak72" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(368, -16)
+position = Vector2(-1808, -304)
 
 [node name="Steak73" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -72)
+position = Vector2(-1936, -240)
 
 [node name="Steak74" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(360, -104)
+position = Vector2(-1152, -976)
 
 [node name="Steak75" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -136)
+position = Vector2(-1024, -944)
 
 [node name="Steak76" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(424, -56)
+position = Vector2(-1792, -560)
 
 [node name="Steak77" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -56)
+position = Vector2(-1728, -624)
 
 [node name="Steak78" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(392, -168)
+position = Vector2(-1088, -1072)
 
 [node name="Steak79" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -152)
+position = Vector2(-1216, -944)
 
 [node name="Steak80" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(296, -152)
+position = Vector2(-1312, -1136)
 
 [node name="Steak166" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -232)
+position = Vector2(-1024, -1104)
 
 [node name="Steak167" parent="SteakHolder" instance=ExtResource("3_q8ps2")]
-position = Vector2(328, -264)
+position = Vector2(-896, -912)
 
 [node name="Switch" parent="." instance=ExtResource("4_cm60g")]
 position = Vector2(112, -240)
@@ -1446,4 +1444,3 @@ metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("9_b8pr7")]
 position = Vector2(112, 80)
-metadata/_edit_lock_ = true

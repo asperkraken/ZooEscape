@@ -26,34 +26,34 @@ tile_set = ExtResource("2_4jow1")
 [node name="SteakHolder" type="Node2D" parent="."]
 
 [node name="Steak" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(-24, 200)
+position = Vector2(-48, 400)
 
 [node name="Steak2" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(8, 200)
+position = Vector2(16, 400)
 
 [node name="Steak3" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(40, 200)
+position = Vector2(80, 400)
 
 [node name="Steak4" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(72, 200)
+position = Vector2(144, 400)
 
 [node name="Steak5" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(104, 200)
+position = Vector2(208, 400)
 
 [node name="Steak6" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(136, 200)
+position = Vector2(272, 400)
 
 [node name="Steak7" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(168, 200)
+position = Vector2(336, 400)
 
 [node name="Steak8" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(200, 200)
+position = Vector2(400, 400)
 
 [node name="Steak9" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(232, 200)
+position = Vector2(464, 400)
 
 [node name="Steak10" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
-position = Vector2(264, 200)
+position = Vector2(528, 400)
 
 [node name="Steak11" parent="SteakHolder" instance=ExtResource("5_vbfcr")]
 position = Vector2(-72, 200)
@@ -86,76 +86,76 @@ position = Vector2(56, 152)
 position = Vector2(-72, 200)
 
 [node name="SwBOff" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(-40, 152)
+position = Vector2(-48, 304)
 switchStyle = "Buttons"
 
 [node name="Gate" parent="SwBOff" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(0, 64)
 
 [node name="SwBOffA" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(-8, 152)
+position = Vector2(-16, 304)
 switchStyle = "Buttons"
 autoRevert = true
 
 [node name="Gate" parent="SwBOffA" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwBOnA" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(24, 152)
+position = Vector2(48, 304)
 switchStyle = "Buttons"
 switchState = 1
 autoRevert = true
 
 [node name="Gate" parent="SwBOnA" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwLOff" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(88, 152)
+position = Vector2(176, 304)
 
 [node name="Gate" parent="SwLOff" instance=ExtResource("9_7juyi")]
-position = Vector2(-16, 32)
+position = Vector2(-32, 64)
 
 [node name="Gate2" parent="SwLOff" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwLOffA" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(120, 152)
+position = Vector2(240, 304)
 autoRevert = true
 
 [node name="Gate" parent="SwLOffA" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwLOnA" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(152, 152)
+position = Vector2(304, 304)
 switchState = 1
 autoRevert = true
 
 [node name="Gate" parent="SwLOnA" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwTOff" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(184, 152)
+position = Vector2(368, 304)
 switchStyle = "Toggle"
 
 [node name="Gate" parent="SwTOff" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwTOffA" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(216, 152)
+position = Vector2(432, 304)
 switchStyle = "Toggle"
 autoRevert = true
 
 [node name="Gate" parent="SwTOffA" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="SwTOnA" parent="." instance=ExtResource("8_5qm4x")]
-position = Vector2(248, 152)
+position = Vector2(496, 304)
 switchStyle = "Toggle"
 switchState = 1
 autoRevert = true
 
 [node name="Gate" parent="SwTOnA" instance=ExtResource("9_7juyi")]
-position = Vector2(16, 32)
+position = Vector2(32, 64)
 
 [node name="Button" parent="." instance=ExtResource("10_yhr4p")]
 position = Vector2(-88, 168)
