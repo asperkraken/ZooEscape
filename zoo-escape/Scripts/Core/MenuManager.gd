@@ -1,11 +1,17 @@
 extends CanvasLayer
 
+# Signals
+signal RestartGame
+signal QuitGame
+
 # Enums
 enum menuTypes {
 	NONE,
 	MAIN,
 	PASSWORD,
-	SETTINGS
+	SCORES,
+	SETTINGS,
+	TIMEOUT
 }
 
 # Variables
@@ -16,7 +22,9 @@ var menuHeap: Array[menuTypes] = []
 @onready var menus: Dictionary[menuTypes, Control] = {
 	menuTypes.MAIN: $MainMenu,
 	menuTypes.PASSWORD: $PasswordMenu,
+	#menuType.SCORES: $ScoresWindow, This will be added in another PR, so leave it
 	menuTypes.SETTINGS: $SettingsMenu,
+	menuTypes.TIMEOUT: $TimeoutWindow
 }
 
 # Called when the node enters the scene tree for the first time
@@ -33,6 +41,12 @@ func _ready() -> void:
 		# Connect menu signals to 'goBack'
 		if menu.has_signal("GoBack"):
 			menu.GoBack.connect(goBack)
+		
+		if menu.has_signal("RestartGame"):
+			menu.RestartGame.connect(func(): RestartGame.emit())
+		
+		if menu.has_signal("QuitGame"):
+			menu.QuitGame.connect(func(): QuitGame.emit())
 	
 	# Open the MainMenu by default
 	if get_tree().current_scene == GameRoot: # This keeps the menu from appearing automatically if running a scene independently.
@@ -48,7 +62,7 @@ func _input(event: InputEvent) -> void:
 	# Hide all menus, situationally
 	if event.is_action("CancelButton"):
 		get_viewport().set_input_as_handled() # Mark InputEvent as handled
-		if Globals.currentGameData["gameRunning"] && currentMenu == menuTypes.NONE:
+		if Globals.currentGameData.gameRunning && currentMenu == menuTypes.NONE:
 			setMenu(menuTypes.MAIN) # If a game is running and no menu is open, open MainMenu
 		
 		if currentMenu != menuTypes.MAIN && currentMenu != menuTypes.NONE:
@@ -59,7 +73,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled() # Mark InputEvent as handled
 		if currentMenu != menuTypes.MAIN:
 			setMenu(menuTypes.MAIN) # if MainMenu is not open, open it
-		elif Globals.currentGameData["gameRunning"]:
+		elif Globals.currentGameData.gameRunning:
 			setMenu(menuTypes.NONE) # If MainMenu is open and a game is running, close it
 		else:
 			setMenu(menuTypes.MAIN) # If a game is not running, show MainMenu
@@ -141,7 +155,12 @@ func goBack() -> void:
 		currentMenu = menuHeap.back()  # Set currentMenu to the last menu in the heap
 		switchMenu()
 	else:
-		if !Globals.currentGameData["gameRunning"]:
+		if !Globals.currentGameData.gameRunning:
 			setMenu(menuTypes.MAIN)
 			return
 		setMenu(menuTypes.NONE)  # If no previous menu, close all menus
+
+
+# Called by LevelManager to update password string on TimeoutWindow when new level loads
+func updatePassword(levelCode) -> void:
+	menus[menuTypes.TIMEOUT].updatePassword(levelCode)

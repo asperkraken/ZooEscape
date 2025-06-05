@@ -8,6 +8,7 @@ enum buttonTypes {
 	RESUME,
 	NEWGAME,
 	PASSWORD,
+	SCORES,
 	SETTINGS,
 	BACK,
 	EXIT
@@ -21,12 +22,13 @@ var lastButton := buttonTypes.NEWGAME
 @onready var bgRect := $Background
 @onready var pausedHint := $PausedHint
 @onready var buttons: Dictionary[buttonTypes, Button] = {
-	buttonTypes.RESUME: $ResumeButton,
-	buttonTypes.NEWGAME: $NewGameButton,
-	buttonTypes.PASSWORD: $PasswordButton,
-	buttonTypes.SETTINGS: $SettingsButton,
-	buttonTypes.BACK: $BackButton,
-	buttonTypes.EXIT: $ExitButton
+	buttonTypes.RESUME: $MarginBox/VBox/ResumeButton,
+	buttonTypes.NEWGAME: $MarginBox/VBox/NewGameButton,
+	buttonTypes.PASSWORD: $MarginBox/VBox/PasswordButton,
+	buttonTypes.SCORES: $MarginBox/VBox/ScoresButton,
+	buttonTypes.SETTINGS: $MarginBox/VBox/SettingsButton,
+	buttonTypes.BACK: $MarginBox/VBox/BackButton,
+	buttonTypes.EXIT: $MarginBox/VBox/ExitButton
 }
 
 
@@ -62,8 +64,8 @@ func _input(event: InputEvent) -> void:
 # Reset exit warning state and roll out message
 func areYouSureReset():
 	areYouSure = false
-	$ExitButton/RollText.speed_scale = 2.0
-	$ExitButton/RollText.play_backwards("roll_in")
+	$MarginBox/VBox/ExitButton/RollText.speed_scale = 2.0
+	$MarginBox/VBox/ExitButton/RollText.play_backwards("roll_in")
 
 
 # Event handler for when a menu button is pressed
@@ -92,6 +94,12 @@ func onButtonPressed(i: int) -> void:
 			SoundControl.playCue(SoundControl.zap, 1.0) # audio feedback
 			SetMenu.emit(MenuManager.menuTypes.PASSWORD)
 		
+		# Scores button
+		buttonTypes.SCORES:
+			lastButton = buttonTypes.SCORES
+			SoundControl.playCue(SoundControl.zap, 1.0) # audio feedback
+			#SetMenu.emit(MenuManager.menuTypes.SCORES) # This will be added in another PR, so leave it in
+		
 		# Settings button
 		buttonTypes.SETTINGS:
 			lastButton = buttonTypes.SETTINGS
@@ -112,9 +120,9 @@ func onButtonPressed(i: int) -> void:
 		buttonTypes.EXIT:
 			Data.saveGameData()
 			if !areYouSure: # feedback and warning
-				$ExitButton/RollText.speed_scale = 1.0
+				$MarginBox/VBox/ExitButton/RollText.speed_scale = 1.0
 				areYouSure = true
-				$ExitButton/RollText.play("roll_in")
+				$MarginBox/VBox/ExitButton/RollText.play("roll_in")
 			else: # close program
 				get_tree().quit()
 
@@ -150,37 +158,30 @@ func lastButtonFocus() -> void:
 # Called by the MenuManager to show the MainMenu
 func showMenu() -> void:
 	if Globals.currentGameData["gameRunning"]: # If a game is running, use all these settings
-		bgRect.visible = false
-		pausedHint.visible = true
-		buttons[buttonTypes.RESUME].visible = true
-		buttons[buttonTypes.NEWGAME].visible = false
-		buttons[buttonTypes.BACK].visible = true
-		buttons[buttonTypes.EXIT].visible = false
-		buttons[buttonTypes.PASSWORD].position.y = 224
+		bgRect.hide()
+		pausedHint.show()
+		buttons[buttonTypes.RESUME].show()
+		buttons[buttonTypes.NEWGAME].hide()
+		buttons[buttonTypes.BACK].show()
+		buttons[buttonTypes.EXIT].hide()
 		buttons[buttonTypes.PASSWORD].focus_neighbor_top = "../ResumeButton"
 		buttons[buttonTypes.PASSWORD].focus_previous = "../ResumeButton"
-		buttons[buttonTypes.PASSWORD].focus_neighbor_right = ""
-		buttons[buttonTypes.SETTINGS].position.y = 264
 		buttons[buttonTypes.SETTINGS].focus_neighbor_bottom = "../BackButton"
 		buttons[buttonTypes.SETTINGS].focus_next = "../BackButton"
 		buttons[buttonTypes.SETTINGS].focus_neighbor_right = ""
 		onButtonMouseEntered(buttonTypes.RESUME)
 	
 	else: # If a game is not running, use all these settings
-		bgRect.visible = true
-		pausedHint.visible = false
-		buttons[buttonTypes.RESUME].visible = false
-		buttons[buttonTypes.NEWGAME].visible = true
-		buttons[buttonTypes.BACK].visible = false
+		bgRect.show()
+		pausedHint.hide()
+		buttons[buttonTypes.RESUME].hide()
+		buttons[buttonTypes.NEWGAME].show()
+		buttons[buttonTypes.BACK].hide()
 		buttons[buttonTypes.EXIT].visible = !OS.get_name() == "Web" # If playing the web version, hide the Exit button
-		buttons[buttonTypes.PASSWORD].position.y = 264
 		buttons[buttonTypes.PASSWORD].focus_neighbor_top = "../NewGameButton"
 		buttons[buttonTypes.PASSWORD].focus_previous = "../NewGameButton"
-		buttons[buttonTypes.PASSWORD].focus_neighbor_right = "../ExitButton"
-		buttons[buttonTypes.SETTINGS].position.y = 304
 		buttons[buttonTypes.SETTINGS].focus_neighbor_bottom = "../ExitButton"
 		buttons[buttonTypes.SETTINGS].focus_next = "../ExitButton"
-		buttons[buttonTypes.SETTINGS].focus_neighbor_right = "../ExitButton"
 		if lastButton == buttonTypes.BACK:
 			lastButton = buttonTypes.NEWGAME
 		lastButtonFocus()

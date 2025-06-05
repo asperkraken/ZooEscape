@@ -70,8 +70,10 @@ metadata/_edit_lock_ = true
 
 [node name="Header" type="Label" parent="."]
 layout_mode = 0
-offset_right = 640.0
-offset_bottom = 64.0
+offset_left = 320.0
+offset_top = 174.0
+offset_right = 960.0
+offset_bottom = 238.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_colors/font_outline_color = Color(0.380392, 0.25098, 0.478431, 1)
@@ -80,15 +82,15 @@ theme_override_font_sizes/font_size = 27
 text = "SETTINGS"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
 [node name="MasterGroup" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 320.0
+offset_top = 174.0
+offset_right = 360.0
+offset_bottom = 214.0
 metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="MasterText" type="Label" parent="MasterGroup"]
 layout_mode = 0
@@ -138,10 +140,10 @@ value = -6.0
 
 [node name="BGMGroup" type="Control" parent="."]
 anchors_preset = 0
-offset_top = 48.0
-offset_right = 40.0
-offset_bottom = 88.0
-metadata/_edit_lock_ = true
+offset_left = 320.0
+offset_top = 222.0
+offset_right = 360.0
+offset_bottom = 262.0
 metadata/_edit_group_ = true
 
 [node name="BGMText" type="Label" parent="BGMGroup"]
@@ -192,11 +194,11 @@ value = -6.0
 
 [node name="SFXGroup" type="Control" parent="."]
 anchors_preset = 0
-offset_top = 32.0
-offset_right = 40.0
-offset_bottom = 72.0
+offset_left = 320.0
+offset_top = 206.0
+offset_right = 360.0
+offset_bottom = 246.0
 metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="SFXText" type="Label" parent="SFXGroup"]
 layout_mode = 0
@@ -246,11 +248,11 @@ value = -6.0
 
 [node name="CueGroup" type="Control" parent="."]
 anchors_preset = 0
-offset_top = 16.0
-offset_right = 40.0
-offset_bottom = 56.0
+offset_left = 320.0
+offset_top = 190.0
+offset_right = 360.0
+offset_bottom = 230.0
 metadata/_edit_group_ = true
-metadata/_edit_lock_ = true
 
 [node name="CueText" type="Label" parent="CueGroup"]
 layout_mode = 0
@@ -300,9 +302,10 @@ value = -6.0
 
 [node name="DeadzoneGroup" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-metadata/_edit_lock_ = true
+offset_left = 320.0
+offset_top = 174.0
+offset_right = 360.0
+offset_bottom = 214.0
 metadata/_edit_group_ = true
 
 [node name="DeadzoneText" type="Label" parent="DeadzoneGroup"]
@@ -371,10 +374,10 @@ icon = ExtResource("7_r2118")
 
 [node name="Description" type="Label" parent="."]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 312.0
-offset_right = 632.0
-offset_bottom = 352.0
+offset_left = 328.0
+offset_top = 486.0
+offset_right = 952.0
+offset_bottom = 526.0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -383,14 +386,13 @@ theme_override_font_sizes/font_size = 15
 autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0188679
-metadata/_edit_lock_ = true
 
 [node name="EscapeButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 48.0
-offset_bottom = 48.0
+offset_left = 336.0
+offset_top = 190.0
+offset_right = 368.0
+offset_bottom = 222.0
 focus_neighbor_top = NodePath("../DeadzoneGroup/DeadzoneDown")
 focus_previous = NodePath("../DeadzoneGroup/DeadzoneUp")
 theme_override_fonts/font = ExtResource("8_gqm55")

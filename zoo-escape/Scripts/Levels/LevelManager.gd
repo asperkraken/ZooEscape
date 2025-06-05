@@ -40,6 +40,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE # Allow the LevelManager to be paused when the scene tree is paused
 	SceneManager.currentScene = self
 	add_to_group("LevelManager")
+	MenuManager.updatePassword(levelCode)
+	MenuManager.RestartGame.connect(restartRoom)
+	MenuManager.QuitGame.connect(quitGame)
 	player.InWater.connect(restartRoom)
 	player.PlayerMoved.connect(updateMoveCount)
 	exitTile.PlayerExits.connect(exitLevel)
@@ -84,7 +87,9 @@ func _process(delta: float) -> void:
 				
 			elif timesUp: # If time has run out, change processing mode and display Timeout window
 				processingState = processingStates.NONE
-				hud.outOfTime()
+				#hud.outOfTime()
+				hud.closeHud()
+				MenuManager.setMenu(MenuManager.menuTypes.TIMEOUT)
 			
 			# If player just released "RightBumper," reset resetTime and hide resetBar
 			if Input.is_action_just_released("RightBumper"):
@@ -154,9 +159,6 @@ func _input(event: InputEvent) -> void:
 
 # Initialize the HUD for this level
 func setupHud() -> void:
-	# Connect HUD signals to LevelManager functions
-	hud.RestartRoom.connect(restartRoom)
-	hud.QuitGame.connect(quitGame)
 	# Setup initial values on HUD
 	hud.updateScoreText(score)
 	hud.updatePasswordText(levelCode)
