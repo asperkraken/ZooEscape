@@ -599,7 +599,7 @@ pitch_scale = 6.0
 
 [node name="ThoughtBubble" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(0, -26)
+position = Vector2(0, -32)
 sprite_frames = SubResource("SpriteFrames_4wape")
 animation = &"ActionC"
 
