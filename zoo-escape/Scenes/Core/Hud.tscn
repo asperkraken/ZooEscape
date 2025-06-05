@@ -961,11 +961,13 @@ vertical_alignment = 1
 metadata/_edit_lock_ = true
 
 [node name="HUDAnimation" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_snii7")
 }
 
 [node name="HUDAnimationAlt" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_snii7")
 }

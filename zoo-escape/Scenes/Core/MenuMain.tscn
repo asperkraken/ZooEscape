@@ -132,6 +132,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="ResumeButton" type="Button" parent="MarginBox/VBox"]
+visible = false
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
 focus_neighbor_top = NodePath("../BackButton")
@@ -149,8 +150,7 @@ theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Resume Game"
 
 [node name="NewGameButton" type="Button" parent="MarginBox/VBox"]
-visible = false
-custom_minimum_size = Vector2(480, 96)
+custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
@@ -255,10 +255,10 @@ text = "Back to Title"
 [node name="ExitButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
-focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_top = NodePath("../CreditsButton")
 focus_neighbor_bottom = NodePath("../NewGameButton")
 focus_next = NodePath("../NewGameButton")
-focus_previous = NodePath("../SettingsButton")
+focus_previous = NodePath("../CreditsButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)

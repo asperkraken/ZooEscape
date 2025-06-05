@@ -28,7 +28,6 @@ func closeHud()  -> void:
 func giveTimeWarning() -> void:
 	$MBox/HUDWindow/Timer/Control/TimerIcon.play("feedback")
 	$HUDAnimation.play("warning")
-	$OpenCue.play() # Audio warning cue
 
 
 # Play the HUD open animation (when hud loaded, e.g.)

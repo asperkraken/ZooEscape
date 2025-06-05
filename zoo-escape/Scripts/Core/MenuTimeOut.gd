@@ -13,7 +13,6 @@ func showMenu() -> void:
 	SoundControl.playCue(SoundControl.fail, 3.0)
 	show()
 	playFadeIn()
-	SoundControl.playCue(SoundControl.alert, 2.0)
 
 
 # Called by the MenuManager when a new level loads

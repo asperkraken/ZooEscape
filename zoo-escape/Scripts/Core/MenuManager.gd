@@ -62,6 +62,9 @@ func _input(event: InputEvent) -> void:
 	# Hide all menus, situationally
 	if event.is_action("CancelButton"):
 		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		if currentMenu == menuTypes.TIMEOUT:
+			return # if the TimeOut window is showing, exit early and wait for input
+		
 		if Globals.currentGameData.gameRunning && currentMenu == menuTypes.NONE:
 			setMenu(menuTypes.MAIN) # If a game is running and no menu is open, open MainMenu
 		
@@ -71,7 +74,9 @@ func _input(event: InputEvent) -> void:
 	# Show/Hide the MainMenu
 	if event.is_action("MenuButton"):
 		get_viewport().set_input_as_handled() # Mark InputEvent as handled
-		if currentMenu != menuTypes.MAIN:
+		if currentMenu == menuTypes.TIMEOUT:
+			return # if the TimeOut window is showing, exit early and wait for input
+		elif currentMenu != menuTypes.MAIN:
 			setMenu(menuTypes.MAIN) # if MainMenu is not open, open it
 		elif Globals.currentGameData.gameRunning:
 			setMenu(menuTypes.NONE) # If MainMenu is open and a game is running, close it

@@ -77,7 +77,7 @@ func onButtonPressed(i: int) -> void:
 		# Resume button
 		buttonTypes.RESUME:
 			lastButton = buttonTypes.RESUME
-			SoundControl.playCue(SoundControl.zap, 1.0) # audio feedback
+			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
 			SetMenu.emit(MenuManager.menuTypes.NONE)
 			
 		# New Game button
@@ -99,7 +99,7 @@ func onButtonPressed(i: int) -> void:
 		# Scores button
 		buttonTypes.SCORES:
 			lastButton = buttonTypes.SCORES
-			SoundControl.playCue(SoundControl.zap, 1.0) # audio feedback
+			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
 			#SetMenu.emit(MenuManager.menuTypes.SCORES) # This will be added in another PR, so leave it in
 		
 		# Settings button
@@ -108,10 +108,16 @@ func onButtonPressed(i: int) -> void:
 			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
 			SetMenu.emit(MenuManager.menuTypes.SETTINGS)
 			
+		# Credits button
+		buttonTypes.CREDITS:
+			lastButton = buttonTypes.CREDITS
+			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
+			#SetMenu.emit(MenuManager.menuTypes.CREDITS) # This will be added in another PR, so leave it in
+			
 		# Back button
 		buttonTypes.BACK:
 			lastButton = buttonTypes.NEWGAME # Set to NEWGAME since quitting to the title scene
-			SoundControl.playCue(SoundControl.down, 1.4)
+			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
 			Data.saveGameData()
 			Globals.currentGameData.gameRunning = false
 			SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE) # Go to title scene
@@ -120,12 +126,13 @@ func onButtonPressed(i: int) -> void:
 		
 		# Exit button
 		buttonTypes.EXIT:
-			Data.saveGameData()
+			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
 			if !areYouSure: # feedback and warning
 				$MarginBox/VBox/ExitButton/RollText.speed_scale = 1.0
 				areYouSure = true
 				$MarginBox/VBox/ExitButton/RollText.play("roll_in")
 			else: # close program
+				Data.saveGameData()
 				get_tree().quit()
 
 
@@ -159,11 +166,13 @@ func lastButtonFocus() -> void:
 
 # Called by the MenuManager to show the MainMenu
 func showMenu() -> void:
-	if Globals.currentGameData["gameRunning"]: # If a game is running, use all these settings
+	if Globals.currentGameData.gameRunning: # If a game is running, use all these settings
 		bgRect.hide()
 		pausedHint.show()
 		buttons[buttonTypes.RESUME].show()
 		buttons[buttonTypes.NEWGAME].hide()
+		buttons[buttonTypes.SCORES].hide()
+		buttons[buttonTypes.CREDITS].hide()
 		buttons[buttonTypes.BACK].show()
 		buttons[buttonTypes.EXIT].hide()
 		buttons[buttonTypes.PASSWORD].focus_neighbor_top = "../ResumeButton"
@@ -178,13 +187,15 @@ func showMenu() -> void:
 		pausedHint.hide()
 		buttons[buttonTypes.RESUME].hide()
 		buttons[buttonTypes.NEWGAME].show()
+		buttons[buttonTypes.SCORES].show()
+		buttons[buttonTypes.CREDITS].show()
 		buttons[buttonTypes.BACK].hide()
 		buttons[buttonTypes.EXIT].visible = !OS.get_name() == "Web" # If playing the web version, hide the Exit button
 		buttons[buttonTypes.PASSWORD].focus_neighbor_top = "../NewGameButton"
 		buttons[buttonTypes.PASSWORD].focus_previous = "../NewGameButton"
-		buttons[buttonTypes.SETTINGS].focus_neighbor_bottom = "../ExitButton"
-		buttons[buttonTypes.SETTINGS].focus_next = "../ExitButton"
-		if lastButton == buttonTypes.BACK:
+		buttons[buttonTypes.SETTINGS].focus_neighbor_bottom = "../CreditsButton"
+		buttons[buttonTypes.SETTINGS].focus_next = "../CreditsButton"
+		if lastButton != buttonTypes.NEWGAME:
 			lastButton = buttonTypes.NEWGAME
 		lastButtonFocus()
 	show()
