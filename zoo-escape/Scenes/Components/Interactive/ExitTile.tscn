@@ -84,6 +84,7 @@ animations = [{
 size = Vector2(14, 14)
 
 [node name="ExitTile" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_k1jym")
 animation = &"Deavtive"
 autoplay = "Deavtive"

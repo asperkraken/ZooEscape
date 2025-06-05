@@ -61,8 +61,10 @@ size = Vector2(1, 1)
 script = ExtResource("1_ymavr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ypekl")
 animation = &"TopLeft"
+frame_progress = 0.144244
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8

@@ -29,6 +29,7 @@ animations = [{
 size = Vector2(14, 14)
 
 [node name="Button" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_l1f6s")
 script = ExtResource("2_13oxr")
 
