@@ -4,7 +4,7 @@ extends Control
 signal GoBack
 
 # Enums
-enum focusGroups {
+enum groups {
 	ESCAPE,
 	MASTER,
 	BGM,
@@ -26,54 +26,53 @@ const DEADZONEINFO := "Controls the level at which \nanalog direction inputs tri
 const EXITINFO := "Close this menu.  Settings \n are automatically saved."
 
 # Grab global value references
-var analogDeadzone: float = Globals.currentSettings["analog_deadzone"]
+var analogDeadzone: float = Globals.currentSettings.analog_deadzone
 
 # Variables
 var bufferState := true # hold player input until timer flips
 var settingsChanged := false # only save settings if any values were changed
-var focusGroup := focusGroups.MASTER # shows which control area has focus
+var group := groups.MASTER # shows which control area has focus
 
 
 # Called when node enters the scene tree for the first time
 func _ready() -> void:
 	# update slider positions
-	$MasterGroup/MasterSlider.value = Globals.currentSettings["master_volume"]
-	$BGMGroup/BGMSlider.value = Globals.currentSettings["music_volume"]
-	$SFXGroup/SFXSlider.value = Globals.currentSettings["sfx_volume"]
-	$CueGroup/CueSlider.value = Globals.currentSettings["cue_volume"]
+	$VBox/MasterGroup/MasterSlider.value = Globals.currentSettings.master_volume
+	$VBox/BGMGroup/BGMSlider.value = Globals.currentSettings.music_volume
+	$VBox/SFXGroup/SFXSlider.value = Globals.currentSettings.sfx_volume
+	$VBox/CueGroup/CueSlider.value = Globals.currentSettings.cue_volume
 	
 	# update percent texts
-	$MasterGroup/MasterValue.text = str(percentageConversion(Globals.currentSettings["master_volume"])) + "%"
-	$BGMGroup/BGMValue.text = str(percentageConversion(Globals.currentSettings["music_volume"])) + "%"
-	$SFXGroup/SFXValue.text = str(percentageConversion(Globals.currentSettings["sfx_volume"])) + "%"
-	$CueGroup/CueValue.text = str(percentageConversion(Globals.currentSettings["cue_volume"])) + "%"
-	$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
+	$VBox/MasterGroup/MasterValue.text = str(percentageConversion(Globals.currentSettings.master_volume)) + "%"
+	$VBox/BGMGroup/BGMValue.text = str(percentageConversion(Globals.currentSettings.music_volume)) + "%"
+	$VBox/SFXGroup/SFXValue.text = str(percentageConversion(Globals.currentSettings.sfx_volume)) + "%"
+	$VBox/CueGroup/CueValue.text = str(percentageConversion(Globals.currentSettings.cue_volume)) + "%"
+	$VBox/DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
 
 
 # Called every render frame
 func _process(_delta: float) -> void:
 	# ONLY detect inputs when this menu is visible and ready
 	if visible && !bufferState: # NOTE: Let's discuss whether we still need this buffer state with the new menu system
-			if Input.is_action_pressed("ActionButton") and focusGroup == focusGroups.DEADZONE:
-				if $DeadzoneGroup/DeadzoneDown.has_focus() and analogDeadzone > DEADZONE_MIN:
+			if Input.is_action_pressed("ActionButton") and group == groups.DEADZONE:
+				if $VBox/DeadzoneGroup/DeadzoneDown.has_focus() and analogDeadzone > DEADZONE_MIN:
 					analogDeadzone -= 0.01 # adjust deadzone and update text
-					$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
-				if $DeadzoneGroup/DeadzoneUp.has_focus() and analogDeadzone < DEADZONE_MAX:
+					$VBox/DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
+				if $VBox/DeadzoneGroup/DeadzoneUp.has_focus() and analogDeadzone < DEADZONE_MAX:
 					analogDeadzone += 0.01
-					$DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
+					$VBox/DeadzoneGroup/DeadzoneValue.text = str(analogDeadzone)
 			
 			# If Left or Right released after adjusting SFX or CUE sliders, play a sound
 			if Input.is_action_just_released("DigitalLeft") or Input.is_action_just_released("DigitalRight"):
-				if focusGroup == focusGroups.SFX: # add sound cues to test fx levels
+				if group == groups.SFX: # add sound cues to test fx levels
 					SoundControl.playSfx(SoundControl.scratch)
-				if focusGroup == focusGroups.CUE:
+				if group == groups.CUE:
 					SoundControl.playCue(SoundControl.pickup, 1.0)
 			
 			# If Escape or other CancelButtton pressed, close the munu
 			if Input.is_action_just_pressed("CancelButton"):
-				if focusGroup != focusGroups.ESCAPE: # move to escape button on press
-					_on_escape_button_focus_entered()
-					$EscapeButton.grab_focus()
+				if group != groups.ESCAPE: # move to escape button on press
+					_on_escape_button_mouse_entered()
 				else:
 					_on_escape_button_pressed() # trigger escape function
 
@@ -81,7 +80,7 @@ func _process(_delta: float) -> void:
 # Called by tthe MenuManager to show the SettingsMenu
 func showMenu() -> void:
 	show()
-	$MasterGroup/MasterSlider.call_deferred("grab_focus")
+	$VBox/MasterGroup/MasterSlider.call_deferred("grab_focus")
 
 
 func returnToLastMenu() -> void:
@@ -96,10 +95,10 @@ func returnToLastMenu() -> void:
 func updateSoundControl() -> void: # update global settings
 	# set sound levels
 	SoundControl.setSoundPreferences(
-		$MasterGroup/MasterSlider.value,
-		$BGMGroup/BGMSlider.value,
-		$SFXGroup/SFXSlider.value,
-		$CueGroup/CueSlider.value
+		$VBox/MasterGroup/MasterSlider.value,
+		$VBox/BGMGroup/BGMSlider.value,
+		$VBox/SFXGroup/SFXSlider.value,
+		$VBox/CueGroup/CueSlider.value
 	)
 	# set deadzones
 	SoundControl.muteAudioBusCheck()
@@ -107,10 +106,10 @@ func updateSoundControl() -> void: # update global settings
 
 # focus info widget to update info text on focus change
 func focusInfoRelay(logic:String, info:String) -> void:
-	if focusGroup != focusGroups[logic]:
-		focusGroup = focusGroups[logic] # pull group and grab info
-		$Description.visible_ratio = 0.0 # roll text back
-		$Description.text = str(info) # update
+	if group != groups[logic]:
+		group = groups[logic] # pull group and grab info
+		$VBox/Description.visible_ratio = 0.0 # roll text back
+		$VBox/Description.text = str(info) # update
 		$Animator.play("roll_info") # roll in text
 
 
@@ -127,7 +126,7 @@ func percentageConversion(_volumeLevel) -> int:
 func _on_master_slider_value_changed(value: float) -> void:
 	if !bufferState: # if no buffer, change levels
 		updateSoundControl()
-		Globals.currentSettings["master_volume"] = value
+		Globals.currentSettings.master_volume = value
 		updateText("MASTER", value)
 		settingsChanged = true
 
@@ -135,7 +134,7 @@ func _on_master_slider_value_changed(value: float) -> void:
 func _on_bgm_slider_value_changed(value: float) -> void:
 	if !bufferState:
 		updateSoundControl()
-		Globals.currentSettings["music_volume"] = value
+		Globals.currentSettings.music_volume = value
 		SoundControl.muteAudioBusCheck()
 		updateText("BGM", value)
 		settingsChanged = true
@@ -144,7 +143,7 @@ func _on_bgm_slider_value_changed(value: float) -> void:
 func _on_sfx_slider_value_changed(value: float) -> void:
 	if !bufferState:
 		updateSoundControl()
-		Globals.currentSettings["sfx_volume"] = value
+		Globals.currentSettings.sfx_volume = value
 		SoundControl.muteAudioBusCheck()
 		updateText("SFX", value)
 		settingsChanged = true
@@ -153,7 +152,7 @@ func _on_sfx_slider_value_changed(value: float) -> void:
 func _on_cue_slider_value_changed(value: float) -> void:
 	if !bufferState:
 		updateSoundControl()
-		Globals.currentSettings["cue_volume"] = value
+		Globals.currentSettings.cue_volume = value
 		SoundControl.muteAudioBusCheck()
 		updateText("CUE", value)
 		settingsChanged = true
@@ -163,15 +162,15 @@ func _on_cue_slider_value_changed(value: float) -> void:
 func updateText(which: String, value: float):
 	match which:
 		"MASTER":
-			$MasterGroup/MasterValue.text = str(abs(percentageConversion(value))) + "%"
+			$VBox/MasterGroup/MasterValue.text = str(abs(percentageConversion(value))) + "%"
 		"BGM":
-			$BGMGroup/BGMValue.text = str(abs(percentageConversion(value))) + "%"
+			$VBox/BGMGroup/BGMValue.text = str(abs(percentageConversion(value))) + "%"
 		"SFX":
-			$SFXGroup/SFXValue.text = str(abs(percentageConversion(value))) + "%"
+			$VBox/SFXGroup/SFXValue.text = str(abs(percentageConversion(value))) + "%"
 		"CUE":
-			$CueGroup/CueValue.text = str(abs(percentageConversion(value))) + "%"
+			$VBox/CueGroup/CueValue.text = str(abs(percentageConversion(value))) + "%"
 		"DEADZONE":
-			$DeadzoneGroup/DeadzoneValue.text = str(value)
+			$VBox/DeadzoneGroup/DeadzoneValue.text = str(value)
 
 
 
@@ -294,7 +293,7 @@ func _on_deadzone_down_pressed() -> void:
 			_downValue = DEADZONE_MIN
 		
 		analogDeadzone = _downValue
-		Globals.currentSettings["analog_deadzone"] = analogDeadzone
+		Globals.currentSettings.analog_deadzone = analogDeadzone
 		updateText("DEADOZNE", analogDeadzone)
 		Globals.deadzoneUpdate()
 		settingsChanged = true
@@ -308,7 +307,7 @@ func _on_deadzone_up_pressed() -> void:
 			_upValue = DEADZONE_MAX
 		
 		analogDeadzone = _upValue
-		Globals.currentSettings["analog_deadzone"] = analogDeadzone
+		Globals.currentSettings.analog_deadzone = analogDeadzone
 		updateText("DEADOZNE", analogDeadzone)
 		Globals.deadzoneUpdate()
 		settingsChanged = true

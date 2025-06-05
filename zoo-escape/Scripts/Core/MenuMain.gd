@@ -10,6 +10,7 @@ enum buttonTypes {
 	PASSWORD,
 	SCORES,
 	SETTINGS,
+	CREDITS,
 	BACK,
 	EXIT
 }
@@ -27,6 +28,7 @@ var lastButton := buttonTypes.NEWGAME
 	buttonTypes.PASSWORD: $MarginBox/VBox/PasswordButton,
 	buttonTypes.SCORES: $MarginBox/VBox/ScoresButton,
 	buttonTypes.SETTINGS: $MarginBox/VBox/SettingsButton,
+	buttonTypes.CREDITS: $MarginBox/VBox/CreditsButton,
 	buttonTypes.BACK: $MarginBox/VBox/BackButton,
 	buttonTypes.EXIT: $MarginBox/VBox/ExitButton
 }

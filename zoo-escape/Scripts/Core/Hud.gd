@@ -26,7 +26,7 @@ func closeHud()  -> void:
 
 # Give visual and audio warnings when running low on time
 func giveTimeWarning() -> void:
-	$HUDMargin/HUDWindow/TimerIcon.play("feedback")
+	$MBox/HUDWindow/Timer/Control/TimerIcon.play("feedback")
 	$HUDAnimation.play("warning")
 	$OpenCue.play() # Audio warning cue
 
@@ -62,40 +62,39 @@ func resetBarUpdate(value: float) -> void:
 
 # Set some text values if we're playing a tutorial
 func setTutorialText():
-	$HUDMargin/HUDWindow/TimerValue.text = "NONE"
+	$MBox/HUDWindow/Timer/TimerValue.text = "NONE"
 
 
 # Updates time text on hud
 func updateTimeText(time: int) -> void:
 	if !$HUDAnimationAlt.current_animation == "timer_start":
-		$HUDMargin/HUDWindow/TimerValue.text = str(time) + "s" # If not playing a tutorial, display how much time is left
+		$MBox/HUDWindow/Timer/TimerValue.text = str(time) + "s" # If not playing a tutorial, display how much time is left
 
 
 # Updates score text on hud
 func updateScoreText(value) -> void:
-	$HUDMargin/HUDWindow/ScoreValue.text = str(value)
+	$MBox/HUDWindow/ScoreValue.text = str(value)
 
 
 # Updates move text on hud
 func updateMovesText(count) -> void:
-	$HUDMargin/HUDWindow/MovesValue.text = str(count) + "m"
+	$MBox/HUDWindow/Moves/MovesValue.text = str(count) + "m"
 
 
 # Updates steak text on hud (play animations if count = 0)
 func updateSteaksText(count: int) -> void:
 	if count > 0: # If the new value is more than 0, show that
-		$HUDMargin/HUDWindow/SteaksValue.text = str(count) + "x"
+		$MBox/HUDWindow/Steaks/SteaksValue.text = str(count) + "x"
 		
 	else: # If the new value is less than or equal to 0, goal has been met
-		$HUDMargin/HUDWindow/SteaksValue.text = "GOAL"
-		$HUDMargin/HUDWindow/SteakIcon.play("feedback")
+		$MBox/HUDWindow/Steaks/SteaksValue.text = "GOAL"
+		$MBox/HUDWindow/Steaks/Control/SteakIcon.play("feedback")
 		$HUDAnimationAlt.play("goal")
 
 
 # updates password text on hud
 func updatePasswordText(code: String) -> void:
-	$HUDMargin/HUDWindow/PasswordValue.text = code # Password value in the HUD
-	#$TimeOutCurtain/PasswordBox/PasswordLabel.text = "PASSWORD: " + str(code) # Password label in the Time Out window
+	$MBox/HUDWindow/PasswordValue.text = code # Password value in the HUD
 
 
 # Open SettingsMenu in game (handled by MenuManager)

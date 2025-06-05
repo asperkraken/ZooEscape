@@ -132,7 +132,6 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="ResumeButton" type="Button" parent="MarginBox/VBox"]
-visible = false
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
 focus_neighbor_top = NodePath("../BackButton")
@@ -150,7 +149,8 @@ theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Resume Game"
 
 [node name="NewGameButton" type="Button" parent="MarginBox/VBox"]
-custom_minimum_size = Vector2(480, 56)
+visible = false
+custom_minimum_size = Vector2(480, 96)
 layout_mode = 2
 focus_neighbor_top = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
@@ -204,8 +204,8 @@ text = "High Scores"
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
 focus_neighbor_top = NodePath("../ScoresButton")
-focus_neighbor_bottom = NodePath("../ExitButton")
-focus_next = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
+focus_next = NodePath("../CreditsButton")
 focus_previous = NodePath("../ScoresButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
@@ -216,6 +216,23 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="MarginBox/VBox"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../ExitButton")
+focus_next = NodePath("../ExitButton")
+focus_previous = NodePath("../SettingsButton")
+theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
+theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = ExtResource("4_2i1af")
+theme_override_styles/hover = ExtResource("5_kbsxh")
+theme_override_styles/pressed = ExtResource("6_rfi1q")
+text = "Credits"
 
 [node name="BackButton" type="Button" parent="MarginBox/VBox"]
 visible = false
@@ -253,7 +270,7 @@ theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Exit"
 
 [node name="ExitWarning" type="Label" parent="MarginBox/VBox/ExitButton"]
-custom_minimum_size = Vector2(600, 0)
+custom_minimum_size = Vector2(600, 32)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
