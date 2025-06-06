@@ -40,6 +40,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE # Allow the LevelManager to be paused when the scene tree is paused
 	SceneManager.currentScene = self
 	add_to_group("LevelManager")
+	MenuManager.updatePassword(levelCode)
+	MenuManager.RestartGame.connect(restartRoom)
+	MenuManager.QuitGame.connect(quitGame)
 	player.InWater.connect(restartRoom)
 	player.PlayerMoved.connect(updateMoveCount)
 	exitTile.PlayerExits.connect(exitLevel)
@@ -58,8 +61,8 @@ func _ready() -> void:
 	
 	# check to ensure bgm fade level is consistent
 	# if bgm fade level not normal, reset fade state so it fades in
-	if SoundControl.fadeState != SoundControl.FADE_STATES.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
-		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
+	if SoundControl.fadeState != SoundControl.fadeStates.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
+		SoundControl.fadeState = SoundControl.fadeStates.IN_TRIGGER
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -84,7 +87,9 @@ func _process(delta: float) -> void:
 				
 			elif timesUp: # If time has run out, change processing mode and display Timeout window
 				processingState = processingStates.NONE
-				hud.outOfTime()
+				#hud.outOfTime()
+				hud.closeHud()
+				MenuManager.setMenu(MenuManager.menuTypes.TIMEOUT)
 			
 			# If player just released "RightBumper," reset resetTime and hide resetBar
 			if Input.is_action_just_released("RightBumper"):
@@ -154,9 +159,6 @@ func _input(event: InputEvent) -> void:
 
 # Initialize the HUD for this level
 func setupHud() -> void:
-	# Connect HUD signals to LevelManager functions
-	hud.RestartRoom.connect(restartRoom)
-	hud.QuitGame.connect(quitGame)
 	# Setup initial values on HUD
 	hud.updateScoreText(score)
 	hud.updatePasswordText(levelCode)
@@ -243,7 +245,6 @@ func restartRoom() -> void:
 
 # Game quit function, returns to title scene
 func quitGame() -> void:
-	Data.saveGameData()
 	hud.closeHud()
 	Globals.currentGameData.gameRunning = false
 	SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE)

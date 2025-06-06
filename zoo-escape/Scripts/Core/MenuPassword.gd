@@ -30,7 +30,7 @@ enum focusStates {
 var focusState := 1 # current focus
 var codeTextPos := 0 # position in code
 var tempCode := "9990"
-var inputBufferActive := true # hold input until window fades in
+var inputBufferActive := false # hold input until window fades in
 
 # Handles to child nodes
 @onready var code := $Window/Code # text ref for code
@@ -57,9 +57,6 @@ func _ready() -> void:
 		button.pressed.connect(onButtonPressed.bind(buttons.find_key(button)))
 		button.focus_entered.connect(onButtonFocusEntered.bind(buttons.find_key(button)))
 		button.mouse_entered.connect(onButtonMouseEntered.bind(buttons.find_key(button)))
-		
-	# Lock the menu to input for 0.5s
-	startInputBuffer()
 
 
 # Called when input is detected
@@ -162,7 +159,6 @@ func codeEffectReset() -> void:
 # Called by the MenuManager to show the PasswordMenu
 func showMenu() -> void:
 	codeReset() # Reset code value
-	startInputBuffer() # Lock window to input for 0.5s
 	onButtonMouseEntered(focusStates.ONE) # set focusState and grab_focus
 	show() # Now You See Me
 

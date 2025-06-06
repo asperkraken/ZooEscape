@@ -52,6 +52,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yuxgg")
+metadata/_edit_lock_ = true
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -61,13 +62,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.180392, 0.172549, 0.231373, 1)
+metadata/_edit_lock_ = true
 
 [node name="MenuImage" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 152.0
-offset_right = 488.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -252.0
+offset_top = -360.0
+offset_right = 252.0
 offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_7a404")
+metadata/_edit_lock_ = true
 
 [node name="PausedHint" type="Label" parent="."]
 visible = false
@@ -78,21 +89,25 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -156.0
-offset_top = -174.0
+offset_top = -214.0
 offset_right = 164.0
-offset_bottom = 28.0
+offset_bottom = -182.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.121569, 0.239216, 0.254902, 1)
 theme_override_fonts/font = ExtResource("3_7a404")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 text = "[ PAUSED ]"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="HintBackground" type="ColorRect" parent="PausedHint"]
 show_behind_parent = true
+custom_minimum_size = Vector2(488, 308)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -102,21 +117,33 @@ offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.156863, 0.156863, 0.156863, 0.784314)
+metadata/_edit_lock_ = true
 
-[node name="ResumeButton" type="Button" parent="."]
-visible = false
+[node name="MarginBox" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 4.0
-offset_right = 144.0
-offset_bottom = 36.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -314.0
+offset_right = 240.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 60
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="VBox" type="VBoxContainer" parent="MarginBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
+
+[node name="ResumeButton" type="Button" parent="MarginBox/VBox"]
+visible = false
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
 focus_neighbor_top = NodePath("../BackButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
 focus_next = NodePath("../PasswordButton")
@@ -125,92 +152,107 @@ theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Resume Game"
+metadata/_edit_lock_ = true
 
-[node name="NewGameButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 44.0
-offset_right = 144.0
-offset_bottom = 76.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbor_top = NodePath("../ExitButton")
-focus_neighbor_right = NodePath("../ExitButton")
+[node name="NewGameButton" type="Button" parent="MarginBox/VBox"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../ExitMargin/ExitButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
 focus_next = NodePath("../PasswordButton")
-focus_previous = NodePath("../ExitButton")
+focus_previous = NodePath("../../../ExitMargin/ExitButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "New Game"
+metadata/_edit_lock_ = true
 
-[node name="PasswordButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 176.0
-offset_top = 264.0
-offset_right = 464.0
-offset_bottom = 296.0
+[node name="PasswordButton" type="Button" parent="MarginBox/VBox"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
 focus_neighbor_top = NodePath("../NewGameButton")
-focus_neighbor_right = NodePath("../ExitButton")
-focus_neighbor_bottom = NodePath("../SettingsButton")
-focus_next = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../ScoresButton")
+focus_next = NodePath("../ScoresButton")
 focus_previous = NodePath("../NewGameButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Password"
+metadata/_edit_lock_ = true
 
-[node name="SettingsButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 176.0
-offset_top = 304.0
-offset_right = 464.0
-offset_bottom = 336.0
+[node name="ScoresButton" type="Button" parent="MarginBox/VBox"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
 focus_neighbor_top = NodePath("../PasswordButton")
-focus_neighbor_right = NodePath("../ExitButton")
-focus_neighbor_bottom = NodePath("../ExitButton")
-focus_next = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../SettingsButton")
+focus_next = NodePath("../SettingsButton")
 focus_previous = NodePath("../PasswordButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = ExtResource("4_2i1af")
+theme_override_styles/hover = ExtResource("5_kbsxh")
+theme_override_styles/pressed = ExtResource("6_rfi1q")
+text = "High Scores"
+metadata/_edit_lock_ = true
+
+[node name="SettingsButton" type="Button" parent="MarginBox/VBox"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
+focus_neighbor_top = NodePath("../ScoresButton")
+focus_neighbor_bottom = NodePath("../CreditsButton")
+focus_next = NodePath("../CreditsButton")
+focus_previous = NodePath("../ScoresButton")
+theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
+theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Settings"
+metadata/_edit_lock_ = true
 
-[node name="BackButton" type="Button" parent="."]
+[node name="CreditsButton" type="Button" parent="MarginBox/VBox"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
+focus_neighbor_top = NodePath("../SettingsButton")
+focus_neighbor_bottom = NodePath("../../../ExitMargin/ExitButton")
+focus_next = NodePath("../../../ExitMargin/ExitButton")
+focus_previous = NodePath("../SettingsButton")
+theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
+theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
+theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
+theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = ExtResource("4_2i1af")
+theme_override_styles/hover = ExtResource("5_kbsxh")
+theme_override_styles/pressed = ExtResource("6_rfi1q")
+text = "Credits"
+metadata/_edit_lock_ = true
+
+[node name="BackButton" type="Button" parent="MarginBox/VBox"]
 visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -144.0
-offset_top = 124.0
-offset_right = 144.0
-offset_bottom = 156.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../ResumeButton")
 focus_next = NodePath("../ResumeButton")
@@ -219,50 +261,75 @@ theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Back to Title"
+metadata/_edit_lock_ = true
 
-[node name="ExitButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 550.0
-offset_top = 304.0
-offset_right = 630.0
-offset_bottom = 336.0
-focus_neighbor_left = NodePath("../SettingsButton")
-focus_neighbor_top = NodePath("../SettingsButton")
-focus_neighbor_right = NodePath("../SettingsButton")
-focus_neighbor_bottom = NodePath("../NewGameButton")
-focus_next = NodePath("../NewGameButton")
-focus_previous = NodePath("../SettingsButton")
+[node name="ExitMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 60
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ExitButton" type="Button" parent="ExitMargin"]
+custom_minimum_size = Vector2(180, 56)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../MarginBox/VBox/CreditsButton")
+focus_neighbor_bottom = NodePath("../../MarginBox/VBox/NewGameButton")
+focus_next = NodePath("../../MarginBox/VBox/NewGameButton")
+focus_previous = NodePath("../../MarginBox/VBox/CreditsButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
+theme_override_font_sizes/font_size = 32
 theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Exit"
+metadata/_edit_lock_ = true
 
-[node name="ExitWarning" type="Label" parent="ExitButton"]
-layout_mode = 0
-offset_left = -229.0
-offset_top = 38.0
-offset_right = 51.0
-offset_bottom = 61.0
+[node name="ExitWarning" type="Label" parent="ExitMargin/ExitButton"]
+custom_minimum_size = Vector2(600, 32)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -600.0
+offset_top = 13.0
+offset_bottom = 45.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_fonts/font = ExtResource("3_nt7sf")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 16
 text = "Are you sure? Will exit to Desktop."
+horizontal_alignment = 1
+vertical_alignment = 1
 visible_characters = 0
 visible_ratio = 0.0
+metadata/_edit_lock_ = true
 
-[node name="RollText" type="AnimationPlayer" parent="ExitButton"]
+[node name="RollText" type="AnimationPlayer" parent="ExitMargin/ExitButton"]
 libraries = {
 &"": SubResource("AnimationLibrary_y47t4")
 }
 
-[connection signal="focus_exited" from="ExitButton" to="." method="onExitButtonFocusExited"]
-[connection signal="mouse_exited" from="ExitButton" to="." method="onExitButtonMouseExited"]
+[connection signal="focus_exited" from="ExitMargin/ExitButton" to="." method="onExitButtonFocusExited"]
+[connection signal="mouse_exited" from="ExitMargin/ExitButton" to="." method="onExitButtonMouseExited"]
