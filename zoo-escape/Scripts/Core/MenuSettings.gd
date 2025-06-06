@@ -13,7 +13,6 @@ enum focusGroups {
 	DEADZONE
 }
 
-
 # Info to display for options
 const MASTERINFO := "Controls total volume of \nall sound."
 const BGMINFO := "Controls volume level \nof background music."
@@ -21,7 +20,6 @@ const SFXINFO := "Controls volume level of \nsound effects."
 const CUEINFO := "Controls volume of system \ncues like pause noises."
 const DEADZONEINFO := "Controls the level at which \nanalog direction inputs trigger."
 const EXITINFO := "Close this menu.  Settings \n are automatically saved."
-
 
 # Variables
 var settingsChanged := false # only save settings if any values were changed
@@ -51,12 +49,7 @@ func _input(event: InputEvent) -> void:
 		# If Escape or other CancelButtton pressed, close the munu
 		if event.is_action_pressed("CancelButton"):
 			get_viewport().set_input_as_handled() # Prevent more nodes from processing this input
-			if focusGroup != focusGroups.ESCAPE: # move to escape button on press
-				_on_escape_button_mouse_entered()
-				$VBox/Header/EscapeButton.call_deferred("grab_focus")
-				$VBox/Header/EscapeButton.call_deferred("grab_click_focus")
-			else:
-				_on_escape_button_pressed() # trigger escape function
+			_on_escape_button_pressed() # trigger escape function
 		
 		# If activating a Deadzone adjustment button with ActionButton, adjust Deadzone
 		if event.is_action_pressed("ActionButton") and focusGroup == focusGroups.DEADZONE:

@@ -55,16 +55,15 @@ func _ready() -> void:
 
 # Called when an InputEvent is detected
 func _input(event: InputEvent) -> void:
-	# Only handle single, intentional 'press' events
 	if !event.is_pressed() || event.is_echo():
-		return
+		return # Only handle single, intentional 'press' events
+	
+	if currentMenu == menuTypes.TIMEOUT:
+		return # If TimeOut window is showing, exit early and wait for input
 	
 	# Hide all menus, situationally
 	if event.is_action("CancelButton"):
-		get_viewport().set_input_as_handled() # Mark InputEvent as handled
-		if currentMenu == menuTypes.TIMEOUT:
-			return # if the TimeOut window is showing, exit early and wait for input
-		
+		get_viewport().set_input_as_handled()
 		if Globals.currentGameData.gameRunning && currentMenu == menuTypes.NONE:
 			setMenu(menuTypes.MAIN) # If a game is running and no menu is open, open MainMenu
 		
@@ -73,29 +72,28 @@ func _input(event: InputEvent) -> void:
 	
 	# Show/Hide the MainMenu
 	if event.is_action("MenuButton"):
-		get_viewport().set_input_as_handled() # Mark InputEvent as handled
-		if currentMenu == menuTypes.TIMEOUT:
-			return # if the TimeOut window is showing, exit early and wait for input
-		elif currentMenu != menuTypes.MAIN:
+		get_viewport().set_input_as_handled()
+		if currentMenu != menuTypes.MAIN:
 			setMenu(menuTypes.MAIN) # if MainMenu is not open, open it
+		
 		elif Globals.currentGameData.gameRunning:
 			setMenu(menuTypes.NONE) # If MainMenu is open and a game is running, close it
-		else:
-			setMenu(menuTypes.MAIN) # If a game is not running, show MainMenu
 	
 	# Show/Hide the PasswordMenu
 	if event.is_action("PasswordButton"):
-		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		get_viewport().set_input_as_handled()
 		if currentMenu != menuTypes.PASSWORD:
 			setMenu(menuTypes.PASSWORD) # If PasswordMenu is not open, open it
+		
 		else:
 			goBack() # If PasswordMenu is open, go back in the menuHeap
 	
 	# Show/Hide the SettingsMenu
 	elif event.is_action("SettingsButton"):
-		get_viewport().set_input_as_handled() # Mark InputEvent as handled
+		get_viewport().set_input_as_handled()
 		if currentMenu != menuTypes.SETTINGS: # If SettingsMenu is not open, open it
 			setMenu(menuTypes.SETTINGS)
+		
 		else:
 			goBack() # If SettingsMenu is open, go back in the menuHeap
 

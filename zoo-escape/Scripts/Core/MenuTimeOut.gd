@@ -5,6 +5,19 @@ signal SetMenu(menu: MenuManager.menuTypes)
 signal RestartGame
 signal QuitGame
 
+# Called when InputEvents are detected
+func _input(event: InputEvent) -> void:
+	if !event.is_pressed() || event.is_echo():
+		return # Only handle single, intentional 'press' events
+	
+	if visible: # Only process inputs if window is visible
+		if event.is_action("CancelButton"):
+			get_viewport().set_input_as_handled()
+			if !$TimeOutCurtain/Buttons/QuitButton.has_focus():
+				onQuitButtonMouseEntered()
+			else:
+				onQuitButtonPressed()
+
 
 # Called by MenuManager to show this menu
 func showMenu() -> void:
