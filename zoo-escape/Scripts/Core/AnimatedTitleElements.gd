@@ -1,8 +1,10 @@
 extends Control
 
 # queues of animations to pass to eyeballs
-var defaultQueue := ["blink","look","sparkle"]
-var animationQueue := ["blink","look","sparkle"]
+var defaultQueue := ["blink","look","sparkle","roll"]
+var animationQueue := ["blink","look","sparkle","roll"]
+@export var minTime := 4
+@export var maxTime := 7
 
 
 # play blink and shuffle the queue
@@ -36,9 +38,9 @@ func _process(_delta: float) -> void:
 # every animation finish, if game is running, reset the timer between anims with random value
 func _on_eyeball_left_animation_finished() -> void:
 	if !Globals.currentGameData.get("gameRunning"):
+		$EyeballLeft.play("idle")
 		randomize()
-		var _roll := randi_range(2,5)
+		var _roll := randi_range(minTime,maxTime)
 		$EyeballTimer.start(_roll)
 	else:
 		$EyeballTimer.stop()
-		$EyeballLeft.play("idle")

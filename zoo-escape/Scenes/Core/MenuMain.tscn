@@ -92,12 +92,12 @@ script = ExtResource("3_2i1af")
 [node name="EyeballLeft" type="AnimatedSprite2D" parent="AnimatedTitleElements"]
 position = Vector2(628, 120)
 sprite_frames = ExtResource("4_kbsxh")
-animation = &"blink"
+animation = &"look"
 
 [node name="EyeballRight" type="AnimatedSprite2D" parent="AnimatedTitleElements"]
 position = Vector2(796, 120)
 sprite_frames = ExtResource("4_kbsxh")
-animation = &"idle"
+animation = &"sparkle"
 
 [node name="EyeballTimer" type="Timer" parent="AnimatedTitleElements"]
 wait_time = 5.0
