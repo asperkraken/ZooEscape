@@ -1,10 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cmhbojvsjsq0"]
+[gd_scene load_steps=13 format=3 uid="uid://cmhbojvsjsq0"]
 
 [ext_resource type="Script" uid="uid://b4e8ul7se7xgj" path="res://Scripts/Core/MenuMain.gd" id="1_yuxgg"]
 [ext_resource type="Texture2D" uid="uid://bg626xfxp25i2" path="res://Assets/Images/MainMenuBackground.png" id="2_7a404"]
+[ext_resource type="Script" uid="uid://dubpjf4h8ayup" path="res://Scripts/Core/AnimatedTitleElements.gd" id="3_2i1af"]
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="3_7a404"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="3_nt7sf"]
 [ext_resource type="StyleBox" uid="uid://bg1fatmttmcey" path="res://Assets/UI_Resources/FocusTexture.tres" id="4_2i1af"]
+[ext_resource type="SpriteFrames" uid="uid://cfu2np5ucp3r5" path="res://Assets/Images/Title/EyeballSpriteFrameset.tres" id="4_kbsxh"]
 [ext_resource type="StyleBox" uid="uid://d4ddxd4fvdf4o" path="res://Assets/UI_Resources/HoverTexture.tres" id="5_kbsxh"]
 [ext_resource type="StyleBox" uid="uid://b6pmunfpdsdix" path="res://Assets/UI_Resources/PressedTexture.tres" id="6_rfi1q"]
 
@@ -77,7 +79,32 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7a404")
 
+[node name="AnimatedTitleElements" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_2i1af")
+
+[node name="EyeballLeft" type="AnimatedSprite2D" parent="AnimatedTitleElements"]
+position = Vector2(628, 120)
+sprite_frames = ExtResource("4_kbsxh")
+animation = &"blink"
+
+[node name="EyeballRight" type="AnimatedSprite2D" parent="AnimatedTitleElements"]
+position = Vector2(796, 120)
+sprite_frames = ExtResource("4_kbsxh")
+animation = &"idle"
+
+[node name="EyeballTimer" type="Timer" parent="AnimatedTitleElements"]
+wait_time = 5.0
+autostart = true
+
 [node name="PausedHint" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -298,5 +325,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_y47t4")
 }
 
+[connection signal="animation_finished" from="AnimatedTitleElements/EyeballLeft" to="AnimatedTitleElements" method="_on_eyeball_left_animation_finished"]
+[connection signal="timeout" from="AnimatedTitleElements/EyeballTimer" to="AnimatedTitleElements" method="_on_eyeball_timer_timeout"]
 [connection signal="focus_exited" from="MarginBox/VBox/ExitButton" to="." method="onExitButtonFocusExited"]
 [connection signal="mouse_exited" from="MarginBox/VBox/ExitButton" to="." method="onExitButtonMouseExited"]
