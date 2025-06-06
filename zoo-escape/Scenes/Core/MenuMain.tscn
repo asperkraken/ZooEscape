@@ -54,6 +54,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yuxgg")
+metadata/_edit_lock_ = true
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -63,6 +64,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.180392, 0.172549, 0.231373, 1)
+metadata/_edit_lock_ = true
 
 [node name="MenuImage" type="TextureRect" parent="."]
 layout_mode = 1
@@ -78,6 +80,7 @@ offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7a404")
+metadata/_edit_lock_ = true
 
 [node name="AnimatedTitleElements" type="Control" parent="."]
 layout_mode = 1
@@ -126,6 +129,7 @@ text = "[ PAUSED ]"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="HintBackground" type="ColorRect" parent="PausedHint"]
 show_behind_parent = true
@@ -139,6 +143,7 @@ offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.156863, 0.156863, 0.156863, 0.784314)
+metadata/_edit_lock_ = true
 
 [node name="MarginBox" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -153,10 +158,13 @@ offset_right = 240.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 60
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="VBox" type="VBoxContainer" parent="MarginBox"]
 layout_mode = 2
 theme_override_constants/separation = 10
+metadata/_edit_lock_ = true
 
 [node name="ResumeButton" type="Button" parent="MarginBox/VBox"]
 visible = false
@@ -175,14 +183,15 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Resume Game"
+metadata/_edit_lock_ = true
 
 [node name="NewGameButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
-focus_neighbor_top = NodePath("../ExitButton")
+focus_neighbor_top = NodePath("../../../ExitMargin/ExitButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
 focus_next = NodePath("../PasswordButton")
-focus_previous = NodePath("../ExitButton")
+focus_previous = NodePath("../../../ExitMargin/ExitButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
@@ -192,6 +201,7 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "New Game"
+metadata/_edit_lock_ = true
 
 [node name="PasswordButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
@@ -209,6 +219,7 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Password"
+metadata/_edit_lock_ = true
 
 [node name="ScoresButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
@@ -226,6 +237,7 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "High Scores"
+metadata/_edit_lock_ = true
 
 [node name="SettingsButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
@@ -243,13 +255,14 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Settings"
+metadata/_edit_lock_ = true
 
 [node name="CreditsButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
 focus_neighbor_top = NodePath("../SettingsButton")
-focus_neighbor_bottom = NodePath("../ExitButton")
-focus_next = NodePath("../ExitButton")
+focus_neighbor_bottom = NodePath("../../../ExitMargin/ExitButton")
+focus_next = NodePath("../../../ExitMargin/ExitButton")
 focus_previous = NodePath("../SettingsButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
@@ -260,6 +273,7 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Credits"
+metadata/_edit_lock_ = true
 
 [node name="BackButton" type="Button" parent="MarginBox/VBox"]
 visible = false
@@ -278,14 +292,31 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Back to Title"
+metadata/_edit_lock_ = true
 
-[node name="ExitButton" type="Button" parent="MarginBox/VBox"]
-custom_minimum_size = Vector2(480, 56)
+[node name="ExitMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -180.0
+offset_top = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 60
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ExitButton" type="Button" parent="ExitMargin"]
+custom_minimum_size = Vector2(180, 56)
 layout_mode = 2
-focus_neighbor_top = NodePath("../CreditsButton")
-focus_neighbor_bottom = NodePath("../NewGameButton")
-focus_next = NodePath("../NewGameButton")
-focus_previous = NodePath("../CreditsButton")
+focus_neighbor_top = NodePath("../../MarginBox/VBox/CreditsButton")
+focus_neighbor_bottom = NodePath("../../MarginBox/VBox/NewGameButton")
+focus_next = NodePath("../../MarginBox/VBox/NewGameButton")
+focus_previous = NodePath("../../MarginBox/VBox/CreditsButton")
 theme_override_colors/font_outline_color = Color(0.121229, 0.237502, 0.253147, 1)
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_pressed_color = Color(0.560784, 0.239216, 0.654902, 1)
@@ -295,20 +326,20 @@ theme_override_styles/focus = ExtResource("4_2i1af")
 theme_override_styles/hover = ExtResource("5_kbsxh")
 theme_override_styles/pressed = ExtResource("6_rfi1q")
 text = "Exit"
+metadata/_edit_lock_ = true
 
-[node name="ExitWarning" type="Label" parent="MarginBox/VBox/ExitButton"]
+[node name="ExitWarning" type="Label" parent="ExitMargin/ExitButton"]
 custom_minimum_size = Vector2(600, 32)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -216.0
+offset_left = -600.0
 offset_top = 13.0
-offset_right = 216.0
-offset_bottom = 36.0
-grow_horizontal = 2
+offset_bottom = 45.0
+grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
 theme_override_colors/font_shadow_color = Color(0.121229, 0.237502, 0.253147, 1)
@@ -319,13 +350,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 visible_characters = 0
 visible_ratio = 0.0
+metadata/_edit_lock_ = true
 
-[node name="RollText" type="AnimationPlayer" parent="MarginBox/VBox/ExitButton"]
+[node name="RollText" type="AnimationPlayer" parent="ExitMargin/ExitButton"]
 libraries = {
 &"": SubResource("AnimationLibrary_y47t4")
 }
 
 [connection signal="animation_finished" from="AnimatedTitleElements/EyeballLeft" to="AnimatedTitleElements" method="_on_eyeball_left_animation_finished"]
 [connection signal="timeout" from="AnimatedTitleElements/EyeballTimer" to="AnimatedTitleElements" method="_on_eyeball_timer_timeout"]
-[connection signal="focus_exited" from="MarginBox/VBox/ExitButton" to="." method="onExitButtonFocusExited"]
-[connection signal="mouse_exited" from="MarginBox/VBox/ExitButton" to="." method="onExitButtonMouseExited"]
+[connection signal="focus_exited" from="ExitMargin/ExitButton" to="." method="onExitButtonFocusExited"]
+[connection signal="mouse_exited" from="ExitMargin/ExitButton" to="." method="onExitButtonMouseExited"]

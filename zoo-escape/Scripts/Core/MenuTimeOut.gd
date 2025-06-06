@@ -5,6 +5,19 @@ signal SetMenu(menu: MenuManager.menuTypes)
 signal RestartGame
 signal QuitGame
 
+# Called when InputEvents are detected
+func _input(event: InputEvent) -> void:
+	if !event.is_pressed() || event.is_echo():
+		return # Only handle single, intentional 'press' events
+	
+	if visible: # Only process inputs if window is visible
+		if event.is_action("CancelButton"):
+			get_viewport().set_input_as_handled()
+			if !$TimeOutCurtain/Buttons/QuitButton.has_focus():
+				onQuitButtonMouseEntered()
+			else:
+				onQuitButtonPressed()
+
 
 # Called by MenuManager to show this menu
 func showMenu() -> void:
@@ -55,7 +68,7 @@ func onQuitButtonFocusEntered() -> void:
 # Called the Restart button is pressed
 func onRestartButtonPressed() -> void:
 	playReset()
-	SoundControl.playCue(SoundControl.flutter, 3.0)
+	SoundControl.playCue(SoundControl.start, 1.0) # audio feedback
 	RestartGame.emit()
 	SoundControl.resetMusicFade()
 	SetMenu.emit(MenuManager.menuTypes.NONE)
@@ -63,7 +76,6 @@ func onRestartButtonPressed() -> void:
 
 # Called the QuitGame button is pressed
 func onQuitButtonPressed() -> void:
-	Data.saveGameData()
 	SoundControl.playCue(SoundControl.ruined, 0.5)
 	Globals.currentGameData.gameRunning = false
 	QuitGame.emit()

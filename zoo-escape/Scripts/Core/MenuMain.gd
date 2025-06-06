@@ -30,7 +30,7 @@ var lastButton := buttonTypes.NEWGAME
 	buttonTypes.SETTINGS: $MarginBox/VBox/SettingsButton,
 	buttonTypes.CREDITS: $MarginBox/VBox/CreditsButton,
 	buttonTypes.BACK: $MarginBox/VBox/BackButton,
-	buttonTypes.EXIT: $MarginBox/VBox/ExitButton
+	buttonTypes.EXIT: $ExitMargin/ExitButton
 }
 
 
@@ -66,8 +66,8 @@ func _input(event: InputEvent) -> void:
 # Reset exit warning state and roll out message
 func areYouSureReset():
 	areYouSure = false
-	$MarginBox/VBox/ExitButton/RollText.speed_scale = 2.0
-	$MarginBox/VBox/ExitButton/RollText.play_backwards("roll_in")
+	$ExitMargin/ExitButton/RollText.speed_scale = 2.0
+	$ExitMargin/ExitButton/RollText.play_backwards("roll_in")
 
 
 # Event handler for when a menu button is pressed
@@ -84,7 +84,6 @@ func onButtonPressed(i: int) -> void:
 		buttonTypes.NEWGAME:
 			lastButton = buttonTypes.NEWGAME
 			SoundControl.playCue(SoundControl.start, 1.0) # audio feedback
-			Data.saveGameData() # save options data
 			SceneManager.call_deferred("goToNewSceneString", Scenes.TUTORIAL1) # Load the first tutorial level
 			# change bgm and fade on out
 			SoundControl.levelChangeSoundCall(1.0, SoundControl.defaultBgm) # begin bgm fade in
@@ -118,7 +117,7 @@ func onButtonPressed(i: int) -> void:
 		buttonTypes.BACK:
 			lastButton = buttonTypes.NEWGAME # Set to NEWGAME since quitting to the title scene
 			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
-			Data.saveGameData()
+			Data.saveSettingsData()
 			Globals.currentGameData.gameRunning = false
 			SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE) # Go to title scene
 			SoundControl.levelChangeSoundCall(1.0, SoundControl.defaultBgm) # begin bgm fade in
@@ -128,11 +127,11 @@ func onButtonPressed(i: int) -> void:
 		buttonTypes.EXIT:
 			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
 			if !areYouSure: # feedback and warning
-				$MarginBox/VBox/ExitButton/RollText.speed_scale = 1.0
+				$ExitMargin/ExitButton/RollText.speed_scale = 1.0
 				areYouSure = true
-				$MarginBox/VBox/ExitButton/RollText.play("roll_in")
+				$ExitMargin/ExitButton/RollText.play("roll_in")
 			else: # close program
-				Data.saveGameData()
+				Data.saveSettingsData()
 				get_tree().quit()
 
 
@@ -169,6 +168,7 @@ func showMenu() -> void:
 	if Globals.currentGameData.gameRunning: # If a game is running, use all these settings
 		bgRect.hide()
 		pausedHint.show()
+		$MarginBox.add_theme_constant_override("margin_bottom", 126)
 		buttons[buttonTypes.RESUME].show()
 		buttons[buttonTypes.NEWGAME].hide()
 		buttons[buttonTypes.SCORES].hide()
@@ -185,6 +185,7 @@ func showMenu() -> void:
 	else: # If a game is not running, use all these settings
 		bgRect.show()
 		pausedHint.hide()
+		$MarginBox.add_theme_constant_override("margin_bottom", 60)
 		buttons[buttonTypes.RESUME].hide()
 		buttons[buttonTypes.NEWGAME].show()
 		buttons[buttonTypes.SCORES].show()
@@ -195,7 +196,7 @@ func showMenu() -> void:
 		buttons[buttonTypes.PASSWORD].focus_previous = "../NewGameButton"
 		buttons[buttonTypes.SETTINGS].focus_neighbor_bottom = "../CreditsButton"
 		buttons[buttonTypes.SETTINGS].focus_next = "../CreditsButton"
-		if lastButton != buttonTypes.NEWGAME:
+		if lastButton == buttonTypes.RESUME:
 			lastButton = buttonTypes.NEWGAME
 		lastButtonFocus()
 	show()

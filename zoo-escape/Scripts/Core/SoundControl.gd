@@ -1,37 +1,11 @@
 extends Node
 
-@onready var bgm := $BGM # music (pauses position on pause)
-@onready var sfx := $SFX # in-game sound effects (pauses position on pause)
-@onready var cue := $Cue # ui sound effects (ignores pause)
 
 # export for testing purposes, const to set boundaries and ease debugging
 const MAX_VOLUME := 0
-const DEFAULT_VOLUME := -6
 const SILENCE := -20
 const defaultBgm := "res://Assets/Sound/Theme.ogg"
 const testBgm := "res://Assets/Sound/Tutorial.ogg"
-var currentBgm : String
-
-
-# references to global volume levels (we can have options for this to adjust)
-@onready var masterLevel: float = Globals.currentSettings['master_volume']
-@onready var bgmLevel: float = Globals.currentSettings['music_volume']
-@onready var sfxLevel: float = Globals.currentSettings['sfx_volume']
-@onready var cueLevel: float = Globals.currentSettings['cue_volume']
-@onready var volumeReference := bgmLevel
-@export var fadeRate := 0.2 # default fade rate, can be updated in code
-
-
-# fade state machine for audio fading
-var fadeState := FADE_STATES.SILENCE
-enum FADE_STATES {
-	SILENCE, # no audio
-	IN_TRIGGER, # audio starts increase (one-shot)
-	IN_CURVE, # audio fading in
-	PEAK_VOLUME, # audio continuous (idle)
-	OUT_TRIGGER, # audio starts decrease (one-shot)
-	OUT_CURVE} # audio fades out
-
 
 # global audio references for easy access
 const alert := "res://Assets/Sound/Alert.ogg"
@@ -52,6 +26,30 @@ const start := "res://Assets/Sound/FlourishUp.ogg"
 const bzzzt := "res://Assets/Sound/Pinknoise.ogg"
 const oontz := "res://Assets/Sound/Boop.ogg"
 
+# Possible fade states for audio fading
+enum fadeStates {
+	SILENCE, # no audio
+	IN_TRIGGER, # audio starts increase (one-shot)
+	IN_CURVE, # audio fading in
+	PEAK_VOLUME, # audio continuous (idle)
+	OUT_TRIGGER, # audio starts decrease (one-shot)
+	OUT_CURVE} # audio fades out
+
+
+# references to global volume levels
+var masterLevel: float = Globals.currentSettings.masterVolume
+var bgmLevel: float = Globals.currentSettings.musicVolume
+var sfxLevel: float = Globals.currentSettings.sfxVolume
+var cueLevel: float = Globals.currentSettings.cueVolume
+var volumeReference := bgmLevel
+var fadeRate := 0.2 # default fade rate, can be updated in code
+var currentBgm : String
+var fadeState := fadeStates.SILENCE # current fade state
+
+@onready var bgm := $BGM # music (pauses position on pause)
+@onready var sfx := $SFX # in-game sound effects (pauses position on pause)
+@onready var cue := $Cue # ui sound effects (ignores pause)
+
 
  # sound preferences retrieved at ready
 func _ready() -> void:
@@ -62,18 +60,26 @@ func _ready() -> void:
  # listen for fade states and update volumes
 func _process(delta: float) -> void:
 	if !AudioServer.is_bus_mute(3): # check volume reference/bgm bus
-		if fadeState != FADE_STATES.PEAK_VOLUME: # fade trigger if bgm not muted
+		if fadeState != fadeStates.PEAK_VOLUME: # fade trigger if bgm not muted
 			bgmFadingMachine(delta,fadeRate)
 		else:
 			pass
 
 
-# values set for sound levels
-func setSoundPreferences(_master:float,_bgm:float, _sfx:float, _cue:float) -> void:
-	AudioServer.set_bus_volume_db(0,_master)
-	AudioServer.set_bus_volume_db(1,_cue)
-	AudioServer.set_bus_volume_db(2,_sfx)
-	AudioServer.set_bus_volume_db(3,_bgm)
+# values set for sound levels # TODO: Update scripts to use updateVolumeLevels() instead
+func setSoundPreferences(_master: float, _bgm: float, _sfx: float, _cue: float) -> void:
+	AudioServer.set_bus_volume_db(0, _master)
+	AudioServer.set_bus_volume_db(1, _cue)
+	AudioServer.set_bus_volume_db(2, _sfx)
+	AudioServer.set_bus_volume_db(3, _bgm)
+
+
+# values set for sound levels (using Globals)
+func updateVolumeLevels() -> void:
+	AudioServer.set_bus_volume_db(0, Globals.currentSettings.masterVolume)
+	AudioServer.set_bus_volume_db(1, Globals.currentSettings.cueVolume)
+	AudioServer.set_bus_volume_db(2, Globals.currentSettings.sfxVolume)
+	AudioServer.set_bus_volume_db(3, Globals.currentSettings.musicVolume)
 
 
 # call bgm file and play (state machine handles stop and start automatically)
@@ -87,7 +93,7 @@ func playBgm() -> void:
 
 # for stopping outside of node
 func stopBgm() -> void:
-	$BGM.stop()
+	bgm.stop()
 
 
 # to update fade value
@@ -98,7 +104,7 @@ func fadeRateUpdate(_newValue:float) -> void:
 # queue next track and update fade if needed (called remotely)
 func levelChangeSoundCall(_value:float, _music:String) -> void:
 	currentBgm = _music # allows music to change on next fade start
-	fadeState = FADE_STATES.OUT_TRIGGER
+	fadeState = fadeStates.OUT_TRIGGER
 	fadeRateUpdate(_value)
 
 
@@ -131,39 +137,44 @@ func bgmFadingMachine(_delta:float,_rate:float) -> void:
 	bgm.volume_db = volumeReference # volume reflects abstraction value
 	
 	match fadeState:
-		FADE_STATES.IN_TRIGGER:
+		fadeStates.IN_TRIGGER:
 			fadeRate = 0.25 # default rate
 			if bgmLevel != SILENCE: # if not silent, start fade curve
 				playBgm() # start play
-				fadeState = FADE_STATES.IN_CURVE
+				fadeState = fadeStates.IN_CURVE
 			else:
-				fadeState = FADE_STATES.SILENCE
-		FADE_STATES.IN_CURVE:
+				fadeState = fadeStates.SILENCE
+		
+		fadeStates.IN_CURVE:
 			if volumeReference < bgmLevel: # increase volume while below target
 				volumeReference+=(_delta+_rate)
 			else: # then update state
-				fadeState = FADE_STATES.PEAK_VOLUME
-		FADE_STATES.PEAK_VOLUME: # hold volume steady when not fading
+				fadeState = fadeStates.PEAK_VOLUME
+		
+		fadeStates.PEAK_VOLUME: # hold volume steady when not fading
 			volumeReference = bgmLevel
-		FADE_STATES.OUT_TRIGGER: # start volume decrease (one-shot)
+		
+		fadeStates.OUT_TRIGGER: # start volume decrease (one-shot)
 			if volumeReference >= bgmLevel:
 				volumeReference-=(_delta+_rate)
-				fadeState = FADE_STATES.OUT_CURVE
-		FADE_STATES.OUT_CURVE: # if not silence, reduce rate
+				fadeState = fadeStates.OUT_CURVE
+		
+		fadeStates.OUT_CURVE: # if not silence, reduce rate
 			if volumeReference > SILENCE:
 				volumeReference-=(_delta+_rate*2)
 			else: # then set to silence
-				fadeState = FADE_STATES.SILENCE
-		FADE_STATES.SILENCE: # silence immediately begins next fade in
+				fadeState = fadeStates.SILENCE
+		
+		fadeStates.SILENCE: # silence immediately begins next fade in
 			volumeReference = SILENCE
 			if bgmLevel != SILENCE: # If bgm not silenced, start fade in
-				fadeState = FADE_STATES.IN_TRIGGER
+				fadeState = fadeStates.IN_TRIGGER
 
 
 # external function for resetting music volume
 func resetMusicFade() -> void: 
-	fadeState = FADE_STATES.SILENCE
-	$BGM.volume_db = SILENCE
+	fadeState = fadeStates.SILENCE
+	bgm.volume_db = SILENCE
 
 
 # external function for checking mute state (-20), mute buses accordingly
