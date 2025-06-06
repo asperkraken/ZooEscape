@@ -48,9 +48,10 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if currentState == playerState.IDLE:
-		if idleTimer.is_stopped():
+		if idleTimer.is_stopped(): # is player is idle, idle bubble timer starts
 			idleTimer.start()
 			
+		# move player in direction of input
 		if Input.is_action_just_pressed("DigitalUp"):
 			movePlayer(Vector2.UP)
 		elif Input.is_action_just_pressed("DigitalRight"):
@@ -89,7 +90,21 @@ func _process(delta: float) -> void:
 		if moveTimer >= slideSpeed:
 			movePlayer(lastMoveDir)
 			moveTimer = 0
-	
+
+
+
+# called to fetch and compare the slide animation to slide direction and movement
+func slideAnimationCall() -> void:
+	match lastMoveDir:
+		Vector2.DOWN:
+			$AnimatedSprite2D.play("SlideDown")
+		Vector2.LEFT:
+			$AnimatedSprite2D.play("SlideLeft")
+		Vector2.RIGHT:
+			$AnimatedSprite2D.play("SlideRight")
+		Vector2.UP:
+			$AnimatedSprite2D.play("SlideUp")
+
 
 # Called to move the player
 func movePlayer(dir: Vector2) -> void:
@@ -99,8 +114,12 @@ func movePlayer(dir: Vector2) -> void:
 	$StepCue.play()
 	idleTimer.stop()
 	
-	# Change the direction the Player is facing
-	sprite.play(dirToAnimtionName[dir])
+	# Change the direction the Player is facing and determine animation update behavior
+	if currentState != playerState.SLIDING:
+		sprite.play(dirToAnimtionName[dir])
+	else:
+		slideAnimationCall()
+	# update facing direction
 	ray.target_position = dir * Globals.TILESIZE
 	ray.force_raycast_update()
 	
@@ -152,6 +171,7 @@ func bodyEnter(body: Node2D) -> void:
 				$StepCue.stream = load(SLIPNOISE)
 			else:
 				currentState = playerState.IDLE
+
 
 
 # go back to idle when exiting area
