@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjoj03uah2tp8"]
+[gd_scene load_steps=12 format=3 uid="uid://cjoj03uah2tp8"]
 
 [ext_resource type="Script" uid="uid://2qrx6d2bu2c1" path="res://Scripts/Core/MenuSettings.gd" id="1_ioldb"]
 [ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="2_a0my0"]
@@ -11,17 +11,37 @@
 
 [sub_resource type="Animation" id="Animation_kbgmh"]
 length = 0.001
-
-[sub_resource type="Animation" id="Animation_ioldb"]
-resource_name = "fadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBox/Description:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0188679]
+}
 
 [sub_resource type="Animation" id="Animation_sbfs6"]
 resource_name = "roll_info"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBox/Description:visible_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kv0sb"]
 _data = {
 &"RESET": SubResource("Animation_kbgmh"),
-&"fadeIn": SubResource("Animation_ioldb"),
 &"roll_info": SubResource("Animation_sbfs6")
 }
 
@@ -58,6 +78,7 @@ offset_bottom = 256.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
+metadata/_edit_lock_ = true
 
 [node name="Header" type="Label" parent="VBox"]
 custom_minimum_size = Vector2(0, 80)
@@ -69,6 +90,7 @@ theme_override_fonts/font = ExtResource("2_a0my0")
 theme_override_font_sizes/font_size = 48
 text = "SETTINGS"
 horizontal_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="EscapeButton" type="Button" parent="VBox/Header"]
 custom_minimum_size = Vector2(64, 64)
@@ -87,12 +109,14 @@ theme_override_styles/focus = ExtResource("3_uld2q")
 theme_override_styles/hover = ExtResource("4_etoxc")
 theme_override_styles/pressed = ExtResource("5_s6d8b")
 text = "X"
+metadata/_edit_lock_ = true
 
 [node name="MasterGroup" type="HBoxContainer" parent="VBox"]
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MasterText" type="Label" parent="VBox/MasterGroup"]
 custom_minimum_size = Vector2(516, 48)
@@ -138,6 +162,7 @@ custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="BGMText" type="Label" parent="VBox/BGMGroup"]
 custom_minimum_size = Vector2(516, 48)
@@ -182,6 +207,7 @@ custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_constants/separation = 16
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="SFXText" type="Label" parent="VBox/SFXGroup"]
 custom_minimum_size = Vector2(516, 48)
@@ -225,6 +251,7 @@ value = -6.0
 layout_mode = 2
 theme_override_constants/separation = 16
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CueText" type="Label" parent="VBox/CueGroup"]
 custom_minimum_size = Vector2(516, 48)
@@ -268,6 +295,7 @@ value = -6.0
 layout_mode = 2
 theme_override_constants/separation = 16
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="DeadzoneText" type="Label" parent="VBox/DeadzoneGroup"]
 custom_minimum_size = Vector2(516, 48)
@@ -333,16 +361,12 @@ vertical_alignment = 2
 autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0188679
+metadata/_edit_lock_ = true
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_kv0sb")
 }
-
-[node name="InputBuffer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-autostart = true
 
 [connection signal="focus_entered" from="VBox/Header/EscapeButton" to="." method="_on_escape_button_focus_entered"]
 [connection signal="mouse_entered" from="VBox/Header/EscapeButton" to="." method="_on_escape_button_mouse_entered"]
@@ -371,4 +395,3 @@ autostart = true
 [connection signal="focus_entered" from="VBox/DeadzoneGroup/DeadzoneUp" to="." method="_on_deadzone_up_focus_entered"]
 [connection signal="mouse_entered" from="VBox/DeadzoneGroup/DeadzoneUp" to="." method="_on_deadzone_up_mouse_entered"]
 [connection signal="pressed" from="VBox/DeadzoneGroup/DeadzoneUp" to="." method="_on_deadzone_up_pressed"]
-[connection signal="timeout" from="InputBuffer" to="." method="_on_input_buffer_timeout"]

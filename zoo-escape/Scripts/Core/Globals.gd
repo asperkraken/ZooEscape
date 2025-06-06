@@ -3,6 +3,12 @@ extends Node
 # Global constant that tells the game the sizes of our tiles
 const TILESIZE := 32
 
+# Global constants for Min/Max Volumes and Min/Max Deadzone
+const MAXVOLUME := 0
+const MINVOLUME := -20
+const MAXDEADZONE := 1.0
+const MINDEADZONE := 0.2
+
 # Globally accessible list of passwords and corresponding scenes
 const PASSWORDS := {
 	# Debug Levels
@@ -41,12 +47,13 @@ const PASSWORDS := {
 }
 
 # Globally accessible storage locker for the user's settings
+# NOTE: These double as default settings values for Data.gd
 var currentSettings := {
-	"master_volume": -6,
-	"music_volume": -6,
-	"sfx_volume": -6,
-	"cue_volume": -6,
-	"analog_deadzone": 0.50,
+	"masterVolume": -6,
+	"musicVolume": -6,
+	"sfxVolume": -6,
+	"cueVolume": -6,
+	"analogDeadzone": 0.50,
 }
 
 # Globally accessible data related to the currently active game
@@ -55,37 +62,16 @@ var currentGameData := {
 	"playerScore": 0, # player score total (useful for reloads and moving to the next level)
 }
 
-# TODO: Try combining highScoreboardNames with highScoreBoardValues into one Dictionary.
-# var highScores := {
-# 	"ZAP": 20000,
-# 	"MKV": 19000,
-# 	"ZAP": 18000,
-# }
+# Global storage for high scores data
+var highScores: Dictionary [String, Array] = {
+	# Example: "password": [ [ score, time, moves ],  [ score, time, moves ], [ score, time, moves ] ]
+}
 
-# Global storage space for player names in the high scores list
-# NOTE: See the above TODO.
-var highScoreboardNames := [
-	"ZAP",
-	"MKV",
-	"GUS",
-	"FTW",
-	"ZOO"
-]
-
-# Global storage space for scores in the high scores list
-# NOTE: See the above TODO.
-var highScoreboardValues := [
-	20000,
-	19000,
-	18000,
-	17000,
-	16000
-]
 
 
 # global function to update input deadzones
 func deadzoneUpdate() -> void:
-	InputMap.action_set_deadzone("DigitalLeft", currentSettings.analog_deadzone)
-	InputMap.action_set_deadzone("DigitalDown", currentSettings.analog_deadzone)
-	InputMap.action_set_deadzone("DigitalRight", currentSettings.analog_deadzone)
-	InputMap.action_set_deadzone("DigitalUp", currentSettings.analog_deadzone)
+	InputMap.action_set_deadzone("DigitalLeft", currentSettings.analogDeadzone)
+	InputMap.action_set_deadzone("DigitalDown", currentSettings.analogDeadzone)
+	InputMap.action_set_deadzone("DigitalRight", currentSettings.analogDeadzone)
+	InputMap.action_set_deadzone("DigitalUp", currentSettings.analogDeadzone)
