@@ -61,8 +61,8 @@ func _ready() -> void:
 	
 	# check to ensure bgm fade level is consistent
 	# if bgm fade level not normal, reset fade state so it fades in
-	if SoundControl.fadeState != SoundControl.FADE_STATES.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
-		SoundControl.fadeState = SoundControl.FADE_STATES.IN_TRIGGER
+	if SoundControl.fadeState != SoundControl.fadeStates.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
+		SoundControl.fadeState = SoundControl.fadeStates.IN_TRIGGER
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -245,7 +245,6 @@ func restartRoom() -> void:
 
 # Game quit function, returns to title scene
 func quitGame() -> void:
-	Data.saveGameData()
 	hud.closeHud()
 	Globals.currentGameData.gameRunning = false
 	SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE)
