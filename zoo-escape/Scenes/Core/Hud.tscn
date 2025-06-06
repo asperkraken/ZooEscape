@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://nheh2k2bhpjo"]
+[gd_scene load_steps=65 format=3 uid="uid://nheh2k2bhpjo"]
 
 [ext_resource type="Script" uid="uid://c0lknsfkxfvqt" path="res://Scripts/Core/Hud.gd" id="1_v7gog"]
 [ext_resource type="Texture2D" uid="uid://4ujrmavb2g2p" path="res://Assets/Images/Icons/timericon.png" id="2_lxtjt"]
@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://tefa4iuuwip6" path="res://Assets/Sound/Twinkle3.ogg" id="4_hv3f2"]
 [ext_resource type="SpriteFrames" uid="uid://dyocpchrkapw4" path="res://Assets/UI_Resources/step_icon_frames.tres" id="4_kumpa"]
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="5_e5oyd"]
-[ext_resource type="Texture2D" uid="uid://be6ay2ee1504e" path="res://Assets/Images/Icons/dancing_steak.png" id="5_uqj5e"]
+[ext_resource type="Texture2D" uid="uid://bpqy5r5tv0k1x" path="res://Assets/Images/SteakNew.png" id="5_f4iw3"]
 [ext_resource type="Texture2D" uid="uid://doycf4hxegdkd" path="res://Assets/Images/Icons/gear_sprite.png" id="6_fes7x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxtjt"]
@@ -172,61 +172,86 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kumpa"]
+atlas = ExtResource("5_f4iw3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqj5e"]
+atlas = ExtResource("5_f4iw3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn744"]
+atlas = ExtResource("5_f4iw3")
+region = Rect2(64, 0, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_47n1c"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(0, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_860fo"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(16, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebn5j"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(32, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8csh"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(48, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(64, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bv7m6"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(64, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi3d7"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(80, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60xak"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(0, 16, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(32, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hinef"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(16, 16, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(64, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6v8hd"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(32, 16, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(96, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_00yse"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(48, 16, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(0, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wcvwg"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(64, 16, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(32, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ccdnb"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(80, 16, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(64, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yemqb"]
-atlas = ExtResource("5_uqj5e")
-region = Rect2(80, 0, 16, 16)
+atlas = ExtResource("5_f4iw3")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dt1g"]
+atlas = ExtResource("5_f4iw3")
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5dt1g"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kumpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uqj5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn744")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_47n1c")
 }, {
@@ -262,6 +287,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ccdnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yemqb")
 }],
 "loop": true,
 "name": &"feedback",
@@ -269,7 +297,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yemqb")
+"texture": SubResource("AtlasTexture_5dt1g")
 }],
 "loop": true,
 "name": &"idle",
@@ -813,10 +841,9 @@ size_flags_vertical = 0
 
 [node name="SteakIcon" type="AnimatedSprite2D" parent="MBox/HUDWindow/Steaks/Control"]
 position = Vector2(25, 25)
-scale = Vector2(3, 3)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_5dt1g")
-animation = &"idle"
-frame_progress = 0.0316095
+animation = &"feedback"
 
 [node name="SteaksValue" type="Label" parent="MBox/HUDWindow/Steaks"]
 texture_filter = 1
