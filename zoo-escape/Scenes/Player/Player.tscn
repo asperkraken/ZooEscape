@@ -587,7 +587,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n1hvv")
 }],
-"loop": true,
+"loop": false,
 "name": &"SlideDown",
 "speed": 10.0
 }, {
@@ -604,7 +604,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ywgti")
 }],
-"loop": true,
+"loop": false,
 "name": &"SlideLeft",
 "speed": 10.0
 }, {
@@ -621,7 +621,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bt0ce")
 }],
-"loop": true,
+"loop": false,
 "name": &"SlideRight",
 "speed": 10.0
 }, {
@@ -644,7 +644,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ygrhg")
 }],
-"loop": true,
+"loop": false,
 "name": &"SlideUp",
 "speed": 10.0
 }]
@@ -772,3 +772,4 @@ animation = &"ActionC"
 wait_time = 7.5
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

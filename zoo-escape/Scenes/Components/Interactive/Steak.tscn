@@ -124,7 +124,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2h3l"]
-size = Vector2(12, 12)
+size = Vector2(26, 22)
 
 [node name="Steak" type="AnimatedSprite2D" groups=["steaks"]]
 sprite_frames = SubResource("SpriteFrames_d3wr8")
@@ -136,4 +136,5 @@ script = ExtResource("2_p8xwr")
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_t2h3l")

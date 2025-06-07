@@ -87,23 +87,30 @@ func _process(delta: float) -> void:
 	elif currentState == playerState.SLIDING:
 		moveTimer += delta
 		
+		# move player and choose slide animation when sliding
 		if moveTimer >= slideSpeed:
 			movePlayer(lastMoveDir)
 			moveTimer = 0
+			slideAnimationCall()
 
 
 
 # called to fetch and compare the slide animation to slide direction and movement
 func slideAnimationCall() -> void:
-	match lastMoveDir:
-		Vector2.DOWN:
-			$AnimatedSprite2D.play("SlideDown")
-		Vector2.LEFT:
-			$AnimatedSprite2D.play("SlideLeft")
-		Vector2.RIGHT:
-			$AnimatedSprite2D.play("SlideRight")
-		Vector2.UP:
-			$AnimatedSprite2D.play("SlideUp")
+	if moveTimer == 0:
+		match lastMoveDir:
+			Vector2.DOWN:
+				$AnimatedSprite2D.play("SlideDown")
+			Vector2.LEFT:
+				$AnimatedSprite2D.play("SlideLeft")
+			Vector2.RIGHT:
+				$AnimatedSprite2D.play("SlideRight")
+			Vector2.UP:
+				$AnimatedSprite2D.play("SlideUp")
+			Vector2.ZERO: # return to idle if still
+				currentState = playerState.IDLE
+				sprite.play(dirToAnimtionName[lastMoveDir])
+
 
 
 # Called to move the player
@@ -117,8 +124,6 @@ func movePlayer(dir: Vector2) -> void:
 	# Change the direction the Player is facing and determine animation update behavior
 	if currentState != playerState.SLIDING:
 		sprite.play(dirToAnimtionName[dir])
-	else:
-		slideAnimationCall()
 	# update facing direction
 	ray.target_position = dir * Globals.TILESIZE
 	ray.force_raycast_update()
@@ -139,6 +144,7 @@ func movePlayer(dir: Vector2) -> void:
 		lastMoveDir = dir
 		if currentState == playerState.IDLE:
 			PlayerMoved.emit()
+			
 			
 	checkForInteract()
 
@@ -170,7 +176,9 @@ func bodyEnter(body: Node2D) -> void:
 				currentState = playerState.SLIDING
 				$StepCue.stream = load(SLIPNOISE)
 			else:
+				# retrigger idle after stopping sliding movement
 				currentState = playerState.IDLE
+				sprite.play(dirToAnimtionName[currentDir])
 
 
 
@@ -178,6 +186,7 @@ func bodyEnter(body: Node2D) -> void:
 func bodyExit(_body: Node2D) -> void:
 	currentState = playerState.IDLE
 	$StepCue.stream = load(STEPNOISE)
+
 	
 	
 # check the ground to any area 2dAdd commentMore actions
@@ -219,3 +228,9 @@ func checkForInteract() -> void:
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "Drown":
 		InWater.emit() # level reload call
+
+
+# check to see if slide animation still running and if so, return to idle animation
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if "Slide" in $AnimatedSprite2D.animation and currentState != playerState.SLIDING:
+		sprite.play(dirToAnimtionName[lastMoveDir])
