@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://hxah5dywgaym" path="res://Scenes/TileSets/Tiles.tres" id="1_hs4fp"]
 [ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/Player/Player.tscn" id="2_4b3dj"]
 [ext_resource type="Texture2D" uid="uid://4xoqnh5obxd4" path="res://Assets/Images/WaveTest.png" id="3_8fata"]
-[ext_resource type="Script" uid="uid://b8t01h1vtchj4" path="res://Scenes/Components/Scenic/WaterFlowingScreen.gd" id="3_psxcj"]
+[ext_resource type="Script" uid="uid://b8t01h1vtchj4" path="res://Scripts/Components/Scenic/WaterFlowingScreen.gd" id="3_psxcj"]
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="4_75p33"]
 [ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/Components/Interactive/ExitTile.tscn" id="5_2ncts"]
 

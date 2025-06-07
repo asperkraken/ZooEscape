@@ -94,7 +94,6 @@ func _process(delta: float) -> void:
 			slideAnimationCall()
 
 
-
 # called to fetch and compare the slide animation to slide direction and movement
 func slideAnimationCall() -> void:
 	if moveTimer == 0:
@@ -110,7 +109,6 @@ func slideAnimationCall() -> void:
 			Vector2.ZERO: # return to idle if still
 				currentState = playerState.IDLE
 				sprite.play(dirToAnimtionName[lastMoveDir])
-
 
 
 # Called to move the player
@@ -144,8 +142,8 @@ func movePlayer(dir: Vector2) -> void:
 		lastMoveDir = dir
 		if currentState == playerState.IDLE:
 			PlayerMoved.emit()
-			
-			
+
+
 	checkForInteract()
 
 
@@ -181,14 +179,12 @@ func bodyEnter(body: Node2D) -> void:
 				sprite.play(dirToAnimtionName[currentDir])
 
 
-
 # go back to idle when exiting area
 func bodyExit(_body: Node2D) -> void:
 	currentState = playerState.IDLE
 	$StepCue.stream = load(STEPNOISE)
 
-	
-	
+
 # check the ground to any area 2dAdd commentMore actions
 func areaEnter(area: Area2D) -> void:
 	# if on a ice corner prvent input by setting the state to CORNERSLIDING

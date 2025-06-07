@@ -124,7 +124,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2h3l"]
-size = Vector2(26, 22)
+size = Vector2(28, 28)
 
 [node name="Steak" type="AnimatedSprite2D" groups=["steaks"]]
 sprite_frames = SubResource("SpriteFrames_d3wr8")
