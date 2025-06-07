@@ -11,6 +11,7 @@ var animationQueue := ["blink", "look", "sparkle", "roll"]
 func _ready() -> void:
 	randomize()
 	$EyeballLeft.play("blink")
+	$EyeballRight.play("blink")
 	animationQueue.shuffle()
 
 
@@ -19,26 +20,23 @@ func _on_eyeball_timer_timeout() -> void:
 	if !Globals.currentGameData.gameRunning:
 		if animationQueue.size() > 0: # pick one from the queue
 			var nextAnimation = animationQueue.pop_front()
-			$EyeballLeft.animation = nextAnimation
 			$EyeballLeft.play(nextAnimation)
+			$EyeballRight.play(nextAnimation)
 		else: # or play idle and refill the queue, resetting timer
 			animationQueue = defaultQueue.duplicate()
 			$EyeballLeft.play("idle")
+			$EyeballRight.play("idle")
 			$EyeballTimer.start(2)
 	else:
 		$EyeballLeft.play("idle")
-
-
-# to reduce calls by calling only one object and having the other copy it
-func _process(_delta: float) -> void:
-	$EyeballRight.animation = $EyeballLeft.animation
-	$EyeballRight.frame = $EyeballLeft.frame
+		$EyeballRight.play("idle")
 
 
 # every animation finish, if game is running, reset the timer between anims with random value
 func _on_eyeball_left_animation_finished() -> void:
 	if !Globals.currentGameData.gameRunning:
 		$EyeballLeft.play("idle")
+		$EyeballRight.play("idle")
 		randomize()
 		var _roll := randi_range(minTime, maxTime)
 		$EyeballTimer.start(_roll)
