@@ -42,7 +42,7 @@ func _ready() -> void:
 	$GroundCheck.body_exited.connect(bodyExit)
 	$GroundCheck.area_entered.connect(areaEnter)
 	idleTimer.timeout.connect(showResetThought)
-	$AnimatedSprite2D.play("IdleDown")
+	sprite.play("IdleDown")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -99,13 +99,13 @@ func slideAnimationCall() -> void:
 	if moveTimer == 0:
 		match lastMoveDir:
 			Vector2.DOWN:
-				$AnimatedSprite2D.play("SlideDown")
+				sprite.play("SlideDown")
 			Vector2.LEFT:
-				$AnimatedSprite2D.play("SlideLeft")
+				sprite.play("SlideLeft")
 			Vector2.RIGHT:
-				$AnimatedSprite2D.play("SlideRight")
+				sprite.play("SlideRight")
 			Vector2.UP:
-				$AnimatedSprite2D.play("SlideUp")
+				sprite.play("SlideUp")
 			Vector2.ZERO: # return to idle if still
 				currentState = playerState.IDLE
 				sprite.play(dirToAnimtionName[lastMoveDir])
@@ -167,7 +167,7 @@ func bodyEnter(body: Node2D) -> void:
 			# if in water, visual and audio cues before level call triggers
 			SoundControl.playCue(SoundControl.fail, 3.0)
 			currentState = playerState.INWATER
-			$AnimatedSprite2D.play("Drown")
+			sprite.play("Drown")
 		elif body.get_cell_tile_data(tilePos).get_custom_data("Ice"):
 			if (!ray.is_colliding()):
 				# if ice, audio cues and state change
@@ -176,7 +176,7 @@ func bodyEnter(body: Node2D) -> void:
 			else:
 				# retrigger idle after stopping sliding movement
 				currentState = playerState.IDLE
-				sprite.play(dirToAnimtionName[currentDir])
+				sprite.play(dirToAnimtionName[lastMoveDir])
 
 
 # go back to idle when exiting area
@@ -222,11 +222,11 @@ func checkForInteract() -> void:
 
 # this function reloads the level after the player's drown animation
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if $AnimatedSprite2D.animation == "Drown":
+	if sprite.animation == "Drown":
 		InWater.emit() # level reload call
 
 
 # check to see if slide animation still running and if so, return to idle animation
 func _on_animated_sprite_2d_frame_changed() -> void:
-	if "Slide" in $AnimatedSprite2D.animation and currentState != playerState.SLIDING:
+	if "Slide" in sprite.animation and currentState != playerState.SLIDING:
 		sprite.play(dirToAnimtionName[lastMoveDir])

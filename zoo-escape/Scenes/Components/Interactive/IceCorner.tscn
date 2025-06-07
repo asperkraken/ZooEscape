@@ -5,19 +5,19 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymavr"]
 atlas = ExtResource("1_4tkqw")
-region = Rect2(0, 16, 16, 16)
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rw2ei"]
 atlas = ExtResource("1_4tkqw")
-region = Rect2(16, 16, 16, 16)
+region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_28now"]
 atlas = ExtResource("1_4tkqw")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mq6d"]
 atlas = ExtResource("1_4tkqw")
-region = Rect2(16, 0, 16, 16)
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ypekl"]
 animations = [{
@@ -61,10 +61,9 @@ size = Vector2(1, 1)
 script = ExtResource("1_ymavr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ypekl")
-animation = &"TopLeft"
-frame_progress = 0.144244
+animation = &"TopRight"
+frame_progress = 0.765161
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
