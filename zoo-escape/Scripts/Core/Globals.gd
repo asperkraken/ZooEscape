@@ -46,6 +46,44 @@ const PASSWORDS := {
 	# "3706": 
 }
 
+# Global list of star-rating thresholds for the various levels
+const THRESHOLDS := { # "CODE": [ Gold, Silver, Bronze ]
+	# Debug Levels
+	"9990": [],
+	"9991": [],
+	"9992": [],
+	"9993": [],
+	
+	# Real Levels
+	"0001": [ 2300, 1800, 1300 ],
+	
+	"0387": [ 2700, 2200, 1400 ],
+	"9102": [],
+	"1476": [],
+	"4111": [],
+	"5829": [],
+	# "0053": [],
+	
+	# "7618": [],
+	# "2940": [],
+	# "8365": [],
+	# "0721": [],
+	# "6594": [],
+	
+	# "3082": [],
+	# "9817": [],
+	# "4250": [],
+	# "1639": [],
+	# "7048": [],
+	
+	# "2561": [],
+	 "8934": [],
+	# "0195": [],
+	# "5473": [],
+	# "3706": []
+}
+
+
 # Globally accessible storage locker for the user's settings
 # NOTE: These double as default settings values for Data.gd
 var currentSettings := {

@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://c5f45xbhg3i0d"]
+
+[ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="1_qdr5d"]
+[ext_resource type="FontFile" uid="uid://gxb8jc5bj3cd" path="res://Assets/Fonts/PressStart2P.ttf" id="1_qeila"]
+[ext_resource type="StyleBox" uid="uid://bg1fatmttmcey" path="res://Assets/UI_Resources/FocusTexture.tres" id="2_1ox4l"]
+[ext_resource type="StyleBox" uid="uid://d4ddxd4fvdf4o" path="res://Assets/UI_Resources/HoverTexture.tres" id="3_notyd"]
+[ext_resource type="StyleBox" uid="uid://b6pmunfpdsdix" path="res://Assets/UI_Resources/PressedTexture.tres" id="4_notyd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pxfp"]
+bg_color = Color(0.180392, 0.172549, 0.231373, 1)
+
+[resource]
+Button/colors/font_color = Color(0.988235, 0.988235, 0.988235, 1)
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_qeila")
+Button/styles/focus = ExtResource("2_1ox4l")
+Button/styles/hover = ExtResource("3_notyd")
+Button/styles/hover_pressed = ExtResource("4_notyd")
+HBoxContainer/constants/separation = 10
+Label/colors/font_color = Color(0.988235, 0.988235, 0.988235, 1)
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_qdr5d")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+Panel/styles/panel = SubResource("StyleBoxFlat_4pxfp")

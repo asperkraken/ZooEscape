@@ -146,9 +146,11 @@ func codeCheck() -> void:
 		$TextEffectTimer.start(0.5)
 
 
+# Start a timer to block input events on this window
 func startInputBuffer() -> void:
 	inputBufferActive = true
 	$InputBufferTimer.start(loadSceneBufferTime)
+
 
 # Reset the modulation and material on the code text
 func codeEffectReset() -> void:
@@ -186,6 +188,7 @@ func onLoadSceneBufferTimeout() -> void:
 	SetMenu.emit(MenuManager.menuTypes.NONE)
 	SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[tempCode])
 
+
 ### Button Event Handlers
 # Called when a button is pressed
 func onButtonPressed(i: int) -> void:
@@ -211,10 +214,12 @@ func onButtonPressed(i: int) -> void:
 		focusStates.ENTER: # 11
 			codeCheck() # Check for correct code
 
+
 # Called when mouse hovers a button, have that button grab_focus
 func onButtonMouseEntered(i: int) -> void:
 	focusState = i # grab state
 	buttons[i].call_deferred("grab_focus")
+
 
 # Called when a button is focused, have that button grab_click_focus
 func onButtonFocusEntered(i: int) -> void:

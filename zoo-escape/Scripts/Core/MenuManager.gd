@@ -11,6 +11,7 @@ enum menuTypes {
 	PASSWORD,
 	SCORES,
 	SETTINGS,
+	CREDITS,
 	TIMEOUT
 }
 
@@ -22,8 +23,9 @@ var menuHeap: Array[menuTypes] = []
 @onready var menus: Dictionary[menuTypes, Control] = {
 	menuTypes.MAIN: $MainMenu,
 	menuTypes.PASSWORD: $PasswordMenu,
-	#menuType.SCORES: $ScoresWindow, This will be added in another PR, so leave it
+	menuTypes.SCORES: $ScoresMenu,
 	menuTypes.SETTINGS: $SettingsMenu,
+	#menuTypes.CREDITS: $CreditsMenu,
 	menuTypes.TIMEOUT: $TimeoutWindow
 }
 
@@ -105,9 +107,11 @@ func switchMenu() -> void:
 	
 	# Open the correct menu
 	if currentMenu != menuTypes.NONE:
-		var menu = menus.get(currentMenu)
+		var menu = menus[currentMenu]
 		if menu && menu.has_method("showMenu"):
 			menu.showMenu()
+		else:
+			setMenu(menuTypes.MAIN)
 		
 	# If no menu is showing, unpause the game
 	if currentMenu == menuTypes.NONE:
