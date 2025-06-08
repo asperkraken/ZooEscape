@@ -48,12 +48,6 @@ const PASSWORDS := {
 
 # Global list of star-rating thresholds for the various levels
 const THRESHOLDS := { # "CODE": [ Gold, Silver, Bronze ]
-	# Debug Levels
-	"9990": [],
-	"9991": [],
-	"9992": [],
-	"9993": [],
-	
 	# Real Levels
 	"0001": [ 2300, 1800, 1300 ],
 	
@@ -81,6 +75,36 @@ const THRESHOLDS := { # "CODE": [ Gold, Silver, Bronze ]
 	# "0195": [],
 	# "5473": [],
 	# "3706": []
+}
+
+const LEVELNAMES := { # "CODE": "Level Name" - No longer than 23 characters!
+	# Real Levels
+	"0001": "Tutorial 1",
+	
+	"0387": "Level 1",
+	"9102": "Level 2",
+	"1476": "Level 3",
+	"4111": "Level 4",
+	"5829": "Ice and Box",
+	# "0053": "",
+	
+	# "7618": "",
+	# "2940": "",
+	# "8365": "",
+	# "0721": "",
+	# "6594": "",
+	
+	# "3082": "",
+	# "9817": "",
+	# "4250": "",
+	# "1639": "",
+	# "7048": "",
+	
+	# "2561": "",
+	 "8934": "Ice Labyrinth",
+	# "0195": "",
+	# "5473": "",
+	# "3706": ""
 }
 
 

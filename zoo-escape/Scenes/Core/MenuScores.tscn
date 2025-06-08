@@ -46,7 +46,7 @@ theme_override_colors/font_shadow_color = Color(0.639216, 0.658824, 1, 1)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/font_size = 48
-text = "Ice Labyrinth"
+text = "Unnamed Level"
 horizontal_alignment = 1
 metadata/_edit_lock_ = true
 
@@ -54,7 +54,7 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 32
-text = "Password: 8934"
+text = "Password: ----"
 horizontal_alignment = 1
 metadata/_edit_lock_ = true
 
@@ -77,7 +77,7 @@ metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Margin/Info/Header/Thresholds/Gold"]
 layout_mode = 2
-text = "2000"
+text = "----"
 metadata/_edit_lock_ = true
 
 [node name="Silver" type="HBoxContainer" parent="Margin/Info/Header/Thresholds"]
@@ -93,7 +93,7 @@ metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Margin/Info/Header/Thresholds/Silver"]
 layout_mode = 2
-text = "1500"
+text = "----"
 metadata/_edit_lock_ = true
 
 [node name="Bronze" type="HBoxContainer" parent="Margin/Info/Header/Thresholds"]
@@ -109,7 +109,7 @@ metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Margin/Info/Header/Thresholds/Bronze"]
 layout_mode = 2
-text = "1000"
+text = "----"
 metadata/_edit_lock_ = true
 
 [node name="Scores" type="MarginContainer" parent="Margin/Info"]
@@ -141,7 +141,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_font_sizes/font_size = 40
-text = "#"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
@@ -212,7 +211,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "4"
+text = "-"
 metadata/_edit_lock_ = true
 
 [node name="Time1" type="Label" parent="Margin/Info/Scores/Data"]
@@ -220,7 +219,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "00:30"
+text = "--:--"
 metadata/_edit_lock_ = true
 
 [node name="Score1" type="Label" parent="Margin/Info/Scores/Data"]
@@ -228,14 +227,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "2350"
+text = "----"
 metadata/_edit_lock_ = true
 
 [node name="Rating1" type="TextureRect" parent="Margin/Info/Scores/Data"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("2_weh7u")
 metadata/_edit_lock_ = true
 
 [node name="ScoreTxt2" type="Label" parent="Margin/Info/Scores/Data"]
@@ -252,7 +250,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "10"
+text = "-"
 metadata/_edit_lock_ = true
 
 [node name="Time2" type="Label" parent="Margin/Info/Scores/Data"]
@@ -260,7 +258,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "00:30"
+text = "--:--"
 metadata/_edit_lock_ = true
 
 [node name="Score2" type="Label" parent="Margin/Info/Scores/Data"]
@@ -268,14 +266,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "1700"
+text = "----"
 metadata/_edit_lock_ = true
 
 [node name="Rating2" type="TextureRect" parent="Margin/Info/Scores/Data"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("3_xfpx4")
 metadata/_edit_lock_ = true
 
 [node name="ScoreTxt3" type="Label" parent="Margin/Info/Scores/Data"]
@@ -284,6 +281,7 @@ size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_font_sizes/font_size = 40
+text = "3"
 metadata/_edit_lock_ = true
 
 [node name="Moves3" type="Label" parent="Margin/Info/Scores/Data"]
@@ -291,6 +289,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
+text = "-"
 metadata/_edit_lock_ = true
 
 [node name="Time3" type="Label" parent="Margin/Info/Scores/Data"]
@@ -298,6 +297,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
+text = "--:--"
 metadata/_edit_lock_ = true
 
 [node name="Score3" type="Label" parent="Margin/Info/Scores/Data"]
@@ -305,6 +305,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
+text = "----"
 metadata/_edit_lock_ = true
 
 [node name="Rating3" type="TextureRect" parent="Margin/Info/Scores/Data"]

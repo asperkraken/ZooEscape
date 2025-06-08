@@ -40,15 +40,14 @@ var key := "9990"
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
-# Connect button signals to Event Handlers
+	# Connect button signals to Event Handlers
 	for button in buttons.values():
 		button.pressed.connect(onButtonPressed.bind(buttons.find_key(button)))
 		button.mouse_entered.connect(onButtonMouseEntered.bind(buttons.find_key(button)))
 		button.focus_entered.connect(onButtonFocusEntered.bind(buttons.find_key(button)))
-	
-	getScoreData()
 
 
+# Called to retrieve score data
 func getScoreData() -> void:
 	if !Globals.highScores.is_empty():
 		keys = Globals.highScores.keys()

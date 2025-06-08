@@ -186,6 +186,7 @@ func showMenu() -> void:
 		buttons[buttonTypes.RESUME].hide()
 		buttons[buttonTypes.NEWGAME].show()
 		buttons[buttonTypes.SCORES].show()
+		buttons[buttonTypes.SCORES].disabled = Globals.highScores.is_empty()
 		buttons[buttonTypes.CREDITS].show()
 		buttons[buttonTypes.BACK].hide()
 		buttons[buttonTypes.EXIT].visible = !OS.get_name() == "Web" # If playing the web version, hide the Exit button
