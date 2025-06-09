@@ -11,10 +11,11 @@ func _ready() -> void:
 	$OpenCue.volume_db = SoundControl.cueLevel # has own sound for solo trigger
 
 
-# play the animation and audio cue
+# play the animation and audio cue, glow activates
 func activateExit() -> void:
 	$OpenCue.play()
 	play("Active")
+	self.modulate = Color(1.3,1.3,1.3,1)
 
 
 # if the player enters the and the exit tile is active tell the level to go to the next level

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://nrnwh4s5f1j5"]
+[gd_scene load_steps=13 format=4 uid="uid://nrnwh4s5f1j5"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/LevelManager.gd" id="1_0nysw"]
 [ext_resource type="PackedScene" uid="uid://cuw4758o5nmh6" path="res://Scenes/Components/Scenic/WaterFlow.tscn" id="2_7f72b"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="5_cg0u6"]
 [ext_resource type="PackedScene" uid="uid://dvj8b6tkhitto" path="res://Scenes/Components/Interactive/Gate.tscn" id="5_mslv2"]
 [ext_resource type="PackedScene" uid="uid://cxubfhy8y0hcg" path="res://Scenes/Components/Interactive/Box.tscn" id="6_mslv2"]
+[ext_resource type="Texture2D" uid="uid://xqup1mx6chyv" path="res://Assets/Images/GateAlternate.png" id="7_613b2"]
 [ext_resource type="PackedScene" uid="uid://6adav1tkreiw" path="res://Scenes/Components/Interactive/Ball.tscn" id="8_8ljkw"]
 
 [node name="Level4" type="Node2D"]
@@ -211,13 +212,18 @@ position = Vector2(48, -16)
 rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 
+[node name="Sprite2D" parent="Button2/Gate2" index="0"]
+texture = ExtResource("7_613b2")
+
 [node name="Button3" parent="." instance=ExtResource("4_yokso")]
 position = Vector2(112, -560)
 
 [node name="Gate2" parent="Button3" instance=ExtResource("5_mslv2")]
 position = Vector2(64, 64)
-rotation = 1.5708
 scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" parent="Button3/Gate2" index="0"]
+texture = ExtResource("7_613b2")
 
 [node name="Interactives" type="Node2D" parent="."]
 
@@ -303,3 +309,5 @@ nextLevelCode = "5829"
 position = Vector2(-16, -16)
 
 [editable path="WaterFlow"]
+[editable path="Button2/Gate2"]
+[editable path="Button3/Gate2"]

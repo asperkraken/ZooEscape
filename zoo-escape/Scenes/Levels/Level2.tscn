@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://c2gja864febj"]
+[gd_scene load_steps=13 format=4 uid="uid://c2gja864febj"]
 
 [ext_resource type="Script" uid="uid://bhbxx4514uggj" path="res://Scripts/Levels/LevelManager.gd" id="1_kf4kq"]
 [ext_resource type="PackedScene" uid="uid://cuw4758o5nmh6" path="res://Scenes/Components/Scenic/WaterFlow.tscn" id="2_ao4h1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cs2ar6co6wa5" path="res://Scenes/Components/Interactive/Steak.tscn" id="6_88ppj"]
 [ext_resource type="PackedScene" uid="uid://cxubfhy8y0hcg" path="res://Scenes/Components/Interactive/Box.tscn" id="8_613vg"]
 [ext_resource type="PackedScene" uid="uid://b6fpe6cti8jrw" path="res://Scenes/Components/Interactive/ExitTile.tscn" id="9_ncahn"]
+[ext_resource type="Texture2D" uid="uid://xqup1mx6chyv" path="res://Assets/Images/GateAlternate.png" id="9_ngp1c"]
 [ext_resource type="PackedScene" uid="uid://3ah88dbq7yi4" path="res://Scenes/Player/Player.tscn" id="10_uxmkr"]
 
 [node name="Level2" type="Node2D"]
@@ -270,6 +271,10 @@ position = Vector2(48, 0)
 rotation = -1.5708
 scale = Vector2(0.5, 0.5)
 
+[node name="Sprite2D" parent="Button/Gate" index="0"]
+rotation = 1.5708
+texture = ExtResource("9_ngp1c")
+
 [node name="Button2" parent="." instance=ExtResource("4_o6d5b")]
 position = Vector2(528, 176)
 
@@ -279,9 +284,11 @@ scale = Vector2(0.5, 0.5)
 
 [node name="Gate2" parent="Button2" instance=ExtResource("5_bxkus")]
 position = Vector2(48, -16)
-rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 gateState = 1
+
+[node name="Sprite2D" parent="Button2/Gate2" index="0"]
+texture = ExtResource("9_ngp1c")
 
 [node name="Switch" parent="." instance=ExtResource("5_kf4kq")]
 position = Vector2(176, 80)
@@ -290,7 +297,9 @@ autoRevertTime = 2.5
 
 [node name="Gate" parent="Switch" instance=ExtResource("5_bxkus")]
 position = Vector2(64, 64)
-rotation = 1.5708
+
+[node name="Sprite2D" parent="Switch/Gate" index="0"]
+texture = ExtResource("9_ngp1c")
 
 [node name="Box" parent="." instance=ExtResource("8_613vg")]
 position = Vector2(144, 144)
@@ -311,3 +320,7 @@ position = Vector2(144, 208)
 position = Vector2(144, 80)
 
 [editable path="WaterFlow"]
+[editable path="Button/Gate"]
+[editable path="Button2/Gate"]
+[editable path="Button2/Gate2"]
+[editable path="Switch/Gate"]
