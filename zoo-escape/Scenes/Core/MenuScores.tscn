@@ -118,7 +118,7 @@ size_flags_vertical = 8
 theme_override_constants/margin_bottom = 120
 
 [node name="ColorRect" type="ColorRect" parent="Margin/Info/Scores"]
-custom_minimum_size = Vector2(1032, 320)
+custom_minimum_size = Vector2(1088, 320)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -141,6 +141,20 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
 theme_override_font_sizes/font_size = 40
+text = "#"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="ScoreLabel" type="Label" parent="Margin/Info/Scores/Data"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.980392, 0.858824, 0.686275, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_font_sizes/font_size = 40
+text = "Score"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
@@ -171,19 +185,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="ScoreLabel" type="Label" parent="Margin/Info/Scores/Data"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.980392, 0.858824, 0.686275, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-theme_override_font_sizes/font_size = 40
-text = "Score"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
 [node name="RatingLabel" type="Label" parent="Margin/Info/Scores/Data"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -206,12 +207,20 @@ theme_override_font_sizes/font_size = 40
 text = "1"
 metadata/_edit_lock_ = true
 
+[node name="Score1" type="Label" parent="Margin/Info/Scores/Data"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+text = "--"
+metadata/_edit_lock_ = true
+
 [node name="Moves1" type="Label" parent="Margin/Info/Scores/Data"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "-"
+text = "--"
 metadata/_edit_lock_ = true
 
 [node name="Time1" type="Label" parent="Margin/Info/Scores/Data"]
@@ -219,15 +228,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "--:--"
-metadata/_edit_lock_ = true
-
-[node name="Score1" type="Label" parent="Margin/Info/Scores/Data"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-text = "----"
+text = "--"
 metadata/_edit_lock_ = true
 
 [node name="Rating1" type="TextureRect" parent="Margin/Info/Scores/Data"]
@@ -245,12 +246,20 @@ theme_override_font_sizes/font_size = 40
 text = "2"
 metadata/_edit_lock_ = true
 
+[node name="Score2" type="Label" parent="Margin/Info/Scores/Data"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+text = "--"
+metadata/_edit_lock_ = true
+
 [node name="Moves2" type="Label" parent="Margin/Info/Scores/Data"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "-"
+text = "--"
 metadata/_edit_lock_ = true
 
 [node name="Time2" type="Label" parent="Margin/Info/Scores/Data"]
@@ -258,15 +267,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "--:--"
-metadata/_edit_lock_ = true
-
-[node name="Score2" type="Label" parent="Margin/Info/Scores/Data"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-text = "----"
+text = "--"
 metadata/_edit_lock_ = true
 
 [node name="Rating2" type="TextureRect" parent="Margin/Info/Scores/Data"]
@@ -284,12 +285,20 @@ theme_override_font_sizes/font_size = 40
 text = "3"
 metadata/_edit_lock_ = true
 
+[node name="Score3" type="Label" parent="Margin/Info/Scores/Data"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+text = "--"
+metadata/_edit_lock_ = true
+
 [node name="Moves3" type="Label" parent="Margin/Info/Scores/Data"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "-"
+text = "--"
 metadata/_edit_lock_ = true
 
 [node name="Time3" type="Label" parent="Margin/Info/Scores/Data"]
@@ -297,15 +306,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
-text = "--:--"
-metadata/_edit_lock_ = true
-
-[node name="Score3" type="Label" parent="Margin/Info/Scores/Data"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/shadow_offset_x = 0
-theme_override_constants/shadow_offset_y = 0
-text = "----"
+text = "--"
 metadata/_edit_lock_ = true
 
 [node name="Rating3" type="TextureRect" parent="Margin/Info/Scores/Data"]
@@ -319,6 +320,12 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../PlayButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../NextButton")
+focus_next = NodePath("../PrevButton")
+focus_previous = NodePath("../PlayButton")
 text = "X"
 metadata/_edit_lock_ = true
 
@@ -327,6 +334,12 @@ custom_minimum_size = Vector2(64, 128)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../CloseButton")
+focus_neighbor_right = NodePath("../NextButton")
+focus_neighbor_bottom = NodePath("../PlayButton")
+focus_next = NodePath("../NextButton")
+focus_previous = NodePath("../CloseButton")
 icon = ExtResource("2_xn30d")
 icon_alignment = 1
 expand_icon = true
@@ -337,6 +350,12 @@ custom_minimum_size = Vector2(64, 128)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+focus_neighbor_left = NodePath("../PrevButton")
+focus_neighbor_top = NodePath("../CloseButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../PlayButton")
+focus_next = NodePath("../PlayButton")
+focus_previous = NodePath("../PrevButton")
 icon = ExtResource("3_rjugd")
 icon_alignment = 1
 expand_icon = true
@@ -347,5 +366,11 @@ custom_minimum_size = Vector2(400, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../NextButton")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../CloseButton")
+focus_next = NodePath("../CloseButton")
+focus_previous = NodePath("../NextButton")
 text = "Play Now!"
 metadata/_edit_lock_ = true

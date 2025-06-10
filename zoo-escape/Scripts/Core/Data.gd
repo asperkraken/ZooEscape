@@ -100,7 +100,7 @@ func saveScoreData(data := {}) -> void:
 	else:
 		saveData = data.duplicate()
 	
-	json_string = JSON.stringify(saveData, "\t")
+	json_string = JSON.stringify(saveData)
 	file.store_string(json_string)
 	file.close()
 
@@ -135,6 +135,7 @@ func loadScoreData() -> void:
 			return
 		
 		loadedData = convertFloatsToInts(loadedData) # Convert floats to ints
+		loadedData = sortDictionary(loadedData, Globals.PASSWORDS)
 		
 		for key in loadedData.keys(): # Send the validated data to Globals
 			Globals.highScores[key] = loadedData[key]
@@ -200,11 +201,21 @@ func isScoreDataValid(data: Dictionary) -> bool:
 
 
 # Called to convert float values to int values (used when loading Score data)
-# TODO: Further testing may prove this function not required
 func convertFloatsToInts(data: Dictionary) -> Dictionary:
-	for key in data.keys():
-		for arr in data[key]:
-			for val in arr:
-				if val is float:
-					val = int(val)
+	for key in data.keys(): # Outer array
+		for arr in data[key]: # Inner array
+			for i: int in arr.size(): # [ Score, Time, Moves ]
+				if i == 0 || i == 2:
+					arr[i] = int(arr[i])
 	return data
+
+
+# Called to sort the loaded data according to the order of the reference dictionary
+func sortDictionary(loadedData: Dictionary, reference: Dictionary) -> Dictionary:
+	var sorted := {}
+	# Iterate through keys in reference
+	for key in reference.keys():
+	# Only include keys that exist in loadedData
+		if loadedData.has(key):
+			sorted[key] = loadedData[key]
+	return sorted

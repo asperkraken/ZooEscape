@@ -171,7 +171,3 @@ func goBack() -> void:
 # Called by LevelManager to update password string on TimeoutWindow when new level loads
 func updatePassword(levelCode) -> void:
 	menus[menuTypes.TIMEOUT].updatePassword(levelCode)
-
-
-func enableHighScores(yesno: bool) -> void:
-	menus[menuTypes.MAIN].enableHighScores(yesno)
