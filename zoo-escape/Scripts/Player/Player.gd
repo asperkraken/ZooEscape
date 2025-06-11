@@ -8,7 +8,8 @@ enum playerState {
 	INWATER,
 	ONEXIT,
 	SLIDING,
-	CORNERSLIDING
+	CORNERSLIDING,
+	MOVING
 }
 
 @onready var dirToAnimtionName := {
@@ -29,7 +30,6 @@ enum playerState {
 @onready var currentState := playerState.IDLE
 @onready var moveTimer := 0.0
 @onready var lastMoveDir := Vector2.DOWN
-@onready var facingDir := Vector2.DOWN # this catches the last input to determine ball direction
 
 signal InWater
 signal PlayerMoved
@@ -52,32 +52,32 @@ func _process(delta: float) -> void:
 			idleTimer.start()
 			
 		# move player in direction of input
-		if Input.is_action_just_pressed("DigitalUp"):
-			movePlayer(Vector2.UP)
-		elif Input.is_action_just_pressed("DigitalRight"):
-			movePlayer(Vector2.RIGHT)
-		elif Input.is_action_just_pressed("DigitalDown"):
-			movePlayer(Vector2.DOWN)
-		elif Input.is_action_just_pressed("DigitalLeft"):
-			movePlayer(Vector2.LEFT)
+		if Input.is_action_pressed("DigitalUp"):
+			move(Vector2.UP)
+		elif Input.is_action_pressed("DigitalRight"):
+			move(Vector2.RIGHT)
+		elif Input.is_action_pressed("DigitalDown"):
+			move(Vector2.DOWN)
+		elif Input.is_action_pressed("DigitalLeft"):
+			move(Vector2.LEFT)
 			
-		if Input.is_action_pressed("DigitalUp") || Input.is_action_pressed("DigitalRight") || Input.is_action_pressed("DigitalDown") || Input.is_action_pressed("DigitalLeft"):
-			moveTimer += delta
+		#if Input.is_action_pressed("DigitalUp") || Input.is_action_pressed("DigitalRight") || Input.is_action_pressed("DigitalDown") || Input.is_action_pressed("DigitalLeft"):
+			#moveTimer += delta
+			#
+		#if Input.is_action_just_released("DigitalUp") || Input.is_action_just_released("DigitalRight") || Input.is_action_just_released("DigitalDown") || Input.is_action_just_released("DigitalLeft"):
+			#moveTimer = 0
+			#
+		#if moveTimer >= moveSpeed:
+			#if Input.is_action_pressed("DigitalUp"):
+				#movePlayer(Vector2.UP)
+			#elif Input.is_action_pressed("DigitalRight"):
+				#movePlayer(Vector2.RIGHT)
+			#elif Input.is_action_pressed("DigitalDown"):
+				#movePlayer(Vector2.DOWN)
+			#elif Input.is_action_pressed("DigitalLeft"):
+				#movePlayer(Vector2.LEFT)
 			
-		if Input.is_action_just_released("DigitalUp") || Input.is_action_just_released("DigitalRight") || Input.is_action_just_released("DigitalDown") || Input.is_action_just_released("DigitalLeft"):
-			moveTimer = 0
-			
-		if moveTimer >= moveSpeed:
-			if Input.is_action_pressed("DigitalUp"):
-				movePlayer(Vector2.UP)
-			elif Input.is_action_pressed("DigitalRight"):
-				movePlayer(Vector2.RIGHT)
-			elif Input.is_action_pressed("DigitalDown"):
-				movePlayer(Vector2.DOWN)
-			elif Input.is_action_pressed("DigitalLeft"):
-				movePlayer(Vector2.LEFT)
-			
-			moveTimer = 0
+			#moveTimer = 0
 		
 		if Input.is_action_just_pressed("ActionButton"):
 			# Detect if "ray" is colliding with an object (e.g., Player is facing a Switch)
@@ -110,10 +110,34 @@ func slideAnimationCall() -> void:
 				currentState = playerState.IDLE
 				sprite.play(dirToAnimtionName[lastMoveDir])
 
+func move(dir: Vector2) -> void:
+	var _pitch = randf_range(-0.25, 0.25)
+	$StepCue.pitch_scale = 1 + _pitch
+	$StepCue.play()
+	idleTimer.stop()
+	
+	# Change the direction the Player is facing and determine animation update behavior
+	if currentState != playerState.SLIDING:
+		sprite.play(dirToAnimtionName[dir])
+	# update facing direction
+	ray.target_position = dir * Globals.TILESIZE
+	ray.force_raycast_update()
+	
+	# After changing the direction the Player is facing,
+	# if the Player's RayCast2D is colliding, do logic
+	if !ray.is_colliding():
+		#position += dir * Globals.TILESIZE
+		lastMoveDir = dir
+		currentState = playerState.MOVING
+		var tween := get_tree().create_tween()
+		tween.tween_property(self, "position", position + (dir * Globals.TILESIZE), .35)
+		await tween.finished
+		currentState = playerState.IDLE
+		PlayerMoved.emit()
+
 
 # Called to move the player
 func movePlayer(dir: Vector2) -> void:
-	facingDir = dir # update direction of "pushing" for ball
 	var _pitch = randf_range(-0.25, 0.25)
 	$StepCue.pitch_scale = 1 + _pitch
 	$StepCue.play()
@@ -143,7 +167,6 @@ func movePlayer(dir: Vector2) -> void:
 		if currentState == playerState.IDLE:
 			PlayerMoved.emit()
 
-
 	checkForInteract()
 
 
@@ -156,7 +179,7 @@ func interactWithRayCollider(collidingObj: Object) -> void:
 		collidingObj.flipSwitch()
 	if collidingObj is ZEBall:
 		thoughtBubble.hide()
-		collidingObj.move(facingDir)
+		collidingObj.move(lastMoveDir)
 
 
 # give feedback and state change dependent on terrain

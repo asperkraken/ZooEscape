@@ -62,8 +62,7 @@ script = ExtResource("1_ymavr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ypekl")
-animation = &"TopRight"
-frame_progress = 0.765161
+animation = &"TopLeft"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
