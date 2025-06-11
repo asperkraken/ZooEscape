@@ -199,7 +199,7 @@ func onButtonPressed(btnType: buttonTypes) -> void:
 		buttonTypes.NEXT, buttonTypes.PREV:
 			if (btnType == buttonTypes.NEXT && scoreIndex < highScoresSize - 1) || (btnType == buttonTypes.PREV && scoreIndex > 0):
 				scoreIndex += 1 if btnType == buttonTypes.NEXT else -1
-				SoundControl.playCue(SoundControl.blip, 1.0)
+				SoundControl.playCue(SoundControl.blip, 5.0)
 				getScoreData()
 		
 		buttonTypes.PLAY:
