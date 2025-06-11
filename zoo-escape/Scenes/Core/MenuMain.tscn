@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmhbojvsjsq0"]
+[gd_scene load_steps=9 format=3 uid="uid://cmhbojvsjsq0"]
 
 [ext_resource type="Script" uid="uid://b4e8ul7se7xgj" path="res://Scripts/Core/MenuMain.gd" id="1_yuxgg"]
 [ext_resource type="Texture2D" uid="uid://bg626xfxp25i2" path="res://Assets/Images/MainMenuBackground.png" id="2_7a404"]
 [ext_resource type="Script" uid="uid://dubpjf4h8ayup" path="res://Scripts/Core/AnimatedTitleElements.gd" id="3_2i1af"]
-[ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="3_7a404"]
 [ext_resource type="SpriteFrames" uid="uid://cfu2np5ucp3r5" path="res://Assets/Images/Title/EyeballSpriteFrameset.tres" id="4_kbsxh"]
 [ext_resource type="Theme" uid="uid://c5f45xbhg3i0d" path="res://Assets/UI_Resources/MenuTheme.tres" id="6_kbsxh"]
 
@@ -61,20 +60,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.180392, 0.172549, 0.231373, 1)
+color = Color(0.180392, 0.172549, 0.231373, 0.784314)
 metadata/_edit_lock_ = true
 
 [node name="MenuImage" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -252.0
-offset_top = -360.0
 offset_right = 252.0
-offset_bottom = 360.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7a404")
@@ -106,22 +102,19 @@ autostart = true
 
 [node name="PausedHint" type="Label" parent="."]
 visible = false
+custom_minimum_size = Vector2(504, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -156.0
-offset_top = -214.0
-offset_right = 164.0
-offset_bottom = -182.0
+offset_left = -249.0
+offset_top = -222.0
+offset_right = 255.0
+offset_bottom = -174.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.756863, 0.898039, 0.917647, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.121569, 0.239216, 0.254902, 1)
-theme_override_fonts/font = ExtResource("3_7a404")
 theme_override_font_sizes/font_size = 48
 text = "[ PAUSED ]"
 horizontal_alignment = 1
@@ -131,16 +124,20 @@ metadata/_edit_lock_ = true
 
 [node name="HintBackground" type="ColorRect" parent="PausedHint"]
 show_behind_parent = true
-custom_minimum_size = Vector2(488, 308)
+custom_minimum_size = Vector2(504, 308)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_right = -4.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -255.0
+offset_top = -154.0
+offset_right = 249.0
+offset_bottom = 154.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.156863, 0.156863, 0.156863, 0.784314)
+color = Color(0.180392, 0.172549, 0.231373, 0.784314)
 metadata/_edit_lock_ = true
 
 [node name="MarginBox" type="MarginContainer" parent="."]
@@ -150,9 +147,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -240.0
-offset_top = -314.0
-offset_right = 240.0
+offset_left = -260.0
+offset_top = -400.0
+offset_right = 260.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 60
@@ -161,6 +158,8 @@ metadata/_edit_lock_ = true
 
 [node name="VBox" type="VBoxContainer" parent="MarginBox"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 10
 metadata/_edit_lock_ = true
 
@@ -168,6 +167,8 @@ metadata/_edit_lock_ = true
 visible = false
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../BackButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
 focus_next = NodePath("../PasswordButton")
@@ -178,6 +179,8 @@ metadata/_edit_lock_ = true
 [node name="NewGameButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../../../ExitMargin/ExitButton")
 focus_neighbor_bottom = NodePath("../PasswordButton")
 focus_next = NodePath("../PasswordButton")
@@ -188,6 +191,8 @@ metadata/_edit_lock_ = true
 [node name="PasswordButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../NewGameButton")
 focus_neighbor_bottom = NodePath("../ScoresButton")
 focus_next = NodePath("../ScoresButton")
@@ -198,6 +203,8 @@ metadata/_edit_lock_ = true
 [node name="ScoresButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../PasswordButton")
 focus_neighbor_bottom = NodePath("../SettingsButton")
 focus_next = NodePath("../SettingsButton")
@@ -208,6 +215,8 @@ metadata/_edit_lock_ = true
 [node name="SettingsButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../ScoresButton")
 focus_neighbor_bottom = NodePath("../CreditsButton")
 focus_next = NodePath("../CreditsButton")
@@ -218,10 +227,13 @@ metadata/_edit_lock_ = true
 [node name="CreditsButton" type="Button" parent="MarginBox/VBox"]
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../../../ExitMargin/ExitButton")
 focus_next = NodePath("../../../ExitMargin/ExitButton")
 focus_previous = NodePath("../SettingsButton")
+disabled = true
 text = "Credits"
 metadata/_edit_lock_ = true
 
@@ -229,6 +241,8 @@ metadata/_edit_lock_ = true
 visible = false
 custom_minimum_size = Vector2(480, 56)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../ResumeButton")
 focus_next = NodePath("../ResumeButton")

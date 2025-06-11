@@ -100,7 +100,7 @@ func _ready() -> void:
 
 # Called when InputEvent detected
 func _input(event: InputEvent) -> void:
-	if !visible: # Only detect inputs when this menu is visible
+	if !visible || event.is_echo(): # Only detect inputs when this menu is visible
 		return
 	
 	# If Escape or other CancelButtton pressed, close the munu
@@ -109,7 +109,7 @@ func _input(event: InputEvent) -> void:
 		returnToLastMenu() # trigger escape function
 	
 	# If Left or Right released after adjusting SFX or CUE sliders, play a sound
-	if (event.is_action_released("DigitalLeft") || event.is_action_released("DigitalRight")) && !event.is_echo():
+	if (event.is_action_released("DigitalLeft") || event.is_action_released("DigitalRight")):
 		if focusGroup == groupTypes.SFX: # add sound cues to test fx levels
 			SoundControl.playSfx(SoundControl.scratch)
 		if focusGroup == groupTypes.CUE:
@@ -128,7 +128,7 @@ func returnToLastMenu() -> void:
 		Data.saveSettingsData()
 		settingsChanged = false
 	SoundControl.playCue(SoundControl.down, 1.4)
-	focusGroup = groupTypes.NONE
+	updateDescriptionHint(groupTypes.CLOSE) # This removes any theme overrides from control groups
 	GoBack.emit()
 
 
