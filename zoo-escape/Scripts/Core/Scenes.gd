@@ -5,8 +5,6 @@ const GAMEROOT := "res://Scenes/Core/GameRoot.tscn"
 
 # Zoo Escape Core Scenes
 const TITLE := "res://Scenes/Core/Title.tscn"
-const SETTINGS := "res://Scenes/Core/Settings.tscn"
-const PASSWORD := "res://Scenes/Core/Password.tscn"
 const HUD := "res://Scenes/Core/Hud.tscn"
 
 # Zoo Escape Debug Level Scenes
