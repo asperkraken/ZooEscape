@@ -135,12 +135,12 @@ func onButtonPressed(btn: int) -> void:
 # Event handler for when the mouse hovers a menu button
 func onButtonMouseEntered(btn: int) -> void:
 	# Make the button grab_focus
-	buttons[btn].grab_focus()
+	buttons[btn].call_deferred("grab_focus")
 
 
 # Event handler for when a menu button receives focus
 func onButtonFocusEntered(btn: int) -> void:
-	buttons[btn].grab_click_focus()
+	buttons[btn].call_deferred("grab_click_focus")
 
 
 # Event handler for when Exit button loses focus (useful for confirming user wants to exit)
