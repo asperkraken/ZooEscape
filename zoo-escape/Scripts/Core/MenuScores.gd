@@ -56,15 +56,15 @@ func _ready() -> void:
 
 # Called when an InputEvent is detected
 func _input(event: InputEvent) -> void:
-	if !visible:
+	if !visible || !event.is_pressed() || event.is_echo():
 		return
 	
 	var buttonType := -1
-	if event.is_action_pressed("DigitalRight"):
+	if event.is_action("DigitalRight"):
 		buttonType = buttonTypes.NEXT
-	elif event.is_action_pressed("DigitalLeft"):
+	elif event.is_action("DigitalLeft"):
 		buttonType = buttonTypes.PREV
-	elif event.is_action_pressed("CancelButton"):
+	elif event.is_action("CancelButton"):
 		buttonType = buttonTypes.CLOSE
 	
 	if buttonType != -1:
@@ -126,6 +126,14 @@ func getScoreData() -> void:
 # Called by the MenuManager to show this window
 func showMenu() -> void:
 	getScoreData() # Update variables and retrieve the first set of score data
+	var btn: buttonTypes
+	if !buttons[buttonTypes.NEXT].disabled:
+		btn = buttonTypes.NEXT
+	elif !buttons[buttonTypes.PREV].disabled:
+		btn = buttonTypes.PREV
+	else:
+		btn = buttonTypes.PLAY
+	buttons[btn].call_deferred("grab_focus")
 	show()
 
 
@@ -139,25 +147,25 @@ func returnToLastMenu() -> void:
 func resetWindow() -> void:
 	levelName.text = "Unnamed Level"
 	levelPass.text = "Password: ----"
-	for tHold in thresholds:
+	for tHold: Label in thresholds:
 		tHold.text = "--"
-	for mBox in moveBoxes:
+	for mBox: Label in moveBoxes:
 		mBox.text = "--"
-	for tBox in timeBoxes:
+	for tBox: Label in timeBoxes:
 		tBox.text = "--"
-	for sBox in scoreBoxes:
+	for sBox: Label in scoreBoxes:
 		sBox.text = "--"
-	for rBox in ratingBoxes:
+	for rBox: TextureRect in ratingBoxes:
 		rBox.texture = null
 
 
 # Called to enable/disable NextButton / PrevButton when appropriate
 func toggleButtons() -> void:
-	var isFirst = scoreIndex == 0
-	var isLast = scoreIndex == highScoresSize - 1
-	var isSingle = highScoresSize == 1
-	var nextNeighbor = "../NextButton"
-	var prevNeighbor = "../PrevButton"
+	var isFirst := scoreIndex == 0
+	var isLast := scoreIndex == highScoresSize - 1
+	var isSingle := highScoresSize == 1
+	var nextNeighbor := "../NextButton"
+	var prevNeighbor := "../PrevButton"
 	
 	# Enable/disable buttons
 	buttons[buttonTypes.PREV].disabled = isSingle || isFirst
@@ -207,9 +215,9 @@ func onButtonPressed(btnType: buttonTypes) -> void:
 func onButtonMouseEntered(btnType: buttonTypes) -> void:
 	var button: Button = buttons[btnType]
 	if !button.disabled: # Make the button grab_focus
-		button.grab_focus()
+		button.call_deferred("grab_focus")
 
 
 # Event handler for when a menu button receives focus
 func onButtonFocusEntered(btnType: buttonTypes) -> void:
-	buttons[btnType].grab_click_focus()
+	buttons[btnType].call_deferred("grab_click_focus")

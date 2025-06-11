@@ -128,7 +128,7 @@ func returnToLastMenu() -> void:
 		Data.saveSettingsData()
 		settingsChanged = false
 	SoundControl.playCue(SoundControl.down, 1.4)
-	focusGroup = groupTypes.NONE
+	updateDescriptionHint(groupTypes.CLOSE) # This removes any theme overrides from control groups
 	GoBack.emit()
 
 
