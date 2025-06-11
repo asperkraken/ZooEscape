@@ -48,68 +48,79 @@ var highScoresSize := Globals.highScores.size()
 func _ready() -> void:
 	# Connect button signals to Event Handlers
 	for button in buttons.values():
-		button.pressed.connect(onButtonPressed.bind(buttons.find_key(button)))
-		button.mouse_entered.connect(onButtonMouseEntered.bind(buttons.find_key(button)))
-		button.focus_entered.connect(onButtonFocusEntered.bind(buttons.find_key(button)))
+		var btnKey: buttonTypes = buttons.find_key(button)
+		button.pressed.connect(onButtonPressed.bind(btnKey))
+		button.mouse_entered.connect(onButtonMouseEntered.bind(btnKey))
+		button.focus_entered.connect(onButtonFocusEntered.bind(btnKey))
 
 
+# Called when an InputEvent is detected
 func _input(event: InputEvent) -> void:
-	if visible:
-		if event.is_action_pressed("DigitalRight"):
-			if !buttons[buttonTypes.NEXT].disabled: # If NextButton not disabled, focus and press it
-				buttons[buttonTypes.NEXT].call_deferred("grab_focus")
-				onButtonPressed(buttonTypes.NEXT)
-				if buttons[buttonTypes.NEXT].disabled: # If NextButton now disabled, focus PrevButton
-					buttons[buttonTypes.PREV].call_deferred("grab_focus")
+	if !visible:
+		return
+	
+	var buttonType := -1
+	if event.is_action_pressed("DigitalRight"):
+		buttonType = buttonTypes.NEXT
+	elif event.is_action_pressed("DigitalLeft"):
+		buttonType = buttonTypes.PREV
+	elif event.is_action_pressed("CancelButton"):
+		buttonType = buttonTypes.CLOSE
+	
+	if buttonType != -1:
+		get_viewport().set_input_as_handled()
+		var button = buttons[buttonType]
+		var opposite_buttonType = buttonTypes.PREV if buttonType == buttonTypes.NEXT else buttonTypes.NEXT
 		
-		if event.is_action_pressed("DigitalLeft"):
-			if !buttons[buttonTypes.PREV].disabled: # If PrevButton not disabled, focus and press it
-				buttons[buttonTypes.PREV].call_deferred("grab_focus")
-				onButtonPressed(buttonTypes.PREV)
-				if buttons[buttonTypes.PREV].disabled: # If PrevButton now disabled, focus NextButton
-					buttons[buttonTypes.NEXT].call_deferred("grab_focus")
+		if !button.disabled:
+			button.call_deferred("grab_focus")
+			onButtonPressed(buttonType)
+		if button.disabled:
+			buttons[opposite_buttonType].call_deferred("grab_focus")
 
 
 # Called to retrieve score data
 func getScoreData() -> void:
-	if !Globals.highScores.is_empty():
-		highScoresSize = Globals.highScores.size()
-		key = Globals.highScores.keys()[scoreIndex]
-		var lName = Globals.LEVELNAMES[key]
-		var tHolds = Globals.THRESHOLDS[key].duplicate()
-		var hScores = Globals.highScores[key]
+	if Globals.highScores.is_empty():
+		return 
+	
+	highScoresSize = Globals.highScores.size()
+	key = Globals.highScores.keys()[scoreIndex]
+	var lName: String = Globals.LEVELNAMES[key]
+	var tHolds: Array = Globals.THRESHOLDS[key].duplicate()
+	var hScores: Array = Globals.highScores[key]
+	
+	if lName.is_empty() || tHolds.is_empty() || hScores.is_empty():
+		return # If required data is missing, exit early
+	resetWindow()
+	levelName.text = lName
+	levelPass.text = "Password: " + key
+	
+	# Set the threshold labels
+	tHolds.sort() # Sort and reverse thresholds to ensure ordered from greatest to least
+	tHolds.reverse()
+	for i: int in tHolds.size():
+		if tHolds[i] == 0: # If threshold is 0, leave the text reset
+			continue
+		thresholds[i].text = str(tHolds[i]) # [ Gold, Silver, Bronze ]
+	
+	# Set the score-related labels/textures
+	for i: int in hScores.size(): # [ [ score, time, moves ], ... ]
+		scoreBoxes[i].text = str(hScores[i][0]) # Set score text
+		moveBoxes[i].text = str(hScores[i][2]) # Set moves text
+		timeBoxes[i].text = str(hScores[i][1]) # Set time text
 		
-		if lName.is_empty() || tHolds.is_empty() || hScores.is_empty():
-			return # If required data is missing, exit early
-		resetWindow()
-		levelName.text = lName
-		levelPass.text = "Password: " + key
+		# Set rating texture
+		if hScores[i][0] >= tHolds[0]:
+			ratingBoxes[i].texture = STARS[starTypes.GOLD]
+		elif hScores[i][0] >= tHolds[1]:
+			ratingBoxes[i].texture = STARS[starTypes.SILVER]
+		elif hScores[i][0] >= tHolds[2]:
+			ratingBoxes[i].texture = STARS[starTypes.BRONZE]
+		else:
+			ratingBoxes[i].texture = null
 		
-		# Set the threshold labels
-		tHolds.sort() # Sort and reverse thresholds to ensure ordered from greatest to least
-		tHolds.reverse()
-		for i: int in tHolds.size():
-			if tHolds[i] == 0: # If threshold is 0, leave the text reset
-				continue
-			thresholds[i].text = str(tHolds[i]) # [ Gold, Silver, Bronze ]
-		
-		# Set the score-related labels/textures
-		for i: int in hScores.size(): # [ [ score, time, moves ], ... ]
-			scoreBoxes[i].text = str(hScores[i][0]) # Set score text
-			moveBoxes[i].text = str(hScores[i][2]) # Set moves text
-			timeBoxes[i].text = str(hScores[i][1]) # Set time text
-			
-			# Set rating texture
-			if hScores[i][0] >= tHolds[0]:
-				ratingBoxes[i].texture = STARS[starTypes.GOLD]
-			elif hScores[i][0] >= tHolds[1]:
-				ratingBoxes[i].texture = STARS[starTypes.SILVER]
-			elif hScores[i][0] >= tHolds[2]:
-				ratingBoxes[i].texture = STARS[starTypes.BRONZE]
-			else:
-				ratingBoxes[i].texture = null
-			
-		toggleButtons()
+	toggleButtons() # Disable buttons if needed
 
 
 # Called by the MenuManager to show this window
@@ -147,17 +158,17 @@ func toggleButtons() -> void:
 	var isSingle = highScoresSize == 1
 	var nextNeighbor = "../NextButton"
 	var prevNeighbor = "../PrevButton"
-
+	
 	# Enable/disable buttons
 	buttons[buttonTypes.PREV].disabled = isSingle || isFirst
 	buttons[buttonTypes.NEXT].disabled = isSingle || isLast
-
+	
 	# Set focus neighbors
 	if isLast:
 		nextNeighbor = "../PrevButton"
 	if isFirst:
 		prevNeighbor = "../NextButton"
-
+	
 	buttons[buttonTypes.NEXT].focus_neighbor_left = prevNeighbor
 	buttons[buttonTypes.PREV].focus_neighbor_right = nextNeighbor
 	if isSingle:
@@ -166,7 +177,7 @@ func toggleButtons() -> void:
 	else:
 		buttons[buttonTypes.PLAY].focus_neighbor_top = nextNeighbor
 		buttons[buttonTypes.CLOSE].focus_neighbor_bottom = nextNeighbor
-
+	
 	# Set focus
 	if isSingle:
 		buttons[buttonTypes.PLAY].call_deferred("grab_focus")
@@ -175,29 +186,30 @@ func toggleButtons() -> void:
 
 
 # Called when a button is pressed
-func onButtonPressed(btn: int) -> void:
-	match btn as buttonTypes:
+func onButtonPressed(btnType: buttonTypes) -> void:
+	match btnType:
 		buttonTypes.NEXT, buttonTypes.PREV:
-			if (btn == buttonTypes.NEXT && scoreIndex < highScoresSize - 1) || (btn == buttonTypes.PREV && scoreIndex > 0):
-				scoreIndex += 1 if btn == buttonTypes.NEXT else -1
+			if (btnType == buttonTypes.NEXT && scoreIndex < highScoresSize - 1) || (btnType == buttonTypes.PREV && scoreIndex > 0):
+				scoreIndex += 1 if btnType == buttonTypes.NEXT else -1
 				SoundControl.playCue(SoundControl.blip, 1.0)
 				getScoreData()
-
+		
 		buttonTypes.PLAY:
 			SoundControl.playCue(SoundControl.start, 1.0)
 			SceneManager.call_deferred("goToNewSceneString", Globals.PASSWORDS[key])
 			SetMenu.emit(MenuManager.menuTypes.NONE)
-			
+		
 		buttonTypes.CLOSE:
 			returnToLastMenu()
 
 
 # Event handler for when the mouse hovers a menu button
-func onButtonMouseEntered(i: int) -> void:
-	# Make the button grab_focus
-	buttons[i].grab_focus()
+func onButtonMouseEntered(btnType: buttonTypes) -> void:
+	var button: Button = buttons[btnType]
+	if !button.disabled: # Make the button grab_focus
+		button.grab_focus()
 
 
 # Event handler for when a menu button receives focus
-func onButtonFocusEntered(i: int) -> void:
-	buttons[i].grab_click_focus()
+func onButtonFocusEntered(btnType: buttonTypes) -> void:
+	buttons[btnType].grab_click_focus()

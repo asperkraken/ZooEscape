@@ -71,8 +71,8 @@ func areYouSureReset():
 
 
 # Event handler for when a menu button is pressed
-func onButtonPressed(i: int) -> void:
-	match i as buttonTypes: #  Determine which button got pressed
+func onButtonPressed(btn: int) -> void:
+	match btn as buttonTypes: #  Determine which button got pressed
 		# Resume button
 		buttonTypes.RESUME:
 			lastButton = buttonTypes.RESUME
@@ -122,7 +122,7 @@ func onButtonPressed(i: int) -> void:
 		
 		# Exit button
 		buttonTypes.EXIT:
-			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
+			SoundControl.playCue(SoundControl.down, 1.4)
 			if !areYouSure: # feedback and warning
 				$ExitMargin/ExitButton/RollText.speed_scale = 1.0
 				areYouSure = true
@@ -133,14 +133,14 @@ func onButtonPressed(i: int) -> void:
 
 
 # Event handler for when the mouse hovers a menu button
-func onButtonMouseEntered(i: int) -> void:
+func onButtonMouseEntered(btn: int) -> void:
 	# Make the button grab_focus
-	buttons[i].grab_focus()
+	buttons[btn].grab_focus()
 
 
 # Event handler for when a menu button receives focus
-func onButtonFocusEntered(i: int) -> void:
-	buttons[i].grab_click_focus()
+func onButtonFocusEntered(btn: int) -> void:
+	buttons[btn].grab_click_focus()
 
 
 # Event handler for when Exit button loses focus (useful for confirming user wants to exit)
