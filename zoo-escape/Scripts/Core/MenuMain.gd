@@ -71,9 +71,8 @@ func areYouSureReset():
 
 
 # Event handler for when a menu button is pressed
-func onButtonPressed(i: int) -> void:
-	#  Determine which button got pressed
-	match i as buttonTypes:
+func onButtonPressed(btn: int) -> void:
+	match btn as buttonTypes: #  Determine which button got pressed
 		# Resume button
 		buttonTypes.RESUME:
 			lastButton = buttonTypes.RESUME
@@ -85,8 +84,6 @@ func onButtonPressed(i: int) -> void:
 			lastButton = buttonTypes.NEWGAME
 			SoundControl.playCue(SoundControl.start, 1.0) # audio feedback
 			SceneManager.call_deferred("goToNewSceneString", Scenes.TUTORIAL1) # Load the first tutorial level
-			# change bgm and fade on out
-			SoundControl.levelChangeSoundCall(1.0, SoundControl.defaultBgm) # begin bgm fade in
 			SetMenu.emit(MenuManager.menuTypes.NONE)
 		
 		# Password button
@@ -99,7 +96,7 @@ func onButtonPressed(i: int) -> void:
 		buttonTypes.SCORES:
 			lastButton = buttonTypes.SCORES
 			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
-			#SetMenu.emit(MenuManager.menuTypes.SCORES) # This will be added in another PR, so leave it in
+			SetMenu.emit(MenuManager.menuTypes.SCORES)
 		
 		# Settings button
 		buttonTypes.SETTINGS:
@@ -125,7 +122,7 @@ func onButtonPressed(i: int) -> void:
 		
 		# Exit button
 		buttonTypes.EXIT:
-			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
+			SoundControl.playCue(SoundControl.down, 1.4)
 			if !areYouSure: # feedback and warning
 				$ExitMargin/ExitButton/RollText.speed_scale = 1.0
 				areYouSure = true
@@ -136,15 +133,15 @@ func onButtonPressed(i: int) -> void:
 
 
 # Event handler for when the mouse hovers a menu button
-func onButtonMouseEntered(i: int) -> void:
+func onButtonMouseEntered(btn: int) -> void:
 	# Make the button grab_focus
-	buttons[i].grab_focus()
-	
+	buttons[btn].grab_focus()
+
 
 # Event handler for when a menu button receives focus
-func onButtonFocusEntered(i: int) -> void:
-	buttons[i].grab_click_focus()
-	
+func onButtonFocusEntered(btn: int) -> void:
+	buttons[btn].grab_click_focus()
+
 
 # Event handler for when Exit button loses focus (useful for confirming user wants to exit)
 func onExitButtonFocusExited() -> void:
@@ -189,6 +186,7 @@ func showMenu() -> void:
 		buttons[buttonTypes.RESUME].hide()
 		buttons[buttonTypes.NEWGAME].show()
 		buttons[buttonTypes.SCORES].show()
+		buttons[buttonTypes.SCORES].disabled = Globals.highScores.is_empty()
 		buttons[buttonTypes.CREDITS].show()
 		buttons[buttonTypes.BACK].hide()
 		buttons[buttonTypes.EXIT].visible = !OS.get_name() == "Web" # If playing the web version, hide the Exit button

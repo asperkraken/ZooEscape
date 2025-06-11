@@ -1,12 +1,12 @@
 class_name LevelManager extends Node2D
 
 
-enum processingStates {
-	NONE,
+enum levelStates {
 	IDLE,
-	PREP,
-	TIME,
-	MOVES
+	NORMAL,
+	PRESCORE,
+	SCORETIME,
+	SCOREMOVES
 }
 
 @export var levelCode := "----" # stores as password
@@ -26,9 +26,10 @@ var resetTime := 0.0 # how long the player has held the "RightBumper" action
 var timesUp := false # has the level's time run out?
 var hasPlayerMoved := false # has the player moved yet?
 var score := 0 # the player's score for this level
-var moveCount := 0 # number of moves player has made this level
+var moveCount := 0 # number of moves player has made this level (gets reduced during score tally)
+var totalMoves := 0 # number of moves player has made this level (does not get reduced during score tally)
 var steakCount := 0 # number of steaks present in the level
-var processingState := processingStates.IDLE
+var levelState := levelStates.NORMAL # The current state of the level
 
 @onready var player := $Player # Handle to the player
 @onready var exitTile := $ExitTile # Handle to the exitTile
@@ -50,8 +51,6 @@ func _ready() -> void:
 	# Set currentGameData in Globals
 	if !Globals.currentGameData.gameRunning:
 		Globals.currentGameData.gameRunning = true # Critical for MenuManager to work as intended in-game
-		Globals.currentGameData.playerScore = 0 # Reset the carry-over score if a game was not running (usually after quitting a previous game)
-	score = Globals.currentGameData.playerScore # If there's a carry-over score, set score to that (or 0 if not)
 	
 	setupSteaks()
 	setupHud()
@@ -67,27 +66,33 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	match processingState:
+	match levelState:
 		# If done processing, exit early (wait for other processes to finish)
-		processingStates.NONE:
+		levelStates.IDLE:
 			return
 		
-		# Normal level logic
-		processingStates.IDLE:
-			if hasPlayerMoved && !timesUp && !isLevelTutorial: # The player has moved but still has time, so do things!
+		# Game Loop: Track level logic
+		levelStates.NORMAL:
+			# Track elapsed time, even for tutorial levels
+			if hasPlayerMoved:
 				elapsedTime += delta
+			
+			# If player has moved, player still has time, and not playing a tutorial
+			if hasPlayerMoved && !timesUp && !isLevelTutorial:
 				timeLeft = roundi(timeLimit - elapsedTime) # Calculate how much time is left, and update the HUD
-				hud.updateTimeText(timeLeft) # If we're not playing a tutorial, update the time
+				hud.updateTimeText(timeLeft)
 					
-				if timeLeft <= warningTime && timeLeft % 2 == 0: # If the remaining time is less than warning time, give warnings
+				# If the remaining time is less than warning time, give warnings
+				if timeLeft <= warningTime && timeLeft % 2 == 0:
 					hud.giveTimeWarning()
 				
-				if elapsedTime >= timeLimit: # If elapsedTime is greater than timeLimit, time's up!
+				# If elapsedTime is greater than timeLimit, time's up!
+				if elapsedTime >= timeLimit:
 					timesUp = true
 				
-			elif timesUp: # If time has run out, change processing mode and display Timeout window
-				processingState = processingStates.NONE
-				#hud.outOfTime()
+			# If time has run out, change processing mode and display Timeout window
+			if timesUp:
+				levelState = levelStates.IDLE
 				hud.closeHud()
 				MenuManager.setMenu(MenuManager.menuTypes.TIMEOUT)
 			
@@ -97,45 +102,47 @@ func _process(delta: float) -> void:
 				hud.resetBarFade()
 			
 			# If player is pressing "RightBumper," show resetBar and update its value
-			if Input.is_action_pressed("RightBumper") and !timesUp: # do not allow reload when time up!
+			if Input.is_action_pressed("RightBumper") && !timesUp: # do not allow reload when time up!
 				resetTime += delta
 				hud.resetBarReveal()
 				hud.resetBarUpdate(resetTime)
 			
 			# If resetTime has been met, reset the level
 			if resetTime >= 2:
-				processingState = processingStates.NONE
-				timesUp = true
+				levelState = levelStates.IDLE
 				SoundControl.playCue(SoundControl.down, 2.0)
 				hud.resetPrompt() # Update restartBar prompt on HUD
 				restartRoom()
 		
-		# Prepare to process TIME and MOVES
-		processingStates.PREP:
+		# Score Pre-processing: Prepare to process SCORETIME and SCOREMOVES
+		levelStates.PRESCORE:
 			timeLimit -= roundi(elapsedTime)
-			updateScore(exitBonus) # Apply exitBonus score and save score to Globals
-			Globals.currentGameData.playerScore = score
+			totalMoves = moveCount
+			updateScore(exitBonus) # Apply exitBonus to score
+			
+			# If playing regular level, being score processing
 			if !isLevelTutorial:
-				processingState = processingStates.TIME # If playing regular level, process TIME and MOVES
+				levelState = levelStates.SCORETIME
+			
+			# if playing tutorial, wait for the next level to load
 			else:
-				processingState = processingStates.NONE # if playing tutorial, wait for the next level to load
-				await get_tree().create_timer(processDelay * 10).timeout # Small delay before going to the next level
+				levelState = levelStates.IDLE # Stop processing
+				setHighScore()
 				loadNextLevel()
-				
 		
-		# Add bonus points for remaining time
-		processingStates.TIME:
-			if timeLimit > 0: # timer adds bonus until zero
+		# Score processing: Add bonus points for remaining time
+		levelStates.SCORETIME:
+			if timeLimit > 0: # Timer adds bonus until zero
 				timeLimit -= 1
 				updateScore(timeBonus) # Adding bonus
 				hud.updateTimeText(timeLimit)
 				await get_tree().create_timer(processDelay).timeout # Create a small delay to visually count down
 				return
 			else:
-				processingState = processingStates.MOVES # When done processing TIME, process MOVES
+				levelState = levelStates.SCOREMOVES # When done scoring time, score moves
 		
-		# Subtract moveCount penalties from the score
-		processingStates.MOVES:
+		# Score processing: Subtract moveCount penalties from the score
+		levelStates.SCOREMOVES:
 			if moveCount > 0:
 				moveCount -= 1
 				updateScore(-movePenalty) # Subtracting penalty
@@ -143,18 +150,9 @@ func _process(delta: float) -> void:
 				await get_tree().create_timer(processDelay).timeout # Create a small delay to visually count down
 				return
 			else:
-				Globals.currentGameData.playerScore = score # Update the carry-over score in Globals
-				processingState = processingStates.NONE # When done processing MOVES, wait for next level to load
-				await get_tree().create_timer(processDelay * 10).timeout # Small delay before going to the next level
-				loadNextLevel() # Load the next level
-
-
-# Called when an InputEvent is detected
-func _input(event: InputEvent) -> void:
-	if !hasPlayerMoved: # If the player hasn't moved, listen for moves, as this triggers the elapsedTime counter to begin
-		if event.is_action("DigitalUp") || event.is_action("DigitalDown") || event.is_action("DigitalLeft") || event.is_action("DigitalRight"):
-			hasPlayerMoved = true
-			startLevel()
+				levelState = levelStates.IDLE # Stop processing and wait for next level
+				setHighScore()
+				loadNextLevel()
 
 
 # Initialize the HUD for this level
@@ -185,6 +183,10 @@ func updateScore(value) -> void:
 
 # Updates the moveCount variable
 func updateMoveCount() -> void:
+	if !hasPlayerMoved:
+		hasPlayerMoved = true
+		startLevel()
+	
 	moveCount += 1 # Update the move counter
 	hud.updateMovesText(moveCount)
 
@@ -221,11 +223,41 @@ func findChildrenInGroup(group := "", which: Node = self, arr := []) -> Array:
 	return arr
 
 
+func setHighScore() -> void:
+	if Globals.THRESHOLDS.has(levelCode) && Globals.THRESHOLDS[levelCode].size() == 3: # If threshold data exists, we can track score
+		# After score tally, check the score values for this level to see if this score is higher
+		var levelData: Array = Globals.highScores.get(levelCode, [])
+		
+		# Create new score entry
+		var new_entry := [ score, round(elapsedTime *  100) / 100, totalMoves ]
+		
+		# Add new entry to levelData
+		levelData.append(new_entry)
+		
+		# Sort levelData: descending by score, ascending by moves, ascending by time
+		levelData.sort_custom(func(a, b):
+			if a[0] != b[0]:
+				return a[0] > b[0]  # Higher score comes first
+			if a[2] != b[2]:
+				return a[2] < b[2]  # Lower moves comes first if scores equal
+			return a[1] < b[1]   # Lower time comes first if moves equal
+		)
+		
+		# Keep only the top 3 entries
+		if levelData.size() > 3:
+			levelData.resize(3)
+		
+		# Update global high scores and save the data
+		Globals.highScores[levelCode] = levelData
+		Data.saveScoreData()
+
+
+
 # Exit the level function - hold player, process score then go to next room
 func exitLevel() -> void:
 	player.currentState = player.playerState.ONEXIT
 	SoundControl.playCue(SoundControl.success, 2.0) # sound trigger
-	processingState = processingStates.PREP
+	levelState = levelStates.PRESCORE # The current state of the level
 
 
 # Load the next level
