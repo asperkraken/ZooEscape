@@ -43,7 +43,8 @@ var sfxLevel: float = Globals.currentSettings.sfxVolume
 var cueLevel: float = Globals.currentSettings.cueVolume
 var volumeReference := bgmLevel
 var fadeRate := 0.2 # default fade rate, can be updated in code
-var currentBgm : String
+var currentBgm : String = testBgm
+var nextBgm : String = "next"
 var fadeState := fadeStates.SILENCE # current fade state
 
 @onready var bgm := $BGM # music (pauses position on pause)
@@ -53,7 +54,7 @@ var fadeState := fadeStates.SILENCE # current fade state
 
  # sound preferences retrieved at ready
 func _ready() -> void:
-	setSoundPreferences(masterLevel,SILENCE,sfxLevel,cueLevel) # set levels
+	updateVolumeLevels()
 	currentBgm = testBgm # default title music
 
 
@@ -65,13 +66,6 @@ func _process(delta: float) -> void:
 		else:
 			pass
 
-
-# values set for sound levels # TODO: Update scripts to use updateVolumeLevels() instead
-func setSoundPreferences(_master: float, _bgm: float, _sfx: float, _cue: float) -> void:
-	AudioServer.set_bus_volume_db(0, _master)
-	AudioServer.set_bus_volume_db(1, _cue)
-	AudioServer.set_bus_volume_db(2, _sfx)
-	AudioServer.set_bus_volume_db(3, _bgm)
 
 
 # values set for sound levels (using Globals)

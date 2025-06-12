@@ -57,11 +57,6 @@ func _ready() -> void:
 	
 	if isLevelTutorial:
 		player.showMoveThought() # Show tutorial bubble if in tutorial stage
-	
-	# check to ensure bgm fade level is consistent
-	# if bgm fade level not normal, reset fade state so it fades in
-	if SoundControl.fadeState != SoundControl.fadeStates.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
-		SoundControl.fadeState = SoundControl.fadeStates.IN_TRIGGER
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

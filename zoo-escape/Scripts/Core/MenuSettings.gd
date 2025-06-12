@@ -188,9 +188,6 @@ func onSliderValueChanged(value: float, which: groupTypes):
 	if !which == groupTypes.DEADZONE:
 		SoundControl.updateVolumeLevels()
 		SoundControl.muteAudioBusCheck()
-		
-		# TODO: This needs to be re-factored in SoundControl and removed from here.
-		SoundControl.setSoundPreferences(Globals.currentSettings.masterVolume, Globals.currentSettings.musicVolume, Globals.currentSettings.sfxVolume, Globals.currentSettings.cueVolume)
 	else:
 		Globals.deadzoneUpdate()
 
