@@ -75,6 +75,7 @@ func _ready() -> void:
 	
 	# Open the MainMenu by default
 	if get_tree().current_scene == GameRoot: # This keeps the menu from appearing automatically if running a scene independently.
+		$BGM.stop()
 		setMenu(menuTypes.MAIN)
 
 

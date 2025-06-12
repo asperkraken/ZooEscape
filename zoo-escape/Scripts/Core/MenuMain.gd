@@ -81,6 +81,7 @@ func onButtonPressed(btn: int) -> void:
 			
 		# New Game button
 		buttonTypes.NEWGAME:
+			SoundControl.fadeToDefaults.emit()
 			lastButton = buttonTypes.NEWGAME
 			SoundControl.playCue(SoundControl.start, 1.0) # audio feedback
 			SceneManager.call_deferred("goToNewSceneString", Scenes.TUTORIAL1) # Load the first tutorial level
@@ -117,7 +118,7 @@ func onButtonPressed(btn: int) -> void:
 			Data.saveSettingsData()
 			Globals.currentGameData.gameRunning = false
 			SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE) # Go to title scene
-			SoundControl.levelChangeSoundCall(1.0, SoundControl.defaultBgm) # begin bgm fade in
+			SoundControl.fadeToDefaults.emit()
 			SetMenu.emit(MenuManager.menuTypes.NONE)
 		
 		# Exit button

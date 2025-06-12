@@ -57,6 +57,8 @@ func _ready() -> void:
 	
 	if isLevelTutorial:
 		player.showMoveThought() # Show tutorial bubble if in tutorial stage
+	
+	SoundControl.fadeInMusic.emit()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -274,4 +276,5 @@ func restartRoom() -> void:
 func quitGame() -> void:
 	hud.closeHud()
 	Globals.currentGameData.gameRunning = false
+	SoundControl.fadeToDefaults.emit()
 	SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE)
