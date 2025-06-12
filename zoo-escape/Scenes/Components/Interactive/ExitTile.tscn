@@ -608,5 +608,5 @@ shape = SubResource("RectangleShape2D_2ruav")
 
 [node name="OpenCue" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_qqk7d")
-volume_db = -24.0
 pitch_scale = 2.3
+bus = &"Cue"

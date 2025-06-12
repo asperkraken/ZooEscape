@@ -8,7 +8,6 @@ signal PlayerExits()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Area2D.body_entered.connect(bodyEntered)
-	$OpenCue.volume_db = SoundControl.cueLevel # has own sound for solo trigger
 
 
 # play the animation and audio cue, glow activates

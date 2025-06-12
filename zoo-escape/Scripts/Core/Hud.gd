@@ -8,9 +8,6 @@ var resetBarVisible := false # is the resetBar visible?
 func _ready() -> void: # reset animations at ready, fetch volume values
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
-	# to avoid queueing error on prompt
-	$OpenCue.volume_db = SoundControl.cueLevel
-	$AlertCue.volume_db = SoundControl.cueLevel
 
 
 # Play animation when level begins
@@ -96,7 +93,7 @@ func updatePasswordText(code: String) -> void:
 	$MBox/HUDWindow/PasswordValue.text = code # Password value in the HUD
 
 
-# Open SettingsMenu in game (handled by MenuManager)
+# Open menu in game (handled by MenuManager)
 func onSettingsButtonPressed() -> void:
 	SoundControl.playCue(SoundControl.blip, 3.0)
-	MenuManager.setMenu(MenuManager.menuTypes.SETTINGS)
+	MenuManager.setMenu(MenuManager.menuTypes.MAIN)
