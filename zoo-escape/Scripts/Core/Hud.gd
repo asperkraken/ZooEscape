@@ -17,7 +17,7 @@ func playTimerStart() -> void:
 
 # Play HUD close animation
 func closeHud()  -> void: 
-	$SettingsButton.hide()
+	$MenuButton.hide()
 	$HUDAnimationAlt.play("close")
 
 
@@ -94,6 +94,6 @@ func updatePasswordText(code: String) -> void:
 
 
 # Open menu in game (handled by MenuManager)
-func onSettingsButtonPressed() -> void:
+func _on_MenuButton_pressed() -> void:
 	SoundControl.playCue(SoundControl.blip, 3.0)
 	MenuManager.setMenu(MenuManager.menuTypes.MAIN)

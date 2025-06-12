@@ -518,7 +518,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("SettingsButton:modulate")
+tracks/6/path = NodePath("MenuButton:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -617,7 +617,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SettingsButton:modulate")
+tracks/1/path = NodePath("MenuButton:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1040,7 +1040,7 @@ text = "----"
 horizontal_alignment = 2
 autowrap_mode = 1
 
-[node name="SettingsButton" type="Button" parent="."]
+[node name="MenuButton" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_left = 8.0
 offset_top = 8.0
@@ -1048,7 +1048,7 @@ offset_right = 56.0
 offset_bottom = 56.0
 mouse_filter = 1
 
-[node name="GearIcon" type="AnimatedSprite2D" parent="SettingsButton"]
+[node name="GearIcon" type="AnimatedSprite2D" parent="MenuButton"]
 material = SubResource("ShaderMaterial_lxtjt")
 position = Vector2(24, 24)
 sprite_frames = SubResource("SpriteFrames_kumpa")
@@ -1112,5 +1112,5 @@ volume_db = -6.0
 pitch_scale = 2.0
 bus = &"Cue"
 
-[connection signal="pressed" from="SettingsButton" to="." method="onSettingsButtonPressed"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="timeout" from="OpenTimer" to="." method="onOpenTimerTimeout"]
