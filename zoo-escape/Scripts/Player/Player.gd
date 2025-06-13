@@ -11,11 +11,18 @@ enum playerState {
 	CORNERSLIDING
 }
 
-@onready var dirToAnimtionName := {
+@onready var dirToAnimationName := {
 	Vector2.UP: "IdleUp",
 	Vector2.RIGHT: "IdleRight",
 	Vector2.DOWN: "IdleDown",
 	Vector2.LEFT: "IdleLeft"
+}
+
+@onready var walkToAnimationName := {
+	Vector2.UP: "WalkUp",
+	Vector2.RIGHT: "WalkRight",
+	Vector2.DOWN: "WalkDown",
+	Vector2.LEFT: "WalkLeft"
 }
 
 @export var moveSpeed := 0.3
@@ -108,7 +115,7 @@ func slideAnimationCall() -> void:
 				sprite.play("SlideUp")
 			Vector2.ZERO: # return to idle if still
 				currentState = playerState.IDLE
-				sprite.play(dirToAnimtionName[lastMoveDir])
+				sprite.play(dirToAnimationName[lastMoveDir])
 
 
 # Called to move the player
@@ -121,7 +128,7 @@ func movePlayer(dir: Vector2) -> void:
 	
 	# Change the direction the Player is facing and determine animation update behavior
 	if currentState != playerState.SLIDING:
-		sprite.play(dirToAnimtionName[dir])
+		sprite.play(walkToAnimationName[dir])
 	# update facing direction
 	ray.target_position = dir * Globals.TILESIZE
 	ray.force_raycast_update()
@@ -176,7 +183,7 @@ func bodyEnter(body: Node2D) -> void:
 			else:
 				# retrigger idle after stopping sliding movement
 				currentState = playerState.IDLE
-				sprite.play(dirToAnimtionName[lastMoveDir])
+				sprite.play(dirToAnimationName[lastMoveDir])
 
 
 # go back to idle when exiting area
@@ -225,8 +232,15 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	if sprite.animation == "Drown":
 		InWater.emit() # level reload call
 
+	if "Walk" in sprite.animation: # repeat walk if moving or return to idle
+		if moveTimer != 0: # return to idle from work
+			sprite.play(walkToAnimationName[facingDir])
+		else:
+			sprite.play(dirToAnimationName[facingDir])
+
+
 
 # check to see if slide animation still running and if so, return to idle animation
 func _on_animated_sprite_2d_frame_changed() -> void:
 	if "Slide" in sprite.animation and currentState != playerState.SLIDING:
-		sprite.play(dirToAnimtionName[lastMoveDir])
+		sprite.play(dirToAnimationName[lastMoveDir])
