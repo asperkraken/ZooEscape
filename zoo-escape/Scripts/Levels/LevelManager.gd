@@ -252,7 +252,7 @@ func setHighScore() -> void:
 
 # Exit the level function - hold player, process score then go to next room
 func exitLevel() -> void:
-	player.endLevelAnimation() # trigger player win animation (calling down) and prevent walk retrigger
+	player.endLevelAnimation() # trigger player win animation and prevent walk retrigger
 	player.currentState = player.playerState.ONEXIT
 	SoundControl.playCue(SoundControl.success, 2.0) # sound trigger
 	levelState = levelStates.PRESCORE # The current state of the level
@@ -277,5 +277,5 @@ func restartRoom() -> void:
 func quitGame() -> void:
 	hud.closeHud()
 	Globals.currentGameData.gameRunning = false
-	SoundControl.fadeToDefaults.emit()
+	SoundControl.resetMusicFade()
 	SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE)
