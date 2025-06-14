@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://nheh2k2bhpjo"]
+[gd_scene load_steps=81 format=3 uid="uid://nheh2k2bhpjo"]
 
 [ext_resource type="Script" uid="uid://c0lknsfkxfvqt" path="res://Scripts/Core/Hud.gd" id="1_v7gog"]
 [ext_resource type="Texture2D" uid="uid://4ujrmavb2g2p" path="res://Assets/Images/Icons/timericon.png" id="2_lxtjt"]
@@ -8,7 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dyocpchrkapw4" path="res://Assets/UI_Resources/step_icon_frames.tres" id="4_kumpa"]
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="5_e5oyd"]
 [ext_resource type="Texture2D" uid="uid://bpqy5r5tv0k1x" path="res://Assets/Images/SteakNew.png" id="5_f4iw3"]
-[ext_resource type="Texture2D" uid="uid://2hqcqlbiu76a" path="res://Assets/Images/Icons/menu_burger.png" id="6_f4iw3"]
+[ext_resource type="Texture2D" uid="uid://rf6tkn8xf208" path="res://Assets/Images/Title/SnakeIdle.png" id="6_f4iw3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxtjt"]
 bg_color = Color(0.380392, 0.25098, 0.478431, 1)
@@ -343,57 +343,87 @@ shader_parameter/frequency = 0.35
 shader_parameter/highlight_speed = 2.067
 shader_parameter/highlight_width = 6.011
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugh5x"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxtjt"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(128, 0, 128, 128)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7myin"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nw2ha"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s1rk6"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(64, 0, 32, 32)
+region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2rfd"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(96, 0, 32, 32)
+region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_875t6"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l6hq0"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(32, 32, 32, 32)
+region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q12gm"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(64, 32, 32, 32)
+region = Rect2(256, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yyfxl"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(96, 32, 32, 32)
+region = Rect2(384, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tsai3"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(0, 64, 32, 32)
+region = Rect2(512, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_836m1"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(32, 64, 32, 32)
+region = Rect2(640, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0h1c"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(64, 64, 32, 32)
+region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ig8gt"]
 atlas = ExtResource("6_f4iw3")
-region = Rect2(96, 64, 32, 32)
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02qnb"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ibnm"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jryv"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(512, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3u7p"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(640, 256, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kumpa"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugh5x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxtjt")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7myin")
 }, {
@@ -429,10 +459,22 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ig8gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02qnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ibnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jryv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3u7p")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xvoy"]
@@ -1048,12 +1090,13 @@ offset_right = 56.0
 offset_bottom = 56.0
 mouse_filter = 1
 
-[node name="GearIcon" type="AnimatedSprite2D" parent="MenuButton"]
+[node name="SnakeIcon" type="AnimatedSprite2D" parent="MenuButton"]
 material = SubResource("ShaderMaterial_lxtjt")
 position = Vector2(24, 24)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kumpa")
 autoplay = "default"
-frame_progress = 0.709341
+frame_progress = 0.574356
 
 [node name="ResetBar" type="ProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0)
