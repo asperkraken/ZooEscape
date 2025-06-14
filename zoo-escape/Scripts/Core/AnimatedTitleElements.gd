@@ -5,13 +5,16 @@ var defaultQueue := ["blink", "look", "sparkle", "roll"]
 var animationQueue := ["blink", "look", "sparkle", "roll"]
 @export var minTime := 4
 @export var maxTime := 7
-
+const snakeOrigin := Vector2(1352,104)
+var snakeIsPositioned := false
 
 # play blink and shuffle the queue
 func _ready() -> void:
+	$Snake.global_position = snakeOrigin
 	randomize()
 	$EyeballLeft.play("blink")
 	$EyeballRight.play("blink")
+	$SnakeMover.play("slither")
 	animationQueue.shuffle()
 
 
@@ -42,3 +45,18 @@ func _on_eyeball_left_animation_finished() -> void:
 		$EyeballTimer.start(_roll)
 	else:
 		$EyeballTimer.stop()
+
+
+# this switches the snake to stay still after movement animation
+func _on_snake_mover_animation_finished(_anim_name: StringName) -> void:
+	if _anim_name == "slither" and !snakeIsPositioned:
+		snakeIsPositioned = true
+
+
+# this controls the snake idle animation
+# note: animation only processes when paused
+func _process(_delta: float) -> void:
+	if !snakeIsPositioned:
+		$Snake.play("slither")
+	else:
+		$Snake.play("idle")
