@@ -58,7 +58,7 @@ func _ready() -> void:
 	if isLevelTutorial:
 		player.showMoveThought() # Show tutorial bubble if in tutorial stage
 	
-	SoundControl.fadeInMusic.emit()
+	SoundControl.musicFadeIn()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -252,6 +252,7 @@ func setHighScore() -> void:
 
 # Exit the level function - hold player, process score then go to next room
 func exitLevel() -> void:
+	player.endLevelAnimation() # trigger player win animation (calling down) and prevent walk retrigger
 	player.currentState = player.playerState.ONEXIT
 	SoundControl.playCue(SoundControl.success, 2.0) # sound trigger
 	levelState = levelStates.PRESCORE # The current state of the level

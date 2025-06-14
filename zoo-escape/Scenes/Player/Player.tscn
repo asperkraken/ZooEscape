@@ -792,7 +792,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gnjky")
+}],
+"loop": false,
+"name": &"WalkDown1",
+"speed": 15.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_we6lh")
 }, {
@@ -806,7 +811,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_o0c6g")
 }],
 "loop": false,
-"name": &"WalkDown",
+"name": &"WalkDown2",
 "speed": 15.0
 }, {
 "frames": [{
@@ -821,7 +826,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_femxh")
+}],
+"loop": false,
+"name": &"WalkLeft1",
+"speed": 15.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ljy5i")
 }, {
@@ -835,7 +845,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_y2thj")
 }],
 "loop": false,
-"name": &"WalkLeft",
+"name": &"WalkLeft2",
 "speed": 15.0
 }, {
 "frames": [{
@@ -850,7 +860,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_6q5ew")
+}],
+"loop": false,
+"name": &"WalkRight1",
+"speed": 15.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2aool")
 }, {
@@ -864,7 +879,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_xfeuu")
 }],
 "loop": false,
-"name": &"WalkRight",
+"name": &"WalkRight2",
 "speed": 15.0
 }, {
 "frames": [{
@@ -879,7 +894,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dc80h")
+}],
+"loop": false,
+"name": &"WalkUp1",
+"speed": 15.0
 }, {
+"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nojrp")
 }, {
@@ -893,7 +913,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_o7dio")
 }],
 "loop": false,
-"name": &"WalkUp",
+"name": &"WalkUp2",
 "speed": 15.0
 }]
 
@@ -985,7 +1005,7 @@ script = ExtResource("1_fxagb")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_w2ove")
-animation = &"WalkUp"
+animation = &"WalkDown2"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_72fhx")

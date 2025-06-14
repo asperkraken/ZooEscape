@@ -9,6 +9,8 @@ signal PlayerExits()
 func _ready() -> void:
 	if nextLevelCode != "9990": # report next level bgm to sound control
 		SoundControl.nextBgm = SoundControl.levelsBgm[nextLevelCode]
+	else:
+		SoundControl.nextBgm = "next" # defaults so fade out instead of bug at end
 	$Area2D.body_entered.connect(bodyEntered)
 
 
@@ -23,4 +25,4 @@ func activateExit() -> void:
 func bodyEntered(body: Node2D) -> void:
 	if animation == "Active" && body.is_in_group("Player"):
 		PlayerExits.emit()
-		SoundControl.fadeOutMusic.emit()
+		SoundControl.musicFadeOut()

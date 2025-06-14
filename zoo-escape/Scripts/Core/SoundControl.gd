@@ -13,6 +13,7 @@ const blip := "res://Assets/Sound/Blip.ogg"
 const chomp := "res://Assets/Sound/Chompy.ogg"
 const down := "res://Assets/Sound/FlourishDown.ogg"
 const pickup := "res://Assets/Sound/Pickup.ogg"
+const fanfare := "res://Assets/Sound/FanfareMajor.ogg"
 const flutter := "res://Assets/Sound/Flutter.ogg"
 const fail := "res://Assets/Sound/GameOver.ogg"
 const ruined := "res://Assets/Sound/CrumbleNoise.ogg"
@@ -51,11 +52,6 @@ var fadeState := fadeStates.SILENCE # current fade state
 @onready var sfx := $SFX # in-game sound effects (pauses position on pause)
 @onready var cue := $Cue # ui sound effects (ignores pause)
 
-# signals to call fade functions individually
-signal fadeInMusic
-signal fadeOutMusic
-signal fadeToDefaults
-
 # bgm by level for triggering fades
 const levelsBgm := {
 	"0001": testBgm,
@@ -71,9 +67,6 @@ const levelsBgm := {
  # sound preferences retrieved at ready
 func _ready() -> void:
 	updateVolumeLevels()
-	fadeInMusic.connect(musicFadeIn)
-	fadeOutMusic.connect(musicFadeOut)
-	fadeToDefaults.connect(resetMusicFade)
 
 
  # listen for fade states and update volumes
@@ -93,7 +86,14 @@ func updateVolumeLevels() -> void:
 # for stopping outside of node
 func stopBgm() -> void:
 	bgm.stop()
-	
+
+
+# for simple playing
+func playBgm() -> void:
+	if !bgm.playing:
+		bgm.stream = load(currentBgm)
+		bgm.play()
+
 
 # for fading in bgm, always fade in if not max volume
 func musicFadeIn() -> void:

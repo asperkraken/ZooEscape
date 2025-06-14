@@ -8,7 +8,7 @@
 script = ExtResource("1_wp1sj")
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-process_mode = 4
+process_mode = 1
 stream = ExtResource("2_pslfc")
 volume_db = -80.0
 bus = &"Bgm"

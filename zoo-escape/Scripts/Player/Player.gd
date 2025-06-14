@@ -18,11 +18,18 @@ enum playerState {
 	Vector2.LEFT: "IdleLeft"
 }
 
-@onready var walkToAnimationName := {
-	Vector2.UP: "WalkUp",
-	Vector2.RIGHT: "WalkRight",
-	Vector2.DOWN: "WalkDown",
-	Vector2.LEFT: "WalkLeft"
+@onready var walkToAnimationName1 := {
+	Vector2.UP: "WalkUp1",
+	Vector2.RIGHT: "WalkRight1",
+	Vector2.DOWN: "WalkDown1",
+	Vector2.LEFT: "WalkLeft1"
+}
+
+@onready var walkToAnimationName2 := {
+	Vector2.UP: "WalkUp2",
+	Vector2.RIGHT: "WalkRight2",
+	Vector2.DOWN: "WalkDown2",
+	Vector2.LEFT: "WalkLeft2"
 }
 
 @export var moveSpeed := 0.3
@@ -37,6 +44,7 @@ enum playerState {
 @onready var moveTimer := 0.0
 @onready var lastMoveDir := Vector2.DOWN
 @onready var facingDir := Vector2.DOWN # this catches the last input to determine ball direction
+var stepFlip := false
 
 signal InWater
 signal PlayerMoved
@@ -101,6 +109,20 @@ func _process(delta: float) -> void:
 			slideAnimationCall()
 
 
+# for a "victory" animation
+# TODO: make a "victory" animation
+func endLevelAnimation() -> void:
+	sprite.play(dirToAnimationName[Vector2.DOWN])
+
+
+# this function determines which of two walk animations to play (flag flips each input)
+func walkStepAnimationQueue(_dir:Vector2) -> void:
+	if !stepFlip:
+		sprite.play(walkToAnimationName1[_dir])
+	else:
+		sprite.play(walkToAnimationName2[_dir])
+
+
 # called to fetch and compare the slide animation to slide direction and movement
 func slideAnimationCall() -> void:
 	if moveTimer == 0:
@@ -120,6 +142,7 @@ func slideAnimationCall() -> void:
 
 # Called to move the player
 func movePlayer(dir: Vector2) -> void:
+	stepFlip = !stepFlip # flip step flag every step for alternating animation
 	facingDir = dir # update direction of "pushing" for ball
 	var _pitch = randf_range(-0.25, 0.25)
 	$StepCue.pitch_scale = 1 + _pitch
@@ -128,7 +151,7 @@ func movePlayer(dir: Vector2) -> void:
 	
 	# Change the direction the Player is facing and determine animation update behavior
 	if currentState != playerState.SLIDING:
-		sprite.play(walkToAnimationName[dir])
+		walkStepAnimationQueue(dir)
 	# update facing direction
 	ray.target_position = dir * Globals.TILESIZE
 	ray.force_raycast_update()
@@ -172,6 +195,7 @@ func bodyEnter(body: Node2D) -> void:
 		var tilePos: Vector2i = body.local_to_map($GroundCheck.global_position)
 		if body.get_cell_tile_data(tilePos).get_custom_data("Water"):
 			# if in water, visual and audio cues before level call triggers
+			SoundControl.resetMusicFade() # music stops on drown
 			SoundControl.playCue(SoundControl.fail, 3.0)
 			currentState = playerState.INWATER
 			sprite.play("Drown")
@@ -234,7 +258,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 	if "Walk" in sprite.animation: # repeat walk if moving or return to idle
 		if moveTimer != 0: # return to idle from work
-			sprite.play(walkToAnimationName[facingDir])
+			walkStepAnimationQueue(facingDir)
 		else:
 			sprite.play(dirToAnimationName[facingDir])
 
