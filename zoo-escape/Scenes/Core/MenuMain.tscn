@@ -189,34 +189,6 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="Animation" id="Animation_ctrxk"]
-resource_name = "slither"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Snake:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.666667, 0.866667, 1.6, 1.83333, 2.5, 2.76667, 3.3, 3.5, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1352, 104), Vector2(1152, 100), Vector2(1152, 100), Vector2(952, 102), Vector2(952, 102), Vector2(752, 100), Vector2(752, 100), Vector2(552, 102), Vector2(552, 102), Vector2(470, 104)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Snake:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [&"idle", &"idle"]
-}
-
 [sub_resource type="Animation" id="Animation_x8iep"]
 length = 0.001
 tracks/0/type = "value"
@@ -242,6 +214,58 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [&"idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Snake:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+
+[sub_resource type="Animation" id="Animation_ctrxk"]
+resource_name = "slither"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Snake:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.666667, 0.866667, 1.6, 1.83333, 2.5, 2.76667, 3.3, 3.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1352, 104), Vector2(1152, 105), Vector2(1152, 105), Vector2(952, 107), Vector2(952, 107), Vector2(752, 105), Vector2(752, 105), Vector2(552, 107), Vector2(552, 107), Vector2(470, 104)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Snake:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"idle", &"idle"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Snake:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0333333, 1.2, 2.1, 2.96667, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1.35, 1.5), Vector2(1.5, 1.5), Vector2(1.3, 1.5), Vector2(1.5, 1.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wpa7j"]
