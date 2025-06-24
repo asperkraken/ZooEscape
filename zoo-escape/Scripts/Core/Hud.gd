@@ -8,6 +8,8 @@ var resetBarVisible := false # is the resetBar visible?
 func _ready() -> void: # reset animations at ready, fetch volume values
 	$HUDAnimation.play("RESET")
 	$HUDAnimationAlt.play("RESET")
+	$MenuButton.pressed.connect(onMenuButtonPressed)
+	$OpenTimer.timeout.connect(onOpenTimerTimeout)
 
 
 # Play animation when level begins
@@ -94,6 +96,6 @@ func updatePasswordText(code: String) -> void:
 
 
 # Open menu in game (handled by MenuManager)
-func _on_MenuButton_pressed() -> void:
+func onMenuButtonPressed() -> void:
 	SoundControl.playCue(SoundControl.blip, 3.0)
 	MenuManager.setMenu(MenuManager.menuTypes.MAIN)
