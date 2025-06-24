@@ -582,8 +582,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_y47t4")
 }
 
-[connection signal="animation_finished" from="AnimatedTitleElements/EyeballLeft" to="AnimatedTitleElements" method="_on_eyeball_left_animation_finished"]
-[connection signal="timeout" from="AnimatedTitleElements/EyeballTimer" to="AnimatedTitleElements" method="_on_eyeball_timer_timeout"]
-[connection signal="animation_finished" from="AnimatedTitleElements/SnakeMover" to="AnimatedTitleElements" method="_on_snake_mover_animation_finished"]
 [connection signal="focus_exited" from="ExitMargin/ExitButton" to="." method="onExitButtonFocusExited"]
 [connection signal="mouse_exited" from="ExitMargin/ExitButton" to="." method="onExitButtonMouseExited"]

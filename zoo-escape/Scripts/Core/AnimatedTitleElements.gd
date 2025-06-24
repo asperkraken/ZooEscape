@@ -6,10 +6,12 @@ var animationQueue := ["blink", "look", "sparkle", "roll"]
 @export var minTime := 4
 @export var maxTime := 7
 const snakeOrigin := Vector2(1352,104)
-var snakeIsPositioned := false
 
 # play blink and shuffle the queue
 func _ready() -> void:
+	$EyeballLeft.animation_finished.connect(onEyeballLeftAnimationFinished)
+	$EyeballTimer.timeout.connect(onEyeballTimerTimeout)
+	$SnakeMover.animation_finished.connect(onSnakeMoverAnimationFinished)
 	$Snake.global_position = snakeOrigin
 	randomize()
 	$EyeballLeft.play("blink")
@@ -19,7 +21,7 @@ func _ready() -> void:
 
 
 # if game is running, randomly select an animation
-func _on_eyeball_timer_timeout() -> void:
+func onEyeballTimerTimeout() -> void:
 	if !Globals.currentGameData.gameRunning:
 		if animationQueue.size() > 0: # pick one from the queue
 			var nextAnimation = animationQueue.pop_front()
@@ -36,7 +38,7 @@ func _on_eyeball_timer_timeout() -> void:
 
 
 # every animation finish, if game is running, reset the timer between anims with random value
-func _on_eyeball_left_animation_finished() -> void:
+func onEyeballLeftAnimationFinished() -> void:
 	if !Globals.currentGameData.gameRunning:
 		$EyeballLeft.play("idle")
 		$EyeballRight.play("idle")
@@ -48,15 +50,6 @@ func _on_eyeball_left_animation_finished() -> void:
 
 
 # this switches the snake to stay still after movement animation
-func _on_snake_mover_animation_finished(_anim_name: StringName) -> void:
-	if _anim_name == "slither" and !snakeIsPositioned:
-		snakeIsPositioned = true
-
-
-# this controls the snake idle animation
-# note: animation only processes when paused
-func _process(_delta: float) -> void:
-	if !snakeIsPositioned:
-		$Snake.play("slither")
-	else:
+func onSnakeMoverAnimationFinished(_anim_name: StringName) -> void:
+	if _anim_name == "slither":
 		$Snake.play("idle")
