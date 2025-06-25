@@ -7,10 +7,10 @@ signal PlayerExits()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if nextLevelCode != "9990": # report next level bgm to sound control
+	if nextLevelCode != "9990" && SoundControl.levelsBgm.has(nextLevelCode): # report next level bgm to sound control
 		SoundControl.nextBgm = SoundControl.levelsBgm[nextLevelCode]
 	else:
-		SoundControl.nextBgm = "next" # defaults so fade out instead of bug at end
+		SoundControl.nextBgm = SoundControl.defaultBgm # defaults so fade out instead of bug at end
 	$Area2D.body_entered.connect(bodyEntered)
 
 
