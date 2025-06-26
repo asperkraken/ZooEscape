@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c42ituoi2bx7u"
-path="res://.godot/imported/SwitchLever.png-c00653806cddf9ad113eca2a8e6d2f58.ctex"
+uid="uid://2hqcqlbiu76a"
+path="res://.godot/imported/menu_burger.png-b5e0e17fc67cad0f8cbda5035b33af25.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/SwitchLever.png"
-dest_files=["res://.godot/imported/SwitchLever.png-c00653806cddf9ad113eca2a8e6d2f58.ctex"]
+source_file="res://Assets/Images/Icons/menu_burger.png"
+dest_files=["res://.godot/imported/menu_burger.png-b5e0e17fc67cad0f8cbda5035b33af25.ctex"]
 
 [params]
 

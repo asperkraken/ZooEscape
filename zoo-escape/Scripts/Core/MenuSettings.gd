@@ -114,6 +114,10 @@ func _input(event: InputEvent) -> void:
 			SoundControl.playSfx(SoundControl.scratch)
 		if focusGroup == groupTypes.CUE:
 			SoundControl.playCue(SoundControl.pickup, 1.0)
+	
+	if (event.is_action_released("DigitalUp")) || event.is_action_released("DigitalDown"):
+		if focusGroup != groupTypes.BGM:
+			$LocalBgmTest.stop()
 
 
 # Called by the MenuManager to show the SettingsMenu
@@ -127,6 +131,8 @@ func returnToLastMenu() -> void:
 	if settingsChanged:
 		Data.saveSettingsData()
 		settingsChanged = false
+		$LocalBgmTest.stop() # stop any triggering testers
+		$LocalMasterTest.stop()
 	SoundControl.playCue(SoundControl.down, 1.4)
 	updateDescriptionHint(groupTypes.CLOSE) # This removes any theme overrides from control groups
 	GoBack.emit()
@@ -174,8 +180,12 @@ func onSliderValueChanged(value: float, which: groupTypes):
 	match which:
 		groupTypes.MASTER:
 			Globals.currentSettings.masterVolume = value # update master level
+			if MenuManager.currentMenu == MenuManager.menuTypes.SETTINGS and !$LocalMasterTest.playing: # do not trigger unless settings open
+				$LocalMasterTest.play() # use local master bus object to test master (allows test while pausing)
 		groupTypes.BGM:
-			Globals.currentSettings.musicVolume = value # update bgm level
+			Globals.currentSettings.musicVolume = value # update bgm level 
+			if MenuManager.currentMenu == MenuManager.menuTypes.SETTINGS and !$LocalBgmTest.playing:
+				$LocalBgmTest.play() # use local bgm bus check to test volume (allows test while pausing)
 		groupTypes.SFX:
 			Globals.currentSettings.sfxVolume = value # update sfx level
 		groupTypes.CUE:
@@ -188,9 +198,6 @@ func onSliderValueChanged(value: float, which: groupTypes):
 	if !which == groupTypes.DEADZONE:
 		SoundControl.updateVolumeLevels()
 		SoundControl.muteAudioBusCheck()
-		
-		# TODO: This needs to be re-factored in SoundControl and removed from here.
-		SoundControl.setSoundPreferences(Globals.currentSettings.masterVolume, Globals.currentSettings.musicVolume, Globals.currentSettings.sfxVolume, Globals.currentSettings.cueVolume)
 	else:
 		Globals.deadzoneUpdate()
 
@@ -217,8 +224,11 @@ func onFocusEntered(which: groupTypes) -> void:
 # Audio playback on slider drag start/end
 func onDragStartOrEnd(_value: float, which: groupTypes) -> void:
 	match which:
-		groupTypes.MASTER, groupTypes.BGM:
-			if !SoundControl.bgm.has_stream_playback():
+		groupTypes.MASTER:
+			if !$LocalMasterTest.playing:
+				$LocalMasterTest.play()
+		groupTypes.BGM:
+			if !$LocalBgmTest.playing:
 				SoundControl.playBgm()
 		groupTypes.SFX:
 			SoundControl.playSfx(SoundControl.scratch)

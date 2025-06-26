@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c42ituoi2bx7u"
-path="res://.godot/imported/SwitchLever.png-c00653806cddf9ad113eca2a8e6d2f58.ctex"
+uid="uid://bdo3qxobf4734"
+path="res://.godot/imported/WalkRight.png-2e16811c7f7d7fe7684e2fcb89bd99dd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/SwitchLever.png"
-dest_files=["res://.godot/imported/SwitchLever.png-c00653806cddf9ad113eca2a8e6d2f58.ctex"]
+source_file="res://Assets/Images/Player/WalkRight.png"
+dest_files=["res://.godot/imported/WalkRight.png-2e16811c7f7d7fe7684e2fcb89bd99dd.ctex"]
 
 [params]
 

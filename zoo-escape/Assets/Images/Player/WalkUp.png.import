@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbj2grig0duoq"
-path="res://.godot/imported/ColorPalette16-Old.png-d9c7ba163894061763b7b8b1f6e3ebbb.ctex"
+uid="uid://b5wl2kthm23is"
+path="res://.godot/imported/WalkUp.png-253bfc63694924fff4e6205991a93164.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/ColorPalette16-Old.png"
-dest_files=["res://.godot/imported/ColorPalette16-Old.png-d9c7ba163894061763b7b8b1f6e3ebbb.ctex"]
+source_file="res://Assets/Images/Player/WalkUp.png"
+dest_files=["res://.godot/imported/WalkUp.png-253bfc63694924fff4e6205991a93164.ctex"]
 
 [params]
 

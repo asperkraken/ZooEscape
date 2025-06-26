@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://no53ei8e420c"
-path="res://.godot/imported/GateOld.png-6b3786e00551b8895876a7419a29561c.ctex"
+uid="uid://vcy08syjkjmb"
+path="res://.godot/imported/WalkLeft.png-44c19a60786acf729cadb5f5af1ca01e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/GateOld.png"
-dest_files=["res://.godot/imported/GateOld.png-6b3786e00551b8895876a7419a29561c.ctex"]
+source_file="res://Assets/Images/Player/WalkLeft.png"
+dest_files=["res://.godot/imported/WalkLeft.png-44c19a60786acf729cadb5f5af1ca01e.ctex"]
 
 [params]
 

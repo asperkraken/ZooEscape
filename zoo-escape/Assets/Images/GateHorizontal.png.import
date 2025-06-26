@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyfcsjnea6ar7"
-path="res://.godot/imported/Steak.png-72d409de4826c0812962bdac1b867757.ctex"
+uid="uid://b5m18qxmwku3h"
+path="res://.godot/imported/GateHorizontal.png-d106b84da5c45783615a2554cbf3b94b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/Steak.png"
-dest_files=["res://.godot/imported/Steak.png-72d409de4826c0812962bdac1b867757.ctex"]
+source_file="res://Assets/Images/GateHorizontal.png"
+dest_files=["res://.godot/imported/GateHorizontal.png-d106b84da5c45783615a2554cbf3b94b.ctex"]
 
 [params]
 

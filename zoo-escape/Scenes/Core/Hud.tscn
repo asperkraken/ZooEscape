@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://nheh2k2bhpjo"]
+[gd_scene load_steps=81 format=3 uid="uid://nheh2k2bhpjo"]
 
 [ext_resource type="Script" uid="uid://c0lknsfkxfvqt" path="res://Scripts/Core/Hud.gd" id="1_v7gog"]
 [ext_resource type="Texture2D" uid="uid://4ujrmavb2g2p" path="res://Assets/Images/Icons/timericon.png" id="2_lxtjt"]
@@ -8,7 +8,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dyocpchrkapw4" path="res://Assets/UI_Resources/step_icon_frames.tres" id="4_kumpa"]
 [ext_resource type="FontFile" uid="uid://dltop0cdtk3sp" path="res://Assets/Fonts/PCSenior.ttf" id="5_e5oyd"]
 [ext_resource type="Texture2D" uid="uid://bpqy5r5tv0k1x" path="res://Assets/Images/SteakNew.png" id="5_f4iw3"]
-[ext_resource type="Texture2D" uid="uid://doycf4hxegdkd" path="res://Assets/Images/Icons/gear_sprite.png" id="6_fes7x"]
+[ext_resource type="Texture2D" uid="uid://rf6tkn8xf208" path="res://Assets/Images/Title/SnakeIdle.png" id="6_f4iw3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxtjt"]
 bg_color = Color(0.380392, 0.25098, 0.478431, 1)
@@ -304,28 +304,120 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f4iw3"]
-atlas = ExtResource("6_fes7x")
-region = Rect2(0, 0, 34, 34)
+[sub_resource type="Shader" id="Shader_ugh5x"]
+code = "shader_type canvas_item;
+
+// The color that flashes when highlighting the sprite
+uniform vec4 highlight_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+
+// Used to control the time between flashes
+uniform float frequency : hint_range(0.0, 25.0) = 0.35;
+
+// Speed of each flash
+uniform float highlight_speed : hint_range(0.0, 25.0) = 6.0;
+
+// How much area each flash covers (width)
+uniform float highlight_width : hint_range(0.0, 50.0) = 15.0;
+
+void fragment( )
+{
+	vec4 input_color = texture(TEXTURE, UV);
+	float width = 0.001 * frequency * highlight_width / 2.0;
+	
+	// can play with + or - sign for each UV
+	// to control which direction the highlight moves
+	// ex. -UV.x - UV.y makes the highlight go from
+	// top left to bottom right
+	float value = floor(sin(frequency * ((UV.x - UV.y) + TIME * highlight_speed)) + width);
+	
+	// used to control when to use input color vs highlight color
+	float highlight = value > 0.5? 1.0: 0.0;
+	vec3 new_color = input_color.rgb * (1.0 - highlight) + highlight_color.rgb * highlight;
+	COLOR = vec4(new_color, input_color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lxtjt"]
+shader = SubResource("Shader_ugh5x")
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/frequency = 0.35
+shader_parameter/highlight_speed = 2.067
+shader_parameter/highlight_width = 6.011
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugh5x"]
-atlas = ExtResource("6_fes7x")
-region = Rect2(34, 0, 34, 34)
+atlas = ExtResource("6_f4iw3")
+region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lxtjt"]
-atlas = ExtResource("6_fes7x")
-region = Rect2(68, 0, 34, 34)
+atlas = ExtResource("6_f4iw3")
+region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7myin"]
-atlas = ExtResource("6_fes7x")
-region = Rect2(102, 0, 34, 34)
+atlas = ExtResource("6_f4iw3")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw2ha"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1rk6"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2rfd"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_875t6"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(0, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6hq0"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q12gm"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(256, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyfxl"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(384, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsai3"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(512, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_836m1"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0h1c"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ig8gt"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02qnb"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ibnm"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(384, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jryv"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(512, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3u7p"]
+atlas = ExtResource("6_f4iw3")
+region = Rect2(640, 256, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kumpa"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f4iw3")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ugh5x")
 }, {
@@ -334,10 +426,55 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7myin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nw2ha")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1rk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2rfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_875t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6hq0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q12gm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yyfxl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsai3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_836m1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0h1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ig8gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_02qnb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ibnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1jryv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3u7p")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xvoy"]
@@ -423,7 +560,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("SettingsButton:modulate")
+tracks/6/path = NodePath("MenuButton:modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -522,7 +659,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SettingsButton:modulate")
+tracks/1/path = NodePath("MenuButton:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -705,7 +842,7 @@ _data = {
 &"warning": SubResource("Animation_yycug")
 }
 
-[node name="ZEHud" type="CanvasLayer" groups=["hud"]]
+[node name="Hud" type="CanvasLayer" groups=["hud"]]
 script = ExtResource("1_v7gog")
 
 [node name="MBox" type="MarginContainer" parent="."]
@@ -945,7 +1082,7 @@ text = "----"
 horizontal_alignment = 2
 autowrap_mode = 1
 
-[node name="SettingsButton" type="Button" parent="."]
+[node name="MenuButton" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_left = 8.0
 offset_top = 8.0
@@ -953,11 +1090,13 @@ offset_right = 56.0
 offset_bottom = 56.0
 mouse_filter = 1
 
-[node name="GearIcon" type="AnimatedSprite2D" parent="SettingsButton"]
+[node name="SnakeIcon" type="AnimatedSprite2D" parent="MenuButton"]
+material = SubResource("ShaderMaterial_lxtjt")
 position = Vector2(24, 24)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_kumpa")
 autoplay = "default"
-frame_progress = 0.823026
+frame_progress = 0.574356
 
 [node name="ResetBar" type="ProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -1008,11 +1147,10 @@ autostart = true
 stream = ExtResource("3_8xvoy")
 volume_db = -24.0
 pitch_scale = 3.0
+bus = &"Cue"
 
 [node name="AlertCue" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_hv3f2")
 volume_db = -6.0
 pitch_scale = 2.0
-
-[connection signal="pressed" from="SettingsButton" to="." method="onSettingsButtonPressed"]
-[connection signal="timeout" from="OpenTimer" to="." method="onOpenTimerTimeout"]
+bus = &"Cue"

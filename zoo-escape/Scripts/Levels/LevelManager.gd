@@ -58,10 +58,7 @@ func _ready() -> void:
 	if isLevelTutorial:
 		player.showMoveThought() # Show tutorial bubble if in tutorial stage
 	
-	# check to ensure bgm fade level is consistent
-	# if bgm fade level not normal, reset fade state so it fades in
-	if SoundControl.fadeState != SoundControl.fadeStates.PEAK_VOLUME or SoundControl.currentBgm != levelBgm:
-		SoundControl.fadeState = SoundControl.fadeStates.IN_TRIGGER
+	SoundControl.musicFadeIn()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -255,6 +252,7 @@ func setHighScore() -> void:
 
 # Exit the level function - hold player, process score then go to next room
 func exitLevel() -> void:
+	player.endLevelAnimation() # trigger player win animation and prevent walk retrigger
 	player.currentState = player.playerState.ONEXIT
 	SoundControl.playCue(SoundControl.success, 2.0) # sound trigger
 	levelState = levelStates.PRESCORE # The current state of the level
@@ -279,4 +277,5 @@ func restartRoom() -> void:
 func quitGame() -> void:
 	hud.closeHud()
 	Globals.currentGameData.gameRunning = false
+	SoundControl.resetMusicFade()
 	SceneManager.call_deferred("goToNewSceneString", Scenes.TITLE)

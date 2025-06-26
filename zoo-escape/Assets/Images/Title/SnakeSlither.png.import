@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c42ituoi2bx7u"
-path="res://.godot/imported/SwitchLever.png-c00653806cddf9ad113eca2a8e6d2f58.ctex"
+uid="uid://spyqhtb63uhd"
+path="res://.godot/imported/SnakeSlither.png-7c8f29dc37344b38dfcd246c632db4b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Images/SwitchLever.png"
-dest_files=["res://.godot/imported/SwitchLever.png-c00653806cddf9ad113eca2a8e6d2f58.ctex"]
+source_file="res://Assets/Images/Title/SnakeSlither.png"
+dest_files=["res://.godot/imported/SnakeSlither.png-7c8f29dc37344b38dfcd246c632db4b1.ctex"]
 
 [params]
 
