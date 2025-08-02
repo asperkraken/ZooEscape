@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfjkh210cosm5"]
+
+[ext_resource type="Theme" uid="uid://c5f45xbhg3i0d" path="res://Assets/UI_Resources/MenuTheme.tres" id="1_plb87"]
+[ext_resource type="Script" uid="uid://cem1pj06cyo3j" path="res://Scripts/Core/Credits.gd" id="2_huujk"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_plb87")
+script = ExtResource("2_huujk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 128.0
+offset_top = 48.0
+offset_right = 1168.0
+offset_bottom = 608.0
+bbcode_enabled = true
+text = "Thanks for playing!
+
+Project Lead and Programer
+[url=https://github.com/zapturk]Scott McKeefer[/url]
+
+
+Art and Programmer
+[url=https://github.com/DevMichaelV]Michael V[/url]
+
+
+Art, Sound, and Programmer
+[url=https://github.com/asperkraken]Gustuf Young[/url]
+
+
+[url=https://discord.gg/vXqTzSr5tR]Panther City Game Guild[/url]"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -56.0
+offset_right = 240.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BackButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(480, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Back to Title"
+metadata/_edit_lock_ = true

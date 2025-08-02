@@ -16,6 +16,7 @@ const PASSWORDS := {
 	"9991": Scenes.DEBUG,
 	"9992": Scenes.DEBUG2,
 	"9993": Scenes.DEBUG3,
+	"9994": Scenes.CREDITS,
 	
 	# Real Levels
 	"0001": Scenes.TUTORIAL1,

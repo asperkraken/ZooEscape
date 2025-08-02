@@ -513,7 +513,6 @@ focus_neighbor_top = NodePath("../SettingsButton")
 focus_neighbor_bottom = NodePath("../../../ExitMargin/ExitButton")
 focus_next = NodePath("../../../ExitMargin/ExitButton")
 focus_previous = NodePath("../SettingsButton")
-disabled = true
 text = "Credits"
 metadata/_edit_lock_ = true
 
