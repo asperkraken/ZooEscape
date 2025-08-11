@@ -23,18 +23,18 @@ bbcode_enabled = true
 text = "Thanks for playing!
 
 Project Lead and Programer
-[url=https://github.com/zapturk]Scott McKeefer[/url]
+[color=#942804][url=https://github.com/zapturk]Scott McKeefer[/url][/color]
 
 
 Art and Programmer
-[url=https://github.com/DevMichaelV]Michael V[/url]
+[color=#1EA4FC][url=https://github.com/DevMichaelV]Michael V[/url][/color]
 
 
 Art, Sound, and Programmer
-[url=https://github.com/asperkraken]Gustuf Young[/url]
+[color=#FCC603][url=https://github.com/asperkraken]Gustuf Young[/url][/color]
 
 
-[url=https://discord.gg/vXqTzSr5tR]Panther City Game Guild[/url]"
+[color=#02C9C9][url=https://discord.gg/vXqTzSr5tR]Panther City Game Guild[/url][/color]"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
