@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bfjkh210cosm5"]
 
-[ext_resource type="Theme" uid="uid://c5f45xbhg3i0d" path="res://Assets/UI_Resources/MenuTheme.tres" id="1_plb87"]
-[ext_resource type="Script" uid="uid://cem1pj06cyo3j" path="res://Scripts/Core/Credits.gd" id="2_huujk"]
+[ext_resource type="Theme" uid="uid://c5f45xbhg3i0d" path="res://Assets/UI_Resources/MenuTheme.tres" id="1_1gt3a"]
+[ext_resource type="Script" uid="uid://cem1pj06cyo3j" path="res://Scripts/Core/MenuCredits.gd" id="2_eil8m"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -10,8 +10,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_plb87")
-script = ExtResource("2_huujk")
+theme = ExtResource("1_1gt3a")
+script = ExtResource("2_eil8m")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -23,18 +23,18 @@ bbcode_enabled = true
 text = "Thanks for playing!
 
 Project Lead and Programer
-[url=https://github.com/zapturk]Scott McKeefer[/url]
+[color=#942804][url=https://github.com/zapturk]Scott McKeefer[/url][/color]
 
 
 Art and Programmer
-[url=https://github.com/DevMichaelV]Michael V[/url]
+[color=#1ea4fc][url=https://github.com/DevMichaelV]Michael V[/url][/color]
 
 
 Art, Sound, and Programmer
-[url=https://github.com/asperkraken]Gustuf Young[/url]
+[color=#fcc603][url=https://github.com/asperkraken]Gustuf Young[/url][/color]
 
 
-[url=https://discord.gg/vXqTzSr5tR]Panther City Game Guild[/url]"
+[color=#02c9c9][url=https://discord.gg/vXqTzSr5tR]Panther City Game Guild[/url][/color]"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

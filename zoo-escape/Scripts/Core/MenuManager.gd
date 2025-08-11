@@ -26,7 +26,7 @@ var menuHeap: Array[menuTypes] = []
 	menuTypes.PASSWORD: $PasswordMenu,
 	menuTypes.SCORES: $ScoresMenu,
 	menuTypes.SETTINGS: $SettingsMenu,
-	#menuTypes.CREDITS: $CreditsMenu,
+	menuTypes.CREDITS: $CreditsMenu,
 	menuTypes.TIMEOUT: $TimeoutWindow
 }
 
