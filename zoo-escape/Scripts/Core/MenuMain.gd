@@ -109,8 +109,8 @@ func onButtonPressed(btn: int) -> void:
 		buttonTypes.CREDITS:
 			lastButton = buttonTypes.CREDITS
 			SoundControl.playCue(SoundControl.flutter, 1.0) # audio feedback
-			SetMenu.emit(MenuManager.menuTypes.CREDITS)
-			#SceneManager.call_deferred("goToNewSceneString", Scenes.CREDITS) # Go to title scene
+			SetMenu.emit(MenuManager.menuTypes.NONE) # This will be added in another PR, so leave it in
+			SceneManager.call_deferred("goToNewSceneString", Scenes.CREDITS) # Go to title scene
 			
 		# Back button
 		buttonTypes.BACK:

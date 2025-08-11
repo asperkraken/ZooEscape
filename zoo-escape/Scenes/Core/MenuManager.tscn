@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0r0pr7lhjlhb"]
+[gd_scene load_steps=7 format=3 uid="uid://d0r0pr7lhjlhb"]
 
 [ext_resource type="Script" uid="uid://dq52pnrlou1m3" path="res://Scripts/Core/MenuManager.gd" id="1_8bkb8"]
 [ext_resource type="PackedScene" uid="uid://cmhbojvsjsq0" path="res://Scenes/Core/MenuMain.tscn" id="1_skqw2"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cjoj03uah2tp8" path="res://Scenes/Core/MenuSettings.tscn" id="3_nr7ei"]
 [ext_resource type="PackedScene" uid="uid://dqu5qf5i3yfli" path="res://Scenes/Core/MenuScores.tscn" id="4_fa151"]
 [ext_resource type="PackedScene" uid="uid://cau6og76rgs05" path="res://Scenes/Core/MenuTimeOut.tscn" id="5_nr7ei"]
-[ext_resource type="PackedScene" uid="uid://bfjkh210cosm5" path="res://Scenes/Core/MenuCredits.tscn" id="6_sgtdg"]
 
 [node name="MenuManager" type="CanvasLayer"]
 layer = 3
@@ -24,9 +23,6 @@ visible = false
 [node name="SettingsMenu" parent="." instance=ExtResource("3_nr7ei")]
 visible = false
 z_index = 1
-
-[node name="CreditsMenu" parent="." instance=ExtResource("6_sgtdg")]
-visible = false
 
 [node name="TimeoutWindow" parent="." instance=ExtResource("5_nr7ei")]
 visible = false
