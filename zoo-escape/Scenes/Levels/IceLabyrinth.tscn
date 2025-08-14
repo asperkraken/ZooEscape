@@ -1440,6 +1440,7 @@ position = Vector2(0, -384)
 
 [node name="ExitTile" parent="." instance=ExtResource("3_ad80x")]
 position = Vector2(112, -720)
+nextLevelCode = "9994"
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("9_b8pr7")]

@@ -16,6 +16,7 @@ const PASSWORDS := {
 	"9991": Scenes.DEBUG,
 	"9992": Scenes.DEBUG2,
 	"9993": Scenes.DEBUG3,
+	"9994": Scenes.CREDITS,
 	
 	# Real Levels
 	"0001": Scenes.TUTORIAL1,
@@ -25,7 +26,7 @@ const PASSWORDS := {
 	"1476": Scenes.LEVEL3,
 	"4111": Scenes.LEVEL4,
 	"5829": Scenes.ICEANDBOX,
-	# "0053": 
+	"8934": Scenes.ICELABYRINTH
 	
 	# "7618": 
 	# "2940": 
@@ -40,7 +41,7 @@ const PASSWORDS := {
 	# "7048": 
 	
 	# "2561": 
-	 "8934": Scenes.ICELABYRINTH
+	# "0053": 
 	# "0195": 
 	# "5473": 
 	# "3706": 
@@ -56,7 +57,8 @@ const THRESHOLDS := { # "CODE": [ Gold, Silver, Bronze ] # Gold should be challe
 	"1476": [ 4000, 3000, 2000 ],
 	"4111": [ 9000, 8000, 7000 ],
 	"5829": [ 3800, 2800, 1800 ],
-	# "0053": [],
+	 "8934": [ 9250, 8250, 7250 ],
+	
 	
 	# "7618": [],
 	# "2940": [],
@@ -71,7 +73,7 @@ const THRESHOLDS := { # "CODE": [ Gold, Silver, Bronze ] # Gold should be challe
 	# "7048": [],
 	
 	# "2561": [],
-	 "8934": [ 9250, 8250, 7250 ],
+	# "0053": [],
 	# "0195": [],
 	# "5473": [],
 	# "3706": []
@@ -79,14 +81,14 @@ const THRESHOLDS := { # "CODE": [ Gold, Silver, Bronze ] # Gold should be challe
 
 const LEVELNAMES := { # "CODE": "Level Name" (No longer than 23 characters!)
 	# Real Levels
-	"0001": "Tutorial 1", # TODO: Rename this level
+	"0001": "Tutorial", 
 	
-	"0387": "Level 1", # TODO: Rename this level
-	"9102": "Level 2", # TODO: Rename this level
-	"1476": "Level 3", # TODO: Rename this level
-	"4111": "Level 4", # TODO: Rename this level
+	"0387": "Button and Box", 
+	"9102": "Double Doors", 
+	"1476": "Time to Slide", 
+	"4111": "Sand and Ball", 
 	"5829": "Ice and Box",
-	# "0053": "",
+	 "8934": "Ice Labyrinth",
 	
 	# "7618": "",
 	# "2940": "",
@@ -101,7 +103,7 @@ const LEVELNAMES := { # "CODE": "Level Name" (No longer than 23 characters!)
 	# "7048": "",
 	
 	# "2561": "",
-	 "8934": "Ice Labyrinth",
+	# "0053": "",
 	# "0195": "",
 	# "5473": "",
 	# "3706": ""
